@@ -63,11 +63,11 @@ const Contact: React.FC = () => {
   });
 
   return (
-    <section id="contact" className="py-24 bg-charcoal relative">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+    <section id="contact" className="py-16 md:py-0 bg-canvas-light text-canvas-dark relative flex-1 flex flex-col justify-center">
+      <div className="max-w-7xl mx-auto md:px-12 lg:px-24 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
           
-          <div>
+          <div className="text-center md:text-left px-4 md:px-0">
             <Reveal>
               <SectionHeader 
                 title="Get in Touch" 
@@ -77,7 +77,7 @@ const Contact: React.FC = () => {
             </Reveal>
             
             <Reveal delay={0.2}>
-              <p className="text-stone-400 mb-12">
+              <p className="text-canvas-dark/80 mb-12">
                 Currently seeking new opportunities in Backend Engineering. 
                 Whether you have a question or just want to say hi, I'll try my best to get back to you!
               </p>
@@ -85,13 +85,13 @@ const Contact: React.FC = () => {
 
             <div className="space-y-6">
               <Reveal delay={0.3}>
-                <div className="flex items-center space-x-4 mb-6">
-                  <div className="p-3 bg-stone-900 border border-stone-800 rounded-full text-amber-600">
+                <div className="flex items-center justify-center md:justify-start space-x-4 mb-6">
+                  <div className="p-3 bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/10 rounded-full text-electric">
                     <Phone size={20} />
                   </div>
                   <div>
-                    <p className="text-xs text-stone-500 uppercase tracking-wider">Phone</p>
-                    <a href="tel:+201201024880" className="text-stone-200 hover:text-amber-500 transition-colors">
+                    <p className="text-xs text-canvas-dark/60 uppercase tracking-wider">Phone</p>
+                    <a href="tel:+201201024880" className="text-canvas-dark/80 hover:text-electric transition-colors">
                       +20 1201024880
                     </a>
                   </div>
@@ -99,13 +99,13 @@ const Contact: React.FC = () => {
               </Reveal>
 
               <Reveal delay={0.3}>
-                <div className="flex items-center space-x-4">
-                  <div className="p-3 bg-stone-900 border border-stone-800 rounded-full text-amber-600">
+                <div className="flex items-center justify-center md:justify-start space-x-4">
+                  <div className="p-3 bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/10 rounded-full text-electric">
                     <Mail size={20} />
                   </div>
                   <div>
-                    <p className="text-xs text-stone-500 uppercase tracking-wider">Email</p>
-                    <a href={`mailto:${PERSONAL_INFO.email}`} className="text-stone-200 hover:text-amber-500 transition-colors">
+                    <p className="text-xs text-canvas-dark/60 uppercase tracking-wider">Email</p>
+                    <a href={`mailto:${PERSONAL_INFO.email}`} className="text-canvas-dark/80 hover:text-electric transition-colors">
                       {PERSONAL_INFO.email}
                     </a>
                   </div>
@@ -113,24 +113,24 @@ const Contact: React.FC = () => {
               </Reveal>
 
                <Reveal delay={0.4}>
-                 <div className="flex items-center space-x-4">
-                  <div className="p-3 bg-stone-900 border border-stone-800 rounded-full text-amber-600">
+                 <div className="flex items-center justify-center md:justify-start space-x-4">
+                  <div className="p-3 bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/10 rounded-full text-electric">
                     <MapPin size={20} />
                   </div>
                   <div>
-                    <p className="text-xs text-stone-500 uppercase tracking-wider">Location</p>
-                    <p className="text-stone-200">Egypt</p>
+                    <p className="text-xs text-canvas-dark/60 uppercase tracking-wider">Location</p>
+                    <p className="text-canvas-dark/80">Egypt</p>
                   </div>
                 </div>
               </Reveal>
 
                <Reveal delay={0.5}>
-                 <div className="flex items-center space-x-4 pt-8">
+                 <div className="flex items-center justify-center md:justify-start space-x-4 pt-8">
                     <a 
                       href="https://w.app/kx9pjb" 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="p-3 bg-stone-800 hover:bg-green-900/30 text-stone-400 hover:text-green-400 rounded-lg transition-all"
+                      className="p-3 bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/10 hover:bg-green-900/30 text-canvas-dark/80 hover:text-green-400 rounded-lg transition-all"
                     >
                       <svg 
                         xmlns="http://www.w3.org/2000/svg" 
@@ -152,7 +152,7 @@ const Contact: React.FC = () => {
                       href={`https://${PERSONAL_INFO.linkedin}`} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="p-3 bg-stone-800 hover:bg-blue-900/30 text-stone-400 hover:text-blue-400 rounded-lg transition-all"
+                      className="p-3 bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/10 hover:bg-blue-900/30 text-canvas-dark/80 hover:text-blue-400 rounded-lg transition-all"
                     >
                       <Linkedin size={24} />
                     </a>
@@ -160,7 +160,7 @@ const Contact: React.FC = () => {
                       href={`https://${PERSONAL_INFO.github}`} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="p-3 bg-stone-800 hover:bg-stone-700 text-stone-400 hover:text-white rounded-lg transition-all"
+                      className="p-3 bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/10 hover:bg-canvas-dark/90 text-canvas-dark/80 hover:text-electric rounded-lg transition-all"
                     >
                       <Github size={24} />
                     </a>
@@ -170,12 +170,12 @@ const Contact: React.FC = () => {
           </div>
 
           <Reveal delay={0.4}>
-            <div className="bg-void p-8 border border-stone-800 shadow-2xl relative">
-               <div className="absolute top-0 right-0 w-20 h-20 bg-amber-500/10 rounded-bl-[4rem]"></div>
+            <div className="bg-canvas-light p-4 sm:p-8 sm:border sm:border-canvas-dark/10 sm:shadow-2xl relative">
+               <div className="absolute top-0 right-0 w-20 h-20 bg-electric/10 rounded-bl-[4rem]"></div>
 
                <form onSubmit={formik.handleSubmit} className="space-y-6 relative z-10">
                   <div className="space-y-2">
-                    <label htmlFor="name" className="text-sm font-mono text-stone-500">Name</label>
+                    <label htmlFor="name" className="text-sm font-mono text-canvas-dark/60">Name</label>
                     <input
                       id="name"
                       name="name"
@@ -184,7 +184,7 @@ const Contact: React.FC = () => {
                       onBlur={formik.handleBlur}
                       value={formik.values.name}
                       disabled={status === 'sending'}
-                      className="w-full bg-stone-900 border border-stone-800 p-3 text-stone-200 focus:outline-none focus:border-amber-600 transition-colors disabled:opacity-50"
+                      className="w-full bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/20 p-3 text-canvas-dark/80 focus:outline-none focus:border-electric transition-colors disabled:opacity-50"
                     />
                     {formik.touched.name && formik.errors.name ? (
                       <div className="text-red-500 text-xs">{formik.errors.name}</div>
@@ -192,7 +192,7 @@ const Contact: React.FC = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <label htmlFor="email" className="text-sm font-mono text-stone-500">Email</label>
+                    <label htmlFor="email" className="text-sm font-mono text-canvas-dark/60">Email</label>
                     <input
                       id="email"
                       name="email"
@@ -201,7 +201,7 @@ const Contact: React.FC = () => {
                       onBlur={formik.handleBlur}
                       value={formik.values.email}
                       disabled={status === 'sending'}
-                      className="w-full bg-stone-900 border border-stone-800 p-3 text-stone-200 focus:outline-none focus:border-amber-600 transition-colors disabled:opacity-50"
+                      className="w-full bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/20 p-3 text-canvas-dark/80 focus:outline-none focus:border-electric transition-colors disabled:opacity-50"
                     />
                     {formik.touched.email && formik.errors.email ? (
                       <div className="text-red-500 text-xs">{formik.errors.email}</div>
@@ -209,7 +209,7 @@ const Contact: React.FC = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <label htmlFor="message" className="text-sm font-mono text-stone-500">Message</label>
+                    <label htmlFor="message" className="text-sm font-mono text-canvas-dark/60">Message</label>
                     <textarea
                       id="message"
                       name="message"
@@ -218,7 +218,7 @@ const Contact: React.FC = () => {
                       onBlur={formik.handleBlur}
                       value={formik.values.message}
                       disabled={status === 'sending'}
-                      className="w-full bg-stone-900 border border-stone-800 p-3 text-stone-200 focus:outline-none focus:border-amber-600 transition-colors resize-none disabled:opacity-50"
+                      className="w-full bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/20 p-3 text-canvas-dark/80 focus:outline-none focus:border-electric transition-colors resize-none disabled:opacity-50"
                     />
                     {formik.touched.message && formik.errors.message ? (
                       <div className="text-red-500 text-xs">{formik.errors.message}</div>
@@ -228,7 +228,7 @@ const Contact: React.FC = () => {
                   <button 
                     type="submit" 
                     disabled={status === 'sending'}
-                    className="w-full py-4 bg-stone-200 text-void font-bold hover:bg-amber-500 transition-colors duration-300 mt-4 disabled:opacity-70 disabled:cursor-not-allowed"
+                    className="w-full py-4 bg-canvas-dark text-canvas-light font-bold hover:bg-electric hover:ring-electric transition-colors duration-300 mt-4 disabled:opacity-70 disabled:cursor-not-allowed"
                   >
                     {status === 'sending' ? 'Sending...' : 'Send Message'}
                   </button>

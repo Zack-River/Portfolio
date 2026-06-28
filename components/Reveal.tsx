@@ -8,7 +8,7 @@ interface Props {
   className?: string;
 }
 
-export const Reveal = ({ children, width = "fit-content", delay = 0.25, className = "" }: Props) => {
+export const Reveal = ({ children, width = "100%", delay = 0.25, className = "" }: Props) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   const mainControls = useAnimation();

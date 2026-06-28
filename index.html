@@ -10,33 +10,39 @@
         theme: {
           extend: {
             colors: {
-              void: "#0a0a0a",
+              "canvas-light": "#f2f2f0",
+              "canvas-dark": "#0a0a0b",
+              electric: "#3d7fff",
+              void: "#0a0a0b",
               charcoal: "#121212",
               dust: "#a8a29e",
-              paper: "#e5e5e5",
-              "amber-dim": "rgba(217, 119, 6, 0.6)",
+              paper: "#f2f2f0",
+              "amber-dim": "rgba(61, 127, 255, 0.6)",
             },
             fontFamily: {
               sans: ["Inter", "sans-serif"],
-              serif: ["Playfair Display", "serif"],
+              display: ["Space Grotesk", "sans-serif"],
               mono: ["JetBrains Mono", "monospace"],
             },
+            spacing: {
+              '360': '90rem',
+            },
             backgroundImage: {
-              noise:
-                "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.05%22/%3E%3C/svg%3E')",
+              noise: "none",
             },
           },
         },
       };
     </script>
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@300;400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <style>
       body {
-        background-color: #0a0a0a;
-        color: #e5e5e5;
+        background-color: #f2f2f0;
+        color: #0a0a0b;
+        font-family: 'Inter', sans-serif;
       }
       .scrollbar-hide::-webkit-scrollbar {
         display: none;
@@ -44,6 +50,15 @@
       .scrollbar-hide {
         -ms-overflow-style: none;
         scrollbar-width: none;
+      }
+      .grain-overlay {
+        pointer-events: none;
+        position: fixed;
+        inset: 0;
+        z-index: 60;
+        opacity: 0.05;
+        mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
       }
     </style>
     <script type="importmap">

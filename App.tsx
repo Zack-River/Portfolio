@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import About from './components/About';
-import Skills from './components/Skills';
-import Projects from './components/Projects';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
-import Chatbot from './components/Chatbot';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Loader from './components/Loader';
 import { AnimatePresence } from 'framer-motion';
+import Home from './pages/Home';
+import ProjectDetails from './pages/ProjectDetails';
+
+// Scroll to top helper
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+};
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -21,25 +25,17 @@ function App() {
 
   return (
     <>
+      <ScrollToTop />
       <AnimatePresence>
         {loading && <Loader onComplete={() => setLoading(false)} />}
       </AnimatePresence>
       
       {!loading && (
-        <div className="bg-stone-950 min-h-screen text-stone-100 selection:bg-amber-500/30 selection:text-amber-200">
-          <Navbar />
-          
-          {/* Main Content Area - Shifted right on desktop to accommodate vertical nav */}
-          <main className="md:pl-24">
-            <Hero />
-            <About />
-            <Skills />
-            <Projects />
-            <Contact />
-            <Footer />
-          </main>
-
-          <Chatbot />
+        <div className="bg-canvas-light grain-overlay-container min-h-screen text-canvas-dark selection:bg-electric/90 selection:text-white">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/project/:id" element={<ProjectDetails />} />
+          </Routes>
         </div>
       )}
     </>

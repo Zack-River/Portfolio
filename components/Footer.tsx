@@ -1,10 +1,13 @@
-import React from 'react';
+import React from "react";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="py-8 bg-void border-t border-stone-900 text-center">
-      <p className="text-stone-600 text-sm font-mono">
-        © {new Date().getFullYear()} Abdallah Wageeh. Built with React & Tailwind.
+    <footer className="pt-8 pb-24 md:pb-8 bg-canvas-light border-t border-canvas-dark/10 text-center">
+      <p className="text-canvas-dark/60 text-sm font-mono">
+        © {new Date().getFullYear()} Abdallah Wageeh -{" "}
+        <span className="text-electric">Zack</span>
+        <span className="text-canvas-dark">.</span>
+        <span className="text-electric">River</span>
       </p>
     </footer>
   );

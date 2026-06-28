@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Menu, X, Home, User, Layers, Mail, Code } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Home, User, Layers, Mail, Code } from 'lucide-react';
 
 const navItems = [
   { id: 'home', icon: Home, label: 'Home' },
@@ -10,65 +10,78 @@ const navItems = [
 ];
 
 const Navbar: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [activeSection, setActiveSection] = useState('home');
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // Hide navbar if scrolling down and past 50px
+      if (currentScrollY > lastScrollY && currentScrollY > 50) {
+        setIsVisible(false);
+      } 
+      // Show navbar if scrolling up or at the top
+      else if (currentScrollY < lastScrollY || currentScrollY <= 50) {
+        setIsVisible(true);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    navItems.forEach((item) => {
+      const element = document.getElementById(item.id);
+      if (element) observer.observe(element);
+    });
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      observer.disconnect();
+    };
+  }, [lastScrollY]);
 
   const scrollTo = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
-      setIsOpen(false);
     }
   };
 
   return (
-    <>
-      {/* Mobile Toggle */}
-      <div className="fixed top-6 right-6 z-50 md:hidden">
-        <button 
-          onClick={() => setIsOpen(!isOpen)}
-          className="p-3 bg-stone-900 border border-stone-800 rounded-full text-stone-200 shadow-xl backdrop-blur-md bg-opacity-80"
-        >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </div>
-
-      {/* Mobile Menu Overlay */}
-      <div className={`fixed inset-0 bg-void/95 z-40 flex flex-col items-center justify-center space-y-8 transition-transform duration-300 md:hidden ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+    <div 
+      className={`fixed bottom-6 md:bottom-auto md:top-6 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-in-out ${
+        isVisible ? 'translate-y-0 opacity-100' : 'translate-y-[150%] md:-translate-y-[150%] opacity-0'
+      }`}
+    >
+      <nav className="flex items-center space-x-1 md:space-x-2 px-4 py-2 md:px-6 md:py-3 bg-white/80 backdrop-blur-lg rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-canvas-dark/5">
         {navItems.map((item) => (
           <button
             key={item.id}
             onClick={() => scrollTo(item.id)}
-            className="text-2xl font-serif text-stone-300 hover:text-amber-500 transition-colors"
+            className={`group flex items-center justify-center px-3 py-3 md:px-4 md:py-2.5 rounded-full transition-all duration-300 hover:bg-canvas-dark/5 ${activeSection === item.id ? 'bg-canvas-dark/5' : ''}`}
+            aria-label={item.label}
           >
-            {item.label}
+            <item.icon size={18} className={`transition-colors ${activeSection === item.id ? 'text-electric' : 'text-canvas-dark/70 group-hover:text-electric'}`} />
+            <span className={`hidden md:inline-block ml-2.5 text-sm font-medium transition-colors ${activeSection === item.id ? 'text-electric' : 'text-canvas-dark/80 group-hover:text-electric'}`}>
+              {item.label}
+            </span>
           </button>
         ))}
-      </div>
-
-      {/* Desktop Vertical Nav */}
-      <nav className="hidden md:flex flex-col fixed left-0 top-0 h-screen w-24 bg-charcoal/50 border-r border-white/5 backdrop-blur-sm z-40 items-center justify-between py-12">
-        <div className="font-serif font-bold text-2xl tracking-tighter text-stone-200 rotate-180" style={{ writingMode: 'vertical-rl' }}>
-          ZackRiver
-        </div>
-        
-        <div className="flex flex-col space-y-8">
-          {navItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => scrollTo(item.id)}
-              className="group relative flex items-center justify-center p-3 rounded-xl transition-all hover:bg-white/5"
-            >
-              <item.icon size={20} className="text-stone-500 group-hover:text-amber-500 transition-colors" />
-              <span className="absolute left-14 bg-stone-800 px-2 py-1 rounded text-xs text-stone-200 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-stone-700">
-                {item.label}
-              </span>
-            </button>
-          ))}
-        </div>
-
-        <div className="h-24 w-[1px] bg-gradient-to-b from-stone-800 to-transparent"></div>
       </nav>
-    </>
+    </div>
   );
 };
 

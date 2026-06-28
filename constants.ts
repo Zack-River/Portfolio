@@ -1,4 +1,4 @@
-import { Project, SkillCategory, Education, Experience } from './types';
+import { Project, SkillCategory, Education, Experience, Service } from './types';
 import { 
   Server, 
   Database, 
@@ -10,13 +10,13 @@ import {
 
 export const PERSONAL_INFO = {
   name: "Abdallah Wageeh Ahmed",
-  title: "Backend Software Engineer",
-  subtitle: "Full Stack MERN Specialist",
+  title: "Software Engineer",
+  subtitle: "Building scalable web applications and backend systems with a focus on performance, clean architecture, and long-term maintainability.",
   email: "zackriver.dev@gmail.com",
   phone: "+20 1201024880",
   linkedin: "linkedin.com/in/labdallah-wageehl",
   github: "github.com/Zack-River",
-  bio: "Entry-level Backend Software Engineer specializing in Node.js and NestJS. I build secure, scalable RESTful APIs and robust architectures. My focus is on high-performance systems handling 10K+ requests, clean code, and database optimization.",
+  bio: "Software Engineer specializing in full-stack and backend development with a strong focus on scalable architecture, performance, and maintainability. I build modern web applications, REST APIs, authentication systems, CMS platforms, and real-time solutions while emphasizing clean code and long-term reliability. My goal is to create software that not only works today but continues to scale as products grow.",
 };
 
 export const PROJECTS: Project[] = [
@@ -32,7 +32,9 @@ export const PROJECTS: Project[] = [
       "Reduced response time by ~35% via validation",
       "Optimized buffered audio streaming"
     ],
-    image: "/StreamFlow.png"
+    image: "/StreamFlow.png",
+    gallery: ["/StreamFlow.png"],
+    featured: true,
   },
   {
     id: "shopstream",
@@ -46,8 +48,41 @@ export const PROJECTS: Project[] = [
       "Reduced unauthorized token reuse by ~50%",
       "Implemented role-based access control (RBAC)"
     ],
-    image: "/ShopStream.jpg"
+    image: "/ShopStream.jpg",
+    gallery: ["/ShopStream.jpg"],
+    featured: true,
   }
+];
+
+export const SERVICES: Service[] = [
+  {
+    id: "backend",
+    title: "Backend Engineering",
+    description: "Scalable, production-grade REST APIs and server architectures built to handle growth from day one.",
+    highlights: ["REST API Design", "Authentication & Authorization", "Rate Limiting & Caching", "Database Optimization"],
+    icon: "Server",
+  },
+  {
+    id: "fullstack",
+    title: "Full Stack Development",
+    description: "End-to-end web application development with modern frameworks, clean architecture, and maintainable codebases.",
+    highlights: ["React / Next.js Frontends", "Node.js & NestJS Backends", "CI/CD Integration", "Performance Tuning"],
+    icon: "Globe",
+  },
+  {
+    id: "database",
+    title: "Database Architecture",
+    description: "Designing resilient, high-performance data layers using the right tool for the right job.",
+    highlights: ["Schema Design & Modeling", "MongoDB & PostgreSQL", "Redis Caching Strategies", "Query Optimization"],
+    icon: "Database",
+  },
+  {
+    id: "security",
+    title: "Security & DevOps",
+    description: "Hardening APIs and systems against vulnerabilities while automating deployment pipelines.",
+    highlights: ["JWT / OAuth2 Implementation", "Docker Containerization", "Environment Management", "Bcrypt & Encryption"],
+    icon: "ShieldCheck",
+  },
 ];
 
 export const SKILL_CATEGORIES: SkillCategory[] = [

@@ -7,7 +7,17 @@ export interface Project {
   link?: string;
   repo?: string;
   image?: string;
+  gallery?: string[];
   stats: string[];
+  featured?: boolean;
+}
+
+export interface Service {
+  id: string;
+  title: string;
+  description: string;
+  highlights: string[];
+  icon: string; // lucide icon name
 }
 
 export interface SkillCategory {

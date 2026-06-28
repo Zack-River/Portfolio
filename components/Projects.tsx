@@ -1,13 +1,14 @@
 import React from 'react';
 import { PROJECTS } from '../constants';
 import SectionHeader from './SectionHeader';
-import { Github, ExternalLink, Activity } from 'lucide-react';
 import Reveal from './Reveal';
+import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
 
 const Projects: React.FC = () => {
   return (
-    <section id="projects" className="py-24 bg-stone-900 bg-noise relative">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
+    <section id="projects" className="py-24 md:py-32 bg-canvas-light relative">
+      <div className="w-full max-w-7xl mx-auto px-4 md:px-12 lg:px-24">
         <Reveal>
           <SectionHeader 
             title="Selected Works" 
@@ -16,99 +17,39 @@ const Projects: React.FC = () => {
           />
         </Reveal>
 
-        <div className="space-y-24">
-          {PROJECTS.map((project, index) => (
-            <div 
-              key={project.id} 
-              className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 items-stretch`}
-            >
-              {/* Project Card - Text Side */}
-              <div className="flex-1 space-y-6">
-                <Reveal>
-                  <div className="border-l-2 border-amber-600 pl-6 py-2">
-                    <h3 className="text-3xl font-serif font-bold text-stone-100">{project.title}</h3>
-                    <p className="text-amber-500 font-mono text-sm mt-1">{project.subtitle}</p>
-                  </div>
-                </Reveal>
-                
-                <Reveal delay={0.2}>
-                  <p className="text-stone-400 leading-relaxed max-w-xl">
-                    {project.description}
-                  </p>
-                </Reveal>
-
-                {/* Statistics Box */}
-                <Reveal delay={0.3}>
-                  <div className="bg-charcoal p-5 border border-stone-800/50">
-                    <h4 className="text-xs font-mono text-stone-500 uppercase mb-3 flex items-center gap-2">
-                      <Activity size={14} /> Key Metrics
-                    </h4>
-                    <ul className="space-y-2">
-                      {project.stats.map((stat, i) => (
-                        <li key={i} className="text-stone-300 text-sm flex items-start gap-2">
-                          <span className="text-amber-600 font-bold">/</span>
-                          {stat}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </Reveal>
-
-                <Reveal delay={0.4}>
-                  <div className="flex flex-wrap gap-2 pt-2">
-                    {project.tags.map(tag => (
-                      <span key={tag} className="px-3 py-1 bg-stone-800 text-stone-400 text-xs font-mono rounded">
-                        {tag}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-stretch">
+          {PROJECTS.map((project) => (
+            <Link to={`/project/${project.id}`} key={project.id} className="relative group block">
+              <Reveal width="100%">
+                <div className="w-full bg-white rounded-xl overflow-hidden ring-1 ring-canvas-dark/10 shadow-xl transition-all duration-500 group-hover:shadow-2xl group-hover:-translate-y-2">
+                  {/* Browser Header */}
+                  <div className="h-10 bg-canvas-dark/5 border-b border-canvas-dark/10 flex items-center px-4 relative z-30 transition-colors group-hover:bg-canvas-dark/10">
+                    <div className="flex gap-2 z-10">
+                      <div className="w-3 h-3 rounded-full bg-[#FF5F56]"></div>
+                      <div className="w-3 h-3 rounded-full bg-[#FFBD2E]"></div>
+                      <div className="w-3 h-3 rounded-full bg-[#27C93F]"></div>
+                    </div>
+                    {/* Window Title (Centered) */}
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                      <span className="font-mono text-[10px] text-canvas-dark/40 tracking-wider group-hover:text-canvas-dark/60 transition-colors">
+                        {project.title.toLowerCase().replace(/\s+/g, '-')} — view_case_study.tsx
                       </span>
-                    ))}
+                    </div>
                   </div>
-                </Reveal>
 
-                <Reveal delay={0.5}>
-                  <div className="pt-4 flex gap-4">
-                    {project.repo && (
-                      <a 
-                        href={project.repo} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-stone-300 hover:text-white transition-colors border-b border-transparent hover:border-amber-500 pb-1"
-                      >
-                        <Github size={18} /> Source Code
-                      </a>
-                    )}
-                    {project.link && (
-                      <a 
-                        href={project.link} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-stone-300 hover:text-white transition-colors border-b border-transparent hover:border-amber-500 pb-1"
-                      >
-                        <ExternalLink size={18} /> Live Demo
-                      </a>
-                    )}
-                  </div>
-                </Reveal>
-              </div>
-
-              {/* Visual Side - Abstract Representation */}
-              <div className="flex-1 min-h-[300px] relative group">
-                <Reveal width="100%" delay={0.3}>
-                  <div className="relative w-full h-full min-h-[300px]">
-                    <div className="absolute inset-0 bg-gradient-to-br from-stone-800 to-black opacity-80 z-10"></div>
+                  {/* Window Body - Image */}
+                  <div className="relative w-full aspect-video md:aspect-[4/3] lg:aspect-[4/3] overflow-hidden bg-canvas-dark/5">
                     
-                    {/* Visual Content */}
+                    {/* Base Layer: Image */}
                     {project.image ? (
-                      <div className="absolute inset-0">
-                        <img 
-                          src={project.image} 
-                          alt={project.title} 
-                          className="w-full h-full object-cover opacity-60 group-hover:opacity-20 transition-opacity duration-500"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-void via-void/50 to-transparent"></div>
-                      </div>
+                      <img 
+                        src={project.image} 
+                        alt={project.title} 
+                        className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                      />
                     ) : (
-                      <div className="absolute inset-0 bg-void p-6 font-mono text-xs text-stone-600 overflow-hidden leading-tight opacity-30 select-none">
-                        {Array.from({ length: 20 }).map((_, i) => (
+                      <div className="absolute inset-0 p-8 font-mono text-xs text-canvas-dark/30 overflow-hidden leading-tight select-none">
+                        {Array.from({ length: 30 }).map((_, i) => (
                           <div key={i} className="whitespace-nowrap">
                             {`const ${project.id}_${i} = async (req, res) => { await Service.optimize({ load: '${Math.random().toFixed(2)}ms' }); }`}
                           </div>
@@ -116,28 +57,23 @@ const Projects: React.FC = () => {
                       </div>
                     )}
 
-                    {/* Inner Part (Clearer on Hover) */}
-                    {project.image && (
-                      <div className="absolute inset-4 overflow-hidden z-15 pointer-events-none transition-all duration-500 opacity-0 group-hover:opacity-100 shadow-2xl">
-                        <img 
-                          src={project.image} 
-                          alt={project.title} 
-                          className="absolute -top-4 -left-4 w-[calc(100%+2rem)] h-[calc(100%+2rem)] max-w-none object-cover transition-transform duration-700 group-hover:scale-110 group-hover:brightness-125"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-void/20 via-transparent to-transparent"></div>
-                      </div>
-                    )}
-
-                    <div className="absolute inset-4 border border-stone-700 z-20 flex items-center justify-center group-hover:border-amber-600/50 transition-colors duration-500 pointer-events-none">
+                    {/* Dark Information Overlay (Hover) */}
+                    <div className="absolute inset-0 bg-canvas-dark/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 flex flex-col items-center justify-center">
+                       <span className="text-white font-display text-2xl font-bold mb-2">{project.title}</span>
+                       <span className="flex items-center gap-2 text-electric font-medium border border-electric/30 bg-electric/10 px-4 py-2 rounded-full">
+                         View Case Study <ArrowRight size={16} />
+                       </span>
                     </div>
-                    
-                    {/* Corner Accents */}
-                    <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-amber-600 z-30"></div>
-                    <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-amber-600 z-30"></div>
+
                   </div>
-                </Reveal>
-              </div>
-            </div>
+                </div>
+                {/* Mobile basic title underneath so it's clear before clicking */}
+                <div className="md:hidden mt-4 text-center">
+                  <h3 className="text-xl font-display font-bold text-canvas-dark">{project.title}</h3>
+                  <p className="text-electric font-mono text-xs">{project.subtitle}</p>
+                </div>
+              </Reveal>
+            </Link>
           ))}
         </div>
       </div>
