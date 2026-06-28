@@ -27,16 +27,17 @@ const Hero: React.FC = () => {
         />
 
         {/* Subtle electric blue decorative background glow */}
-        <div className="absolute top-1/2 left-1/2 md:left-3/4 -translate-x-1/2 -translate-y-1/2 w-[70%] md:w-[35%] h-[70%] md:h-[50%] bg-[#0ea5e9]/15 rounded-full blur-[100px] pointer-events-none z-10"></div>
+        <div className="absolute top-1/2 left-1/2 md:left-3/4 -translate-x-1/2 -translate-y-1/2 w-[70%] md:w-[35%] h-[70%] md:h-[50%] bg-electric/15 rounded-full blur-[100px] pointer-events-none z-10"></div>
 
         {/* Stars Background for whole screen */}
         <StarsBackground colorClass="bg-electric" count={80} />
 
+        <div className="absolute inset-0 w-full h-full z-20 cursor-grab active:cursor-grabbing pointer-events-auto">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.5, delay: 0.2 }}
-          className="absolute inset-0 w-full h-full z-20 cursor-grab active:cursor-grabbing pointer-events-auto"
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
         >
           <Suspense
             fallback={
@@ -48,6 +49,7 @@ const Hero: React.FC = () => {
             <Scene3D />
           </Suspense>
         </motion.div>
+        </div>
       </div>
 
       {/* 2. Text Overlay Layer */}
@@ -68,10 +70,12 @@ const Hero: React.FC = () => {
                 initial={{ y: 100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.6, ease: "circOut" }}
-                className="text-[clamp(2.5rem,10vw,4.5rem)] md:text-[clamp(3.5rem,8vw,5.5rem)] lg:text-[clamp(3.5rem,7.5vw,8.5rem)] tracking-[-0.02em] font-display font-bold text-canvas-dark leading-none pt-2 pb-2 w-full text-center md:text-left"
+                style={{ display: 'block', width: '100%' }}
               >
-                Abdallah <br className="hidden md:block" />
-                <span className="text-canvas-dark/60">Wageeh</span>
+                <span className="block text-[clamp(2.5rem,10vw,4.5rem)] md:text-[clamp(3.5rem,8vw,5.5rem)] lg:text-[clamp(3.5rem,7.5vw,8.5rem)] tracking-[-0.02em] font-display font-bold text-canvas-dark leading-none pt-2 pb-2 w-full text-center md:text-left">
+                  Abdallah <br className="hidden md:block" />
+                  <span className="text-canvas-dark/60">Wageeh</span>
+                </span>
               </motion.h1>
             </div>
 
@@ -96,13 +100,13 @@ const Hero: React.FC = () => {
                 <div className="flex flex-row gap-3 sm:gap-6 justify-center md:justify-start w-full">
                   <a
                     href="#projects"
-                    className="px-5 sm:px-8 py-3 bg-canvas-dark text-canvas-light font-bold hover:bg-electric hover:ring-electric transition-colors duration-300 text-center text-sm sm:text-base whitespace-nowrap"
+                    className="btn-primary w-full sm:w-auto text-sm sm:text-base whitespace-nowrap"
                   >
                     View Works
                   </a>
                   <a
                     href="#contact"
-                    className="px-5 sm:px-8 py-3 border border-canvas-dark/10 text-canvas-dark/80 hover:border-canvas-dark hover:text-electric transition-colors duration-300 text-center text-sm sm:text-base whitespace-nowrap"
+                    className="btn-outline w-full sm:w-auto text-sm sm:text-base whitespace-nowrap"
                   >
                     Contact Me
                   </a>
@@ -117,14 +121,18 @@ const Hero: React.FC = () => {
       </div>
 
       {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
-        className="hidden md:block absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-canvas-dark/60 z-20 pointer-events-none"
-      >
-        <ArrowDown size={32} strokeWidth={1.5} />
-      </motion.div>
+      <div className="hidden md:block absolute bottom-8 left-1/2 -translate-x-1/2 z-20 pointer-events-none">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 2, duration: 1 }}
+          style={{ display: 'flex' }}
+        >
+          <span className="animate-bounce text-canvas-dark/60">
+            <ArrowDown size={32} strokeWidth={1.5} />
+          </span>
+        </motion.div>
+      </div>
     </section>
   );
 };

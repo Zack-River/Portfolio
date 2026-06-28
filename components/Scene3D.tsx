@@ -1124,9 +1124,9 @@ const Scene3D: React.FC = () => {
         <Float speed={2} rotationIntensity={0.2} floatIntensity={0.5}>
           <Model
             position={
-              isMobile ? [0, -0.8, 0] : isTablet ? [2, -1, 0] : [3, -1.25, 0]
+              isMobile ? [0, -0.8, 0] : isTablet ? [2, -1.3, 0] : [3, -1.5, 0]
             }
-            scale={isMobile ? 1.4 : isTablet ? 1.4 : 1.8}
+            scale={isMobile ? 1.4 : isTablet ? 1.6 : 1.8}
           />
         </Float>
 

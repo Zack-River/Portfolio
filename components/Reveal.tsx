@@ -12,6 +12,7 @@ export const Reveal = ({ children, width = "100%", delay = 0.25, className = "" 
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   const mainControls = useAnimation();
+  const isFullHeight = className.includes('h-full');
 
   useEffect(() => {
     if (isInView) {
@@ -20,8 +21,13 @@ export const Reveal = ({ children, width = "100%", delay = 0.25, className = "" 
   }, [isInView, mainControls]);
 
   return (
-    <div ref={ref} className={className} style={{ position: "relative", width }}>
+    <div
+      ref={ref}
+      className={className}
+      style={{ position: "relative", width, ...(isFullHeight ? { height: '100%' } : {}) }}
+    >
       <motion.div
+        style={isFullHeight ? { height: '100%' } : {}}
         variants={{
           hidden: { opacity: 0, y: 50 },
           visible: { opacity: 1, y: 0 },

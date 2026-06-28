@@ -22,7 +22,7 @@ const Loader: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
 
   return (
     <motion.div
-      className="fixed inset-0 z-[100] bg-canvas-light flex flex-col items-center justify-center overflow-hidden"
+      className="fixed inset-0 z-100 bg-canvas-light flex flex-col items-center justify-center overflow-hidden"
       exit={{ opacity: 0, y: -50 }}
       transition={{ duration: 0.8, ease: "easeInOut" }}
     >
@@ -56,7 +56,7 @@ const Loader: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
 
       {/* Background Grid Animation */}
       <div className="absolute inset-0 z-[-1] opacity-5">
-        <div className="absolute top-0 left-0 w-full h-[1px] bg-electric animate-scanline"></div>
+        <div className="absolute top-0 left-0 w-full h-px bg-electric animate-scanline"></div>
       </div>
       
       <style>{`

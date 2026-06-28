@@ -29,7 +29,7 @@ const StarsBackground: React.FC<StarsBackgroundProps> = ({ colorClass = "bg-whit
             top: `${star.y}%`,
             width: `${star.size}px`,
             height: `${star.size}px`,
-            color: colorClass === 'bg-white' ? '#ffffff' : '#0ea5e9', // For the currentColor shadow
+            color: colorClass === 'bg-white' ? '#ffffff' : '#3d7fff', // For the currentColor shadow
           }}
           animate={{
             opacity: [0, 1, 0],

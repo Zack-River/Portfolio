@@ -63,21 +63,21 @@ const Contact: React.FC = () => {
   });
 
   return (
-    <section id="contact" className="py-16 md:py-0 bg-canvas-light text-canvas-dark relative flex-1 flex flex-col justify-center">
+    <section id="contact" className="py-24 md:py-32 bg-canvas-light text-canvas-dark relative flex-1 flex flex-col justify-center">
       <div className="max-w-7xl mx-auto md:px-12 lg:px-24 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-stretch">
           
-          <div className="text-center md:text-left px-4 md:px-0">
+          <div className="text-center md:text-left px-4 md:px-0 h-full">
             <Reveal>
               <SectionHeader 
                 title="Get in Touch" 
                 subtitle="Start a Conversation" 
-                number="04" 
+                number="" 
               />
             </Reveal>
             
             <Reveal delay={0.2}>
-              <p className="text-canvas-dark/80 mb-12">
+              <p className="text-secondary mb-12">
                 Currently seeking new opportunities in Backend Engineering. 
                 Whether you have a question or just want to say hi, I'll try my best to get back to you!
               </p>
@@ -86,7 +86,7 @@ const Contact: React.FC = () => {
             <div className="space-y-6">
               <Reveal delay={0.3}>
                 <div className="flex items-center justify-center md:justify-start space-x-4 mb-6">
-                  <div className="p-3 bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/10 rounded-full text-electric">
+                  <div className="p-3 bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/10 rounded-xl text-electric">
                     <Phone size={20} />
                   </div>
                   <div>
@@ -100,7 +100,7 @@ const Contact: React.FC = () => {
 
               <Reveal delay={0.3}>
                 <div className="flex items-center justify-center md:justify-start space-x-4">
-                  <div className="p-3 bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/10 rounded-full text-electric">
+                  <div className="p-3 bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/10 rounded-xl text-electric">
                     <Mail size={20} />
                   </div>
                   <div>
@@ -114,7 +114,7 @@ const Contact: React.FC = () => {
 
                <Reveal delay={0.4}>
                  <div className="flex items-center justify-center md:justify-start space-x-4">
-                  <div className="p-3 bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/10 rounded-full text-electric">
+                  <div className="p-3 bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/10 rounded-xl text-electric">
                     <MapPin size={20} />
                   </div>
                   <div>
@@ -130,7 +130,8 @@ const Contact: React.FC = () => {
                       href="https://w.app/kx9pjb" 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="p-3 bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/10 hover:bg-green-900/30 text-canvas-dark/80 hover:text-green-400 rounded-lg transition-all"
+                      className="p-3 bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/10 hover:bg-success/10 text-canvas-dark/80 hover:text-success rounded-xl transition-all"
+                      aria-label="WhatsApp"
                     >
                       <svg 
                         xmlns="http://www.w3.org/2000/svg" 
@@ -152,7 +153,8 @@ const Contact: React.FC = () => {
                       href={`https://${PERSONAL_INFO.linkedin}`} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="p-3 bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/10 hover:bg-blue-900/30 text-canvas-dark/80 hover:text-blue-400 rounded-lg transition-all"
+                      className="p-3 bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/10 hover:bg-electric/10 text-canvas-dark/80 hover:text-electric rounded-xl transition-all"
+                      aria-label="LinkedIn"
                     >
                       <Linkedin size={24} />
                     </a>
@@ -160,7 +162,8 @@ const Contact: React.FC = () => {
                       href={`https://${PERSONAL_INFO.github}`} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="p-3 bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/10 hover:bg-canvas-dark/90 text-canvas-dark/80 hover:text-electric rounded-lg transition-all"
+                      className="p-3 bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/10 hover:bg-canvas-dark/90 text-canvas-dark/80 hover:text-canvas-light rounded-xl transition-all"
+                      aria-label="GitHub"
                     >
                       <Github size={24} />
                     </a>
@@ -169,11 +172,11 @@ const Contact: React.FC = () => {
             </div>
           </div>
 
-          <Reveal delay={0.4}>
-            <div className="bg-canvas-light p-4 sm:p-8 sm:border sm:border-canvas-dark/10 sm:shadow-2xl relative">
+          <Reveal delay={0.4} className="h-full flex flex-col">
+            <div className="h-full bg-canvas-light p-4 sm:p-8 card-base relative flex flex-col">
                <div className="absolute top-0 right-0 w-20 h-20 bg-electric/10 rounded-bl-[4rem]"></div>
 
-               <form onSubmit={formik.handleSubmit} className="space-y-6 relative z-10">
+               <form onSubmit={formik.handleSubmit} className="space-y-6 relative z-10 flex flex-col flex-1">
                   <div className="space-y-2">
                     <label htmlFor="name" className="text-sm font-mono text-canvas-dark/60">Name</label>
                     <input
@@ -184,10 +187,10 @@ const Contact: React.FC = () => {
                       onBlur={formik.handleBlur}
                       value={formik.values.name}
                       disabled={status === 'sending'}
-                      className="w-full bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/20 p-3 text-canvas-dark/80 focus:outline-none focus:border-electric transition-colors disabled:opacity-50"
+                      className="input-base"
                     />
                     {formik.touched.name && formik.errors.name ? (
-                      <div className="text-red-500 text-xs">{formik.errors.name}</div>
+                      <div className="text-error text-xs">{formik.errors.name}</div>
                     ) : null}
                   </div>
 
@@ -201,45 +204,44 @@ const Contact: React.FC = () => {
                       onBlur={formik.handleBlur}
                       value={formik.values.email}
                       disabled={status === 'sending'}
-                      className="w-full bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/20 p-3 text-canvas-dark/80 focus:outline-none focus:border-electric transition-colors disabled:opacity-50"
+                      className="input-base"
                     />
                     {formik.touched.email && formik.errors.email ? (
-                      <div className="text-red-500 text-xs">{formik.errors.email}</div>
+                      <div className="text-error text-xs">{formik.errors.email}</div>
                     ) : null}
                   </div>
 
-                  <div className="space-y-2">
-                    <label htmlFor="message" className="text-sm font-mono text-canvas-dark/60">Message</label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      rows={4}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.message}
-                      disabled={status === 'sending'}
-                      className="w-full bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/20 p-3 text-canvas-dark/80 focus:outline-none focus:border-electric transition-colors resize-none disabled:opacity-50"
-                    />
-                    {formik.touched.message && formik.errors.message ? (
-                      <div className="text-red-500 text-xs">{formik.errors.message}</div>
-                    ) : null}
-                  </div>
+                  <div className="space-y-2 flex flex-col flex-1">
+                     <label htmlFor="message" className="text-sm font-mono text-canvas-dark/60">Message</label>
+                     <textarea
+                       id="message"
+                       name="message"
+                       onChange={formik.handleChange}
+                       onBlur={formik.handleBlur}
+                       value={formik.values.message}
+                       disabled={status === 'sending'}
+                       className="input-base resize-none flex-1"
+                     />
+                     {formik.touched.message && formik.errors.message ? (
+                       <div className="text-error text-xs">{formik.errors.message}</div>
+                     ) : null}
+                   </div>
 
                   <button 
                     type="submit" 
                     disabled={status === 'sending'}
-                    className="w-full py-4 bg-canvas-dark text-canvas-light font-bold hover:bg-electric hover:ring-electric transition-colors duration-300 mt-4 disabled:opacity-70 disabled:cursor-not-allowed"
+                    className="btn-primary w-full mt-4 disabled:opacity-70 disabled:cursor-not-allowed"
                   >
                     {status === 'sending' ? 'Sending...' : 'Send Message'}
                   </button>
 
                   {status === 'success' && (
-                    <div className="p-3 bg-green-500/10 border border-green-500/20 text-green-500 rounded text-sm text-center">
+                    <div className="p-3 bg-success/10 border border-success/20 text-success rounded-xl text-sm text-center">
                       Message sent successfully!
                     </div>
                   )}
                   {status === 'error' && (
-                    <div className="p-3 bg-red-500/10 border border-red-500/20 text-red-500 rounded text-sm text-center">
+                    <div className="p-3 bg-error/10 border border-error/20 text-error rounded-xl text-sm text-center">
                       {errorMessage}
                     </div>
                   )}

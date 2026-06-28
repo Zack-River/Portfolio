@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { PROJECTS } from '../constants';
+import Footer from '../components/Footer';
 import {
   ArrowLeft,
   Github,
@@ -40,7 +41,7 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({ images, title
   return (
     <div className="w-full">
       {/* Slide container */}
-      <div className="relative w-full aspect-[16/9] bg-canvas-dark rounded-2xl overflow-hidden ring-1 ring-canvas-dark/10 shadow-xl">
+      <div className="relative w-full aspect-video bg-canvas-dark rounded-2xl overflow-hidden ring-1 ring-canvas-dark/10 shadow-xl">
         <AnimatePresence custom={direction} initial={false} mode="wait">
           <motion.img
             key={current}
@@ -103,7 +104,7 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({ images, title
             <button
               key={i}
               onClick={() => goTo(i)}
-              className={`flex-shrink-0 w-20 h-14 rounded-lg overflow-hidden ring-2 transition-all duration-200 ${
+              className={`shrink-0 w-20 h-14 rounded-lg overflow-hidden ring-2 transition-all duration-200 ${
                 i === current ? 'ring-electric' : 'ring-transparent opacity-60 hover:opacity-100'
               }`}
             >
@@ -220,9 +221,13 @@ const ProjectDetails: React.FC = () => {
           )}
         </motion.div>
 
+        {/* Base dark layer for overall dimming */}
+        <div className="absolute inset-0 bg-canvas-dark/60" />
+
+        {/* Dynamic gradient */}
         <motion.div
           style={{ opacity: overlayOpacity }}
-          className="absolute inset-0 bg-gradient-to-t from-canvas-dark via-canvas-dark/80 to-canvas-dark/50"
+          className="absolute inset-0 bg-gradient-to-t from-canvas-dark via-canvas-dark/90 to-canvas-dark/60"
         />
 
         <div
@@ -337,9 +342,9 @@ const ProjectDetails: React.FC = () => {
           <section className="py-16 md:py-24 border-b border-canvas-dark/10">
             <div className="flex items-center gap-3 mb-10">
               <Activity size={18} className="text-electric" />
-              <h2 className="font-mono text-xs text-canvas-dark/50 uppercase tracking-[0.25em]">
+              <p className="font-mono text-xs text-canvas-dark/50 uppercase tracking-[0.25em]">
                 Engineering Impact
-              </h2>
+              </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {project.stats.map((stat, i) => (
@@ -349,7 +354,7 @@ const ProjectDetails: React.FC = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="group relative bg-white rounded-2xl p-8 ring-1 ring-canvas-dark/10 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+                  className="group relative card-base card-hover p-8 overflow-hidden"
                 >
                   <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-electric scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
                   <span className="text-electric font-mono text-4xl font-bold leading-none">
@@ -391,7 +396,7 @@ const ProjectDetails: React.FC = () => {
                       href={project.repo}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-3 px-6 py-3 bg-canvas-dark text-canvas-light rounded-xl hover:bg-electric transition-colors font-medium text-sm"
+                      className="btn-secondary"
                     >
                       <Github size={18} /> Source Code
                     </a>
@@ -401,7 +406,7 @@ const ProjectDetails: React.FC = () => {
                       href={project.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-3 px-6 py-3 bg-electric text-white rounded-xl hover:bg-electric/80 transition-colors font-medium text-sm"
+                      className="btn-primary"
                     >
                       <ExternalLink size={18} /> Live Demo
                     </a>
@@ -416,9 +421,9 @@ const ProjectDetails: React.FC = () => {
             <section className="py-16 md:py-24 border-b border-canvas-dark/10">
               <div className="flex items-center gap-3 mb-10">
                 <LayoutGrid size={18} className="text-electric" />
-                <h2 className="font-mono text-xs text-canvas-dark/50 uppercase tracking-[0.25em]">
+                <p className="font-mono text-xs text-canvas-dark/50 uppercase tracking-[0.25em]">
                   Project Gallery
-                </h2>
+                </p>
                 <span className="ml-auto font-mono text-xs text-canvas-dark/30">
                   {gallery.length} {gallery.length === 1 ? 'screenshot' : 'screenshots'}
                 </span>
@@ -434,9 +439,9 @@ const ProjectDetails: React.FC = () => {
           <section className="py-16 md:py-24 border-b border-canvas-dark/10">
             <div className="flex items-center gap-3 mb-10">
               <Layers size={18} className="text-electric" />
-              <h2 className="font-mono text-xs text-canvas-dark/50 uppercase tracking-[0.25em]">
+              <p className="font-mono text-xs text-canvas-dark/50 uppercase tracking-[0.25em]">
                 Technology Stack
-              </h2>
+              </p>
             </div>
             <div className="flex flex-wrap gap-3">
               {project.tags.map((tag, i) => (
@@ -470,7 +475,7 @@ const ProjectDetails: React.FC = () => {
               return (
                 <Link
                   to={`/project/${next.id}`}
-                  className="group flex items-center gap-4 bg-white ring-1 ring-canvas-dark/10 shadow-sm hover:shadow-xl hover:-translate-y-1 rounded-2xl px-6 py-4 transition-all duration-300"
+                  className="group flex items-center gap-4 card-base card-hover px-6 py-4"
                 >
                   <div>
                     <p className="font-mono text-xs text-canvas-dark/40 uppercase tracking-widest mb-1">
@@ -490,15 +495,7 @@ const ProjectDetails: React.FC = () => {
         </div>
       </div>
 
-      {/* Footer */}
-      <footer className="border-t border-canvas-dark/10 bg-canvas-light">
-        <div className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24 py-6 flex items-center justify-between text-canvas-dark/40 font-mono text-xs">
-          <span>© 2026 Abdallah Wageeh</span>
-          <Link to="/" className="hover:text-electric transition-colors">
-            abdallah.dev
-          </Link>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

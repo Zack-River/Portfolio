@@ -4,6 +4,7 @@ import Loader from './components/Loader';
 import { AnimatePresence } from 'framer-motion';
 import Home from './pages/Home';
 import ProjectDetails from './pages/ProjectDetails';
+import ProjectsPage from './pages/ProjectsPage';
 
 // Scroll to top helper
 const ScrollToTop = () => {
@@ -13,6 +14,8 @@ const ScrollToTop = () => {
   }, [pathname]);
   return null;
 };
+
+import Navbar from './components/Navbar';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -32,8 +35,10 @@ function App() {
       
       {!loading && (
         <div className="bg-canvas-light grain-overlay-container min-h-screen text-canvas-dark selection:bg-electric/90 selection:text-white">
+          <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/projects" element={<ProjectsPage />} />
             <Route path="/project/:id" element={<ProjectDetails />} />
           </Routes>
         </div>

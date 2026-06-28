@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Home, User, Layers, Mail, Code } from 'lucide-react';
 
 const navItems = [
@@ -53,7 +54,14 @@ const Navbar: React.FC = () => {
     };
   }, [lastScrollY]);
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const scrollTo = (id: string) => {
+    if (location.pathname !== '/') {
+      navigate(`/#${id}`);
+      return;
+    }
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -63,7 +71,7 @@ const Navbar: React.FC = () => {
   return (
     <div 
       className={`fixed bottom-6 md:bottom-auto md:top-6 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-in-out ${
-        isVisible ? 'translate-y-0 opacity-100' : 'translate-y-[150%] md:-translate-y-[150%] opacity-0'
+        isVisible ? 'translate-y-0 opacity-100' : 'translate-y-[150%] md:translate-y-[-150%] opacity-0'
       }`}
     >
       <nav className="flex items-center space-x-1 md:space-x-2 px-4 py-2 md:px-6 md:py-3 bg-white/80 backdrop-blur-lg rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-canvas-dark/5">
