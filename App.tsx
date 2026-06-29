@@ -17,35 +17,13 @@ const ScrollToTop = () => {
 
 import Navbar from './components/Navbar';
 
-import Lenis from 'lenis';
+
 
 function App() {
   const [loading, setLoading] = useState(true);
 
-  // Initialize Lenis smooth scrolling
-  useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 2,
-    });
-
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-
-    requestAnimationFrame(raf);
-
-    return () => {
-      lenis.destroy();
-    };
-  }, []);
-
+  // Lenis removed: Conflicted with Three.js WebGL rAF loop and caused massive layout thrashing.
+  // We rely entirely on native CSS 'scroll-smooth' (already in index.html) for 0 CPU cost.
   return (
     <>
       <ScrollToTop />

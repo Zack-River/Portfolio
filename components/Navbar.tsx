@@ -14,7 +14,7 @@ const navItems = [
 
 const Navbar: React.FC = () => {
   const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
+  const lastScrollYRef = React.useRef(0);
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
@@ -22,15 +22,15 @@ const Navbar: React.FC = () => {
       const currentScrollY = window.scrollY;
       
       // Hide navbar if scrolling down and past 50px
-      if (currentScrollY > lastScrollY && currentScrollY > 50) {
+      if (currentScrollY > lastScrollYRef.current && currentScrollY > 50) {
         setIsVisible(false);
       } 
       // Show navbar if scrolling up or at the top
-      else if (currentScrollY < lastScrollY || currentScrollY <= 50) {
+      else if (currentScrollY < lastScrollYRef.current || currentScrollY <= 50) {
         setIsVisible(true);
       }
 
-      setLastScrollY(currentScrollY);
+      lastScrollYRef.current = currentScrollY;
     };
 
     const observer = new IntersectionObserver(
@@ -54,7 +54,7 @@ const Navbar: React.FC = () => {
       window.removeEventListener('scroll', handleScroll);
       observer.disconnect();
     };
-  }, [lastScrollY]);
+  }, []);
 
   const navigate = useNavigate();
   const location = useLocation();

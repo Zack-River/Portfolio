@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { motion } from 'framer-motion';
+
 
 interface StarsBackgroundProps {
   colorClass?: string;
@@ -20,8 +20,14 @@ const StarsBackground: React.FC<StarsBackgroundProps> = ({ colorClass = "bg-whit
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+      <style>{`
+        @keyframes twinkleStar {
+          0%, 100% { opacity: 0; transform: scale(0.2); }
+          50% { opacity: 1; transform: scale(1.5); }
+        }
+      `}</style>
       {stars.map((star) => (
-        <motion.div
+        <div
           key={star.id}
           className={`absolute rounded-full ${colorClass} shadow-[0_0_8px_currentColor]`}
           style={{
@@ -30,16 +36,7 @@ const StarsBackground: React.FC<StarsBackgroundProps> = ({ colorClass = "bg-whit
             width: `${star.size}px`,
             height: `${star.size}px`,
             color: colorClass === 'bg-white' ? '#ffffff' : '#3d7fff', // For the currentColor shadow
-          }}
-          animate={{
-            opacity: [0, 1, 0],
-            scale: [0.2, 1.5, 0.2],
-          }}
-          transition={{
-            duration: star.duration,
-            repeat: Infinity,
-            delay: star.delay,
-            ease: "easeInOut",
+            animation: `twinkleStar ${star.duration}s ease-in-out infinite ${star.delay}s`
           }}
         />
       ))}

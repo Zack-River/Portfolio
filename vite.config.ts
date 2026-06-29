@@ -22,7 +22,11 @@ export default defineConfig(({ mode }) => {
         }
       },
       build: {
-        modulePreload: false,
+        modulePreload: {
+          resolveDependencies: (filename, deps) => {
+            return deps.filter(dep => !dep.includes('three-vendor') && !dep.includes('Scene3D'));
+          }
+        },
         rollupOptions: {
           output: {
             manualChunks: {

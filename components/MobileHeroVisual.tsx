@@ -7,10 +7,10 @@ import React from "react";
  */
 const MobileHeroVisual: React.FC = () => {
   return (
-    <div className="w-full h-full flex items-center justify-center relative overflow-hidden">
+    <div className="w-full h-full flex items-center justify-center relative overflow-hidden pb-12">
       {/* Animated electric blue glow orb behind the robot */}
       <div
-        className="absolute w-[280px] h-[280px] rounded-full opacity-40"
+        className="absolute w-[360px] h-[360px] rounded-full opacity-40"
         style={{
           background:
             "radial-gradient(circle, rgba(14,165,233,0.6) 0%, rgba(14,165,233,0.1) 50%, transparent 70%)",
@@ -20,7 +20,7 @@ const MobileHeroVisual: React.FC = () => {
 
       {/* Secondary glow ring */}
       <div
-        className="absolute w-[350px] h-[350px] rounded-full opacity-20"
+        className="absolute w-[450px] h-[450px] rounded-full opacity-20"
         style={{
           border: "1px solid rgba(14,165,233,0.3)",
           animation: "pulseGlow 4s ease-in-out infinite 1s",
@@ -30,7 +30,7 @@ const MobileHeroVisual: React.FC = () => {
       {/* Robot SVG silhouette */}
       <svg
         viewBox="0 0 200 280"
-        className="relative z-10 w-[180px] h-[250px] drop-shadow-[0_0_25px_rgba(14,165,233,0.5)]"
+        className="relative z-10 w-[240px] h-[333px] drop-shadow-[0_0_25px_rgba(14,165,233,0.5)] overflow-visible"
         style={{ animation: "floatRobot 6s ease-in-out infinite" }}
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -110,16 +110,14 @@ const MobileHeroVisual: React.FC = () => {
           style={{ animation: "blink 4s ease-in-out infinite 0.5s" }}
         />
 
-        {/* Mouth — subtle line */}
-        <line
-          x1="88"
-          y1="82"
-          x2="112"
-          y2="82"
+        {/* Mouth — smile */}
+        <path
+          d="M 86 80 Q 100 90 114 80"
           stroke="#0ea5e9"
-          strokeWidth="1.5"
+          strokeWidth="2"
           strokeLinecap="round"
-          opacity="0.6"
+          fill="none"
+          opacity="0.8"
         />
 
         {/* Neck */}
@@ -184,27 +182,33 @@ const MobileHeroVisual: React.FC = () => {
         <circle cx="100" cy="170" r="3" fill="#0ea5e9" opacity="0.4" />
         <circle cx="115" cy="170" r="3" fill="#0ea5e9" opacity="0.4" />
 
-        {/* Left arm */}
-        <rect
-          x="22"
-          y="115"
-          width="22"
-          height="65"
-          rx="10"
-          stroke="#0ea5e9"
-          strokeWidth="1.5"
-          fill="rgba(14,165,233,0.05)"
-          style={{ animation: "swingArm 5s ease-in-out infinite" }}
-        />
-        {/* Left hand */}
-        <circle
-          cx="33"
-          cy="185"
-          r="9"
-          stroke="#0ea5e9"
-          strokeWidth="1.5"
-          fill="rgba(14,165,233,0.05)"
-        />
+        {/* Left arm (waving) */}
+        <g
+          style={{
+            transformOrigin: "33px 126px",
+            animation: "waveHand 2s ease-in-out infinite",
+          }}
+        >
+          <rect
+            x="22"
+            y="115"
+            width="22"
+            height="65"
+            rx="10"
+            stroke="#0ea5e9"
+            strokeWidth="1.5"
+            fill="rgba(14,165,233,0.05)"
+          />
+          {/* Left hand */}
+          <circle
+            cx="33"
+            cy="185"
+            r="9"
+            stroke="#0ea5e9"
+            strokeWidth="1.5"
+            fill="rgba(14,165,233,0.05)"
+          />
+        </g>
 
         {/* Right arm */}
         <rect
@@ -314,6 +318,10 @@ const MobileHeroVisual: React.FC = () => {
         @keyframes swingArm {
           0%, 100% { transform: rotate(0deg); }
           50% { transform: rotate(3deg); }
+        }
+        @keyframes waveHand {
+          0%, 100% { transform: rotate(90deg); }
+          50% { transform: rotate(130deg); }
         }
         @keyframes floatParticle {
           0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0.3; }
