@@ -45,6 +45,7 @@ const Projects: React.FC = () => {
                       <img 
                         src={project.image} 
                         alt={project.title} 
+                        loading="lazy"
                         className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                       />
                     ) : (

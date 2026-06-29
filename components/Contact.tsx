@@ -3,7 +3,7 @@ import emailjs from '@emailjs/browser';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import SectionHeader from './SectionHeader';
-import { Mail, MapPin, Linkedin, Github, Phone } from 'lucide-react';
+import { Mail, MapPin, Linkedin, Github, Phone, Briefcase } from 'lucide-react';
 import { PERSONAL_INFO } from '../constants';
 import Reveal from './Reveal';
 
@@ -11,6 +11,7 @@ const ContactSchema = Yup.object().shape({
   name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
   email: Yup.string().email('Invalid email').required('Required'),
   message: Yup.string().min(10, 'Message too short').required('Required'),
+  service: Yup.string().required('Required'),
 });
 
 const Contact: React.FC = () => {
@@ -21,6 +22,7 @@ const Contact: React.FC = () => {
     initialValues: {
       name: '',
       email: '',
+      service: 'Online Consultation',
       message: '',
     },
     validationSchema: ContactSchema,
@@ -44,6 +46,7 @@ const Contact: React.FC = () => {
           {
             from_name: values.name,
             from_email: values.email,
+            service: values.service,
             message: values.message,
             reply_to: values.email,
           },
@@ -167,6 +170,16 @@ const Contact: React.FC = () => {
                     >
                       <Github size={24} />
                     </a>
+                    <a 
+                      href="https://mostaql.com/u/ZackRiver" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="p-3 bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/10 hover:bg-[#2386c8]/10 text-canvas-dark/80 hover:text-[#2386c8] rounded-xl transition-all"
+                      aria-label="Mostaql"
+                      title="Mostaql"
+                    >
+                      <Briefcase size={24} />
+                    </a>
                  </div>
                </Reveal>
             </div>
@@ -209,6 +222,24 @@ const Contact: React.FC = () => {
                     {formik.touched.email && formik.errors.email ? (
                       <div className="text-error text-xs">{formik.errors.email}</div>
                     ) : null}
+                  </div>
+
+                  <div className="space-y-2">
+                    <label htmlFor="service" className="text-sm font-mono text-canvas-dark/60">Service Inquiry</label>
+                    <select
+                      id="service"
+                      name="service"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.service}
+                      disabled={status === 'sending'}
+                      className="input-base cursor-pointer appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%230a0a0b%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[position:right_1rem_center] bg-[length:1em]"
+                    >
+                      <option value="Branding Websites">Branding Websites</option>
+                      <option value="Websites & Web Apps">Websites & Web Apps</option>
+                      <option value="Online Consultation">Online Consultation ($10/h)</option>
+                      <option value="Other">Other</option>
+                    </select>
                   </div>
 
                   <div className="space-y-2 flex flex-col flex-1">

@@ -29,11 +29,14 @@ const About: React.FC = () => {
             <Reveal delay={0.2}>
               <div className="flex flex-col justify-between h-full">
               <div className="mb-8 relative group w-4/5 md:w-3/4 lg:w-2/3 mx-auto md:mx-0">
-                <div className="absolute -inset-1 bg-linear-to-r from-electric to-canvas-dark/80 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+                <div className="absolute -inset-1 bg-gradient-to-r from-electric to-canvas-dark/80 rounded-2xl blur opacity-25 transition duration-1000"></div>
                 <img
-                  src="/Zack.jpg"
+                  src="/Zack.webp"
                   alt={PERSONAL_INFO.name}
-                  className="relative w-full aspect-4/3 object-cover rounded-xl shadow-2xl border border-canvas-dark/10 grayscale hover:grayscale-0 transition-all duration-500"
+                  loading="lazy"
+                  width="218"
+                  height="219"
+                  className="relative w-full aspect-4/3 object-cover rounded-xl shadow-2xl border border-canvas-dark/10 transition-all duration-500"
                 />
               </div>
               <p className="text-lg text-secondary font-light leading-relaxed text-center md:text-left w-4/5 mx-auto md:w-full md:mx-0 first-letter:text-5xl first-letter:font-display first-letter:mr-2 first-letter:float-left first-letter:text-electric">

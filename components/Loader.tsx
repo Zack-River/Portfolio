@@ -61,9 +61,9 @@ const Loader: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
       
       <style>{`
         @keyframes scanline {
-          0% { top: 0%; opacity: 0; }
+          0% { transform: translateY(0vh); opacity: 0; }
           50% { opacity: 1; }
-          100% { top: 100%; opacity: 0; }
+          100% { transform: translateY(100vh); opacity: 0; }
         }
         .animate-scanline {
           animation: scanline 3s linear infinite;

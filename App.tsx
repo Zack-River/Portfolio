@@ -17,13 +17,33 @@ const ScrollToTop = () => {
 
 import Navbar from './components/Navbar';
 
+import Lenis from 'lenis';
+
 function App() {
   const [loading, setLoading] = useState(true);
 
-  // Simulate loading of assets
+  // Initialize Lenis smooth scrolling
   useEffect(() => {
-    // In a real app, this might wait for images, fonts, or 3D models.
-    // Here we let the Loader component control the duration via its internal logic + onComplete callback.
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      touchMultiplier: 2,
+    });
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    };
   }, []);
 
   return (

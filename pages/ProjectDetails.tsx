@@ -53,6 +53,7 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({ images, title
             transition={{ duration: 0.4, ease: 'easeInOut' }}
             src={images[current]}
             alt={`${title} – screenshot ${current + 1}`}
+            loading="lazy"
             className="absolute inset-0 w-full h-full object-cover object-top"
           />
         </AnimatePresence>
@@ -108,7 +109,7 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({ images, title
                 i === current ? 'ring-electric' : 'ring-transparent opacity-60 hover:opacity-100'
               }`}
             >
-              <img src={img} alt={`thumb ${i + 1}`} className="w-full h-full object-cover object-top" />
+              <img src={img} alt={`thumb ${i + 1}`} loading="lazy" className="w-full h-full object-cover object-top" />
             </button>
           ))}
         </div>
@@ -214,6 +215,7 @@ const ProjectDetails: React.FC = () => {
             <img
               src={project.image}
               alt={project.title}
+              loading="lazy"
               className="w-full h-full object-cover object-top"
             />
           ) : (

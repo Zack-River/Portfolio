@@ -20,6 +20,19 @@ export default defineConfig(({ mode }) => {
         alias: {
           '@': path.resolve(__dirname, '.'),
         }
+      },
+      build: {
+        modulePreload: false,
+        rollupOptions: {
+          output: {
+            manualChunks: {
+              'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+              'three-vendor': ['three', '@react-three/fiber', '@react-three/drei'],
+              'motion-vendor': ['framer-motion'],
+              'ui-vendor': ['lucide-react', 'formik', 'yup', '@emailjs/browser']
+            }
+          }
+        }
       }
     };
 });

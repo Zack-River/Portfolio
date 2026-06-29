@@ -1,18 +1,44 @@
 import React, { Suspense } from "react";
 import { PERSONAL_INFO } from "../constants";
 import { ArrowDown } from "lucide-react";
-import Scene3D from "./Scene3D";
 import { motion } from "framer-motion";
 import Reveal from "./Reveal";
 import StarsBackground from "./StarsBackground";
+import MobileHeroVisual from "./MobileHeroVisual";
+
+// Only import the heavy 3D scene on desktop — never downloaded on mobile
+const Scene3D = React.lazy(() => import("./Scene3D"));
 
 const Hero: React.FC = () => {
+  const [isMobile, setIsMobile] = React.useState(() =>
+    typeof window !== "undefined" ? window.innerWidth < 768 : true
+  );
+  const [shouldLoad3D, setShouldLoad3D] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  React.useEffect(() => {
+    // On mobile: never load Three.js — the entire bundle is skipped
+    if (isMobile) return;
+
+    // On desktop: tiny delay to let the HTML paint first, then boot WebGL
+    const timer = setTimeout(() => {
+      setShouldLoad3D(true);
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [isMobile]);
+
   return (
     <section
       id="home"
       className="min-h-screen w-full relative overflow-x-hidden bg-canvas-light"
     >
-      {/* 1. Base 3D Canvas Layer */}
+      {/* 1. Base Canvas Layer */}
       <div className="absolute inset-0 w-full h-full z-0 pointer-events-auto">
         {/* Global Engineering Blueprint Grid inside base */}
         <div
@@ -32,23 +58,38 @@ const Hero: React.FC = () => {
         {/* Stars Background for whole screen */}
         <StarsBackground colorClass="bg-electric" count={80} />
 
-        <div className="absolute inset-0 w-full h-full z-20 cursor-grab active:cursor-grabbing pointer-events-auto">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.5, delay: 0.2 }}
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
-        >
-          <Suspense
-            fallback={
-              <div className="w-full h-full flex items-center justify-center text-canvas-dark/60 font-mono text-xs animate-pulse">
-                LOADING 3D ASSET...
-              </div>
-            }
-          >
-            <Scene3D />
-          </Suspense>
-        </motion.div>
+        <div className="absolute inset-0 w-full h-full z-20 pointer-events-auto">
+          {isMobile ? (
+            /* Mobile: Lightweight SVG robot — zero JS, zero WebGL */
+            <div className="absolute inset-0 w-full h-full flex items-center justify-center">
+              <MobileHeroVisual />
+            </div>
+          ) : (
+            /* Desktop: Full 3D experience */
+            <div className="absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1.5, delay: 0.2 }}
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  width: "100%",
+                  height: "100%",
+                }}
+              >
+                <Suspense
+                  fallback={
+                    <div className="w-full h-full flex items-center justify-center text-canvas-dark/60 font-mono text-xs animate-pulse">
+                      LOADING 3D ASSET...
+                    </div>
+                  }
+                >
+                  {shouldLoad3D && <Scene3D />}
+                </Suspense>
+              </motion.div>
+            </div>
+          )}
         </div>
       </div>
 
@@ -65,53 +106,44 @@ const Hero: React.FC = () => {
               </Reveal>
             </div>
 
-            <div className="pointer-events-auto overflow-hidden mb-2 md:mb-6 w-full flex justify-center md:justify-start">
-              <motion.h1
-                initial={{ y: 100, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.6, ease: "circOut" }}
-                style={{ display: 'block', width: '100%' }}
-              >
+            <div className="pointer-events-auto overflow-hidden mb-2 md:mb-6 w-full flex justify-center md:justify-start animate-fade-in-up">
+              <h1 className="block w-full">
                 <span className="block text-[clamp(2.5rem,10vw,4.5rem)] md:text-[clamp(3.5rem,8vw,5.5rem)] lg:text-[clamp(3.5rem,7.5vw,8.5rem)] tracking-[-0.02em] font-display font-bold text-canvas-dark leading-none pt-2 pb-2 w-full text-center md:text-left">
                   Abdallah <br className="hidden md:block" />
                   <span className="text-canvas-dark/60">Wageeh</span>
                 </span>
-              </motion.h1>
+              </h1>
             </div>
 
-            {/* Spacer on Mobile for 3D Object to show through */}
+            {/* Spacer on Mobile for SVG robot to show through */}
             <div className="w-full h-[45vh] md:hidden pointer-events-none" />
 
-            <div className="pointer-events-auto mb-8 md:mb-8 mt-4 md:mt-0 w-full flex justify-center md:justify-start">
-              <Reveal delay={0.8}>
-                <p className="text-base sm:text-lg text-canvas-dark/80 max-w-xl mx-auto md:mx-0 font-light leading-relaxed text-center md:text-left">
-                  {PERSONAL_INFO.title} & <br className="hidden md:block" />
-                  <span className="text-canvas-dark/80 font-medium">
-                    Full Stack MERN Specialist
-                  </span>
-                  . Crafting scalable digital architectures with artistic
-                  precision.
-                </p>
-              </Reveal>
+            <div className="pointer-events-auto mb-8 md:mb-8 mt-4 md:mt-0 w-full flex justify-center md:justify-start animate-fade-in-up" style={{ animationDelay: '200ms' }}>
+              <p className="text-base sm:text-lg text-canvas-dark/80 max-w-xl mx-auto md:mx-0 font-light leading-relaxed text-center md:text-left">
+                {PERSONAL_INFO.title} & <br className="hidden md:block" />
+                <span className="text-canvas-dark/80 font-medium">
+                  Full Stack Specialist
+                </span>
+                . Crafting scalable digital architectures with artistic
+                precision.
+              </p>
             </div>
 
-            <div className="pointer-events-auto w-full flex justify-center md:justify-start">
-              <Reveal delay={1.0}>
-                <div className="flex flex-row gap-3 sm:gap-6 justify-center md:justify-start w-full">
-                  <a
-                    href="#projects"
-                    className="btn-primary w-full sm:w-auto text-sm sm:text-base whitespace-nowrap"
-                  >
-                    View Works
-                  </a>
-                  <a
-                    href="#contact"
-                    className="btn-outline w-full sm:w-auto text-sm sm:text-base whitespace-nowrap"
-                  >
-                    Contact Me
-                  </a>
-                </div>
-              </Reveal>
+            <div className="pointer-events-auto w-full flex justify-center md:justify-start animate-fade-in-up" style={{ animationDelay: '400ms' }}>
+              <div className="flex flex-row gap-3 sm:gap-6 justify-center md:justify-start w-full">
+                <a
+                  href="#projects"
+                  className="btn-primary w-full sm:w-auto text-sm sm:text-base whitespace-nowrap"
+                >
+                  View Works
+                </a>
+                <a
+                  href="#contact"
+                  className="btn-outline w-full sm:w-auto text-sm sm:text-base whitespace-nowrap"
+                >
+                  Contact Me
+                </a>
+              </div>
             </div>
           </div>
 
@@ -126,7 +158,7 @@ const Hero: React.FC = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 2, duration: 1 }}
-          style={{ display: 'flex' }}
+          style={{ display: "flex" }}
         >
           <span className="animate-bounce text-canvas-dark/60">
             <ArrowDown size={32} strokeWidth={1.5} />
