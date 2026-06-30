@@ -8,6 +8,8 @@ export interface Project {
   repo?: string;
   image?: string;
   gallery?: string[];
+  schemaImage?: string;
+  useCaseImage?: string;
   stats: string[];
   featured?: boolean;
 }

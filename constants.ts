@@ -21,6 +21,31 @@ export const PERSONAL_INFO = {
 
 export const PROJECTS: Project[] = [
   {
+    id: "omnipos",
+    title: "OmniPOS",
+    subtitle: "Local-First POS Desktop Application",
+    description: "A professional, ultra-fast point-of-sale (POS) desktop system designed for small and medium businesses. Built as a fully local (Local-First) application, it eliminates the need for internet connectivity or monthly subscriptions while providing real-time inventory management, instantaneous barcode scanning, and reliable thermal printing with background retry mechanisms.",
+    tags: [".NET 10", "Avalonia UI", "MVVM", "SQLite", "Dapper", "ClosedXML"],
+    stats: [
+      "Zero-latency barcode scanning",
+      "Offline-first architecture",
+      "Atomic transaction safety"
+    ],
+    image: "/projects/pos/Cover.png",
+    schemaImage: "/projects/pos/Schema.png",
+    useCaseImage: "/projects/pos/UseCase.png",
+    gallery: [
+      "/projects/pos/Dashboard-Home.png",
+      "/projects/pos/Dashboard-Cash.png",
+      "/projects/pos/Dashboard-Products.png",
+      "/projects/pos/Dashboard-Inovices.png",
+      "/projects/pos/Dashboard-Settings.png",
+      "/projects/pos/Add-Product.png",
+      "/projects/pos/Inovice.png"
+    ],
+    featured: true,
+  },
+  {
     id: "smartq",
     title: "SmartQ",
     subtitle: "Gamified Interactive Quiz Platform",

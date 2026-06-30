@@ -418,6 +418,36 @@ const ProjectDetails: React.FC = () => {
             </div>
           </section>
 
+          {/* ── ARCHITECTURE & USE CASE ── */}
+          {(project.schemaImage || project.useCaseImage) && (
+            <section className="py-16 md:py-24 border-b border-canvas-dark/10">
+              <div className="flex items-center gap-3 mb-10">
+                <Layers size={18} className="text-electric" />
+                <p className="font-mono text-xs text-canvas-dark/50 uppercase tracking-[0.25em]">
+                  Architecture & Use Cases
+                </p>
+              </div>
+              <div className="grid grid-cols-1 gap-16">
+                {project.schemaImage && (
+                  <div className="flex flex-col gap-6">
+                    <h3 className="font-display text-2xl font-bold text-canvas-dark">Database Schema</h3>
+                    <div className="w-full bg-white rounded-xl overflow-hidden ring-1 ring-canvas-dark/10 shadow-xl p-2 md:p-6 flex items-center justify-center">
+                      <img src={project.schemaImage} alt="Database Schema" className="max-w-full h-auto rounded shadow-sm" />
+                    </div>
+                  </div>
+                )}
+                {project.useCaseImage && (
+                  <div className="flex flex-col gap-6">
+                    <h3 className="font-display text-2xl font-bold text-canvas-dark">Use Case Diagram</h3>
+                    <div className="w-full bg-white rounded-xl overflow-hidden ring-1 ring-canvas-dark/10 shadow-xl p-2 md:p-6 flex items-center justify-center">
+                      <img src={project.useCaseImage} alt="Use Case Diagram" className="max-w-full h-auto rounded shadow-sm" />
+                    </div>
+                  </div>
+                )}
+              </div>
+            </section>
+          )}
+
           {/* ── GALLERY CAROUSEL ── */}
           {gallery.length > 0 && (
             <section className="py-16 md:py-24 border-b border-canvas-dark/10">

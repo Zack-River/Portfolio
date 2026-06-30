@@ -21,6 +21,7 @@ import Navbar from './components/Navbar';
 
 function App() {
   const [loading, setLoading] = useState(true);
+  const location = useLocation();
 
   // Lenis removed: Conflicted with Three.js WebGL rAF loop and caused massive layout thrashing.
   // We rely entirely on native CSS 'scroll-smooth' (already in index.html) for 0 CPU cost.
@@ -33,7 +34,7 @@ function App() {
       
       {!loading && (
         <div className="bg-canvas-light grain-overlay-container min-h-screen text-canvas-dark selection:bg-electric/90 selection:text-white">
-          <Navbar />
+          {location.pathname === '/' && <Navbar />}
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/projects" element={<ProjectsPage />} />
