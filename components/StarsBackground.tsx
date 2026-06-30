@@ -29,13 +29,12 @@ const StarsBackground: React.FC<StarsBackgroundProps> = ({ colorClass = "bg-whit
       {stars.map((star) => (
         <div
           key={star.id}
-          className={`absolute rounded-full ${colorClass} shadow-[0_0_8px_currentColor]`}
+          className={`absolute rounded-full ${colorClass}`}
           style={{
             left: `${star.x}%`,
             top: `${star.y}%`,
             width: `${star.size}px`,
             height: `${star.size}px`,
-            color: colorClass === 'bg-white' ? '#ffffff' : '#3d7fff', // For the currentColor shadow
             animation: `twinkleStar ${star.duration}s ease-in-out infinite ${star.delay}s`
           }}
         />

@@ -43,11 +43,11 @@ const Skills: React.FC = () => {
         </Reveal>
 
         {/* Grid Layout to align bottoms perfectly */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
-          {SKILL_CATEGORIES.map((category, idx) => {
-            return (
-              <Reveal key={idx} delay={idx * 0.1} className="h-full">
-                <div 
+        <Reveal delay={0.2} width="100%">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+            {SKILL_CATEGORIES.map((category, idx) => {
+              return (
+                <div key={idx}
                   className="bg-white/5 border border-white/10 rounded-2xl p-6 relative overflow-hidden h-full flex flex-col group hover:bg-white/[0.07] hover:border-white/20 hover:-translate-y-2 hover:shadow-[0_8px_30px_rgba(14,165,233,0.15)] transition-all duration-500 ease-out shadow-xl"
                 >
                   {/* Ghost Icon */}
@@ -74,10 +74,10 @@ const Skills: React.FC = () => {
                     </div>
                   </div>
                 </div>
-              </Reveal>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        </Reveal>
       </div>
     </section>
   );

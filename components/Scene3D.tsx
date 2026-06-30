@@ -4,7 +4,6 @@ import {
   OrbitControls,
   useGLTF,
   useAnimations,
-  Float,
   Environment,
 } from "@react-three/drei";
 import * as THREE from "three";
@@ -18,11 +17,10 @@ export function Model(props: any) {
   const { actions } = useAnimations(animations, group);
 
   useEffect(() => {
-    // Play all animations
-    if (actions) {
-      Object.values(actions).forEach((action) => {
-        action?.play();
-      });
+    // Play only the main idle animation to save CPU
+    if (actions && Object.values(actions).length > 0) {
+      const action = Object.values(actions)[0];
+      action?.play();
     }
 
     // Retheme the materials to match canvas-light and electric vibes
@@ -299,7 +297,7 @@ const Scene3D: React.FC = () => {
     <div className="w-full h-full bg-transparent relative overflow-hidden pointer-events-none">
       <Canvas 
         camera={{ position: [0, 2, 10], fov: 45 }}
-        dpr={[1, 1.5]}
+        dpr={1}
         gl={{ powerPreference: "high-performance", antialias: !isMobile, alpha: true }}
       >
         {/* Soft, even ambient lighting to match light background */}
@@ -310,7 +308,6 @@ const Scene3D: React.FC = () => {
           position={[10, 10, 5]}
           intensity={1.5}
           color="#ffffff"
-          castShadow
         />
 
         {/* Subtle electric blue rim light from the side */}
@@ -321,14 +318,12 @@ const Scene3D: React.FC = () => {
 
         <Environment preset="city" />
 
-        <Float speed={2} rotationIntensity={0.2} floatIntensity={0.5}>
-          <Model
-            position={
-              isMobile ? [0, -0.8, 0] : isTablet ? [2, -1.3, 0] : [3, -1.5, 0]
-            }
-            scale={isMobile ? 1.4 : isTablet ? 1.6 : 1.8}
-          />
-        </Float>
+        <Model
+          position={
+            isMobile ? [0, -0.8, 0] : isTablet ? [2, -1.3, 0] : [3, -1.5, 0]
+          }
+          scale={isMobile ? 1.4 : isTablet ? 1.6 : 1.8}
+        />
 
         {/* <OrbitControls
           enableZoom={false}

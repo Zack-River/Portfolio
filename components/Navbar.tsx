@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Home, User, Layers, Mail, Code, Users, Briefcase } from 'lucide-react';
+import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 
 const navItems = [
   { id: 'home', icon: Home, label: 'Home' },
@@ -14,25 +15,19 @@ const navItems = [
 
 const Navbar: React.FC = () => {
   const [isVisible, setIsVisible] = useState(true);
-  const lastScrollYRef = React.useRef(0);
   const [activeSection, setActiveSection] = useState('home');
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious() || 0;
+    if (latest > previous && latest > 50) {
+      setIsVisible(false);
+    } else if (latest < previous || latest <= 50) {
+      setIsVisible(true);
+    }
+  });
 
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      
-      // Hide navbar if scrolling down and past 50px
-      if (currentScrollY > lastScrollYRef.current && currentScrollY > 50) {
-        setIsVisible(false);
-      } 
-      // Show navbar if scrolling up or at the top
-      else if (currentScrollY < lastScrollYRef.current || currentScrollY <= 50) {
-        setIsVisible(true);
-      }
-
-      lastScrollYRef.current = currentScrollY;
-    };
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -49,11 +44,7 @@ const Navbar: React.FC = () => {
       if (element) observer.observe(element);
     });
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      observer.disconnect();
-    };
+    return () => observer.disconnect();
   }, []);
 
   const navigate = useNavigate();
@@ -71,10 +62,14 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <div 
-      className={`fixed bottom-6 md:bottom-auto md:top-6 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-in-out ${
-        isVisible ? 'translate-y-0 opacity-100' : 'translate-y-[150%] md:translate-y-[-150%] opacity-0'
-      }`}
+    <motion.div 
+      initial={{ y: 0, opacity: 1 }}
+      animate={{ 
+        y: isVisible ? 0 : (window.innerWidth < 768 ? 150 : -150),
+        opacity: isVisible ? 1 : 0
+      }}
+      transition={{ duration: 0.4, ease: "easeInOut" }}
+      className="fixed bottom-6 md:bottom-auto md:top-6 left-1/2 -translate-x-1/2 z-50"
     >
       <nav className="flex items-center space-x-1 md:space-x-2 px-4 py-2 md:px-6 md:py-3 bg-white/80 backdrop-blur-lg rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-canvas-dark/5">
         {navItems.map((item) => (
@@ -91,7 +86,7 @@ const Navbar: React.FC = () => {
           </button>
         ))}
       </nav>
-    </div>
+    </motion.div>
   );
 };
 

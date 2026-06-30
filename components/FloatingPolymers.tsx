@@ -1,5 +1,4 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useMemo } from 'react';
 
 // SVG Paths for wireframe 3D shapes
 const SHAPES = {
@@ -13,7 +12,7 @@ const SHAPE_KEYS = Object.keys(SHAPES) as (keyof typeof SHAPES)[];
 
 const FloatingPolymers: React.FC = () => {
   // Generate 8 floating shapes
-  const polymers = Array.from({ length: 8 }).map((_, i) => {
+  const polymers = useMemo(() => Array.from({ length: 8 }).map((_, i) => {
     const shape = SHAPE_KEYS[i % SHAPE_KEYS.length];
     const size = Math.random() * 60 + 40; // 40px to 100px
     const left = Math.random() * 100; // 0% to 100%
@@ -22,12 +21,19 @@ const FloatingPolymers: React.FC = () => {
     const delay = Math.random() * -20; // Random start time
 
     return { id: i, shape, size, left, top, duration, delay };
-  });
+  }), []);
 
   return (
     <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+      <style>{`
+        @keyframes floatPolymer {
+          0% { transform: translateY(0%) rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+          50% { transform: translateY(-50%) rotateX(180deg) rotateY(360deg) rotateZ(180deg); }
+          100% { transform: translateY(0%) rotateX(360deg) rotateY(0deg) rotateZ(360deg); }
+        }
+      `}</style>
       {polymers.map((poly) => (
-        <motion.div
+        <div
           key={poly.id}
           className="absolute text-electric/10" // Subtle electric blue line color
           style={{
@@ -35,18 +41,7 @@ const FloatingPolymers: React.FC = () => {
             top: `${poly.top}%`,
             width: poly.size,
             height: poly.size,
-          }}
-          animate={{
-            y: ["0%", "-50%", "0%"],
-            rotateX: [0, 180, 360],
-            rotateY: [0, 360, 0],
-            rotateZ: [0, 180, 360],
-          }}
-          transition={{
-            duration: poly.duration,
-            repeat: Infinity,
-            ease: "linear",
-            delay: poly.delay,
+            animation: `floatPolymer ${poly.duration}s linear infinite ${poly.delay}s`
           }}
         >
           <svg
@@ -60,7 +55,7 @@ const FloatingPolymers: React.FC = () => {
           >
             <path d={SHAPES[poly.shape]} />
           </svg>
-        </motion.div>
+        </div>
       ))}
     </div>
   );

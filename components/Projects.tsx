@@ -17,10 +17,10 @@ const Projects: React.FC = () => {
           />
         </Reveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-stretch">
-          {PROJECTS.filter(p => p.featured).slice(0, 4).map((project) => (
-            <Link to={`/project/${project.id}`} key={project.id} className="relative group block">
-              <Reveal width="100%">
+        <Reveal delay={0.2} width="100%">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-stretch">
+            {PROJECTS.filter(p => p.featured).slice(0, 4).map((project) => (
+              <Link to={`/project/${project.id}`} key={project.id} className="relative group block">
                 <div className="w-full bg-white rounded-xl overflow-hidden ring-1 ring-canvas-dark/10 shadow-xl transition-all duration-500 group-hover:shadow-2xl group-hover:-translate-y-2">
                   {/* Browser Header */}
                   <div className="h-10 bg-canvas-dark/5 border-b border-canvas-dark/10 flex items-center px-4 relative z-30 transition-colors group-hover:bg-canvas-dark/10">
@@ -46,7 +46,7 @@ const Projects: React.FC = () => {
                         src={project.image} 
                         alt={project.title} 
                         loading="lazy"
-                        className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                        className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 will-change-transform group-hover:scale-105"
                       />
                     ) : (
                       <div className="absolute inset-0 p-8 font-mono text-xs text-canvas-dark/30 overflow-hidden leading-tight select-none">
@@ -76,10 +76,10 @@ const Projects: React.FC = () => {
                     View Case Study <ArrowRight size={14} />
                   </span>
                 </div>
-              </Reveal>
-            </Link>
-          ))}
-        </div>
+              </Link>
+            ))}
+          </div>
+        </Reveal>
 
         {/* View All Projects CTA */}
         <div className="mt-16 flex justify-center">

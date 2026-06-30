@@ -85,9 +85,10 @@ const About: React.FC = () => {
               </Reveal>
 
               <div className="space-y-8">
-              {TRAINING.map((job, idx) => (
-                <Reveal key={idx} delay={0.5 + idx * 0.1}>
-                  <div className="border-l border-canvas-dark/10 pl-6 py-2 relative group w-fit mx-auto md:mx-0 md:w-full">
+              <Reveal delay={0.5} width="100%">
+                <div className="space-y-8">
+                  {TRAINING.map((job, idx) => (
+                    <div key={idx} className="border-l border-canvas-dark/10 pl-6 py-2 relative group w-fit mx-auto md:mx-0 md:w-full">
                     <span className="absolute left-[-5px] top-2 w-2 h-2 bg-canvas-dark/60 group-hover:bg-electric transition-colors rounded-full"></span>
                     <h4 className="text-xl text-primary">{job.role}</h4>
                     <p className="text-secondary text-sm mb-2">
@@ -107,8 +108,9 @@ const About: React.FC = () => {
                       ))}
                     </ul>
                   </div>
-                </Reveal>
-              ))}
+                  ))}
+                </div>
+              </Reveal>
             </div>
           </div>
         </div>
