@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PROJECTS } from '../constants';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -7,15 +7,46 @@ import Reveal from '../components/Reveal';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
+const CATEGORIES = ["All", "Landing Pages", "Web Apps", "UI/UX Designs", "Backend", "Desktop Apps", "QA"];
+
+const getProjectCategories = (id: string): string[] => {
+  const cats: string[] = ["All"];
+  
+  const landingPages = ["luxe-dental", "khaled-nasser", "ahmed-hakim", "hotel-pro", "tutor-landing-page", "dr-sara-ragab"];
+  const webApps = ["smartq", "ding", "mostafa-nawareg", "streamflow", "karbala"];
+  const backend = ["ding", "smartq", "karbala", "mostafa-nawareg"];
+  const desktopApps = ["omnipos"];
+  const qa = ["beeplayer-qa"];
+  
+  if (landingPages.includes(id)) cats.push("Landing Pages");
+  if (webApps.includes(id)) cats.push("Web Apps");
+  if (backend.includes(id)) cats.push("Backend");
+  if (desktopApps.includes(id)) cats.push("Desktop Apps");
+  if (qa.includes(id)) cats.push("QA");
+  
+  if (id !== "omnipos" && id !== "beeplayer-qa") {
+    cats.push("UI/UX Designs");
+  }
+  
+  return cats;
+};
+
 const ProjectsPage: React.FC = () => {
+  const [activeFilter, setActiveFilter] = useState("All");
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
+  const filteredProjects = PROJECTS.filter(project => {
+    const projectCategories = getProjectCategories(project.id);
+    return projectCategories.includes(activeFilter);
+  });
+
   return (
     <div className="bg-canvas-light min-h-screen text-canvas-dark relative">
       <main className="pt-32 pb-24 md:pt-40 md:pb-32 section-container mx-auto min-h-screen">
-        <div className="mb-16 md:mb-24 max-w-3xl">
+        <div className="mb-12 max-w-3xl">
           <Reveal>
             <Link to="/" className="inline-flex items-center gap-2 text-canvas-dark/60 hover:text-electric transition-colors mb-8 font-mono text-sm">
               <ArrowLeft size={16} />
@@ -34,19 +65,41 @@ const ProjectsPage: React.FC = () => {
           </Reveal>
         </div>
 
+        {/* Filter Buttons */}
+        <Reveal delay={0.3}>
+          <div className="flex flex-wrap gap-3 mb-12">
+            {CATEGORIES.map(category => (
+              <button
+                key={category}
+                onClick={() => setActiveFilter(category)}
+                className={`px-5 py-2.5 rounded-full font-mono text-sm transition-all duration-300 border ${
+                  activeFilter === category 
+                    ? 'bg-electric text-white border-electric shadow-lg shadow-electric/20' 
+                    : 'bg-white text-canvas-dark/70 border-canvas-dark/10 hover:border-electric/50 hover:text-electric hover:bg-electric/5'
+                }`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+        </Reveal>
+
         {/* Bento Box Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 auto-rows-[300px]">
-          {PROJECTS.map((project, index) => {
-            // Logic to create a varied Bento layout based on index
-            // We want some to be wide (col-span-2), some tall (row-span-2), some large (col-span-2 row-span-2)
+          {filteredProjects.map((project, index) => {
+            // Logic to create a varied Bento layout based on index ONLY when 'All' is selected
             let bentoClasses = "col-span-1 row-span-1";
             
-            if (index === 0) {
-              bentoClasses = "md:col-span-2 lg:col-span-2 lg:row-span-2"; 
-            } else if (index === 3) {
-              bentoClasses = "md:col-span-2 lg:col-span-1";
-            } else if (index === 7) {
-              bentoClasses = "lg:col-span-2 lg:row-span-2";
+            if (activeFilter === "All") {
+              if (index === 0) {
+                bentoClasses = "md:col-span-2 lg:col-span-2 lg:row-span-2"; 
+              } else if (index === 3) {
+                bentoClasses = "md:col-span-2 lg:col-span-1";
+              } else if (index === 7) {
+                bentoClasses = "lg:col-span-2 lg:row-span-2";
+              } else if (index === 12) {
+                bentoClasses = "lg:col-span-2";
+              }
             }
 
             return (
@@ -112,11 +165,6 @@ const ProjectsPage: React.FC = () => {
                   {project.link && project.link !== "#" && (
                     <a href={project.link} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-canvas-dark/80 backdrop-blur-md text-white flex items-center justify-center hover:bg-electric transition-colors" title="Live Demo">
                       <ExternalLink size={16} />
-                    </a>
-                  )}
-                  {project.repo && (
-                    <a href={project.repo} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-canvas-dark/80 backdrop-blur-md text-white flex items-center justify-center hover:bg-electric transition-colors" title="Source Code">
-                      <Github size={16} />
                     </a>
                   )}
                 </div>

@@ -32,7 +32,7 @@ const SERVICES_DATA = [
     id: "consultation",
     title: "Online Consultation",
     description: "Expert guidance on system design, code architecture, and technical problem-solving.",
-    includes: ["Frontend / Backend", "Desktop & Mobile Apps", "System Architecture", "Systems Documents"],
+    includes: ["Frontend / Backend", "Desktop & Mobile Apps", "System Architecture", "Projects Document Writing", "QA Testing"],
     icon: <Stethoscope className="text-electric" size={32} />,
     action: {
       text: "Book ($10/h)",

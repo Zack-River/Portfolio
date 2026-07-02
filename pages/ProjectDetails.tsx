@@ -241,14 +241,14 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({ images, title
         {images.length > 1 && (
           <>
             <button
-              onClick={prev}
+              onClick={(e) => { e.stopPropagation(); prev(); }}
               aria-label="Previous image"
               className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-white/15 backdrop-blur-sm border border-white/20 rounded-full text-white hover:bg-white/30 hover:scale-110 transition-all duration-200"
             >
               <ChevronLeft size={20} />
             </button>
             <button
-              onClick={next}
+              onClick={(e) => { e.stopPropagation(); next(); }}
               aria-label="Next image"
               className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-white/15 backdrop-blur-sm border border-white/20 rounded-full text-white hover:bg-white/30 hover:scale-110 transition-all duration-200"
             >
@@ -344,26 +344,16 @@ const ProjectDetails: React.FC = () => {
         className="fixed top-0 left-0 right-0 z-50 bg-canvas-light/80 backdrop-blur-xl border-b border-canvas-dark/10 flex items-center justify-between px-6 md:px-12 h-16"
       >
         <Link
-          to="/"
+          to="/projects"
           className="flex items-center gap-2 text-canvas-dark/70 hover:text-canvas-dark transition-colors text-sm font-medium"
         >
-          <ArrowLeft size={16} /> Portfolio
+          <ArrowLeft size={16} /> Projects
         </Link>
         <span className="font-display font-bold text-canvas-dark tracking-tight hidden md:block">
           {project.title}
         </span>
         <div className="flex items-center gap-3">
-          {project.repo && (
-            <a
-              href={project.repo}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-sm font-medium text-canvas-dark/70 hover:text-canvas-dark transition-colors border border-canvas-dark/15 px-4 py-1.5 rounded-full"
-            >
-              <Github size={16} />
-              <span className="hidden md:inline">Source Code</span>
-            </a>
-          )}
+
           {project.link && (
             <a
               href={project.link}
@@ -417,7 +407,7 @@ const ProjectDetails: React.FC = () => {
         />
 
         <Link
-          to="/"
+          to="/projects"
           className="absolute top-6 left-6 flex items-center gap-2 text-white/80 hover:text-white text-sm font-medium bg-white/10 backdrop-blur-sm border border-white/10 px-4 py-2 rounded-full transition-colors z-10"
         >
           <ArrowLeft size={14} /> Back
@@ -461,16 +451,7 @@ const ProjectDetails: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.55 }}
             className="mt-8 flex flex-wrap gap-3"
           >
-            {project.repo && (
-              <a
-                href={project.repo}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-5 py-2.5 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-full text-sm font-medium hover:bg-white/20 transition-colors"
-              >
-                <Github size={16} /> Source Code
-              </a>
-            )}
+
             {project.link && (
               <a
                 href={project.link}
@@ -568,16 +549,7 @@ const ProjectDetails: React.FC = () => {
 
                 {/* CTA Links — GitHub + Demo side by side */}
                 <div className="mt-10 flex flex-col sm:flex-row gap-4">
-                  {project.repo && (
-                    <a
-                      href={project.repo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-secondary"
-                    >
-                      <Github size={18} /> Source Code
-                    </a>
-                  )}
+
                   {project.link && (
                     <a
                       href={project.link}
@@ -685,14 +657,13 @@ const ProjectDetails: React.FC = () => {
             </div>
           </section>
 
-          {/* ── NEXT PROJECT / BACK ── */}
           <section className="py-16 md:py-24 flex flex-col md:flex-row items-center justify-between gap-8">
             <Link
               to="/"
               className="flex items-center gap-3 text-canvas-dark/60 hover:text-canvas-dark transition-colors font-medium group"
             >
               <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
-              Back to Portfolio
+              Back to Home
             </Link>
 
             {(() => {
