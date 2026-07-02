@@ -12,12 +12,119 @@ import {
   ChevronRight,
   ChevronLeft,
   LayoutGrid,
+  X,
 } from 'lucide-react';
+import { UseCase } from '../types';
+
+/* ── USE CASE CAROUSEL COMPONENT ── */
+const UseCaseCarousel: React.FC<{ useCases: UseCase[]; title: string }> = ({ useCases, title }) => {
+  const [current, setCurrent] = useState(0);
+  const [direction, setDirection] = useState(0);
+
+  const goTo = useCallback((next: number) => {
+    setDirection(next > current ? 1 : -1);
+    setCurrent(next);
+  }, [current]);
+
+  const prev = () => goTo((current - 1 + useCases.length) % useCases.length);
+  const next = () => goTo((current + 1) % useCases.length);
+
+  const variants = {
+    enter: (d: number) => ({ x: d > 0 ? '100%' : '-100%', opacity: 0 }),
+    center: { x: 0, opacity: 1 },
+    exit: (d: number) => ({ x: d > 0 ? '-100%' : '100%', opacity: 0 }),
+  };
+
+  if (useCases.length === 0) return null;
+
+  return (
+    <div className="w-full">
+      <div className="relative w-full aspect-square md:aspect-video lg:aspect-21/9 bg-[radial-gradient(circle_at_center,#ffffff_0%,#e5e7eb_100%)] rounded-2xl overflow-hidden ring-1 ring-black/5 shadow-xl flex items-center justify-center p-6 md:p-16">
+        <AnimatePresence custom={direction} initial={false} mode="wait">
+          <motion.div
+            key={current}
+            custom={direction}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ duration: 0.4, ease: 'easeInOut' }}
+            className="absolute inset-0 w-full h-full p-8 md:p-16 flex flex-col justify-center overflow-y-auto scrollbar-hide"
+          >
+            <div className="max-w-3xl mx-auto w-full pb-8">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-4">
+                <span className="self-start px-3 py-1 bg-electric/10 text-electric text-xs font-mono rounded-full border border-electric/20 whitespace-nowrap">
+                  {useCases[current].id}
+                </span>
+                <h3 className="text-xl md:text-3xl font-display font-bold text-electric leading-tight">
+                  {useCases[current].title}
+                </h3>
+              </div>
+              <p className="text-black/80 text-sm md:text-base leading-relaxed mb-6 font-sans">
+                {useCases[current].description}
+              </p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 pt-6 border-t border-black/10">
+                <div>
+                  <p className="font-mono text-xs text-electric uppercase tracking-widest mb-2">Steps</p>
+                  <p className="text-black text-sm leading-relaxed font-medium">{useCases[current].steps}</p>
+                </div>
+                <div>
+                  <p className="font-mono text-xs text-electric uppercase tracking-widest mb-2">Expected Result</p>
+                  <p className="text-black text-sm leading-relaxed font-medium">{useCases[current].expectedResult}</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Gradient vignette on sides */}
+        <div className="absolute inset-0 bg-linear-to-r from-black/5 via-transparent to-black/5 pointer-events-none" />
+
+        {useCases.length > 1 && (
+          <>
+            <button
+              onClick={prev}
+              aria-label="Previous use case"
+              className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-white/50 backdrop-blur-md border border-black/10 rounded-full text-black/50 hover:text-black hover:bg-white/80 hover:border-black/20 transition-all duration-200 shadow-sm"
+            >
+              <ChevronLeft size={20} />
+            </button>
+            <button
+              onClick={next}
+              aria-label="Next use case"
+              className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-white/50 backdrop-blur-md border border-black/10 rounded-full text-black/50 hover:text-black hover:bg-white/80 hover:border-black/20 transition-all duration-200 shadow-sm"
+            >
+              <ChevronRight size={20} />
+            </button>
+          </>
+        )}
+
+        {useCases.length > 1 && (
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+            {useCases.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => goTo(i)}
+                aria-label={`Go to use case ${i + 1}`}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  i === current ? 'bg-electric w-6' : 'bg-black/20 hover:bg-black/40'
+                }`}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
 
 /* ── CAROUSEL COMPONENT ── */
 const Carousel: React.FC<{ images: string[]; title: string }> = ({ images, title }) => {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(0); // -1 = left, 1 = right
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const goTo = useCallback(
     (next: number) => {
@@ -27,8 +134,20 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({ images, title
     [current]
   );
 
-  const prev = () => goTo((current - 1 + images.length) % images.length);
-  const next = () => goTo((current + 1) % images.length);
+  const prev = useCallback(() => goTo((current - 1 + images.length) % images.length), [current, images.length, goTo]);
+  const next = useCallback(() => goTo((current + 1) % images.length), [current, images.length, goTo]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (isModalOpen) {
+        if (e.key === 'Escape') setIsModalOpen(false);
+        if (e.key === 'ArrowRight') next();
+        if (e.key === 'ArrowLeft') prev();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isModalOpen, next, prev]);
 
   const variants = {
     enter: (d: number) => ({ x: d > 0 ? '100%' : '-100%', opacity: 0 }),
@@ -40,8 +159,65 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({ images, title
 
   return (
     <div className="w-full">
+      {/* Fullscreen Modal */}
+      <AnimatePresence>
+        {isModalOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-100 flex items-center justify-center bg-black/95 backdrop-blur-md p-4 md:p-8"
+            onClick={() => setIsModalOpen(false)}
+          >
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="absolute top-4 right-4 md:top-8 md:right-8 z-110 p-3 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors"
+            >
+              <X size={24} />
+            </button>
+            
+            <div className="relative w-full h-full max-w-7xl flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
+              <AnimatePresence custom={direction} initial={false} mode="wait">
+                <motion.img
+                  key={current}
+                  custom={direction}
+                  variants={variants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  src={images[current]}
+                  alt={`${title} – fullscreen screenshot ${current + 1}`}
+                  className="absolute max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+                />
+              </AnimatePresence>
+              
+              {images.length > 1 && (
+                <>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); prev(); }}
+                    className="absolute left-2 md:-left-16 top-1/2 -translate-y-1/2 z-110 p-3 bg-black/50 hover:bg-black/80 rounded-full text-white transition-colors border border-white/10"
+                  >
+                    <ChevronLeft size={24} />
+                  </button>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); next(); }}
+                    className="absolute right-2 md:-right-16 top-1/2 -translate-y-1/2 z-110 p-3 bg-black/50 hover:bg-black/80 rounded-full text-white transition-colors border border-white/10"
+                  >
+                    <ChevronRight size={24} />
+                  </button>
+                </>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Slide container */}
-      <div className="relative w-full aspect-video bg-canvas-dark rounded-2xl overflow-hidden ring-1 ring-canvas-dark/10 shadow-xl">
+      <div 
+        className="relative w-full aspect-video bg-canvas-dark rounded-2xl overflow-hidden ring-1 ring-canvas-dark/10 shadow-xl cursor-zoom-in group"
+        onClick={() => setIsModalOpen(true)}
+      >
         <AnimatePresence custom={direction} initial={false} mode="wait">
           <motion.img
             key={current}
@@ -54,12 +230,12 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({ images, title
             src={images[current]}
             alt={`${title} – screenshot ${current + 1}`}
             loading="lazy"
-            className="absolute inset-0 w-full h-full object-cover object-top"
+            className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-700"
           />
         </AnimatePresence>
 
         {/* Gradient vignette on sides */}
-        <div className="absolute inset-0 bg-gradient-to-r from-canvas-dark/30 via-transparent to-canvas-dark/30 pointer-events-none" />
+        <div className="absolute inset-0 bg-linear-to-r from-canvas-dark/30 via-transparent to-canvas-dark/30 pointer-events-none" />
 
         {/* Prev / Next buttons — same width as the container, anchored inside it */}
         {images.length > 1 && (
@@ -228,10 +404,9 @@ const ProjectDetails: React.FC = () => {
 
         {/* Dynamic gradient */}
         <motion.div
+          className="absolute inset-0 bg-linear-to-t from-canvas-dark via-canvas-dark/40 to-transparent z-10 pointer-events-none"
           style={{ opacity: overlayOpacity }}
-          className="absolute inset-0 bg-gradient-to-t from-canvas-dark via-canvas-dark/90 to-canvas-dark/60"
         />
-
         <div
           className="absolute inset-0 pointer-events-none opacity-[0.04]"
           style={{
@@ -445,6 +620,25 @@ const ProjectDetails: React.FC = () => {
                   </div>
                 )}
               </div>
+            </section>
+          )}
+
+          {/* ── USE CASES CAROUSEL ── */}
+          {project.useCases && project.useCases.length > 0 && (
+            <section className="py-16 md:py-24 border-b border-canvas-dark/10">
+              <div className="flex items-center gap-3 mb-10">
+                <LayoutGrid size={18} className="text-electric" />
+                <p className="font-mono text-xs text-canvas-dark/50 uppercase tracking-[0.25em]">
+                  Use Cases
+                </p>
+                <span className="ml-auto font-mono text-xs text-canvas-dark/30">
+                  {project.useCases.length} {project.useCases.length === 1 ? 'case' : 'cases'}
+                </span>
+              </div>
+              <UseCaseCarousel useCases={project.useCases} title={`${project.title} Use Cases`} />
+              <p className="mt-4 text-center text-canvas-dark/40 font-mono text-xs">
+                Use the arrows or dots to navigate
+              </p>
             </section>
           )}
 

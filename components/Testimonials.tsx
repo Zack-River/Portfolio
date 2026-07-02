@@ -19,7 +19,7 @@ const TESTIMONIALS = [
     image: "/clients/jaffar.webp"
   },
   {
-    name: "Ahmed N.",
+    name: "Ali I.",
     rating: 5,
     text: "One of the best engineers I've dealt with. He always finds solutions to complex programming challenges and the design was a perfect fit for my brand. Highly recommended.",
     image: "/clients/ahmed.webp"
@@ -89,7 +89,7 @@ const Testimonials: React.FC = () => {
                 </div>
                 
                 {/* Review Content */}
-                <p className="text-white/70 text-sm leading-relaxed flex-grow relative z-10 font-sans">
+                <p className="text-white/70 text-sm leading-relaxed grow relative z-10 font-sans">
                   "{testo.text}"
                 </p>
                 

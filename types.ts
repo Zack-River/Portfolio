@@ -1,3 +1,11 @@
+export interface UseCase {
+  id: string;
+  title: string;
+  description: string;
+  steps: string;
+  expectedResult: string;
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -10,6 +18,7 @@ export interface Project {
   gallery?: string[];
   schemaImage?: string;
   useCaseImage?: string;
+  useCases?: UseCase[];
   stats: string[];
   featured?: boolean;
 }

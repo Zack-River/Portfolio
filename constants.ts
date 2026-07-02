@@ -1,19 +1,26 @@
-import { Project, SkillCategory, Education, Experience, Service } from './types';
-import { 
-  Server, 
-  Database, 
-  Globe, 
-  ShieldCheck, 
-  Cpu, 
-  Layers 
-} from 'lucide-react';
+import {
+  Project,
+  SkillCategory,
+  Education,
+  Experience,
+  Service,
+} from "./types";
+import {
+  Server,
+  Database,
+  Globe,
+  ShieldCheck,
+  Cpu,
+  Layers,
+} from "lucide-react";
 
 export const PERSONAL_INFO = {
   name: "Abdallah Wageeh Ahmed",
   title: "Software Engineer",
-  subtitle: "Building scalable web applications and backend systems with a focus on performance, clean architecture, and long-term maintainability.",
-  email: "zackriver.dev@gmail.com",
-  phone: "+20 1201024880",
+  subtitle:
+    "Building scalable web applications and backend systems with a focus on performance, clean architecture, and long-term maintainability.",
+  email: "[EMAIL_ADDRESS]",
+  phone: "+201201024880",
   linkedin: "linkedin.com/in/labdallah-wageehl",
   github: "github.com/Zack-River",
   bio: "Software Engineer specializing in full-stack and backend development with a strong focus on scalable architecture, performance, and maintainability. I build modern web applications, REST APIs, authentication systems, CMS platforms, and real-time solutions while emphasizing clean code and long-term reliability. My goal is to create software that not only works today but continues to scale as products grow.",
@@ -21,15 +28,152 @@ export const PERSONAL_INFO = {
 
 export const PROJECTS: Project[] = [
   {
+    id: "beeplayer-qa",
+    title: "BeePlayer Smart TV",
+    subtitle: "End-to-End QA Testing & Certification (Samsung Tizen)",
+    description:
+      "This project involved a complete End-to-End Quality Assurance cycle for the BeePlayer Smart TV application built for Samsung Tizen OS. The goal was not only to detect functional defects, but to validate full system readiness for production deployment, including UI behavior, media playback stability, remote control interactions, and Smart TV platform compliance. A full structured QA deliverable was produced, including Test Case Execution Logs, Use Case Documentation, Bug Tracking Report, and System-level certification audit.",
+    tags: ["QA Testing", "Samsung Tizen", "Smart TV", "Test Cases"],
+    stats: [
+      "100% Test Case Coverage",
+      "System-level Tizen audit",
+      "4K Cross-resolution testing",
+    ],
+    image: "/projects/beeplayer/Cover.png",
+    gallery: [
+      "/projects/beeplayer/gallery/bug-1.png",
+      "/projects/beeplayer/gallery/bug-2.png",
+      "/projects/beeplayer/gallery/bug-3.png",
+    ],
+    useCases: [
+      {
+        id: "UC-001",
+        title: "Invalid Login Handling",
+        description:
+          "Verify the system prevents access using invalid credentials and provides clear UX feedback.",
+        steps:
+          "1. Navigate to Login. 2. Enter invalid Username/Password. 3. Submit.",
+        expectedResult:
+          "Access denied. A red span element must display indicating wrong credentials.",
+      },
+      {
+        id: "UC-008",
+        title: "Password Update Validation",
+        description:
+          "Verify the system rejects password updates that identically match the current password.",
+        steps:
+          "1. Navigate to Account settings. 2. Attempt to update password to the exact same string.",
+        expectedResult:
+          "System rejects the update with a 'Must be a new password' validation error.",
+      },
+      {
+        id: "UC-002",
+        title: "Focus Management on Keyboard Dismissal",
+        description:
+          "Verify element focus is correctly released when the OS-level virtual keyboard is closed.",
+        steps:
+          "1. Select an input field to open the TV keyboard. 2. Press 'Done' or 'Back' on the remote. 3. Attempt D-Pad navigation.",
+        expectedResult:
+          "The input field triggers a .blur() event to release focus, allowing standard spatial navigation to resume smoothly.",
+      },
+      {
+        id: "UC-003",
+        title: "Hardware Media Keys Registration",
+        description:
+          "Verify Samsung physical remote media keys are registered with the OS and functional.",
+        steps:
+          "1. Launch video playback. 2. Press physical Play, Pause, Fast Forward, and Menu keys.",
+        expectedResult:
+          "Video playback and UI respond correctly to hardware media keys via Tizen's tvinputdevice API.",
+      },
+      {
+        id: "UC-004",
+        title: "D-Pad Spatial Navigation Parity",
+        description:
+          "Verify all interactive elements are easily reachable via physical D-Pad arrows without a mouse.",
+        steps:
+          "1. Launch app. 2. Navigate exclusively using Up/Down/Left/Right arrows.",
+        expectedResult:
+          "Focus states (:focus) move logically to adjacent UI elements in all directions.",
+      },
+      {
+        id: "UC-011",
+        title: "Contextual Back Navigation",
+        description:
+          "Verify standard 'Back' / 'Return' behavior when deep inside nested categories.",
+        steps:
+          "1. Navigate to a specific sub-filter or category. 2. Enter a channel. 3. Press physical Back key.",
+        expectedResult:
+          "User is returned to the previously active category or filter state, not hard-redirected to the root 'All' section.",
+      },
+      {
+        id: "UC-013",
+        title: "Media Playback Initialization",
+        description:
+          "Verify live channels and VOD movies load and play successfully from the CDN.",
+        steps: "1. Select media from the catalog. 2. Press Play/OK.",
+        expectedResult:
+          "Media buffers and plays smoothly without codec errors or permanent loading screens.",
+      },
+      {
+        id: "UC-019",
+        title: "Play/Pause Controls",
+        description:
+          "Verify core video control functionality via the player UI overlay.",
+        steps:
+          "1. During active playback, select the on-screen Play/Pause button.",
+        expectedResult:
+          "Video pauses and resumes synchronously with the UI state toggle.",
+      },
+      {
+        id: "UC-023",
+        title: "Resolution Control",
+        description:
+          "Verify manual video quality selection for bandwidth management.",
+        steps: "1. Open player controls. 2. Select resolution toggle.",
+        expectedResult:
+          "App provides options for 720p, 1080p, and Auto, transitioning seamlessly between streams.",
+      },
+      {
+        id: "UC-015",
+        title: "Keyword Search Execution",
+        description:
+          "Verify search accuracy and API response for exact-match English titles.",
+        steps: "1. Enter known English movie title in search. 2. Submit.",
+        expectedResult: "Accurate media results are returned instantly.",
+      },
+      {
+        id: "UC-006 & UC-018",
+        title: "Favorites (Love) Synchronization",
+        description:
+          "Verify favorite toggles update the global application state instantly.",
+        steps:
+          "1. Click 'Love' on a movie/series poster. 2. Navigate to Favorites list.",
+        expectedResult:
+          "Item is instantly bound/unbound and visible in the Favorites menu without requiring an app restart.",
+      },
+      {
+        id: "UC-028",
+        title: "4K Resolution Responsiveness",
+        description: "Verify UI viewport scaling on Ultra-HD displays.",
+        steps: "1. Launch app on 3840x2160 Tizen environment.",
+        expectedResult:
+          "App utilizes proper Tizen viewport tags or relative CSS (vw/vh) to scale the UI dynamically, filling the entire physical screen.",
+      },
+    ],
+    featured: true,
+  },
+  {
     id: "omnipos",
     title: "OmniPOS",
     subtitle: "Local-First POS Desktop Application",
-    description: "A professional, ultra-fast point-of-sale (POS) desktop system designed for small and medium businesses. Built as a fully local (Local-First) application, it eliminates the need for internet connectivity or monthly subscriptions while providing real-time inventory management, instantaneous barcode scanning, and reliable thermal printing with background retry mechanisms.",
+    description:
+      "A professional, ultra-fast point-of-sale (POS) desktop system designed for small and medium businesses. Built as a fully local (Local-First) application, it eliminates the need for internet connectivity or monthly subscriptions while providing real-time inventory management, instantaneous barcode scanning, and reliable thermal printing with background retry mechanisms.",
     tags: [".NET 10", "Avalonia UI", "MVVM", "SQLite", "Dapper", "ClosedXML"],
     stats: [
       "Zero-latency barcode scanning",
       "Offline-first architecture",
-      "Atomic transaction safety"
+      "Atomic transaction safety",
     ],
     image: "/projects/pos/Cover.png",
     schemaImage: "/projects/pos/Schema.png",
@@ -41,7 +185,7 @@ export const PROJECTS: Project[] = [
       "/projects/pos/Dashboard-Inovices.png",
       "/projects/pos/Dashboard-Settings.png",
       "/projects/pos/Add-Product.png",
-      "/projects/pos/Inovice.png"
+      "/projects/pos/Inovice.png",
     ],
     featured: true,
   },
@@ -49,14 +193,15 @@ export const PROJECTS: Project[] = [
     id: "smartq",
     title: "SmartQ",
     subtitle: "Gamified Interactive Quiz Platform",
-    description: "A modern educational platform designed to transform traditional testing into an engaging, gamified experience. Empowers students with interactive quizzes and provides instructors with advanced management tools.",
+    description:
+      "A modern educational platform designed to transform traditional testing into an engaging, gamified experience. Empowers students with interactive quizzes and provides instructors with advanced management tools.",
     tags: ["React", "Node.js", "Express", "Gamification"],
     repo: "https://github.com/SmartQ-System",
     link: "https://smartq-zack.vercel.app/",
     stats: [
       "Increased student engagement",
       "Streamlined instructor workflows",
-      "Interactive gamification engine"
+      "Interactive gamification engine",
     ],
     image: "/projects/Smartq.webp",
     gallery: [
@@ -80,7 +225,7 @@ export const PROJECTS: Project[] = [
       "/projects/smartq/18-Admin-Playlists-Manage.png",
       "/projects/smartq/19-Admin-Settings-Main.png",
       "/projects/smartq/20-Admin-Settings-Themes.png",
-      "/projects/smartq/21-Admin-Dashboard-Dark.png"
+      "/projects/smartq/21-Admin-Dashboard-Dark.png",
     ],
     featured: true,
   },
@@ -88,14 +233,15 @@ export const PROJECTS: Project[] = [
     id: "ding",
     title: "Ding",
     subtitle: "Emotionally-Aware AI Social Network",
-    description: "A novel social networking platform explicitly designed to prioritize positive mental health using deep learning and affective computing to detect real-time sentiment without compromising privacy.",
+    description:
+      "A novel social networking platform explicitly designed to prioritize positive mental health using deep learning and affective computing to detect real-time sentiment without compromising privacy.",
     tags: ["AI", "Deep Learning", "Affective Computing", "Python"],
     repo: "https://github.com/Ding-Platform",
     link: "#",
     stats: [
       "Real-time sentiment analysis",
       "Cross-platform architecture",
-      "Privacy-first design"
+      "Privacy-first design",
     ],
     image: "/projects/Ding.webp",
     gallery: [
@@ -118,7 +264,7 @@ export const PROJECTS: Project[] = [
       "/projects/ding/17-Noro-Posing-3.png",
       "/projects/ding/18-Noro-Response.png",
       "/projects/ding/19-Noro-Response-2.png",
-      "/projects/ding/20-Media-and-video-preview.png"
+      "/projects/ding/20-Media-and-video-preview.png",
     ],
     featured: true,
   },
@@ -126,14 +272,15 @@ export const PROJECTS: Project[] = [
     id: "karbala",
     title: "Qarbla: The Ashura Experience",
     subtitle: "Interactive Educational Platform",
-    description: "A fully structured digital experience delivering sequential content over 13 nights. Transforms passive reading into an active, gamified learning journey with interactive quizzes and assessments.",
+    description:
+      "A fully structured digital experience delivering sequential content over 13 nights. Transforms passive reading into an active, gamified learning journey with interactive quizzes and assessments.",
     tags: ["React", "LMS", "Gamification", "Interactive Design"],
     repo: "https://github.com/Zack-River/Karbala",
     link: "https://jaffer-hassan.com/",
     stats: [
       "13-night structured curriculum",
       "High retention rates",
-      "Gamified learning journey"
+      "Gamified learning journey",
     ],
     image: "/projects/Karbala.webp",
     gallery: [
@@ -159,7 +306,7 @@ export const PROJECTS: Project[] = [
       "/projects/karbala/19-Admin-Nights-Form.png",
       "/projects/karbala/20-Admin-Quizes-Form.png",
       "/projects/karbala/21-Admin-Cards-Form.png",
-      "/projects/karbala/22-Admin-Magles-Form.png"
+      "/projects/karbala/22-Admin-Magles-Form.png",
     ],
     featured: true,
   },
@@ -167,14 +314,15 @@ export const PROJECTS: Project[] = [
     id: "mostafa-nawareg",
     title: "Dr. Mostafa Nawareg",
     subtitle: "Consulting & Training Portfolio",
-    description: "A professional portfolio and landing page for a business consultant and author of 40 books. Designed to highlight expertise, academic achievements, and marketing consultation services.",
+    description:
+      "A professional portfolio and landing page for a business consultant and author of 40 books. Designed to highlight expertise, academic achievements, and marketing consultation services.",
     tags: ["Next.js", "Tailwind CSS", "CMS", "Branding"],
     repo: "",
     link: "https://mostafanawareg.com/",
     stats: [
       "Showcased 40 published books",
       "Integrated consulting funnels",
-      "Responsive global audience reach"
+      "Responsive global audience reach",
     ],
     image: "/projects/Mostafa-Nawareg.webp",
     gallery: [
@@ -229,7 +377,7 @@ export const PROJECTS: Project[] = [
       "/projects/mostafa-nawareg/49-Portfolio-Experience.png",
       "/projects/mostafa-nawareg/50-Portfolio-Skills.png",
       "/projects/mostafa-nawareg/51-Portfolio-Certs.png",
-      "/projects/mostafa-nawareg/52-Portofolio-Testo.png"
+      "/projects/mostafa-nawareg/52-Portofolio-Testo.png",
     ],
     featured: true,
   },
@@ -237,14 +385,15 @@ export const PROJECTS: Project[] = [
     id: "luxe-dental",
     title: "Luxe Dental",
     subtitle: "Premium Dental Clinic Website",
-    description: "A high-end healthcare website focusing on patient experience and trust. Features luxury hospitality design aesthetics, transparent treatment information, and seamless appointment booking.",
+    description:
+      "A high-end healthcare website focusing on patient experience and trust. Features luxury hospitality design aesthetics, transparent treatment information, and seamless appointment booking.",
     tags: ["Web Design", "Healthcare", "UI/UX", "Next.js"],
     repo: "https://github.com/Zack-River/LUXE-Dental",
     link: "https://luxe-dental-livid.vercel.app/",
     stats: [
       "Luxury hospitality aesthetics",
       "Patient-first transparent flow",
-      "Optimized booking conversions"
+      "Optimized booking conversions",
     ],
     image: "/projects/luxe-dental-website.webp",
     gallery: [
@@ -268,7 +417,7 @@ export const PROJECTS: Project[] = [
       "/projects/luxe-dental/17-Gallery-Hero.png",
       "/projects/luxe-dental/18-Gallery-Images.png",
       "/projects/luxe-dental/19-Contact-.png",
-      "/projects/luxe-dental/19-Contact-Page.png"
+      "/projects/luxe-dental/19-Contact-Page.png",
     ],
     featured: false,
   },
@@ -276,14 +425,15 @@ export const PROJECTS: Project[] = [
     id: "hotel-pro",
     title: "Hotel Pro",
     subtitle: "SaaS Hotel Management System",
-    description: "A comprehensive SaaS landing page for luxury hotels and resorts. Replaces standard technical features with an emotion-driven narrative that feels like a 5-star hotel lobby.",
+    description:
+      "A comprehensive SaaS landing page for luxury hotels and resorts. Replaces standard technical features with an emotion-driven narrative that feels like a 5-star hotel lobby.",
     tags: ["SaaS", "React", "Tailwind", "Hospitality"],
     repo: "https://github.com/Zack-River/Hotel-Pro",
     link: "https://hotel-pro.vercel.app/",
     stats: [
       "Emotion-driven narrative",
       "SaaS technical feature showcase",
-      "High-end visual branding"
+      "High-end visual branding",
     ],
     image: "/projects/Hotel-Pro.webp",
     gallery: [
@@ -296,7 +446,7 @@ export const PROJECTS: Project[] = [
       "/projects/hotel-pro/07-Home-Plans.png",
       "/projects/hotel-pro/08-Home-FAQ.png",
       "/projects/hotel-pro/09-Home-Call-to-Action.png",
-      "/projects/hotel-pro/10-Home-Footer.png"
+      "/projects/hotel-pro/10-Home-Footer.png",
     ],
     featured: false,
   },
@@ -304,33 +454,33 @@ export const PROJECTS: Project[] = [
     id: "streamflow",
     title: "StreamFlow",
     subtitle: "Music Management System",
-    description: "A high-performance backend system for music streaming. Built RESTful APIs handling heavy loads with optimized MongoDB schemas, and buffered audio streaming.",
+    description:
+      "A high-performance backend system for music streaming. Built RESTful APIs handling heavy loads with optimized MongoDB schemas, and buffered audio streaming.",
     tags: ["Node.js", "Express", "MongoDB", "Redis", "Cloudinary"],
     repo: "https://github.com/Zack-River/Stream_Flow",
     link: "https://stream-flow-ui.vercel.app/",
     stats: [
       "Handled 10K+ simulated requests",
       "Reduced response time by ~35%",
-      "Optimized buffered audio streaming"
+      "Optimized buffered audio streaming",
     ],
     image: "/projects/StreamFlow.webp",
-    gallery: [
-      "/projects/streamflow/StreamFlow.png"
-    ],
+    gallery: ["/projects/streamflow/StreamFlow.png"],
     featured: false,
   },
   {
     id: "khaled-nasser",
     title: "Khaled Nasser",
     subtitle: "Personal Branding Portfolio",
-    description: "A striking personal portfolio built with deep blue brand accents, highlighting workflows, professional results, and service offerings in a clean, modern interface.",
+    description:
+      "A striking personal portfolio built with deep blue brand accents, highlighting workflows, professional results, and service offerings in a clean, modern interface.",
     tags: ["UI/UX", "Portfolio", "Web Design"],
     repo: "https://github.com/Zack-River/Khaled-Nasser",
     link: "#",
     stats: [
       "Deep brand accent integration",
       "Service and workflow showcases",
-      "High-performance rendering"
+      "High-performance rendering",
     ],
     image: "/projects/Khaled-Nasser-Portfolio.webp",
     gallery: [
@@ -344,7 +494,7 @@ export const PROJECTS: Project[] = [
       "/projects/khaled-nasser/08-Work-Flow.png",
       "/projects/khaled-nasser/09-About.png",
       "/projects/khaled-nasser/10-Time-Line.png",
-      "/projects/khaled-nasser/11-Change-Point.png"
+      "/projects/khaled-nasser/11-Change-Point.png",
     ],
     featured: false,
   },
@@ -352,14 +502,15 @@ export const PROJECTS: Project[] = [
     id: "ahmed-hakim",
     title: "Ahmed Hakim",
     subtitle: "Creative Professional Portfolio",
-    description: "A highly visual and interactive digital portfolio showcasing creative projects, achievements, and professional background with smooth transition effects.",
+    description:
+      "A highly visual and interactive digital portfolio showcasing creative projects, achievements, and professional background with smooth transition effects.",
     tags: ["Frontend", "Animation", "Framer Motion"],
     repo: "https://github.com/Zack-River/Ahmed-Hakim-Landing-Page",
     link: "https://ahmed-hakim.vercel.app/",
     stats: [
       "Framer Motion integrations",
       "Immersive visual storytelling",
-      "Smooth layout transitions"
+      "Smooth layout transitions",
     ],
     image: "/projects/Ahmed-Hakim-Portfolio.webp",
     gallery: [
@@ -369,7 +520,7 @@ export const PROJECTS: Project[] = [
       "/projects/ahmed-hakim/04-Home-Story.png",
       "/projects/ahmed-hakim/05-About-Hero.png",
       "/projects/ahmed-hakim/06-Services-Hero.png",
-      "/projects/ahmed-hakim/07-Results.png"
+      "/projects/ahmed-hakim/07-Results.png",
     ],
     featured: false,
   },
@@ -377,14 +528,15 @@ export const PROJECTS: Project[] = [
     id: "tutor-landing-page",
     title: "Tutor Sales Page",
     subtitle: "High-Conversion Course Platform",
-    description: "A targeted sales landing page for video courses, designed to guide visitors through a logical purchasing journey without visual clutter to maximize conversion.",
+    description:
+      "A targeted sales landing page for video courses, designed to guide visitors through a logical purchasing journey without visual clutter to maximize conversion.",
     tags: ["E-learning", "Conversion Optimization", "Landing Page"],
     repo: "https://github.com/Zack-River/Tutor-Landing-Page",
     link: "https://tutor-lp.vercel.app/",
     stats: [
       "Targeted sales funnel",
       "Reduced visual clutter",
-      "Optimized purchasing journey"
+      "Optimized purchasing journey",
     ],
     image: "/projects/Tutor-Landing-Page.webp",
     gallery: [
@@ -395,39 +547,63 @@ export const PROJECTS: Project[] = [
       "/projects/tutor-landing-page/05-Home-Audience.png",
       "/projects/tutor-landing-page/06-Home-Takeaways.png",
       "/projects/tutor-landing-page/07-Home-Course-Details.png",
-      "/projects/tutor-landing-page/08-Home-CTA.png"
+      "/projects/tutor-landing-page/08-Home-CTA.png",
     ],
     featured: false,
-  }
+  },
 ];
 
 export const SERVICES: Service[] = [
   {
     id: "backend",
     title: "Backend Engineering",
-    description: "Scalable, production-grade REST APIs and server architectures built to handle growth from day one.",
-    highlights: ["REST API Design", "Authentication & Authorization", "Rate Limiting & Caching", "Database Optimization"],
+    description:
+      "Scalable, production-grade REST APIs and server architectures built to handle growth from day one.",
+    highlights: [
+      "REST API Design",
+      "Authentication & Authorization",
+      "Rate Limiting & Caching",
+      "Database Optimization",
+    ],
     icon: "Server",
   },
   {
     id: "fullstack",
     title: "Full Stack Development",
-    description: "End-to-end web application development with modern frameworks, clean architecture, and maintainable codebases.",
-    highlights: ["React / Next.js Frontends", "Node.js & NestJS Backends", "CI/CD Integration", "Performance Tuning"],
+    description:
+      "End-to-end web application development with modern frameworks, clean architecture, and maintainable codebases.",
+    highlights: [
+      "React / Next.js Frontends",
+      "Node.js & NestJS Backends",
+      "CI/CD Integration",
+      "Performance Tuning",
+    ],
     icon: "Globe",
   },
   {
     id: "database",
     title: "Database Architecture",
-    description: "Designing resilient, high-performance data layers using the right tool for the right job.",
-    highlights: ["Schema Design & Modeling", "MongoDB & PostgreSQL", "Redis Caching Strategies", "Query Optimization"],
+    description:
+      "Designing resilient, high-performance data layers using the right tool for the right job.",
+    highlights: [
+      "Schema Design & Modeling",
+      "MongoDB & PostgreSQL",
+      "Redis Caching Strategies",
+      "Query Optimization",
+    ],
     icon: "Database",
   },
   {
     id: "security",
     title: "Security & DevOps",
-    description: "Hardening APIs and systems against vulnerabilities while automating deployment pipelines.",
-    highlights: ["JWT / OAuth2 Implementation", "Docker Containerization", "Environment Management", "Bcrypt & Encryption"],
+    description:
+      "Hardening APIs and systems against vulnerabilities while automating deployment pipelines.",
+    highlights: [
+      "JWT / OAuth2 Implementation",
+      "Docker Containerization",
+      "Environment Management",
+      "Bcrypt & Encryption",
+    ],
     icon: "ShieldCheck",
   },
 ];
@@ -435,47 +611,108 @@ export const SERVICES: Service[] = [
 export const SKILL_CATEGORIES: SkillCategory[] = [
   {
     title: "Backend Engineering",
-    skills: ["NestJS", "Express.js", "Laravel", "ASP.NET Core", "REST APIs", "Authentication", "Authorization", "JWT", "OAuth2", "Google Auth", "Bcrypt"]
+    skills: [
+      "NestJS",
+      "Express.js",
+      "Laravel",
+      "ASP.NET Core",
+      "REST APIs",
+      "Authentication",
+      "Authorization",
+      "JWT",
+      "OAuth2",
+      "Google Auth",
+      "Bcrypt",
+    ],
   },
   {
     title: "Frontend Development",
-    skills: ["React", "Next.js", "Angular", "Redux", "Zustand", "Three.js", "React Three Fiber"]
+    skills: [
+      "React",
+      "Next.js",
+      "Angular",
+      "Redux",
+      "Zustand",
+      "Three.js",
+      "React Three Fiber",
+    ],
   },
   {
     title: "Databases",
-    skills: ["PostgreSQL", "MySQL", "MongoDB", "Neo4j", "Redis"]
+    skills: ["PostgreSQL", "MySQL", "MongoDB", "Neo4j", "Redis"],
   },
   {
     title: "DevOps & Infrastructure",
-    skills: ["Docker", "Kubernetes", "Terraform", "Nginx", "PM2", "RabbitMQ", "BullMQ", "AWS"]
+    skills: [
+      "Docker",
+      "Kubernetes",
+      "Terraform",
+      "Nginx",
+      "PM2",
+      "RabbitMQ",
+      "BullMQ",
+      "AWS",
+    ],
   },
   {
     title: "Architecture & System Design",
-    skills: ["Multi-Tenant SaaS", "Scalable Systems", "Clean Architecture", "Performance Optimization", "Security", "Production Deployment"]
+    skills: [
+      "Multi-Tenant SaaS",
+      "Scalable Systems",
+      "Clean Architecture",
+      "Performance Optimization",
+      "Security",
+      "Production Deployment",
+    ],
   },
   {
     title: "Real-Time Systems",
-    skills: ["WebSockets", "Socket.IO", "WebRTC"]
+    skills: ["WebSockets", "Socket.IO", "WebRTC"],
   },
   {
     title: "Integrations",
-    skills: ["Stripe", "Paymob", "Salla", "Cloudinary", "External APIs", "Delivery APIs"]
+    skills: [
+      "Stripe",
+      "Paymob",
+      "Salla",
+      "Cloudinary",
+      "External APIs",
+      "Delivery APIs",
+    ],
   },
   {
     title: "Engineering & Documentation",
-    skills: ["IEEE Documentation", "SRS", "Use Cases", "ERD", "Database Design", "Technical Documentation", "Agile", "Backlogs"]
+    skills: [
+      "IEEE Documentation",
+      "SRS",
+      "Use Cases",
+      "ERD",
+      "Database Design",
+      "Technical Documentation",
+      "Agile",
+      "Backlogs",
+    ],
   },
   {
     title: "Project Experience",
-    skills: ["Multi-Vendor Marketplaces", "Booking Platforms", "CMS", "Admin Dashboards", "Internal Business Systems", "AI Applications", "Data Analytics", "Real-Time Platforms"]
-  }
+    skills: [
+      "Multi-Vendor Marketplaces",
+      "Booking Platforms",
+      "CMS",
+      "Admin Dashboards",
+      "Internal Business Systems",
+      "AI Applications",
+      "Data Analytics",
+      "Real-Time Platforms",
+    ],
+  },
 ];
 
 export const EDUCATION: Education = {
   degree: "Bachelor of Computer Science",
   institution: "SHA Academy Higher Institute",
   period: "10/2022 – 07/2026",
-  grade: "Very Good"
+  grade: "Very Good",
 };
 
 export const TRAINING: Experience[] = [
@@ -485,7 +722,7 @@ export const TRAINING: Experience[] = [
     period: "06/2025 – 10/2025",
     details: [
       "Developed full-stack Instagram clone with full functionality.",
-      "Built Backend Spotify clone focusing on performance."
-    ]
-  }
+      "Built Backend Spotify clone focusing on performance.",
+    ],
+  },
 ];
