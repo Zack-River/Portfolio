@@ -82,7 +82,7 @@ const Services: React.FC = () => {
                   {service.description}
                 </p>
                 
-                <div className="flex-grow mb-8">
+                <div className="grow mb-8">
                   <h4 className="text-xs uppercase tracking-wider font-mono text-canvas-dark/50 mb-3">Includes</h4>
                   <ul className="space-y-2">
                     {service.includes.map((item, i) => (

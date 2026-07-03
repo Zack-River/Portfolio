@@ -127,7 +127,7 @@ const ProjectsPage: React.FC = () => {
                     </div>
                   )}
                   {/* Overlay Gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-canvas-dark/90 via-canvas-dark/40 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 bg-linear-to-t from-canvas-dark/90 via-canvas-dark/40 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-300"></div>
                 </div>
 
                 {/* Content */}
