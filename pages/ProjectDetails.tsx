@@ -188,6 +188,7 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({ images, title
                   transition={{ duration: 0.3, ease: 'easeInOut' }}
                   src={images[current]}
                   alt={`${title} – fullscreen screenshot ${current + 1}`}
+                  loading="lazy"
                   className="absolute max-w-full max-h-full object-contain rounded-lg shadow-2xl"
                 />
               </AnimatePresence>
