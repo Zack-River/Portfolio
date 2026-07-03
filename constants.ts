@@ -23,7 +23,7 @@ export const PERSONAL_INFO = {
   phone: "+201201024880",
   linkedin: "linkedin.com/in/labdallah-wageehl",
   github: "github.com/Zack-River",
-  bio: "Software Engineer specializing in full-stack and backend development with a strong focus on scalable architecture, performance, and maintainability. I build modern web applications, REST APIs, authentication systems, CMS platforms, and real-time solutions while emphasizing clean code and long-term reliability. My goal is to create software that not only works today but continues to scale as products grow.",
+  bio: "Software Engineer specializing in full-stack and backend development and Freelancer with a strong focus on scalable architecture, performance, and maintainability with +3 years of Experience. I build modern web applications, REST APIs, authentication systems, CMS platforms, and real-time solutions while emphasizing clean code and long-term reliability. My goal is to create software that not only works today but continues to scale as products grow.",
 };
 
 export const PROJECTS: Project[] = [
@@ -316,7 +316,16 @@ export const PROJECTS: Project[] = [
     subtitle: "Consulting & Training Portfolio",
     description:
       "A professional portfolio and landing page for a business consultant and author of 40 books. Designed to highlight expertise, academic achievements, and marketing consultation services.",
-    tags: ["Wordpress", "Astra", "Elementor", "W3Cache", "PHP", "JS", "HTML", "CSS"],
+    tags: [
+      "Wordpress",
+      "Astra",
+      "Elementor",
+      "W3Cache",
+      "PHP",
+      "JS",
+      "HTML",
+      "CSS",
+    ],
     repo: "",
     link: "https://mostafanawareg.com/",
     stats: [
@@ -522,7 +531,8 @@ export const PROJECTS: Project[] = [
     id: "dr-sara-ragab",
     title: "Dr. Sara Ragab",
     subtitle: "Landing Page Design & Deployment",
-    description: "Designed and developed a responsive, high-conversion landing page for a Saudi AI educational initiative. Included minimalist design, WhatsApp integration, domain setup, DNS configuration, and a future-ready subdomain architecture.",
+    description:
+      "Designed and developed a responsive, high-conversion landing page for a Saudi AI educational initiative. Included minimalist design, WhatsApp integration, domain setup, DNS configuration, and a future-ready subdomain architecture.",
     tags: ["Landing Page", "Vercel", "DNS", "UI/UX"],
     repo: "",
     link: "https://sa.drsara-ragab.site/",
@@ -708,12 +718,30 @@ export const EDUCATION: Education = {
 
 export const TRAINING: Experience[] = [
   {
+    role: "Full Stack Developer (ASP .Net Core & Angular)",
+    company: "Digital Egypt Pioneers Initiative (DEPI)",
+    period: "06/2024 – 05/2025",
+    details: [
+      "Developed an e-commerce platform utilizing .NET Core & Angular, with Stripe and Redis.",
+    ],
+  },
+  {
     role: "Full Stack Trainee (MEAN Stack)",
     company: "National Telecommunication Institute (NTI)",
     period: "06/2025 – 10/2025",
     details: [
       "Developed full-stack Instagram clone with full functionality.",
       "Built Backend Spotify clone focusing on performance.",
+    ],
+  },
+  {
+    role: "Software Engineer",
+    company: "Pointer Advertising",
+    period: "09/2025 – Present",
+    details: [
+      "Currently engineering scalable software solutions and high-performance web applications for digital advertising campaigns.",
+      "Leading technical decisions and collaborating with cross-functional teams to deliver impactful digital experiences.",
+      "Focusing on system architecture, performance optimization, and creating robust data pipelines for ad analytics.",
     ],
   },
 ];
