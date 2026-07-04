@@ -12,7 +12,7 @@ const CATEGORIES = ["All", "Landing Pages", "Web Apps", "UI/UX Designs", "Backen
 const getProjectCategories = (id: string): string[] => {
   const cats: string[] = ["All"];
   
-  const landingPages = ["luxe-dental", "khaled-nasser", "ahmed-hakim", "hotel-pro", "tutor-landing-page", "dr-sara-ragab"];
+  const landingPages = ["luxe-dental", "khaled-nasser", "ahmed-hakim", "hotel-pro", "dr-sara-ragab"];
   const webApps = ["smartq", "ding", "mostafa-nawareg", "streamflow", "karbala"];
   const backend = ["ding", "smartq", "karbala", "mostafa-nawareg"];
   const desktopApps = ["omnipos"];
@@ -91,7 +91,9 @@ const ProjectsPage: React.FC = () => {
             let bentoClasses = "col-span-1 row-span-1";
             
             if (activeFilter === "All") {
-              if (index === 0) {
+              if (project.id === "ahmed-hakim" || project.id === "dr-sara-ragab") {
+                bentoClasses = "md:col-span-2 lg:col-span-2";
+              } else if (index === 0) {
                 bentoClasses = "md:col-span-2 lg:col-span-2 lg:row-span-2"; 
               } else if (index === 3) {
                 bentoClasses = "md:col-span-2 lg:col-span-1";

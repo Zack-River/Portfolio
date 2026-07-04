@@ -371,7 +371,7 @@ export const PROJECTS: Project[] = [
       "Patient-first transparent flow",
       "Optimized booking conversions",
     ],
-    image: "/projects/luxe-dental-website.webp",
+    image: "/projects/luxe-dental.webp",
     gallery: [
       "/projects/luxe-dental/01-Home-Hero-Light-Ar.webp",
       "/projects/luxe-dental/01-Home-Hero-Light-En.webp",
@@ -500,33 +500,7 @@ export const PROJECTS: Project[] = [
     ],
     featured: false,
   },
-  {
-    id: "tutor-landing-page",
-    title: "Tutor Sales Page",
-    subtitle: "High-Conversion Course Platform",
-    description:
-      "A targeted sales landing page for video courses, designed to guide visitors through a logical purchasing journey without visual clutter to maximize conversion.",
-    tags: ["E-learning", "Conversion Optimization", "Landing Page"],
-    repo: "https://github.com/Zack-River/Tutor-Landing-Page",
-    link: "https://tutor-lp.vercel.app/",
-    stats: [
-      "Targeted sales funnel",
-      "Reduced visual clutter",
-      "Optimized purchasing journey",
-    ],
-    image: "/projects/Tutor-Landing-Page.webp",
-    gallery: [
-      "/projects/tutor-landing-page/01-Home-Hero.webp",
-      "/projects/tutor-landing-page/02-Home-Gains.webp",
-      "/projects/tutor-landing-page/03-Home-Course-Chapters.webp",
-      "/projects/tutor-landing-page/04-Home-Course-Summary.webp",
-      "/projects/tutor-landing-page/05-Home-Audience.webp",
-      "/projects/tutor-landing-page/06-Home-Takeaways.webp",
-      "/projects/tutor-landing-page/07-Home-Course-Details.webp",
-      "/projects/tutor-landing-page/08-Home-CTA.webp",
-    ],
-    featured: false,
-  },
+
   {
     id: "dr-sara-ragab",
     title: "Dr. Sara Ragab",
