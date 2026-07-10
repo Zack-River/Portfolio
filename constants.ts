@@ -440,7 +440,7 @@ export const PROJECTS: Project[] = [
       "34 Req/sec under load testing",
       "Optimized compound/text indexing",
     ],
-    image: "/projects/streamflow/01-Home-Logged-In-Hero.webp",
+    image: "/projects/streamflow/Cover.webp",
     gallery: [
       "/projects/streamflow/01-Home-Logged-In-Hero.webp",
       "/projects/streamflow/02-Home-Landing.webp",
