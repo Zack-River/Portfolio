@@ -81,8 +81,8 @@ const Contact: React.FC = () => {
       className="py-24 md:py-32 bg-canvas-light text-canvas-dark relative flex-1 flex flex-col justify-center"
     >
       <div className="max-w-7xl mx-auto md:px-12 lg:px-24 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-stretch">
-          <div className="text-center md:text-left px-4 md:px-0 h-full">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-10 lg:gap-16 items-start">
+          <div className="text-left px-4 md:px-0 h-full">
             <Reveal>
               <SectionHeader
                 title="Get in Touch"
@@ -101,7 +101,7 @@ const Contact: React.FC = () => {
 
             <div className="space-y-6">
               <Reveal delay={0.3}>
-                <div className="flex items-center justify-center md:justify-start space-x-4 mb-6">
+                <div className="flex items-center justify-start space-x-4 mb-6">
                   <div className="p-3 bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/10 rounded-xl text-electric">
                     <Phone size={20} />
                   </div>
@@ -120,7 +120,7 @@ const Contact: React.FC = () => {
               </Reveal>
 
               <Reveal delay={0.3}>
-                <div className="flex items-center justify-center md:justify-start space-x-4">
+                <div className="flex items-center justify-start space-x-4 mb-6">
                   <div className="p-3 bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/10 rounded-xl text-electric">
                     <Mail size={20} />
                   </div>
@@ -139,7 +139,7 @@ const Contact: React.FC = () => {
               </Reveal>
 
               <Reveal delay={0.4}>
-                <div className="flex items-center justify-center md:justify-start space-x-4">
+                <div className="flex items-center justify-start space-x-4 mb-6">
                   <div className="p-3 bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/10 rounded-xl text-electric">
                     <MapPin size={20} />
                   </div>
@@ -153,7 +153,7 @@ const Contact: React.FC = () => {
               </Reveal>
 
               <Reveal delay={0.5}>
-                <div className="flex items-center justify-center md:justify-start space-x-4 pt-8">
+                <div className="flex items-center justify-start space-x-4 pt-4">
                   <a
                     href={`https://wa.me/${PERSONAL_INFO.phone}`}
                     target="_blank"
