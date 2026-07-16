@@ -19,7 +19,7 @@ export const PERSONAL_INFO = {
   title: "Software Engineer",
   subtitle:
     "Building scalable web applications and backend systems with a focus on performance, clean architecture, and long-term maintainability.",
-  email: "[EMAIL_ADDRESS]",
+  email: "zackriver.dev@gmail.com",
   phone: "+201201024880",
   linkedin: "linkedin.com/in/labdallah-wageehl",
   github: "github.com/Zack-River",

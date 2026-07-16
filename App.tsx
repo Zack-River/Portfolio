@@ -20,8 +20,10 @@ import Navbar from './components/Navbar';
 
 
 function App() {
-  const [loading, setLoading] = useState(true);
   const location = useLocation();
+  // Only show the loader on the home page — other pages have no 3D assets to wait for
+  const isHome = location.pathname === '/';
+  const [loading, setLoading] = useState(isHome);
 
   useEffect(() => {
     // Disable Right Click
