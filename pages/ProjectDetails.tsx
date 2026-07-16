@@ -134,6 +134,14 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({ images, title
     [current]
   );
 
+  // Preload all gallery images to eliminate black screen delay during transitions
+  useEffect(() => {
+    images.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, [images]);
+
   const prev = useCallback(() => goTo((current - 1 + images.length) % images.length), [current, images.length, goTo]);
   const next = useCallback(() => goTo((current + 1) % images.length), [current, images.length, goTo]);
 
@@ -177,7 +185,7 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({ images, title
             </button>
             
             <div className="relative w-full h-full max-w-7xl flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
-              <AnimatePresence custom={direction} initial={false} mode="wait">
+              <AnimatePresence custom={direction} initial={false}>
                 <motion.img
                   key={current}
                   custom={direction}
@@ -188,7 +196,6 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({ images, title
                   transition={{ duration: 0.3, ease: 'easeInOut' }}
                   src={images[current]}
                   alt={`${title} – fullscreen screenshot ${current + 1}`}
-                  loading="lazy"
                   className="absolute max-w-full max-h-full object-contain rounded-lg shadow-2xl"
                 />
               </AnimatePresence>
@@ -219,7 +226,7 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({ images, title
         className="relative w-full aspect-video bg-canvas-dark rounded-2xl overflow-hidden ring-1 ring-canvas-dark/10 shadow-xl cursor-zoom-in group"
         onClick={() => setIsModalOpen(true)}
       >
-        <AnimatePresence custom={direction} initial={false} mode="wait">
+        <AnimatePresence custom={direction} initial={false}>
           <motion.img
             key={current}
             custom={direction}
@@ -230,7 +237,6 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({ images, title
             transition={{ duration: 0.4, ease: 'easeInOut' }}
             src={images[current]}
             alt={`${title} – screenshot ${current + 1}`}
-            loading="lazy"
             className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-700"
           />
         </AnimatePresence>
@@ -291,6 +297,13 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({ images, title
           ))}
         </div>
       )}
+
+      {/* Hidden DOM preloader to guarantee instant memory-cache decoding */}
+      <div className="hidden" aria-hidden="true">
+        {images.map((src, i) => (
+          <img key={`preload-${i}`} src={src} alt="" />
+        ))}
+      </div>
     </div>
   );
 };
@@ -301,6 +314,7 @@ const ProjectDetails: React.FC = () => {
   const project = PROJECTS.find((p) => p.id === id);
   const heroRef = useRef<HTMLDivElement>(null);
   const [stickyVisible, setStickyVisible] = useState(false);
+  const [isHeroHovered, setIsHeroHovered] = useState(false);
 
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -372,7 +386,9 @@ const ProjectDetails: React.FC = () => {
       {/* ── IMMERSIVE HERO ── */}
       <section
         ref={heroRef}
-        className="relative h-[90vh] min-h-[550px] flex items-end overflow-hidden"
+        className="relative h-[90vh] min-h-[550px] flex items-end overflow-hidden group cursor-default"
+        onMouseEnter={() => setIsHeroHovered(true)}
+        onMouseLeave={() => setIsHeroHovered(false)}
       >
         <motion.div
           style={{ y: heroY }}
@@ -414,64 +430,71 @@ const ProjectDetails: React.FC = () => {
           <ArrowLeft size={14} /> Back
         </Link>
 
-        <motion.div
-          style={{ opacity: heroOpacity }}
-          className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24 pb-16 md:pb-24"
-        >
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="font-mono text-electric text-xs tracking-[0.3em] uppercase mb-4"
-          >
-            Case Study / {String(PROJECTS.findIndex((p) => p.id === id) + 1).padStart(2, '0')}
-          </motion.p>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2, ease: 'circOut' }}
-            className="text-[clamp(3rem,10vw,8rem)] font-display font-bold text-white leading-none tracking-[-0.03em] mb-4"
-          >
-            {project.title}
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-white/60 font-mono text-sm md:text-base max-w-2xl"
-          >
-            {project.subtitle}
-          </motion.p>
-
-          {/* Hero action buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.55 }}
-            className="mt-8 flex flex-wrap gap-3"
-          >
-
-            {project.link && (
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-5 py-2.5 bg-electric text-white rounded-full text-sm font-medium hover:bg-electric/80 transition-colors"
+        <AnimatePresence>
+          {isHeroHovered && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              transition={{ duration: 0.3 }}
+              className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24 pb-16 md:pb-24"
+            >
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="font-mono text-electric text-xs tracking-[0.3em] uppercase mb-4"
               >
-                <ExternalLink size={16} /> Live Demo
-              </a>
-            )}
-          </motion.div>
+                Case Study / {String(PROJECTS.findIndex((p) => p.id === id) + 1).padStart(2, '0')}
+              </motion.p>
 
-          <motion.div
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 0.8, delay: 0.7, ease: 'circOut' }}
-            className="mt-8 h-[2px] w-24 bg-electric origin-left"
-          />
-        </motion.div>
+              <motion.h1
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.2, ease: 'circOut' }}
+                className="text-[clamp(3rem,10vw,8rem)] font-display font-bold text-white leading-none tracking-[-0.03em] mb-4"
+              >
+                {project.title}
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="text-white/60 font-mono text-sm md:text-base max-w-2xl"
+              >
+                {project.subtitle}
+              </motion.p>
+
+              {/* Hero action buttons */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.55 }}
+                className="mt-8 flex flex-wrap gap-3"
+              >
+
+                {project.link && (
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-5 py-2.5 bg-electric text-white rounded-full text-sm font-medium hover:bg-electric/80 transition-colors"
+                  >
+                    <ExternalLink size={16} /> Live Demo
+                  </a>
+                )}
+              </motion.div>
+
+              <motion.div
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ duration: 0.8, delay: 0.7, ease: 'circOut' }}
+                className="mt-8 h-[2px] w-24 bg-electric origin-left"
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </section>
 
       {/* ── CONTENT BODY ── */}

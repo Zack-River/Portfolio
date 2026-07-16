@@ -40,15 +40,16 @@ const Hero: React.FC = () => {
     >
       {/* 1. Base Canvas Layer */}
       <div className="absolute inset-0 w-full h-full z-0 pointer-events-auto">
-        {/* Global Engineering Blueprint Grid inside base */}
+        {/* Global Engineering Blueprint Grid — hidden on mobile to prevent scroll repaint */}
         <div
-          className="absolute inset-0 z-0 pointer-events-none opacity-70"
+          className="absolute inset-0 z-0 pointer-events-none opacity-70 hidden md:block"
           style={{
             backgroundImage: `
               linear-gradient(to right, rgba(14, 165, 233, 0.25) 1px, transparent 1px),
               linear-gradient(to bottom, rgba(14, 165, 233, 0.25) 1px, transparent 1px)
             `,
             backgroundSize: "40px 40px",
+            backgroundAttachment: "local",
           }}
         />
 

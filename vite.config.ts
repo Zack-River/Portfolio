@@ -22,6 +22,7 @@ export default defineConfig(({ mode }) => {
         }
       },
       build: {
+        chunkSizeWarningLimit: 1000,
         modulePreload: {
           resolveDependencies: (filename, deps) => {
             return deps.filter(dep => !dep.includes('three-vendor') && !dep.includes('Scene3D'));

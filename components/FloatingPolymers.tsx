@@ -11,37 +11,48 @@ const SHAPES = {
 const SHAPE_KEYS = Object.keys(SHAPES) as (keyof typeof SHAPES)[];
 
 const FloatingPolymers: React.FC = () => {
-  // Generate 8 floating shapes
-  const polymers = useMemo(() => Array.from({ length: 8 }).map((_, i) => {
-    const shape = SHAPE_KEYS[i % SHAPE_KEYS.length];
-    const size = Math.random() * 60 + 40; // 40px to 100px
-    const left = Math.random() * 100; // 0% to 100%
-    const top = Math.random() * 100; // 0% to 100%
-    const duration = Math.random() * 20 + 20; // 20s to 40s
-    const delay = Math.random() * -20; // Random start time
+  // On mobile: render 0 polymers — entire component is effectively skipped.
+  // On desktop: 6 shapes (down from 8) with GPU-only transforms (no rotateX/Y).
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
-    return { id: i, shape, size, left, top, duration, delay };
-  }), []);
+  const polymers = useMemo(() => {
+    if (isMobile) return [];
+    return Array.from({ length: 6 }).map((_, i) => {
+      const shape = SHAPE_KEYS[i % SHAPE_KEYS.length];
+      const size = Math.random() * 50 + 30; // smaller: 30px to 80px
+      const left = Math.random() * 100;
+      const top = Math.random() * 100;
+      const duration = Math.random() * 30 + 30; // slower: 30s to 60s
+      const delay = Math.random() * -30;
+      return { id: i, shape, size, left, top, duration, delay };
+    });
+  }, [isMobile]);
+
+  if (polymers.length === 0) return null;
 
   return (
     <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
       <style>{`
         @keyframes floatPolymer {
-          0% { transform: translateY(0%) rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
-          50% { transform: translateY(-50%) rotateX(180deg) rotateY(360deg) rotateZ(180deg); }
-          100% { transform: translateY(0%) rotateX(360deg) rotateY(0deg) rotateZ(360deg); }
+          0%   { transform: translateY(0px)   rotateZ(0deg); }
+          50%  { transform: translateY(-40px) rotateZ(180deg); }
+          100% { transform: translateY(0px)   rotateZ(360deg); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .float-polymer { animation: none !important; }
         }
       `}</style>
       {polymers.map((poly) => (
         <div
           key={poly.id}
-          className="absolute text-electric/10" // Subtle electric blue line color
+          className="float-polymer absolute text-electric/10"
           style={{
             left: `${poly.left}%`,
             top: `${poly.top}%`,
             width: poly.size,
             height: poly.size,
-            animation: `floatPolymer ${poly.duration}s linear infinite ${poly.delay}s`
+            willChange: 'transform',
+            animation: `floatPolymer ${poly.duration}s linear infinite ${poly.delay}s`,
           }}
         >
           <svg

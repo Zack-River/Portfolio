@@ -7,6 +7,11 @@ body {
   font-family: 'Inter', sans-serif;
   user-select: none;
   -webkit-user-select: none;
+  /* Smooth momentum scrolling on iOS */
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: none;
+  /* Tell the browser we handle touch natively — removes 300ms tap delay */
+  touch-action: manipulation;
 }
 
 img {
@@ -33,6 +38,21 @@ img {
   opacity: 0.05;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+/* Disable grain on mobile — it's an SVG filter applied every frame */
+@media (max-width: 767px) {
+  .grain-overlay { display: none; }
+}
+
+/* Respect user's OS reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 @layer components {
