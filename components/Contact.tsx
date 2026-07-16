@@ -215,13 +215,13 @@ const Contact: React.FC = () => {
             </div>
           </div>
 
-          <Reveal delay={0.4} className="h-full flex flex-col w-full max-w-[340px] mx-auto lg:ml-auto">
-            <div className="h-full bg-canvas-light p-5 sm:p-6 card-base relative flex flex-col">
+          <Reveal delay={0.4} className="h-full flex flex-col w-full max-w-[340px] md:max-w-md mx-auto lg:ml-auto">
+            <div className="h-full bg-canvas-light p-5 md:p-8 card-base relative flex flex-col">
               <div className="absolute top-0 right-0 w-20 h-20 bg-electric/10 rounded-bl-[4rem]"></div>
 
               <form
                 onSubmit={formik.handleSubmit}
-                className="space-y-4 relative z-10 flex flex-col flex-1"
+                className="space-y-4 md:space-y-6 relative z-10 flex flex-col flex-1"
               >
                 <div className="space-y-2">
                   <label
