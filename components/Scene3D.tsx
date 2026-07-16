@@ -23,6 +23,9 @@ export function Model(props: any) {
       action?.play();
     }
 
+    // Tell the Loader that the 3D model is ready to be displayed
+    (window as any).modelLoaded = true;
+
     // Retheme the materials to match canvas-light and electric vibes
     if (materials.holo1) {
       materials.holo1.color.set("#0ea5e9"); // electric blue

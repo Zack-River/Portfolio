@@ -5,15 +5,21 @@ const Loader: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
     const timer = setInterval(() => {
       setProgress((prev) => {
-        if (prev >= 100) {
+        // Pause at 99% on desktop until the 3D model is loaded
+        if (prev >= 99 && !isMobile && !(window as any).modelLoaded) {
+          return 99;
+        }
+
+        if (prev >= 100 || (prev >= 99 && (isMobile || (window as any).modelLoaded))) {
           clearInterval(timer);
           setTimeout(onComplete, 200); // Faster exit
           return 100;
         }
         const increment = Math.random() * 30; // Faster increment
-        return Math.min(prev + increment, 100);
+        return Math.min(prev + increment, 99);
       });
     }, 50); // Faster ticks
 

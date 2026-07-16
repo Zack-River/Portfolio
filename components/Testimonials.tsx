@@ -96,7 +96,7 @@ const VoiceNotePlayer: React.FC<{ src: string }> = ({ src }) => {
 
   return (
     <div
-      className="mt-4 rounded-2xl bg-white/8 border border-electric/20 p-3 flex items-center gap-3 relative z-10"
+      className="mt-3 rounded-xl bg-white/5 border border-electric/10 p-2 flex items-center gap-2.5 relative z-20 shadow-sm"
       onClick={(e) => e.stopPropagation()}
     >
       <audio
@@ -112,24 +112,24 @@ const VoiceNotePlayer: React.FC<{ src: string }> = ({ src }) => {
       <button
         onClick={togglePlay}
         aria-label={isPlaying ? 'Pause voice note' : 'Play voice note'}
-        className="shrink-0 w-9 h-9 rounded-full bg-electric flex items-center justify-center hover:bg-electric/80 transition-colors shadow-md shadow-electric/30"
+        className="shrink-0 w-8 h-8 rounded-full bg-electric flex items-center justify-center hover:bg-electric/80 transition-colors shadow-md shadow-electric/30"
       >
         {isPlaying
-          ? <Pause size={15} className="text-white fill-white" />
-          : <Play  size={15} className="text-white fill-white ml-0.5" />
+          ? <Pause size={13} className="text-white fill-white" />
+          : <Play  size={13} className="text-white fill-white ml-0.5" />
         }
       </button>
 
       <div className="flex-1 min-w-0">
         {/* Label */}
-        <div className="flex items-center gap-1.5 mb-1.5">
-          <Volume2 size={11} className="text-electric shrink-0" />
-          <span className="font-mono text-[9px] text-electric/80 uppercase tracking-widest">Voice Review</span>
+        <div className="flex items-center gap-1 mb-1">
+          <Volume2 size={10} className="text-electric shrink-0" />
+          <span className="font-mono text-[8.5px] text-electric/80 uppercase tracking-widest">Voice Review</span>
         </div>
 
         {/* Progress bar */}
         <div
-          className="h-1.5 bg-white/10 rounded-full cursor-pointer overflow-hidden"
+          className="h-1 bg-white/10 rounded-full cursor-pointer overflow-hidden"
           onClick={handleSeek}
         >
           <div
@@ -140,7 +140,7 @@ const VoiceNotePlayer: React.FC<{ src: string }> = ({ src }) => {
 
         {/* Duration */}
         {duration > 0 && (
-          <div className="text-right mt-0.5 font-mono text-[9px] text-white/30">
+          <div className="text-right mt-0.5 font-mono text-[8.5px] text-white/40">
             {fmt((progress / 100) * duration)} / {fmt(duration)}
           </div>
         )}
@@ -176,69 +176,67 @@ const Testimonials: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
           {TESTIMONIALS.map((testo, idx) => {
-            const cardContent = (
-              <div className="bg-white/5 border border-white/10 rounded-3xl p-8 h-full flex flex-col hover:bg-white/10 hover:border-white/20 hover:-translate-y-2 transition-all duration-500 relative group overflow-hidden">
-                {/* Background Decor */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-electric/10 rounded-bl-[6rem] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
-                <Quote className="absolute top-6 right-6 text-white/5 w-12 h-12 group-hover:text-electric/20 transition-colors duration-500" />
-
-                {/* User Info */}
-                <div className="flex items-center gap-4 mb-6 relative z-10">
-                  <div className="relative">
-                    <div className="absolute inset-0 bg-electric rounded-full blur-md opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
-                    <img
-                      src={testo.image}
-                      alt={testo.name}
-                      loading="lazy"
-                      width="56"
-                      height="56"
-                      className="relative w-14 h-14 rounded-full object-cover border-2 border-white/10 group-hover:border-electric transition-colors duration-300"
-                    />
-                  </div>
-                  <div>
-                    <h3 className="font-display font-medium text-lg text-white flex items-center gap-2">
-                      {testo.name}
-                      {testo.link && (
-                        <span className="text-[9px] font-mono text-electric/60 border border-electric/20 rounded-full px-1.5 py-0.5 leading-none">
-                          fb
-                        </span>
-                      )}
-                    </h3>
-                    <div className="flex gap-1 mt-1">
-                      {[...Array(testo.rating)].map((_, i) => (
-                        <Star key={i} size={14} className="fill-[#F9A825] text-[#F9A825]" />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Review Content */}
-                <p className="text-white/70 text-sm leading-relaxed grow relative z-10 font-sans">
-                  "{testo.text}"
-                </p>
-
-                {/* Voice Note Player */}
-                {testo.voiceNote && (
-                  <VoiceNotePlayer src={testo.voiceNote} />
-                )}
-              </div>
-            );
-
             return (
               <Reveal key={idx} delay={idx * 0.1} className="h-full">
-                {testo.link ? (
-                  <a
-                    href={testo.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block h-full cursor-pointer"
-                    title={`View ${testo.name}'s Facebook profile`}
-                  >
-                    {cardContent}
-                  </a>
-                ) : (
-                  <div className="h-full">{cardContent}</div>
-                )}
+                <div className="bg-white/5 border border-white/10 rounded-3xl p-6 md:p-8 h-full flex flex-col hover:bg-white/10 hover:border-white/20 hover:-translate-y-2 transition-all duration-500 relative group overflow-hidden">
+                  
+                  {/* Link Overlay (Sits Below Voice Note) */}
+                  {testo.link && (
+                    <a
+                      href={testo.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="absolute inset-0 z-10 cursor-pointer"
+                      title={`View ${testo.name}'s Facebook profile`}
+                    />
+                  )}
+
+                  {/* Background Decor */}
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-electric/10 rounded-bl-[6rem] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+                  <Quote className="absolute top-6 right-6 text-white/5 w-12 h-12 group-hover:text-electric/20 transition-colors duration-500 pointer-events-none" />
+
+                  {/* User Info */}
+                  <div className="flex items-center gap-4 mb-6 relative z-0 pointer-events-none">
+                    <div className="relative">
+                      <div className="absolute inset-0 bg-electric rounded-full blur-md opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
+                      <img
+                        src={testo.image}
+                        alt={testo.name}
+                        loading="lazy"
+                        width="56"
+                        height="56"
+                        className="relative w-14 h-14 rounded-full object-cover border-2 border-white/10 group-hover:border-electric transition-colors duration-300"
+                      />
+                    </div>
+                    <div>
+                      <h3 className="font-display font-medium text-lg text-white flex items-center gap-2">
+                        {testo.name}
+                        {testo.link && (
+                          <span className="text-[9px] font-mono text-electric/60 border border-electric/20 rounded-full px-1.5 py-0.5 leading-none">
+                            fb
+                          </span>
+                        )}
+                      </h3>
+                      <div className="flex gap-1 mt-1">
+                        {[...Array(testo.rating)].map((_, i) => (
+                          <Star key={i} size={14} className="fill-[#F9A825] text-[#F9A825]" />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Review Content */}
+                  <p className="text-white/70 text-sm leading-relaxed grow relative z-0 font-sans pointer-events-none">
+                    "{testo.text}"
+                  </p>
+
+                  {/* Voice Note Player (Sits Above Link Overlay) */}
+                  {testo.voiceNote && (
+                    <div className="relative z-20">
+                      <VoiceNotePlayer src={testo.voiceNote} />
+                    </div>
+                  )}
+                </div>
               </Reveal>
             );
           })}
