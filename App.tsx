@@ -73,16 +73,14 @@ function App() {
         {loading && <Loader onComplete={() => setLoading(false)} />}
       </AnimatePresence>
       
-      {!loading && (
-        <div className="bg-canvas-light grain-overlay-container min-h-screen text-canvas-dark selection:bg-electric/90 selection:text-white">
-          {location.pathname === '/' && <Navbar />}
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/projects" element={<ProjectsPage />} />
-            <Route path="/project/:id" element={<ProjectDetails />} />
-          </Routes>
-        </div>
-      )}
+      <div className={`bg-canvas-light grain-overlay-container min-h-screen text-canvas-dark selection:bg-electric/90 selection:text-white ${loading ? 'h-screen overflow-hidden' : ''}`}>
+        {location.pathname === '/' && <Navbar />}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/project/:id" element={<ProjectDetails />} />
+        </Routes>
+      </div>
     </>
   );
 }
