@@ -19,7 +19,10 @@ const Projects: React.FC = () => {
 
         <Reveal delay={0.2} width="100%">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-stretch">
-            {PROJECTS.filter(p => p.featured).slice(0, 4).map((project) => (
+            {["streamflow", "smartq", "omnipos", "karbala"]
+              .map(id => PROJECTS.find(p => p.id === id))
+              .filter(Boolean)
+              .map((project) => (
               <Link to={`/project/${project.id}`} key={project.id} className="relative group block">
                 <div className="w-full bg-white rounded-xl overflow-hidden ring-1 ring-canvas-dark/10 shadow-xl transition-all duration-500 group-hover:shadow-2xl group-hover:-translate-y-2">
                   {/* Browser Header */}
