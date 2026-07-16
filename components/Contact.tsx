@@ -82,7 +82,7 @@ const Contact: React.FC = () => {
     >
       <div className="max-w-7xl mx-auto md:px-12 lg:px-24 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-10 lg:gap-16 items-start">
-          <div className="text-left px-4 md:px-0 h-full">
+          <div className="text-center md:text-left px-4 md:px-0 h-full">
             <Reveal>
               <SectionHeader
                 title="Get in Touch"
@@ -99,7 +99,8 @@ const Contact: React.FC = () => {
               </p>
             </Reveal>
 
-            <div className="space-y-6">
+            <div className="flex justify-center md:justify-start">
+              <div className="space-y-6 inline-block text-left">
               <Reveal delay={0.3}>
                 <div className="flex items-center justify-start space-x-4 mb-6">
                   <div className="p-3 bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/10 rounded-xl text-electric">
@@ -211,9 +212,10 @@ const Contact: React.FC = () => {
                 </div>
               </Reveal>
             </div>
+            </div>
           </div>
 
-          <Reveal delay={0.4} className="h-full flex flex-col">
+          <Reveal delay={0.4} className="h-full flex flex-col w-full max-w-md mx-auto lg:ml-auto">
             <div className="h-full bg-canvas-light p-4 sm:p-8 card-base relative flex flex-col">
               <div className="absolute top-0 right-0 w-20 h-20 bg-electric/10 rounded-bl-[4rem]"></div>
 
