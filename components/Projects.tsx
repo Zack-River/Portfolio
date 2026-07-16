@@ -8,7 +8,7 @@ import { ArrowRight } from 'lucide-react';
 const Projects: React.FC = () => {
   return (
     <section id="projects" className="py-24 md:py-32 bg-canvas-light relative">
-      <div className="w-full max-w-7xl mx-auto px-4 md:px-12 lg:px-24">
+      <div className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
         <Reveal>
           <SectionHeader 
             title="Selected Works" 

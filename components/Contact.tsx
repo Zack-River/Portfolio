@@ -80,9 +80,9 @@ const Contact: React.FC = () => {
       id="contact"
       className="py-24 md:py-32 bg-canvas-light text-canvas-dark relative flex-1 flex flex-col justify-center"
     >
-      <div className="max-w-7xl mx-auto md:px-12 lg:px-24 w-full">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-10 lg:gap-16 items-start">
-          <div className="text-center md:text-left px-4 md:px-0 h-full">
+          <div className="text-center md:text-left h-full">
             <Reveal>
               <SectionHeader
                 title="Get in Touch"
