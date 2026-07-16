@@ -147,7 +147,7 @@ const Contact: React.FC = () => {
                     <p className="text-xs text-canvas-dark/60 uppercase tracking-wider">
                       Location
                     </p>
-                    <p className="text-canvas-dark/80">Egypt</p>
+                    <p className="text-canvas-dark/80">Qalubiya, Egypt</p>
                   </div>
                 </div>
               </Reveal>
