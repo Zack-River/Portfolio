@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Home, User, Layers, Mail, Code, Users, Briefcase } from 'lucide-react';
+import { Home, User, Layers, Users, Briefcase } from 'lucide-react';
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 
 const navItems = [
   { id: 'home', icon: Home, label: 'Home' },
   { id: 'about', icon: User, label: 'About' },
-  { id: 'skills', icon: Code, label: 'Skills' },
   { id: 'projects', icon: Layers, label: 'Works' },
   { id: 'testimonials', icon: Users, label: 'Clients' },
   { id: 'services', icon: Briefcase, label: 'Services' },
-  { id: 'contact', icon: Mail, label: 'Contact' },
 ];
 
 const Navbar: React.FC = () => {
