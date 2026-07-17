@@ -13,7 +13,7 @@ import React from "react";
  */
 const MobileHeroVisual: React.FC = () => {
   return (
-    <div className="w-full h-full flex items-center justify-center relative overflow-hidden pb-12">
+    <div className="w-full flex items-center justify-center relative overflow-visible py-8">
       {/* Animated glow orb — opacity only (GPU composited) */}
       <div
         className="absolute w-[320px] h-[320px] rounded-full opacity-30"

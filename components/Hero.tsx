@@ -62,12 +62,7 @@ const Hero: React.FC = () => {
         {!isMobile && <StarsBackground colorClass="bg-electric" count={30} />}
 
         <div className="absolute inset-0 w-full h-full z-20 pointer-events-auto">
-          {isMobile ? (
-            /* Mobile: Lightweight SVG robot — zero JS, zero WebGL */
-            <div className="absolute inset-0 w-full h-full flex items-center justify-center">
-              <MobileHeroVisual />
-            </div>
-          ) : (
+          {!isMobile && (
             /* Desktop: Full 3D experience */
             <div className="absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing">
               <motion.div
@@ -118,8 +113,12 @@ const Hero: React.FC = () => {
               </h1>
             </div>
 
-            {/* Spacer on Mobile for SVG robot to show through */}
-            <div className="w-full h-[45vh] md:hidden pointer-events-none" />
+            {/* Inline SVG robot for mobile ONLY! naturally stacked */}
+            {isMobile && (
+              <div className="w-full flex justify-center md:hidden animate-fade-in-up" style={{ animationDelay: '100ms' }}>
+                <MobileHeroVisual />
+              </div>
+            )}
 
             <div className="pointer-events-auto mb-8 md:mb-8 mt-4 md:mt-0 w-full flex justify-center md:justify-start animate-fade-in-up" style={{ animationDelay: '200ms' }}>
               <p className="text-base md:text-lg text-canvas-dark/80 max-w-xl mx-auto md:mx-0 font-light leading-relaxed md:leading-loose text-center md:text-left">
