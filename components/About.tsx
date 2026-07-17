@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { EDUCATION, TRAINING, PERSONAL_INFO } from "../constants";
 import SectionHeader from "./SectionHeader";
-import { GraduationCap, Briefcase, ChevronLeft, ChevronRight } from "lucide-react";
+import { GraduationCap, Briefcase, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import GSAPReveal from "./GSAPReveal";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -180,7 +180,20 @@ const About: React.FC = () => {
                         >
                           <h4 className="text-xl text-primary font-semibold mb-1">{job.role}</h4>
                           <p className="text-secondary text-sm mb-3">{job.company}</p>
-                          <p className="text-xs font-mono text-electric bg-electric/10 px-3 py-1 rounded-full mb-2">{job.period}</p>
+                          <div className="flex flex-wrap items-center justify-center gap-2 mb-2">
+                            <p className="text-xs font-mono text-electric bg-electric/10 px-3 py-1 rounded-full">{job.period}</p>
+                            {job.certificate && (
+                              <a 
+                                href={job.certificate} 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                onClick={(e) => e.stopPropagation()}
+                                className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-electric hover:text-white bg-electric/10 hover:bg-electric px-3 py-1 rounded-full transition-all border border-electric/20"
+                              >
+                                <ExternalLink size={12} /> Certificate
+                              </a>
+                            )}
+                          </div>
                           <div className={`overflow-hidden transition-all duration-500 ease-in-out w-full flex flex-col items-center ${isExpanded ? "max-h-[500px] opacity-100 mt-4" : "max-h-0 opacity-0 mt-0"}`}>
                             <div className="w-12 h-px bg-canvas-dark/10 mb-4"></div>
                             <ul className="space-y-3">
@@ -189,6 +202,7 @@ const About: React.FC = () => {
                               ))}
                             </ul>
                           </div>
+
                           <div className="mt-4 flex flex-col items-center justify-center text-canvas-dark/30 hover:text-electric transition-colors">
                             <span className="text-xs uppercase tracking-widest mb-1">{isExpanded ? "Show Less" : "View Details"}</span>
                             <span className={`inline-block text-xs transition-transform duration-500 ${isExpanded ? "rotate-180" : ""}`}>▼</span>
@@ -212,14 +226,27 @@ const About: React.FC = () => {
                       <span className="absolute left-[-5px] top-2 w-2 h-2 bg-canvas-dark/60 group-hover:bg-electric transition-colors rounded-full"></span>
                       <h4 className="text-xl text-primary">{job.role}</h4>
                       <p className="text-secondary text-sm mb-2">{job.company}</p>
-                      <p className="text-xs font-mono text-secondary mb-4">{job.period}</p>
-                      <ul className="space-y-2">
+                      <div className="flex flex-wrap items-center gap-3 mb-4">
+                        <p className="text-xs font-mono text-secondary">{job.period}</p>
+                        {job.certificate && (
+                          <a 
+                            href={job.certificate} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-electric hover:text-white bg-electric/10 hover:bg-electric px-3 py-1 rounded-full transition-all border border-electric/20"
+                          >
+                            <ExternalLink size={12} /> Certificate
+                          </a>
+                        )}
+                      </div>
+                      <ul className="space-y-2 mb-4">
                         {job.details.map((detail, dIdx) => (
                           <li key={dIdx} className="text-secondary text-sm pl-4 relative before:content-['-'] before:absolute before:left-0 before:text-muted">
                             {detail}
                           </li>
                         ))}
                       </ul>
+
                     </div>
                   ))}
                 </div>

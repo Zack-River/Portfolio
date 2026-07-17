@@ -30,28 +30,7 @@ img {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-  .grain-overlay-container::before {
-    content: "";
-    position: fixed;
-    top: -50%;
-    left: -50%;
-    width: 200vw;
-    height: 200vh;
-    z-index: 50; /* Above most elements but below highest popups */
-    pointer-events: none;
-    background-image: url('/noise.png');
-    background-repeat: repeat;
-    background-size: 100px;
-    opacity: 0.035; /* Subtle */
-    /* Hardware acceleration to prevent jitter */
-    transform: translateZ(0);
-    will-change: opacity;
-  }
 
-/* Disable grain on mobile — it's an SVG filter applied every frame */
-@media (max-width: 1023px) {
-  .grain-overlay-container::before { display: none; }
-}
 
 /* Respect user's OS reduced-motion preference */
 @media (prefers-reduced-motion: reduce) {

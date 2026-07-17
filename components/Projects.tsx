@@ -61,8 +61,8 @@ const Projects: React.FC = () => {
             .map(id => PROJECTS.find(p => p.id === id))
             .filter(Boolean)
             .map((project) => (
-              <Link to={`/project/${project!.id}`} key={project!.id} className="project-card relative group block">
-                <div className="w-full bg-white rounded-xl overflow-hidden ring-1 ring-canvas-dark/10 shadow-xl transition-all duration-500 group-hover:shadow-2xl group-hover:-translate-y-2">
+              <Link to={`/project/${project!.id}`} key={project!.id} className="project-card relative group block transition-all duration-300 hover:-translate-y-1">
+                <div className="w-full bg-white rounded-xl overflow-hidden ring-1 ring-canvas-dark/5 shadow-md transition-all duration-300 group-hover:shadow-xl">
                   {/* Browser Header */}
                   <div className="h-10 bg-canvas-dark/5 border-b border-canvas-dark/10 flex items-center px-4 relative z-30 transition-colors group-hover:bg-canvas-dark/10">
                     <div className="flex gap-2 z-10">
@@ -78,7 +78,7 @@ const Projects: React.FC = () => {
                   </div>
 
                   {/* Window Body */}
-                  <div className="relative w-full aspect-video md:aspect-4/3 lg:aspect-4/3 overflow-hidden bg-canvas-dark/5">
+                  <div className="relative w-full aspect-video overflow-hidden bg-canvas-dark/5">
                     {project!.image ? (
                       <img
                         src={project!.image}

@@ -121,7 +121,7 @@ const Hero: React.FC<{ loading?: boolean }> = ({ loading = false }) => {
 
         {/* Electric blue glow */}
         {!isMobile && (
-          <div className="absolute top-1/2 left-3/4 -translate-x-1/2 -translate-y-1/2 w-[35%] h-[50%] bg-electric/15 rounded-full blur-[100px] pointer-events-none z-10" />
+          <div className="absolute top-1/2 left-3/4 -translate-x-1/2 -translate-y-1/2 w-[35%] h-[50%] bg-electric/25 rounded-full blur-[120px] pointer-events-none z-10" />
         )}
 
         {/* Stars Background — desktop only */}

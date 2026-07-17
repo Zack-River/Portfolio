@@ -39,7 +39,7 @@ const StarsBackground: React.FC<StarsBackgroundProps> = ({ colorClass = "bg-whit
             height: `${star.size}px`,
             // will-change promotes each star to its own GPU layer so the
             // browser compositor handles the animation without main-thread repaints
-            willChange: 'transform, opacity',
+            // REMOVED: causes GPU memory leak when hundreds of stars are rendered across multiple components
             animation: `twinkleStar ${star.duration}s ease-in-out infinite ${star.delay}s`,
           }}
         />

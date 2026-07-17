@@ -715,6 +715,7 @@ export const TRAINING: Experience[] = [
     details: [
       "Developed an e-commerce platform utilizing .NET Core & Angular, with Stripe and Redis.",
     ],
+    certificate: "https://drive.google.com/file/d/1oJ6ODnjqUaUBpa0eDuUPOJVJDa0yJN7z/view?usp=sharing",
   },
   {
     role: "Full Stack Trainee (MEAN Stack)",
@@ -724,6 +725,7 @@ export const TRAINING: Experience[] = [
       "Developed full-stack Instagram clone with full functionality.",
       "Built Backend Spotify clone focusing on performance.",
     ],
+    certificate: "https://drive.google.com/file/d/1jctAU3yMyxMliebGVIpWO-4S_IOPUSBF/view?usp=sharing",
   },
   {
     role: "Software Engineer",

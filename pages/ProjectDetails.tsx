@@ -174,7 +174,7 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({ images, title
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-100 flex items-center justify-center bg-black/95 backdrop-blur-md p-4 md:p-8"
+            className="fixed inset-0 z-100 flex items-center justify-center bg-[#0a0a0b]/98 p-4 md:p-8"
             onClick={() => setIsModalOpen(false)}
           >
             <button
