@@ -11,12 +11,12 @@ const Scene3D = React.lazy(() => import("./Scene3D"));
 
 const Hero: React.FC = () => {
   const [isMobile, setIsMobile] = React.useState(() =>
-    typeof window !== "undefined" ? window.innerWidth < 1024 : true
+    typeof window !== "undefined" ? window.innerWidth < 768 : true
   );
   const [shouldLoad3D, setShouldLoad3D] = React.useState(false);
 
   React.useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 1024);
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);

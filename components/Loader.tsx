@@ -7,7 +7,7 @@ const Loader: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
   const { progress: modelProgress } = useProgress();
 
   useEffect(() => {
-    const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
     const is3DReady = isMobile ? true : modelProgress >= 100;
 
     const timer = setInterval(() => {

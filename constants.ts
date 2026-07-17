@@ -306,7 +306,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "karbala",
-    title: "Qarbla: The Ashura Experience",
+    title: "Qarbla",
     subtitle: "Interactive Educational Platform",
     description:
       "A fully structured digital experience delivering sequential content over 13 nights. Transforms passive reading into an active, gamified learning journey with interactive quizzes and assessments.",

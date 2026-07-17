@@ -64,9 +64,9 @@ const Services: React.FC = () => {
           />
         </Reveal>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {SERVICES_DATA.map((service, idx) => (
-            <Reveal key={idx} delay={idx * 0.1} className="h-full">
+            <Reveal key={idx} delay={idx * 0.1} className={`h-full ${idx === 2 ? 'md:col-span-2 lg:col-span-1' : ''}`}>
               <div className="card-base p-8 card-hover h-full flex flex-col relative overflow-hidden group">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-canvas-dark/5 rounded-bl-full transition-all group-hover:bg-electric/5"></div>
                 

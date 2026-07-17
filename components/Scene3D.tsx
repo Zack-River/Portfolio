@@ -858,9 +858,9 @@ const Scene3D: React.FC = () => {
 
         <Model
           position={
-            isMobile ? [0, -0.8, 0] : isTablet ? [2, -1.3, 0] : [3, -1.5, 0]
+            isMobile ? [0, -3, 0] : isTablet ? [1.5, -3.5, 0] : [4, -4, 0]
           }
-          scale={isMobile ? 1.4 : isTablet ? 1.6 : 1.8}
+          scale={isMobile ? 1.4 : isTablet ? 1.2 : 2}
         />
 
         {/* <OrbitControls

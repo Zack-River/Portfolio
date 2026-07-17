@@ -63,7 +63,7 @@ const Navbar: React.FC = () => {
     <motion.div 
       initial={{ y: 0, opacity: 1 }}
       animate={{ 
-        y: isVisible ? 0 : (window.innerWidth < 1024 ? 150 : -150),
+        y: isVisible ? 0 : (window.innerWidth < 768 ? 150 : -150),
         opacity: isVisible ? 1 : 0
       }}
       transition={{ duration: 0.4, ease: "easeInOut" }}
