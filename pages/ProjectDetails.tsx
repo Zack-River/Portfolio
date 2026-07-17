@@ -709,7 +709,7 @@ const ProjectDetails: React.FC = () => {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.3, delay: i * 0.05 }}
-                  className="px-5 py-2.5 bg-white ring-1 ring-canvas-dark/10 shadow-sm rounded-xl font-mono text-sm text-canvas-dark/80 dark:text-canvas-light/80 hover:ring-electric hover:text-electric hover:bg-electric/5 transition-all duration-200 cursor-default"
+                  className="px-5 py-2.5 bg-white dark:bg-canvas-dark ring-1 ring-canvas-dark/10 dark:ring-white/10 shadow-sm rounded-xl font-mono text-sm text-canvas-dark/80 dark:text-canvas-light/80 hover:ring-electric hover:text-electric hover:bg-electric/5 transition-all duration-200 cursor-default"
                 >
                   {tag}
                 </motion.span>
