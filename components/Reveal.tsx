@@ -44,7 +44,6 @@ export const Reveal = ({ children, width = "100%", delay = 0.25, className = "" 
       style={{
         position: "relative",
         width,
-        contain: 'content',
         ...(isFullHeight ? { height: '100%' } : {}),
       }}
     >
