@@ -34,10 +34,7 @@ const GSAPReveal: React.FC<GSAPRevealProps> = ({
     const isMobile = window.innerWidth < 768;
 
     // Skip on mobile or reduced motion for performance
-    if (isMobile || prefersReducedMotion) {
-      gsap.set(el, { opacity: 1, x: 0, y: 0 });
-      return;
-    }
+    if (isMobile || prefersReducedMotion) return;
 
     const fromVars: gsap.TweenVars = {
       opacity: 0,
@@ -60,11 +57,17 @@ const GSAPReveal: React.FC<GSAPRevealProps> = ({
       });
     }, el);
 
-    return () => ctx.revert();
+    // Refresh so GSAP re-measures after any layout shifts (e.g. deferred 3D load)
+    const rafId = requestAnimationFrame(() => ScrollTrigger.refresh());
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      ctx.revert();
+    };
   }, [delay, duration, from, y]);
 
   return (
-    <div ref={ref} className={className} style={{ position: 'relative', width: '100%' }}>
+    <div ref={ref} className={className} style={{ position: 'relative', width: '100%', opacity: 1 }}>
       {children}
     </div>
   );

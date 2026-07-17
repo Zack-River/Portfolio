@@ -56,11 +56,11 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle, number =
   }, [targetNum]);
 
   return (
-    <div className={`relative mb-12 md:mb-16 text-center ${align === 'right' ? 'md:text-right' : 'md:text-left'}`}>
+    <div className={`relative mb-12 md:mb-16 text-center ${align === 'right' ? 'md:text-right' : 'md:text-left'} pt-8`}>
       {number && (
         <span
           ref={numberRef}
-          className={`absolute -top-10 text-[clamp(4rem,12vw,8rem)] font-bold select-none z-0 opacity-50 font-display left-1/2 -translate-x-1/2 text-canvas-dark/5 dark:text-white/15 ${targetNum % 2 === 1 ? 'md:left-auto md:right-0 md:translate-x-0' : 'md:left-0 md:translate-x-0'}`}
+          className={`absolute -top-4 text-[clamp(4rem,12vw,8rem)] font-bold select-none z-0 opacity-60 font-display leading-none pointer-events-none text-canvas-dark/10 dark:text-white/15 ${targetNum % 2 === 1 ? 'left-1/2 -translate-x-1/2 md:left-auto md:right-0 md:translate-x-0' : 'left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0'}`}
         >
           {number}
         </span>
@@ -68,7 +68,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle, number =
       <div className="relative z-10">
         <h2
           ref={titleRef}
-          className={`text-[clamp(1.75rem,5vw,3rem)] font-display font-bold mb-2 text-primary dark:text-canvas-light`}
+          className={`text-[clamp(1.75rem,5vw,3rem)] font-display font-bold mb-2 text-canvas-dark dark:text-canvas-light`}
         >
           {title}
         </h2>
@@ -78,7 +78,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle, number =
         />
         <p
           ref={subtitleRef}
-          className={`font-mono tracking-widest text-sm uppercase text-secondary dark:text-canvas-light/70`}
+          className={`font-mono tracking-widest text-sm uppercase text-canvas-dark/60 dark:text-canvas-light/70`}
         >
           {subtitle}
         </p>
