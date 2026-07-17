@@ -1,5 +1,5 @@
 import React, { Suspense, useRef, useEffect } from "react";
-import { PERSONAL_INFO } from "../constants";
+import { PERSONAL_INFO, SITE_CONTENT } from "../constants";
 import { ArrowDown } from "lucide-react";
 import { motion } from "framer-motion";
 import StarsBackground from "./StarsBackground";
@@ -171,11 +171,11 @@ const Hero: React.FC<{ loading?: boolean }> = ({ loading = false }) => {
                   className="block text-[clamp(2.5rem,10vw,4.5rem)] md:text-[clamp(3.5rem,8vw,5.5rem)] lg:text-[clamp(3.5rem,7.5vw,8.5rem)] tracking-[-0.02em] font-display font-bold text-canvas-dark dark:text-canvas-light leading-none pt-2 pb-2 w-full text-center md:text-left"
                   style={{ perspective: "800px" }}
                 >
-                  <SplitChars ref={firstNameRef} text="Abdallah" />
+                  <SplitChars ref={firstNameRef} text={SITE_CONTENT.hero.name.split(" ")[0]} />
                   <br className="hidden md:block" />
                   <SplitChars
                     ref={lastNameRef}
-                    text="Wageeh"
+                    text={SITE_CONTENT.hero.name.split(" ")[1]}
                     className="text-canvas-dark/60 dark:text-canvas-light/60"
                   />
                 </span>
@@ -195,10 +195,7 @@ const Hero: React.FC<{ loading?: boolean }> = ({ loading = false }) => {
                 ref={descRef}
                 className="text-base md:text-lg text-canvas-dark/80 dark:text-canvas-light/70 max-w-xl mx-auto md:mx-0 font-light leading-relaxed md:leading-loose text-center md:text-left md:opacity-0"
               >
-                {PERSONAL_INFO.title} &{" "}
-                <br className="hidden md:block" />
-                <span className="text-canvas-dark/80 dark:text-canvas-light font-medium">Full Stack Specialist</span>
-                . Crafting scalable digital architectures with artistic precision.
+                {SITE_CONTENT.hero.subtitle}
               </p>
             </div>
 

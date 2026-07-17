@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import SectionHeader from './SectionHeader';
+import { TESTIMONIALS, SITE_CONTENT } from '../constants';
 import GSAPReveal from './GSAPReveal';
 import { Star, Quote, Play, Pause, Volume2 } from 'lucide-react';
 import StarsBackground from './StarsBackground';
@@ -15,34 +16,7 @@ interface Testimonial {
   voiceNote?: string;
 }
 
-const TESTIMONIALS: Testimonial[] = [
-  {
-    name: "Mostafa N.",
-    rating: 5,
-    text: "Honestly, working with Zack was very comfortable. He understands his work and delivered a website better than I imagined. Delivery was on time with no delays.",
-    image: "/clients/mostafa.webp",
-    link: "https://www.facebook.com/DR.MostafaNawareg",
-    voiceNote: "/audio/MostafaNawareg.mp3",
-  },
-  {
-    name: "Jaffar S.",
-    rating: 5,
-    text: "Truly professional work! The site is fast and very elegant. Most importantly, he followed up with me step by step until everything was perfect.",
-    image: "/clients/jaffar.webp",
-  },
-  {
-    name: "Ali I.",
-    rating: 5,
-    text: "One of the best engineers I've dealt with. He always finds solutions to complex programming challenges and the design was a perfect fit for my brand. Highly recommended.",
-    image: "/clients/ahmed.webp",
-  },
-  {
-    name: "Heba A.",
-    rating: 5,
-    text: "An exceptionally skilled and dedicated developer who is honest, reliable, and highly professional. I would gladly recommend him to anyone looking for quality work.",
-    image: "/clients/heba.webp",
-  },
-];
+
 
 /* ── VOICE NOTE PLAYER ── */
 const VoiceNotePlayer: React.FC<{ src: string }> = ({ src }) => {

@@ -4,6 +4,7 @@ import {
   Education,
   Experience,
   Service,
+  Testimonial,
 } from "./types";
 import {
   Server,
@@ -767,3 +768,133 @@ export const TRAINING: Experience[] = [
     ],
   },
 ];
+
+export const CATEGORIES = ["All", "Landing Pages", "Web Apps", "UI/UX Designs", "Backend", "Desktop Apps", "QA"];
+
+export const TESTIMONIALS: Testimonial[] = [
+  {
+    name: "Mostafa N.",
+    rating: 5,
+    text: "Honestly, working with Zack was very comfortable. He understands his work and delivered a website better than I imagined. Delivery was on time with no delays.",
+    image: "/clients/mostafa.webp",
+    link: "https://www.facebook.com/DR.MostafaNawareg",
+    voiceNote: "/audio/MostafaNawareg.mp3",
+  },
+  {
+    name: "Jaffar S.",
+    rating: 5,
+    text: "Truly professional work! The site is fast and very elegant. Most importantly, he followed up with me step by step until everything was perfect.",
+    image: "/clients/jaffar.webp",
+  },
+  {
+    name: "Ali I.",
+    rating: 5,
+    text: "One of the best engineers I've dealt with. He always finds solutions to complex programming challenges and the design was a perfect fit for my brand. Highly recommended.",
+    image: "/clients/ahmed.webp",
+  },
+  {
+    name: "Heba A.",
+    rating: 5,
+    text: "Excellent experience. The platform was built exactly to specifications, with a clean backend that makes managing data a breeze.",
+    image: "/clients/sarah.webp",
+  },
+];
+
+export const SITE_CONTENT = {
+  hero: {
+    greeting: "Hey, I'm",
+    name: "Abdallah Wageeh",
+    subtitle: "A Software Engineer specializing in backend systems, scalable architectures, and seamless digital experiences.",
+    ctaPrimary: "View My Work",
+    ctaSecondary: "Get In Touch",
+    scroll: "Scroll Down",
+  },
+  about: {
+    sectionHeader: {
+      title: "The Developer",
+      subtitle: "Education & Journey",
+      number: "01",
+    },
+    title: "About Me",
+    resumeBtn: "Download Resume",
+    certificateBtn: "Certificate",
+    location: {
+      label: "Currently in",
+      value: "Cairo, EG",
+    },
+  },
+  services: {
+    sectionHeader: {
+      title: "Specialized Services",
+      subtitle: "Technical Expertise",
+      number: "02",
+    },
+  },
+  skills: {
+    sectionHeader: {
+      title: "Technical Arsenal",
+      subtitle: "Skills & Technologies",
+      number: "03",
+    },
+  },
+  projects: {
+    sectionHeader: {
+      title: "Selected Work",
+      subtitle: "Featured Projects",
+      number: "04",
+    },
+    viewCaseStudy: "View Case Study",
+    viewAll: "View All Projects",
+  },
+  testimonials: {
+    sectionHeader: {
+      title: "Client Feedback",
+      subtitle: "What People Say",
+      number: "05",
+    },
+    voiceNoteBtn: "Listen to Voice Note",
+  },
+  contact: {
+    sectionHeader: {
+      title: "Get in Touch",
+      subtitle: "Start a Conversation",
+    },
+    prompt: "Let's build something extraordinary together.",
+    form: {
+      name: "Your Name",
+      email: "Email Address",
+      details: "Project Details",
+      submit: "Send Message",
+      sending: "Sending...",
+      success: "Message Sent Successfully!",
+    },
+  },
+  footer: {
+    rights: "All rights reserved.",
+    links: {
+      home: "Home",
+      about: "About",
+      services: "Services",
+      work: "Work",
+      contact: "Contact",
+    },
+  },
+  projectsPage: {
+    backBtn: "Back to Home",
+    titlePrimary: "Portfolio",
+    titleSecondary: "Archive",
+    description: "A comprehensive archive of systems, interfaces, and platforms I've engineered over the years. Explore the architecture behind each experience.",
+  },
+  projectDetails: {
+    backBtn: "Back to Home",
+    liveDemo: "Live Demo",
+    sourceCode: "Source Code",
+    aboutProject: "About this project",
+    features: "Key Features & Use Cases",
+    techStack: "Technology Stack",
+    imageNavPrompt: "Use the arrows or dots to navigate · Add more images via gallery[] in constants.ts",
+    nextProject: "Next Project",
+    steps: "Steps",
+    expectedResult: "Expected Result",
+  },
+};

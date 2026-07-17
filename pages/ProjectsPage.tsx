@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { PROJECTS } from '../constants';
+import { PROJECTS, CATEGORIES, SITE_CONTENT } from "../constants";
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, ExternalLink, Github, Moon, Sun } from 'lucide-react';
@@ -8,7 +8,7 @@ import GSAPReveal from '../components/GSAPReveal';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
-const CATEGORIES = ["All", "Landing Pages", "Web Apps", "UI/UX Designs", "Backend", "Desktop Apps", "QA"];
+
 
 const getProjectCategories = (id: string): string[] => {
   const cats: string[] = ["All"];
@@ -68,12 +68,12 @@ const ProjectsPage: React.FC = () => {
           <GSAPReveal>
             <Link to="/" className="inline-flex items-center gap-2 text-canvas-dark/60 dark:text-canvas-light/60 hover:text-electric dark:hover:text-electric transition-colors mb-6 font-medium text-sm">
               <ArrowLeft size={16} />
-              <span>Back to Home</span>
+              <span>{SITE_CONTENT.projectsPage.backBtn}</span>
             </Link>
           </GSAPReveal>
           <GSAPReveal delay={0.1}>
             <h1 className="text-4xl md:text-6xl font-display font-bold text-canvas-dark dark:text-canvas-light mb-4">
-              Portfolio <span className="text-canvas-dark/20 dark:text-canvas-light/20">Archive</span>
+              Portfolio <span className="text-canvas-dark/20 dark:text-canvas-light/20">{SITE_CONTENT.projectsPage.titleSecondary}</span>
             </h1>
           </GSAPReveal>
           <GSAPReveal delay={0.2}>

@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { PROJECTS } from '../constants';
+import { PROJECTS , SITE_CONTENT } from "../constants";
 import SectionHeader from './SectionHeader';
 import GSAPReveal from './GSAPReveal';
 import { Link } from 'react-router-dom';
@@ -116,7 +116,7 @@ const Projects: React.FC = () => {
         <div className="mt-16 flex justify-center">
           <GSAPReveal>
             <Link to="/projects" className="btn-primary group">
-              <span>View All Projects</span>
+              <span>{SITE_CONTENT.projects.viewAll}</span>
               <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-white group-hover:text-electric transition-colors">
                 <ArrowRight size={14} />
               </div>

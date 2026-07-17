@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { EDUCATION, TRAINING, PERSONAL_INFO } from "../constants";
+import { EDUCATION, TRAINING, PERSONAL_INFO , SITE_CONTENT } from "../constants";
 import SectionHeader from "./SectionHeader";
 import { GraduationCap, Briefcase, ChevronLeft, ChevronRight, ExternalLink, Monitor, PenTool } from "lucide-react";
 import GSAPReveal from "./GSAPReveal";
@@ -90,7 +90,7 @@ const About: React.FC = () => {
 
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24 relative z-10">
         <GSAPReveal>
-          <SectionHeader title="The Developer" subtitle="Education & Journey" number="01" />
+          <SectionHeader title={SITE_CONTENT.about.sectionHeader.title} subtitle={SITE_CONTENT.about.sectionHeader.subtitle} number={SITE_CONTENT.about.sectionHeader.number} />
         </GSAPReveal>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-start">

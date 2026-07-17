@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { SKILL_CATEGORIES } from '../constants';
+import { SKILL_CATEGORIES , SITE_CONTENT } from "../constants";
 import SectionHeader from './SectionHeader';
 import GSAPReveal from './GSAPReveal';
 import { Server, Database, ShieldCheck, Layers, Globe, Cloud, Zap, Link, FileText, Briefcase } from 'lucide-react';

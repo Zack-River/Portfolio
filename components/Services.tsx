@@ -1,5 +1,6 @@
 import React from 'react';
 import SectionHeader from './SectionHeader';
+import { SITE_CONTENT } from "../constants";
 import GSAPReveal from './GSAPReveal';
 import { Layout, AppWindow, Stethoscope, ArrowRight, Calendar } from 'lucide-react';
 

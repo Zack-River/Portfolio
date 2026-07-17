@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { PROJECTS } from '../constants';
+import { PROJECTS , SITE_CONTENT } from "../constants";
 import { useTheme } from '../hooks/useTheme';
 import Footer from '../components/Footer';
 import {
@@ -69,11 +69,11 @@ const UseCaseCarousel: React.FC<{ useCases: UseCase[]; title: string }> = ({ use
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 pt-6 border-t border-black/10 dark:border-white/10">
                 <div>
-                  <p className="font-mono text-xs text-electric uppercase tracking-widest mb-2">Steps</p>
+                  <p className="font-mono text-xs text-electric uppercase tracking-widest mb-2">{SITE_CONTENT.projectDetails.steps}</p>
                   <p className="text-black dark:text-white text-sm leading-relaxed font-medium">{useCases[current].steps}</p>
                 </div>
                 <div>
-                  <p className="font-mono text-xs text-electric uppercase tracking-widest mb-2">Expected Result</p>
+                  <p className="font-mono text-xs text-electric uppercase tracking-widest mb-2">{SITE_CONTENT.projectDetails.expectedResult}</p>
                   <p className="text-black dark:text-white text-sm leading-relaxed font-medium">{useCases[current].expectedResult}</p>
                 </div>
               </div>
@@ -411,7 +411,7 @@ const ProjectDetails: React.FC = () => {
               className="flex items-center gap-2 text-sm font-medium bg-electric text-white px-4 py-1.5 rounded-full hover:bg-electric/80 transition-colors"
             >
               <ExternalLink size={14} />
-              <span className="hidden md:inline">Live Demo</span>
+              <span className="hidden md:inline">{SITE_CONTENT.projectDetails.liveDemo}</span>
             </a>
           )}
         </div>

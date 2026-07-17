@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import SectionHeader from "./SectionHeader";
 import { Mail, MapPin, Linkedin, Github, Phone, Briefcase } from "lucide-react";
-import { PERSONAL_INFO } from "../constants";
+import { PERSONAL_INFO, SITE_CONTENT } from "../constants";
 import Reveal from "./Reveal";
 
 const ContactSchema = Yup.object().shape({
