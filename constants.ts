@@ -815,6 +815,8 @@ export const SITE_CONTENT = {
       subtitle: "Education & Journey",
       number: "01",
     },
+    educationTitle: "Education",
+    experienceTitle: "Experience & Training",
     title: "About Me",
     resumeBtn: "Download Resume",
     certificateBtn: "Certificate",

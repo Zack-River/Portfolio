@@ -73,9 +73,9 @@ const Skills: React.FC = () => {
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24 relative z-10">
         <GSAPReveal>
           <SectionHeader
-            title="Technical Arsenal"
-            subtitle="Tools & Technologies"
-            number="02"
+            title={SITE_CONTENT.skills.sectionHeader.title}
+            subtitle={SITE_CONTENT.skills.sectionHeader.subtitle}
+            number={SITE_CONTENT.skills.sectionHeader.number}
             align="right"
             dark={true}
           />

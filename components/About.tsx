@@ -122,7 +122,7 @@ const About: React.FC = () => {
             <GSAPReveal delay={0.2}>
               <div className="pt-8">
                 <h3 className="text-2xl font-display text-canvas-dark dark:text-canvas-light mb-6 flex items-center justify-center md:justify-start gap-3">
-                  <GraduationCap className="text-electric" /> Education
+                  <GraduationCap className="text-electric" /> {SITE_CONTENT.about.educationTitle}
                 </h3>
 
                 {/* Mobile */}
@@ -156,7 +156,7 @@ const About: React.FC = () => {
               <GSAPReveal delay={0.3}>
                 <div className="pt-8">
                   <h3 className="text-2xl font-display text-canvas-dark dark:text-canvas-light mb-6 flex items-center justify-center md:justify-start gap-3">
-                    <Briefcase className="text-electric" /> Experience & Training
+                    <Briefcase className="text-electric" /> {SITE_CONTENT.about.experienceTitle}
                   </h3>
                 </div>
               </GSAPReveal>
