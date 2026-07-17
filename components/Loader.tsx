@@ -8,27 +8,35 @@ const Loader: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
 
   useEffect(() => {
     const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-    const is3DReady = isMobile ? true : modelProgress >= 100;
 
-    const timer = setInterval(() => {
-      setProgress((prev) => {
-        // Pause at 99% on desktop until the 3D model is loaded
-        if (prev >= 99 && !is3DReady) {
-          return 99;
-        }
+    // Mobile: No 3D model, so use a fast fake progress
+    if (isMobile) {
+      const timer = setInterval(() => {
+        setProgress((prev) => {
+          if (prev >= 100) {
+            clearInterval(timer);
+            setTimeout(onComplete, 200);
+            return 100;
+          }
+          return Math.min(prev + Math.random() * 30, 100);
+        });
+      }, 50);
+      return () => clearInterval(timer);
+    }
+  }, [onComplete]);
 
-        if (prev >= 100 || (prev >= 99 && is3DReady)) {
-          clearInterval(timer);
-          setTimeout(onComplete, 200);
-          return 100;
-        }
-        const increment = Math.random() * 30;
-        return Math.min(prev + increment, 99);
-      });
-    }, 50);
-
-    return () => clearInterval(timer);
-  }, [onComplete, modelProgress]);
+  useEffect(() => {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    
+    // Desktop: Sync directly with the 3D model's true download progress
+    if (!isMobile) {
+      setProgress(modelProgress);
+      if (modelProgress >= 100) {
+        const timer = setTimeout(onComplete, 200);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, [modelProgress, onComplete]);
 
   return (
     <motion.div
