@@ -813,24 +813,9 @@ export function Model(props: any) {
 
 const ModelWrapper = ({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) => {
   const { viewport } = useThree();
-  
-  // Calculate a responsive scale so the model doesn't overflow narrow desktop/tablet screens
-  const scale = isMobile 
-    ? 1.4 
-    : isTablet 
-      ? Math.min(1.2, viewport.width / 6) 
-      : Math.min(2, viewport.width / 8);
-
-  // Position X centers on mobile, and precisely hits 75% of screen width on desktop
   const positionX = isMobile ? 0 : viewport.width / 4;
-  
-  // Dynamically bound Position Y so the platform NEVER clips the bottom of the viewport
-  // Viewport bottom edge is `-viewport.height / 2`.
-  const positionY = isMobile 
-    ? -3 
-    : isTablet 
-      ? Math.max(-3.5, -viewport.height / 2 + scale * 0.8) 
-      : Math.max(-4, -viewport.height / 2 + scale * 1.3);
+  const positionY = isMobile ? -3 : isTablet ? -3.5 : -4;
+  const scale = isMobile ? 1.4 : isTablet ? 1.2 : 2;
 
   return <Model position={[positionX, positionY, 0]} scale={scale} />;
 };
