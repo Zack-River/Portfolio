@@ -11,16 +11,23 @@ const SHAPES = {
 const SHAPE_KEYS = Object.keys(SHAPES) as (keyof typeof SHAPES)[];
 
 const FloatingPolymers: React.FC = () => {
-  const polymers = useMemo(() => Array.from({ length: 6 }).map((_, i) => {
-    const shape = SHAPE_KEYS[i % SHAPE_KEYS.length];
-    const size = Math.random() * 50 + 30; // Smaller: 30px to 80px
-    const left = Math.random() * 100;
-    const top = Math.random() * 100;
-    const duration = Math.random() * 30 + 30; // Slower: 30s–60s (less repaints)
-    const delay = Math.random() * -30;
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
-    return { id: i, shape, size, left, top, duration, delay };
-  }), []);
+  const polymers = useMemo(() => {
+    if (isMobile) return [];
+    return Array.from({ length: 6 }).map((_, i) => {
+      const shape = SHAPE_KEYS[i % SHAPE_KEYS.length];
+      const size = Math.random() * 50 + 30; // Smaller: 30px to 80px
+      const left = Math.random() * 100;
+      const top = Math.random() * 100;
+      const duration = Math.random() * 30 + 30; // Slower: 30s–60s (less repaints)
+      const delay = Math.random() * -30;
+
+      return { id: i, shape, size, left, top, duration, delay };
+    });
+  }, [isMobile]);
+
+  if (polymers.length === 0) return null;
 
   return (
     <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
