@@ -315,6 +315,13 @@ const ProjectDetails: React.FC = () => {
   const heroRef = useRef<HTMLDivElement>(null);
   const [stickyVisible, setStickyVisible] = useState(false);
   const [isHeroHovered, setIsHeroHovered] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' ? window.innerWidth < 1024 : false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 1024);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -431,7 +438,7 @@ const ProjectDetails: React.FC = () => {
         </Link>
 
         <AnimatePresence>
-          {isHeroHovered && (
+          {(isHeroHovered || isMobile) && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
