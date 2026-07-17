@@ -856,13 +856,13 @@ const Scene3D: React.FC<{ isDark?: boolean }> = ({ isDark = false }) => {
 
   // Lighting tuned per theme:
   // Light mode — softer, natural lighting so the model isn't blown out
-  // Dark mode  — deeper sky, cooler fill, same electric rim
-  const ambientIntensity = isDark ? 0.5  : 0.5;
+  // Dark mode  — much darker, moody lighting
+  const ambientIntensity = isDark ? 0.15 : 0.5;
   const skyColor         = isDark ? "#1a2a4a" : "#d0e4f5";
   const groundColor      = isDark ? "#0d1117" : "#9ab8d0";
-  const hemiIntensity    = isDark ? 0.6  : 0.7;
-  const dirIntensity     = isDark ? 1.2  : 1.2;
-  const fillIntensity    = isDark ? 0.4  : 0.4;
+  const hemiIntensity    = isDark ? 0.2  : 0.7;
+  const dirIntensity     = isDark ? 0.6  : 1.2;
+  const fillIntensity    = isDark ? 0.1  : 0.4;
 
   return (
     <div className="w-full h-full bg-transparent relative overflow-hidden pointer-events-none">
