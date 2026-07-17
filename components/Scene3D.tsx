@@ -898,10 +898,22 @@ const Scene3D: React.FC<{ isDark?: boolean }> = ({ isDark = false }) => {
         {/* Soft under-fill to lift shadow areas */}
         <pointLight position={[0, -5, 5]} intensity={fillIntensity} color="#ffffff" />
 
-        {/* Environment IBL — deferred with Scene3D so never blocks LCP.
-            Provides the specular/reflection layer PBR metallic materials need
-            to look bright and shiny instead of flat and dark. */}
-        <Environment preset="city" background={false} />
+        {/* Environment IBL — theme-aware:
+            Light mode: procedural white sphere → zero network requests, bright white IBL
+            Dark mode:  city HDR preset → rich dark reflections (still deferred, never blocks LCP) */}
+        {isDark
+          ? <Environment preset="city" background={false} />
+          : (
+            <Environment background={false} resolution={32}>
+              {/* Inline white sphere rendered into a cubemap — no file download needed */}
+              <mesh scale={100}>
+                <sphereGeometry args={[1, 8, 8]} />
+                {/* side=1 = THREE.BackSide: renders the inside surface as the sky dome */}
+                <meshBasicMaterial side={1} color="#f0f7ff" />
+              </mesh>
+            </Environment>
+          )
+        }
 
         <ModelWrapper isMobile={isMobile} isTablet={isTablet} />
 
