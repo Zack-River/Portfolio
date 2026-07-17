@@ -99,7 +99,7 @@ const Hero: React.FC<{ loading?: boolean }> = ({ loading = false }) => {
   }, [isMobile, loading]);
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center pt-20 pb-16 overflow-hidden bg-canvas-light dark:bg-canvas-dark transition-colors duration-500" ref={sectionRef}>
+    <section id="home" className="relative min-h-screen flex items-center justify-center pt-10 pb-10 overflow-hidden bg-canvas-light dark:bg-canvas-dark transition-colors duration-500" ref={sectionRef}>
       {/* 1. Base Canvas Layer */}
       <div className="absolute inset-0 w-full h-full z-0 pointer-events-auto">
         {/* Blueprint grid */}
@@ -152,7 +152,7 @@ const Hero: React.FC<{ loading?: boolean }> = ({ loading = false }) => {
       <div className="relative z-10 w-full min-h-auto md:min-h-screen pointer-events-none flex flex-col justify-center">
         <div className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24 flex flex-col md:flex-row min-h-auto md:min-h-screen md:items-center">
           {/* Left Column */}
-          <div className="w-full md:w-1/2 lg:w-1/2 flex flex-col justify-center items-center md:items-start text-center md:text-left pt-8 pb-20 md:py-0">
+          <div className="w-full md:w-1/2 lg:w-1/2 flex flex-col justify-center items-center md:items-start text-center md:text-left pt-0 pb-10 md:py-0">
 
             {/* Label */}
             <div className="pointer-events-auto flex flex-col items-center md:items-start w-full mb-2 md:mb-4">
@@ -229,7 +229,7 @@ const Hero: React.FC<{ loading?: boolean }> = ({ loading = false }) => {
         className="hidden md:flex absolute bottom-8 left-1/2 -translate-x-1/2 z-20 pointer-events-none"
         style={{ opacity: 0 }}
       >
-        <span className="text-canvas-dark/60 animate-bounce">
+        <span className="text-canvas-dark/60 dark:text-canvas-light/60 animate-bounce">
           <ArrowDown size={32} strokeWidth={1.5} />
         </span>
       </div>
