@@ -49,7 +49,7 @@ img {
   }
 
 /* Disable grain on mobile — it's an SVG filter applied every frame */
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
   .grain-overlay-container::before { display: none; }
 }
 

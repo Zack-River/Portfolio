@@ -17,7 +17,7 @@ export const Reveal = ({ children, width = "100%", delay = 0.25, className = "" 
   // On mobile, skip all animation machinery — just render children immediately.
   // Framer Motion's IntersectionObserver + animation controller is heavy on
   // low-end phone CPUs when multiplied across dozens of cards.
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
 
   useEffect(() => {
     if (isMobile) return;

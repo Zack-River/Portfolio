@@ -11,7 +11,7 @@ const SHAPES = {
 const SHAPE_KEYS = Object.keys(SHAPES) as (keyof typeof SHAPES)[];
 
 const FloatingPolymers: React.FC = () => {
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
 
   const polymers = useMemo(() => {
     if (isMobile) return [];

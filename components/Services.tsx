@@ -64,7 +64,7 @@ const Services: React.FC = () => {
           />
         </Reveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {SERVICES_DATA.map((service, idx) => (
             <Reveal key={idx} delay={idx * 0.1} className="h-full">
               <div className="card-base p-8 card-hover h-full flex flex-col relative overflow-hidden group">
@@ -86,9 +86,9 @@ const Services: React.FC = () => {
                   <h4 className="text-xs uppercase tracking-wider font-mono text-canvas-dark/50 mb-3">Includes</h4>
                   <ul className="space-y-2">
                     {service.includes.map((item, i) => (
-                      <li key={i} className="text-sm text-canvas-dark/80 flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 bg-electric rounded-full"></span>
-                        {item}
+                      <li key={i} className="text-sm text-canvas-dark/80 flex items-start gap-3">
+                        <span className="w-1.5 h-1.5 bg-electric rounded-full mt-1.5 shrink-0"></span>
+                        <span className="leading-tight">{item}</span>
                       </li>
                     ))}
                   </ul>
