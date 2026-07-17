@@ -720,7 +720,7 @@ const ProjectDetails: React.FC = () => {
           <section className="py-16 md:py-24 flex flex-col md:flex-row items-center justify-between gap-8">
             <Link
               to="/"
-              className="flex items-center gap-3 text-canvas-dark/60 dark:text-canvas-light/60 hover:text-canvas-dark dark:text-canvas-light transition-colors font-medium group"
+              className="flex items-center gap-3 text-canvas-dark/60 dark:text-canvas-light/60 hover:text-canvas-dark hover:dark:text-canvas-light transition-colors font-medium group"
             >
               <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
               Back to Home

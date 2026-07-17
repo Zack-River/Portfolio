@@ -84,7 +84,7 @@ const About: React.FC = () => {
   return (
     <section id="about" className="py-24 md:py-32 bg-canvas-light dark:bg-canvas-dark transition-colors duration-500 relative overflow-hidden">
       {/* Background Typography */}
-      <div className="absolute -left-10 md:-left-20 top-1/2 -translate-y-1/2 text-[clamp(5rem,15vw,12rem)] font-bold text-canvas-dark/3 dark:text-white/5 opacity-30 font-display rotate-90 pointer-events-none origin-center">
+      <div className="absolute -left-10 md:-left-20 top-1/2 -translate-y-1/2 text-[clamp(5rem,15vw,12rem)] font-bold text-canvas-dark/8 dark:text-white/5 font-display rotate-90 pointer-events-none origin-center select-none">
         ABOUT
       </div>
 
