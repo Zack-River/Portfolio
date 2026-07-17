@@ -95,22 +95,17 @@ const Projects: React.FC = () => {
                         ))}
                       </div>
                     )}
-                    {/* Hover overlay */}
-                    <div className="absolute inset-0 bg-canvas-dark/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 flex flex-col items-center justify-center">
-                      <span className="text-white font-display text-2xl font-bold mb-2">{project!.title}</span>
-                      <span className="flex items-center gap-2 text-electric font-medium bg-electric/10 px-4 py-2 rounded-full">
-                        View Case Study <ArrowRight size={16} />
-                      </span>
-                    </div>
+                    {/* Hover overlay (just darken image) */}
+                    <div className="absolute inset-0 bg-canvas-dark/20 dark:bg-canvas-dark/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 pointer-events-none"></div>
                   </div>
                 </div>
 
-                {/* Mobile title */}
-                <div className="md:hidden mt-4 text-center">
+                {/* Project Info */}
+                <div className="mt-5 mb-2 text-center flex flex-col items-center px-4">
                   <h3 className="text-xl font-display font-bold text-canvas-dark dark:text-canvas-light">{project!.title}</h3>
-                  <p className="text-electric font-mono text-xs mb-3">{project!.subtitle}</p>
-                  <span className="inline-flex items-center gap-2 text-electric font-medium bg-electric/10 px-5 py-2 rounded-full text-sm">
-                    View Case Study <ArrowRight size={14} />
+                  <p className="text-electric font-mono text-xs mb-4">{project!.subtitle}</p>
+                  <span className="inline-flex items-center gap-2 text-electric font-medium bg-electric/10 group-hover:bg-electric group-hover:text-white transition-colors px-5 py-2 rounded-full text-sm">
+                    View Case Study <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                   </span>
                 </div>
               </Link>

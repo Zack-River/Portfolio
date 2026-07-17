@@ -185,7 +185,7 @@ const ProjectsPage: React.FC = () => {
 
                 {/* Content */}
                 <div className="relative z-10 flex flex-col justify-end h-full p-6 md:p-8 text-white">
-                  <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+                  <div className="transition-transform duration-500 ease-out">
                     <div className="flex flex-wrap gap-2 mb-3">
                       {project.tags.slice(0, 2).map((tag, i) => (
                         <span key={i} className="px-2.5 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] uppercase tracking-wider font-mono">
@@ -197,17 +197,15 @@ const ProjectsPage: React.FC = () => {
                       {project.title}
                     </h3>
                     
-                    <div className="overflow-hidden">
-                      <div className="opacity-0 max-h-0 group-hover:opacity-100 group-hover:max-h-24 transition-all duration-500 ease-out mt-2">
-                        <p className="text-white/70 font-mono text-xs md:text-sm line-clamp-2">
-                          {project.subtitle}
-                        </p>
-                        
-                        <div className="flex items-center gap-4 mt-4 text-electric font-mono text-xs uppercase tracking-widest font-semibold">
-                          <span className="flex items-center gap-1 group/btn">
-                            View Case Study <ArrowRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
-                          </span>
-                        </div>
+                    <div className="mt-2">
+                      <p className="text-white/70 font-mono text-xs md:text-sm line-clamp-2">
+                        {project.subtitle}
+                      </p>
+                      
+                      <div className="flex items-center gap-4 mt-4 text-electric font-mono text-xs uppercase tracking-widest font-semibold">
+                        <span className="flex items-center gap-1 group/btn">
+                          View Case Study <ArrowRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
+                        </span>
                       </div>
                     </div>
                   </div>
