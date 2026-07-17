@@ -120,7 +120,7 @@ const Hero: React.FC = () => {
             <div className="w-full h-[45vh] md:hidden pointer-events-none" />
 
             <div className="pointer-events-auto mb-8 md:mb-8 mt-4 md:mt-0 w-full flex justify-center md:justify-start animate-fade-in-up" style={{ animationDelay: '200ms' }}>
-              <p className="text-base sm:text-lg text-canvas-dark/80 max-w-xl mx-auto md:mx-0 font-light leading-relaxed text-center md:text-left">
+              <p className="text-base md:text-lg text-canvas-dark/80 max-w-xl mx-auto md:mx-0 font-light leading-relaxed md:leading-loose text-center md:text-left">
                 {PERSONAL_INFO.title} & <br className="hidden md:block" />
                 <span className="text-canvas-dark/80 font-medium">
                   Full Stack Specialist
@@ -134,13 +134,13 @@ const Hero: React.FC = () => {
               <div className="flex flex-row gap-3 sm:gap-6 justify-center md:justify-start w-full">
                 <a
                   href="#projects"
-                  className="btn-primary w-full sm:w-auto text-sm sm:text-base whitespace-nowrap"
+                  className="btn-primary w-full sm:w-auto whitespace-nowrap"
                 >
                   View Works
                 </a>
                 <a
                   href="#contact"
-                  className="btn-outline w-full sm:w-auto text-sm sm:text-base whitespace-nowrap"
+                  className="btn-outline w-full sm:w-auto whitespace-nowrap"
                 >
                   Contact Me
                 </a>

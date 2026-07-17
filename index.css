@@ -66,18 +66,18 @@ img {
 
   /* --- BUTTONS --- */
   .btn-primary {
-    @apply bg-electric text-white rounded-full font-medium hover:bg-electric/80 transition-colors duration-300 px-6 py-3 flex items-center justify-center gap-2;
+    @apply bg-electric text-white rounded-full font-medium text-base hover:bg-electric/80 transition-colors duration-300 px-6 py-3 flex items-center justify-center gap-2;
   }
   .btn-secondary {
-    @apply bg-canvas-dark text-canvas-light rounded-full font-medium hover:bg-canvas-dark/80 transition-colors duration-300 px-6 py-3 flex items-center justify-center gap-2;
+    @apply bg-canvas-dark text-canvas-light rounded-full font-medium text-base hover:bg-canvas-dark/80 transition-colors duration-300 px-6 py-3 flex items-center justify-center gap-2;
   }
   .btn-outline {
-    @apply border border-canvas-dark/15 text-canvas-dark/80 rounded-full font-medium hover:text-electric hover:border-electric transition-colors duration-300 px-6 py-3 flex items-center justify-center gap-2;
+    @apply border border-canvas-dark/15 text-canvas-dark/80 rounded-full font-medium text-base hover:text-electric hover:border-electric transition-colors duration-300 px-6 py-3 flex items-center justify-center gap-2;
   }
 
   /* --- INPUTS --- */
   .input-base {
-    @apply w-full bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/20 rounded-xl p-4 text-canvas-dark/90 focus:outline-none focus:border-electric focus:ring-1 focus:ring-electric transition-all disabled:opacity-50;
+    @apply w-full bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/20 rounded-xl p-4 text-base text-canvas-dark/90 focus:outline-none focus:border-electric focus:ring-1 focus:ring-electric transition-all disabled:opacity-50;
   }
   
   /* --- SECTION CONTAINERS --- */
