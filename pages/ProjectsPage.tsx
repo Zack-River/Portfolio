@@ -87,36 +87,22 @@ const ProjectsPage: React.FC = () => {
         {/* Bento Box Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 auto-rows-[250px] md:auto-rows-[300px]">
           {filteredProjects.map((project, index) => {
-            // Dynamic Bento layout matched exactly to the CMS design
-            let bentoClasses = "col-span-1 row-span-1";
+            // Dynamic Bento layout: Alternating 3:1 and 1:3 on desktop (4 columns)
+            // Pattern: [3, 1], [1, 3], [3, 1], [1, 3]
+            let bentoClasses = "col-span-1";
             
-            if (activeFilter === "All") {
-              switch(project.id) {
-                case "beeplayer-qa":
-                case "ding":
-                  // Large 2x2 blocks on both tablet and desktop
-                  bentoClasses = "md:col-span-2 md:row-span-2 lg:col-span-2 lg:row-span-2";
-                  break;
-                case "streamflow":
-                case "omnipos":
-                case "luxe-dental":
-                case "khaled-nasser":
-                case "ahmed-hakim":
-                  // Wide blocks
-                  bentoClasses = "md:col-span-2 md:row-span-1 lg:col-span-2 lg:row-span-1";
-                  break;
-                case "karbala":
-                case "smartq":
-                case "dr-sara-ragab":
-                case "mostafa-nawareg":
-                  // Square blocks. On tablet (2-col), they neatly sit side-by-side as 1x1
-                  bentoClasses = "col-span-1 row-span-1 md:col-span-1 lg:col-span-1";
-                  break;
-                case "hotel-pro":
-                  // Orphan prevention: span 2 on tablet, 1 on desktop
-                  bentoClasses = "col-span-1 row-span-1 md:col-span-2 lg:col-span-1";
-                  break;
-              }
+            const mod = index % 4;
+            if (mod === 0 || mod === 3) {
+              // The wide element (3 columns)
+              bentoClasses = "col-span-1 md:col-span-1 lg:col-span-3";
+            } else {
+              // The narrow element (1 column)
+              bentoClasses = "col-span-1 md:col-span-1 lg:col-span-1";
+            }
+            
+            // Tablet orphan prevention: if it's the last item and odd, span 2 columns on tablet
+            if (index === filteredProjects.length - 1 && filteredProjects.length % 2 !== 0) {
+              bentoClasses = bentoClasses.replace("md:col-span-1", "md:col-span-2");
             }
 
             return (
