@@ -7,12 +7,12 @@ gsap.registerPlugin(ScrollTrigger);
 interface SectionHeaderProps {
   title: string;
   subtitle: string;
-  number: string;
+  number?: string;
   align?: 'left' | 'right';
   dark?: boolean;
 }
 
-const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle, number, align = 'left', dark = false }) => {
+const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle, number = '', align = 'left', dark = false }) => {
   const numberRef = useRef<HTMLSpanElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const lineRef = useRef<HTMLDivElement>(null);
@@ -22,23 +22,24 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle, number, 
 
   useEffect(() => {
     const el = numberRef.current;
-    if (!el) return;
     const isMobile = window.innerWidth < 768;
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (isMobile || prefersReducedMotion) return;
 
     const ctx = gsap.context(() => {
       // Counter animation: 00 → target number
-      const obj = { val: 0 };
-      gsap.to(obj, {
-        val: targetNum,
-        duration: 1,
-        ease: 'power2.out',
-        scrollTrigger: { trigger: el, start: 'top 85%', end: 'top 20%', toggleActions: 'play none none reverse' },
-        onUpdate: () => {
-          el.textContent = String(Math.round(obj.val)).padStart(2, '0');
-        },
-      });
+      if (el && !isNaN(targetNum)) {
+        const obj = { val: 0 };
+        gsap.to(obj, {
+          val: targetNum,
+          duration: 1,
+          ease: 'power2.out',
+          scrollTrigger: { trigger: el, start: 'top 85%', end: 'top 20%', toggleActions: 'play none none reverse' },
+          onUpdate: () => {
+            el.textContent = String(Math.round(obj.val)).padStart(2, '0');
+          },
+        });
+      }
 
       // Stagger in the title, line, and subtitle
       gsap.from([titleRef.current, lineRef.current, subtitleRef.current], {
@@ -56,12 +57,14 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle, number, 
 
   return (
     <div className={`relative mb-12 md:mb-16 text-center ${align === 'right' ? 'md:text-right' : 'md:text-left'}`}>
-      <span
-        ref={numberRef}
-        className={`absolute -top-10 text-[clamp(4rem,12vw,8rem)] font-bold select-none z-0 opacity-50 font-display left-1/2 -translate-x-1/2 text-canvas-dark/5 dark:text-white/15 ${targetNum % 2 === 1 ? 'md:left-auto md:right-0 md:translate-x-0' : 'md:left-0 md:translate-x-0'}`}
-      >
-        {number}
-      </span>
+      {number && (
+        <span
+          ref={numberRef}
+          className={`absolute -top-10 text-[clamp(4rem,12vw,8rem)] font-bold select-none z-0 opacity-50 font-display left-1/2 -translate-x-1/2 text-canvas-dark/5 dark:text-white/15 ${targetNum % 2 === 1 ? 'md:left-auto md:right-0 md:translate-x-0' : 'md:left-0 md:translate-x-0'}`}
+        >
+          {number}
+        </span>
+      )}
       <div className="relative z-10">
         <h2
           ref={titleRef}

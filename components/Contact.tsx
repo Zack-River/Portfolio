@@ -87,7 +87,6 @@ const Contact: React.FC = () => {
               <SectionHeader
                 title="Get in Touch"
                 subtitle="Start a Conversation"
-                number="06"
               />
             </Reveal>
 
