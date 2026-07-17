@@ -157,7 +157,7 @@ const Testimonials: React.FC = () => {
       <div className="absolute inset-0 z-0 opacity-5 pointer-events-none grain-overlay"></div>
 
       {/* Cyan Blur BG */}
-      <div className="absolute top-1/2 left-1/2 md:left-1/4 -translate-x-1/2 -translate-y-1/2 w-[70%] md:w-[45%] h-[70%] md:h-[60%] bg-electric/15 rounded-full blur-[120px] pointer-events-none z-0"></div>
+      <div className="absolute top-1/2 left-1/2 md:left-1/4 -translate-x-1/2 -translate-y-1/2 w-[70%] md:w-[45%] h-[70%] md:h-[60%] bg-electric/15 rounded-full blur-[120px] pointer-events-none z-0 hidden md:block"></div>
 
       {/* Stars and Wireframe Polymers */}
       <StarsBackground colorClass="bg-electric" count={60} />
