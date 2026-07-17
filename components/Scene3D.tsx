@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import {
   OrbitControls,
   useGLTF,
@@ -811,6 +811,15 @@ export function Model(props: any) {
   );
 }
 
+const ModelWrapper = ({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) => {
+  const { viewport } = useThree();
+  const positionX = isMobile ? 0 : viewport.width / 4;
+  const positionY = isMobile ? -3 : isTablet ? -3.5 : -4;
+  const scale = isMobile ? 1.4 : isTablet ? 1.2 : 2;
+
+  return <Model position={[positionX, positionY, 0]} scale={scale} />;
+};
+
 // Preload is handled by useGLTF inside Model — no eager preload needed
 
 const Scene3D: React.FC = () => {
@@ -856,12 +865,7 @@ const Scene3D: React.FC = () => {
 
         <Environment preset="city" />
 
-        <Model
-          position={
-            isMobile ? [0, -3, 0] : isTablet ? [0, -3.5, 0] : [0, -4, 0]
-          }
-          scale={isMobile ? 1.4 : isTablet ? 1.2 : 2}
-        />
+        <ModelWrapper isMobile={isMobile} isTablet={isTablet} />
 
         {/* <OrbitControls
           enableZoom={false}
