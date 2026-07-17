@@ -89,14 +89,14 @@ const UseCaseCarousel: React.FC<{ useCases: UseCase[]; title: string }> = ({ use
             <button
               onClick={prev}
               aria-label="Previous use case"
-              className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-white/50 dark:bg-white/10 backdrop-blur-md border border-black/10 dark:border-white/10 rounded-full text-black/50 dark:text-white/50 hover:text-black dark:text-white hover:bg-white/80 dark:bg-white/20 hover:border-black/20 dark:border-white/20 transition-all duration-200 shadow-sm"
+              className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-white/50 dark:bg-white/10 backdrop-blur-md border border-black/10 dark:border-white/10 rounded-full text-black/50 dark:text-white/50 hover:text-black hover:dark:text-white hover:bg-white/80 hover:dark:bg-white/20 hover:border-black/20 hover:dark:border-white/20 transition-all duration-200 shadow-sm"
             >
               <ChevronLeft size={20} />
             </button>
             <button
               onClick={next}
               aria-label="Next use case"
-              className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-white/50 dark:bg-white/10 backdrop-blur-md border border-black/10 dark:border-white/10 rounded-full text-black/50 dark:text-white/50 hover:text-black dark:text-white hover:bg-white/80 dark:bg-white/20 hover:border-black/20 dark:border-white/20 transition-all duration-200 shadow-sm"
+              className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-white/50 dark:bg-white/10 backdrop-blur-md border border-black/10 dark:border-white/10 rounded-full text-black/50 dark:text-white/50 hover:text-black hover:dark:text-white hover:bg-white/80 hover:dark:bg-white/20 hover:border-black/20 hover:dark:border-white/20 transition-all duration-200 shadow-sm"
             >
               <ChevronRight size={20} />
             </button>
@@ -111,7 +111,7 @@ const UseCaseCarousel: React.FC<{ useCases: UseCase[]; title: string }> = ({ use
                 onClick={() => goTo(i)}
                 aria-label={`Go to use case ${i + 1}`}
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  i === current ? 'bg-electric w-6' : 'bg-black/20 dark:bg-white/20 hover:bg-black/40 dark:bg-white/40'
+                  i === current ? 'bg-electric w-6' : 'bg-black/20 dark:bg-white/20 hover:bg-black/40 hover:dark:bg-white/40'
                 }`}
               />
             ))}
@@ -207,13 +207,13 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({ images, title
                 <>
                   <button
                     onClick={(e) => { e.stopPropagation(); prev(); }}
-                    className="absolute left-2 md:-left-16 top-1/2 -translate-y-1/2 z-110 p-3 bg-black/50 dark:bg-white/10 hover:bg-black/80 dark:bg-white/20 rounded-full text-white transition-colors border border-white/10"
+                    className="absolute left-2 md:-left-16 top-1/2 -translate-y-1/2 z-110 p-3 bg-black/50 dark:bg-white/10 hover:bg-black/80 hover:dark:bg-white/20 rounded-full text-white transition-colors border border-white/10"
                   >
                     <ChevronLeft size={24} />
                   </button>
                   <button
                     onClick={(e) => { e.stopPropagation(); next(); }}
-                    className="absolute right-2 md:-right-16 top-1/2 -translate-y-1/2 z-110 p-3 bg-black/50 dark:bg-white/10 hover:bg-black/80 dark:bg-white/20 rounded-full text-white transition-colors border border-white/10"
+                    className="absolute right-2 md:-right-16 top-1/2 -translate-y-1/2 z-110 p-3 bg-black/50 dark:bg-white/10 hover:bg-black/80 hover:dark:bg-white/20 rounded-full text-white transition-colors border border-white/10"
                   >
                     <ChevronRight size={24} />
                   </button>
@@ -375,11 +375,11 @@ const ProjectDetails: React.FC = () => {
         initial={{ y: -80 }}
         animate={{ y: stickyVisible ? 0 : -80 }}
         transition={{ duration: 0.35, ease: 'easeInOut' }}
-        className="fixed top-0 left-0 right-0 z-50 bg-canvas-light dark:bg-canvas-dark/80 dark:bg-canvas-dark/80 backdrop-blur-xl border-b border-canvas-dark/10 dark:border-white/10 dark:border-white/10 flex items-center justify-between px-6 md:px-12 h-16"
+        className="fixed top-0 left-0 right-0 z-50 bg-canvas-light dark:bg-canvas-dark/80 backdrop-blur-xl border-b border-canvas-dark/10 dark:border-white/10 flex items-center justify-between px-6 md:px-12 h-16"
       >
         <Link
           to="/projects"
-          className="flex items-center gap-2 text-canvas-dark/60 dark:text-canvas-light/60 dark:text-canvas-light/60 hover:text-canvas-dark dark:text-canvas-light dark:hover:text-canvas-light text-sm font-medium transition-colors"
+          className="flex items-center gap-2 text-canvas-dark/60 dark:text-canvas-light/60 hover:text-canvas-dark dark:hover:text-canvas-light text-sm font-medium transition-colors"
         >
           <ArrowLeft size={16} />
           Back to Projects
