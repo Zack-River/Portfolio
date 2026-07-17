@@ -5,6 +5,7 @@ import {
   useGLTF,
   useAnimations,
   Environment,
+  Preload,
 } from "@react-three/drei";
 import * as THREE from "@/node_modules/@types/three";
 
@@ -819,7 +820,7 @@ const ModelWrapper = ({
   isTablet: boolean;
 }) => {
   const { viewport } = useThree();
-  const positionX = isMobile ? 0 : viewport.width / 4;
+  const positionX = isMobile ? 0 : viewport.width / 5;
 
   // Smoothly scale down on narrow screens (like 1179px) so the left arm doesn't overlap the text.
   // viewport.width is ~13.5 on 1080p, so 13.5 / 5.5 = ~2.4 (caps at 2).
@@ -833,7 +834,7 @@ const ModelWrapper = ({
   // The robot's origin is at its feet. To keep its chest vertically centered (at Y=0)
   // as it scales, positionY must proportionally move up.
   // At scale=1, positionY=-1 perfectly centered it. So the ratio is -1 * scale.
-  const positionY = isMobile ? -3 : isTablet ? -1 : -1 * scale;
+  const positionY = isMobile ? -3 : isTablet ? -1 : -0.9 * scale;
 
   return <Model position={[positionX, positionY, 0]} scale={scale} />;
 };
@@ -891,6 +892,7 @@ const Scene3D: React.FC = () => {
           minPolarAngle={Math.PI / 4} 
           maxPolarAngle={Math.PI / 2}
         /> */}
+        <Preload all />
       </Canvas>
     </div>
   );

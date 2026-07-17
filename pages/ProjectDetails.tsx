@@ -292,7 +292,7 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({ images, title
                 i === current ? 'ring-electric' : 'ring-transparent opacity-60 hover:opacity-100'
               }`}
             >
-              <img src={img} alt={`thumb ${i + 1}`} loading="lazy" className="w-full h-full object-cover object-top" />
+              <img src={img} alt={`thumb ${i + 1}`} loading="lazy" decoding="async" className="w-full h-full object-cover object-top" />
             </button>
           ))}
         </div>
@@ -322,6 +322,14 @@ const ProjectDetails: React.FC = () => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  useEffect(() => {
+    if (project) {
+      document.title = `${project.title} | Abdallah Wageeh Portfolio`;
+    } else {
+      document.title = `Project Not Found | Abdallah Wageeh Portfolio`;
+    }
+  }, [project]);
 
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -405,7 +413,9 @@ const ProjectDetails: React.FC = () => {
             <img
               src={project.image}
               alt={project.title}
-              fetchpriority="high"
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
               className="w-full h-full object-cover object-top"
             />
           ) : (
@@ -610,7 +620,7 @@ const ProjectDetails: React.FC = () => {
                   <div className="flex flex-col gap-6">
                     <h3 className="font-display text-2xl font-bold text-canvas-dark">Database Schema</h3>
                     <div className="w-full bg-white rounded-xl overflow-hidden ring-1 ring-canvas-dark/10 shadow-xl p-2 md:p-6 flex items-center justify-center">
-                      <img src={project.schemaImage} alt="Database Schema" className="max-w-full h-auto rounded shadow-sm" />
+                      <img src={project.schemaImage} alt="Database Schema" loading="lazy" decoding="async" className="max-w-full h-auto rounded shadow-sm" />
                     </div>
                   </div>
                 )}
@@ -618,7 +628,7 @@ const ProjectDetails: React.FC = () => {
                   <div className="flex flex-col gap-6">
                     <h3 className="font-display text-2xl font-bold text-canvas-dark">Use Case Diagram</h3>
                     <div className="w-full bg-white rounded-xl overflow-hidden ring-1 ring-canvas-dark/10 shadow-xl p-2 md:p-6 flex items-center justify-center">
-                      <img src={project.useCaseImage} alt="Use Case Diagram" className="max-w-full h-auto rounded shadow-sm" />
+                      <img src={project.useCaseImage} alt="Use Case Diagram" loading="lazy" decoding="async" className="max-w-full h-auto rounded shadow-sm" />
                     </div>
                   </div>
                 )}
@@ -728,4 +738,4 @@ const ProjectDetails: React.FC = () => {
   );
 };
 
-export default ProjectDetails;
+export default React.memo(ProjectDetails);

@@ -3,8 +3,11 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import Loader from './components/Loader';
 import { AnimatePresence } from 'framer-motion';
 import Home from './pages/Home';
-import ProjectDetails from './pages/ProjectDetails';
-import ProjectsPage from './pages/ProjectsPage';
+
+// Lazy load heavy routes to reduce initial bundle size
+const ProjectDetails = React.lazy(() => import('./pages/ProjectDetails'));
+const ProjectsPage = React.lazy(() => import('./pages/ProjectsPage'));
+import { useLenis } from './hooks/useLenis';
 
 // Scroll to top helper
 const ScrollToTop = () => {
@@ -20,6 +23,7 @@ import Navbar from './components/Navbar';
 
 
 function App() {
+  useLenis(); // Init Lenis smooth scroll + GSAP ScrollTrigger proxy
   const location = useLocation();
   // Only show the loader on the home page — other pages have no 3D assets to wait for
   const isHome = location.pathname === '/';
@@ -75,11 +79,13 @@ function App() {
       
       <div className={`bg-canvas-light grain-overlay-container min-h-screen text-canvas-dark selection:bg-electric/90 selection:text-white ${loading ? 'h-screen overflow-hidden' : ''}`}>
         {location.pathname === '/' && <Navbar />}
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/projects" element={<ProjectsPage />} />
-          <Route path="/project/:id" element={<ProjectDetails />} />
-        </Routes>
+        <React.Suspense fallback={<div className="min-h-screen flex items-center justify-center text-canvas-dark/40 font-mono text-sm animate-pulse">Loading Route...</div>}>
+          <Routes>
+            <Route path="/" element={<Home loading={loading} />} />
+            <Route path="/projects" element={<ProjectsPage />} />
+            <Route path="/project/:id" element={<ProjectDetails />} />
+          </Routes>
+        </React.Suspense>
       </div>
     </>
   );

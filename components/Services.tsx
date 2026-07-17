@@ -1,6 +1,6 @@
 import React from 'react';
 import SectionHeader from './SectionHeader';
-import Reveal from './Reveal';
+import GSAPReveal from './GSAPReveal';
 import { Layout, AppWindow, Stethoscope, ArrowRight, Calendar } from 'lucide-react';
 
 const SERVICES_DATA = [
@@ -56,17 +56,17 @@ const Services: React.FC = () => {
   return (
     <section id="services" className="py-24 md:py-32 bg-canvas-light text-canvas-dark relative">
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
-        <Reveal>
+        <GSAPReveal>
           <SectionHeader 
             title="Professional Services" 
             subtitle="What I Do" 
             number="05" 
           />
-        </Reveal>
+        </GSAPReveal>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {SERVICES_DATA.map((service, idx) => (
-            <Reveal key={idx} delay={idx * 0.1} className={`h-full ${idx === 2 ? 'md:col-span-2 lg:col-span-1' : ''}`}>
+            <GSAPReveal key={idx} delay={idx * 0.1} className={`h-full ${idx === 2 ? 'md:col-span-2 lg:col-span-1' : ''}`}>
               <div className="card-base p-8 card-hover h-full flex flex-col relative overflow-hidden group">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-canvas-dark/5 rounded-bl-full transition-all group-hover:bg-electric/5"></div>
                 
@@ -117,7 +117,7 @@ const Services: React.FC = () => {
                   )}
                 </div>
               </div>
-            </Reveal>
+            </GSAPReveal>
           ))}
         </div>
       </div>

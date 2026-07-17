@@ -3,7 +3,7 @@ import { PROJECTS } from '../constants';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, ExternalLink, Github } from 'lucide-react';
-import Reveal from '../components/Reveal';
+import GSAPReveal from '../components/GSAPReveal';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
@@ -36,6 +36,7 @@ const ProjectsPage: React.FC = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    document.title = "All Projects | Abdallah Wageeh Portfolio";
   }, []);
 
   const filteredProjects = PROJECTS.filter(project => {
@@ -47,26 +48,26 @@ const ProjectsPage: React.FC = () => {
     <div className="bg-canvas-light min-h-screen text-canvas-dark relative">
       <main className="pt-32 pb-24 md:pt-40 md:pb-32 section-container mx-auto min-h-screen">
         <div className="mb-12 max-w-3xl">
-          <Reveal>
+          <GSAPReveal>
             <Link to="/" className="inline-flex items-center gap-2 text-canvas-dark/60 hover:text-electric transition-colors mb-8 font-mono text-sm">
               <ArrowLeft size={16} />
               <span>Back to Home</span>
             </Link>
-          </Reveal>
-          <Reveal delay={0.1}>
+          </GSAPReveal>
+          <GSAPReveal delay={0.1}>
             <h1 className="text-5xl md:text-7xl font-display font-bold tracking-tight mb-6">
               All <span className="text-electric">Projects</span>
             </h1>
-          </Reveal>
-          <Reveal delay={0.2}>
+          </GSAPReveal>
+          <GSAPReveal delay={0.2}>
             <p className="text-lg md:text-xl text-canvas-dark/70 font-mono">
               A comprehensive archive of systems, interfaces, and platforms I've engineered over the years. Explore the architecture behind each experience.
             </p>
-          </Reveal>
+          </GSAPReveal>
         </div>
 
         {/* Filter Bar */}
-        <Reveal delay={0.3}>
+        <GSAPReveal delay={0.3}>
           {/* Mobile: horizontally-scrollable snap strip — no wrapping, no mess */}
           <div className="md:hidden flex gap-2 overflow-x-auto pb-2 mb-10 snap-x snap-mandatory scrollbar-hide -mx-4 px-4">
             {CATEGORIES.map(category => (
@@ -107,7 +108,7 @@ const ProjectsPage: React.FC = () => {
               ))}
             </div>
           </div>
-        </Reveal>
+        </GSAPReveal>
 
         {/* Bento Box Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 auto-rows-[250px] md:auto-rows-[300px]">
@@ -170,6 +171,7 @@ const ProjectsPage: React.FC = () => {
                       src={project.image} 
                       alt={project.title} 
                       loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover object-top opacity-90 group-hover:scale-105 group-hover:opacity-100 transition-all duration-700 ease-out"
                     />
                   ) : (
@@ -230,4 +232,4 @@ const ProjectsPage: React.FC = () => {
   );
 };
 
-export default ProjectsPage;
+export default React.memo(ProjectsPage);
