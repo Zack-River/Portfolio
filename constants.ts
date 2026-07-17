@@ -306,7 +306,7 @@ export const PROJECTS: Project[] = [
     ],
     featured: false,
   },
-];  {
+  {
     id: "mostafa-nawareg",
     title: "Dr. Mostafa Nawareg",
     subtitle: "Consulting & Training Portfolio",
@@ -543,8 +543,7 @@ export const PROJECTS: Project[] = [
     ],
     featured: false,
   },
-
-
+];
 
 export const SERVICES: Service[] = [
   {
