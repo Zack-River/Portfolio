@@ -63,18 +63,18 @@ const UseCaseCarousel: React.FC<{ useCases: UseCase[]; title: string }> = ({ use
                   {useCases[current].title}
                 </h3>
               </div>
-              <p className="text-black/80 text-sm md:text-base leading-relaxed mb-6 font-sans">
+              <p className="text-black/80 dark:text-white/80 text-sm md:text-base leading-relaxed mb-6 font-sans">
                 {useCases[current].description}
               </p>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 pt-6 border-t border-black/10">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 pt-6 border-t border-black/10 dark:border-white/10">
                 <div>
                   <p className="font-mono text-xs text-electric uppercase tracking-widest mb-2">Steps</p>
-                  <p className="text-black text-sm leading-relaxed font-medium">{useCases[current].steps}</p>
+                  <p className="text-black dark:text-white text-sm leading-relaxed font-medium">{useCases[current].steps}</p>
                 </div>
                 <div>
                   <p className="font-mono text-xs text-electric uppercase tracking-widest mb-2">Expected Result</p>
-                  <p className="text-black text-sm leading-relaxed font-medium">{useCases[current].expectedResult}</p>
+                  <p className="text-black dark:text-white text-sm leading-relaxed font-medium">{useCases[current].expectedResult}</p>
                 </div>
               </div>
             </div>
@@ -89,14 +89,14 @@ const UseCaseCarousel: React.FC<{ useCases: UseCase[]; title: string }> = ({ use
             <button
               onClick={prev}
               aria-label="Previous use case"
-              className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-white/50 backdrop-blur-md border border-black/10 rounded-full text-black/50 hover:text-black hover:bg-white/80 hover:border-black/20 transition-all duration-200 shadow-sm"
+              className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-white/50 dark:bg-white/10 backdrop-blur-md border border-black/10 dark:border-white/10 rounded-full text-black/50 dark:text-white/50 hover:text-black dark:text-white hover:bg-white/80 dark:bg-white/20 hover:border-black/20 dark:border-white/20 transition-all duration-200 shadow-sm"
             >
               <ChevronLeft size={20} />
             </button>
             <button
               onClick={next}
               aria-label="Next use case"
-              className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-white/50 backdrop-blur-md border border-black/10 rounded-full text-black/50 hover:text-black hover:bg-white/80 hover:border-black/20 transition-all duration-200 shadow-sm"
+              className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-white/50 dark:bg-white/10 backdrop-blur-md border border-black/10 dark:border-white/10 rounded-full text-black/50 dark:text-white/50 hover:text-black dark:text-white hover:bg-white/80 dark:bg-white/20 hover:border-black/20 dark:border-white/20 transition-all duration-200 shadow-sm"
             >
               <ChevronRight size={20} />
             </button>
@@ -111,7 +111,7 @@ const UseCaseCarousel: React.FC<{ useCases: UseCase[]; title: string }> = ({ use
                 onClick={() => goTo(i)}
                 aria-label={`Go to use case ${i + 1}`}
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  i === current ? 'bg-electric w-6' : 'bg-black/20 hover:bg-black/40'
+                  i === current ? 'bg-electric w-6' : 'bg-black/20 dark:bg-white/20 hover:bg-black/40 dark:bg-white/40'
                 }`}
               />
             ))}
@@ -207,13 +207,13 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({ images, title
                 <>
                   <button
                     onClick={(e) => { e.stopPropagation(); prev(); }}
-                    className="absolute left-2 md:-left-16 top-1/2 -translate-y-1/2 z-110 p-3 bg-black/50 hover:bg-black/80 rounded-full text-white transition-colors border border-white/10"
+                    className="absolute left-2 md:-left-16 top-1/2 -translate-y-1/2 z-110 p-3 bg-black/50 dark:bg-white/10 hover:bg-black/80 dark:bg-white/20 rounded-full text-white transition-colors border border-white/10"
                   >
                     <ChevronLeft size={24} />
                   </button>
                   <button
                     onClick={(e) => { e.stopPropagation(); next(); }}
-                    className="absolute right-2 md:-right-16 top-1/2 -translate-y-1/2 z-110 p-3 bg-black/50 hover:bg-black/80 rounded-full text-white transition-colors border border-white/10"
+                    className="absolute right-2 md:-right-16 top-1/2 -translate-y-1/2 z-110 p-3 bg-black/50 dark:bg-white/10 hover:bg-black/80 dark:bg-white/20 rounded-full text-white transition-colors border border-white/10"
                   >
                     <ChevronRight size={24} />
                   </button>
@@ -353,7 +353,7 @@ const ProjectDetails: React.FC = () => {
 
   if (!project) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-canvas-light text-canvas-dark gap-6">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-canvas-light dark:bg-canvas-dark text-canvas-dark dark:text-canvas-light gap-6">
         <h1 className="text-4xl font-display font-bold">Project Not Found</h1>
         <Link
           to="/"
@@ -368,18 +368,18 @@ const ProjectDetails: React.FC = () => {
   const gallery = project.gallery && project.gallery.length > 0 ? project.gallery : project.image ? [project.image] : [];
 
   return (
-    <div className="bg-canvas-light text-canvas-dark min-h-screen font-sans overflow-x-hidden">
+    <div className="bg-canvas-light dark:bg-canvas-dark text-canvas-dark dark:text-canvas-light min-h-screen font-sans overflow-x-hidden">
 
       {/* ── STICKY TOP NAV BAR ── */}
       <motion.nav
         initial={{ y: -80 }}
         animate={{ y: stickyVisible ? 0 : -80 }}
         transition={{ duration: 0.35, ease: 'easeInOut' }}
-        className="fixed top-0 left-0 right-0 z-50 bg-canvas-light/80 dark:bg-canvas-dark/80 backdrop-blur-xl border-b border-canvas-dark/10 dark:border-white/10 flex items-center justify-between px-6 md:px-12 h-16"
+        className="fixed top-0 left-0 right-0 z-50 bg-canvas-light dark:bg-canvas-dark/80 dark:bg-canvas-dark/80 backdrop-blur-xl border-b border-canvas-dark/10 dark:border-white/10 dark:border-white/10 flex items-center justify-between px-6 md:px-12 h-16"
       >
         <Link
           to="/projects"
-          className="flex items-center gap-2 text-canvas-dark/60 dark:text-canvas-light/60 hover:text-canvas-dark dark:hover:text-canvas-light text-sm font-medium transition-colors"
+          className="flex items-center gap-2 text-canvas-dark/60 dark:text-canvas-light/60 dark:text-canvas-light/60 hover:text-canvas-dark dark:text-canvas-light dark:hover:text-canvas-light text-sm font-medium transition-colors"
         >
           <ArrowLeft size={16} />
           Back to Projects
@@ -395,7 +395,7 @@ const ProjectDetails: React.FC = () => {
             {theme === 'dark' ? (
               <Sun size={18} className="text-canvas-light hover:text-electric transition-colors" />
             ) : (
-              <Moon size={18} className="text-canvas-dark/70 hover:text-electric transition-colors" />
+              <Moon size={18} className="text-canvas-dark/70 dark:text-canvas-light/70 hover:text-electric transition-colors" />
             )}
           </button>
           
@@ -534,10 +534,10 @@ const ProjectDetails: React.FC = () => {
       </section>
 
       {/* ── CONTENT BODY ── */}
-      <div className="relative bg-canvas-light">
+      <div className="relative bg-canvas-light dark:bg-canvas-dark">
 
         {/* ── EXECUTIVE OVERVIEW STRIP ── */}
-        <section className="border-b border-canvas-dark/10 bg-canvas-dark text-white">
+        <section className="border-b border-canvas-dark/10 dark:border-white/10 bg-canvas-dark text-white">
           <div className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24 py-10 grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-0 md:divide-x divide-white/10">
             <div className="sm:pr-8">
               <p className="font-mono text-xs text-white/40 uppercase tracking-widest mb-2">Role</p>
@@ -557,10 +557,10 @@ const ProjectDetails: React.FC = () => {
         <div className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
 
           {/* ── ENGINEERING IMPACT ── */}
-          <section className="py-16 md:py-24 border-b border-canvas-dark/10">
+          <section className="py-16 md:py-24 border-b border-canvas-dark/10 dark:border-white/10">
             <div className="flex items-center gap-3 mb-10">
               <Activity size={18} className="text-electric" />
-              <p className="font-mono text-xs text-canvas-dark/50 uppercase tracking-[0.25em]">
+              <p className="font-mono text-xs text-canvas-dark/50 dark:text-canvas-light/50 uppercase tracking-[0.25em]">
                 Engineering Impact
               </p>
             </div>
@@ -578,29 +578,29 @@ const ProjectDetails: React.FC = () => {
                   <span className="text-electric font-mono text-4xl font-bold leading-none">
                     {i === 0 ? '∞' : i === 1 ? '~35%' : '~50%'}
                   </span>
-                  <p className="mt-4 text-canvas-dark/80 text-sm leading-relaxed">{stat}</p>
+                  <p className="mt-4 text-canvas-dark/80 dark:text-canvas-light/80 text-sm leading-relaxed">{stat}</p>
                 </motion.div>
               ))}
             </div>
           </section>
 
           {/* ── NARRATIVE DESCRIPTION ── */}
-          <section className="py-16 md:py-24 border-b border-canvas-dark/10">
+          <section className="py-16 md:py-24 border-b border-canvas-dark/10 dark:border-white/10">
             <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 md:gap-24">
               <div className="md:sticky md:top-24 md:self-start">
-                <p className="font-mono text-xs text-canvas-dark/40 uppercase tracking-[0.25em] mb-3">
+                <p className="font-mono text-xs text-canvas-dark/40 dark:text-canvas-light/40 uppercase tracking-[0.25em] mb-3">
                   Overview
                 </p>
-                <h2 className="font-display text-3xl md:text-4xl font-bold text-canvas-dark leading-tight">
+                <h2 className="font-display text-3xl md:text-4xl font-bold text-canvas-dark dark:text-canvas-light leading-tight">
                   The Engineering Story
                 </h2>
                 <div className="mt-4 h-[2px] w-12 bg-electric" />
               </div>
               <div>
-                <p className="text-lg text-canvas-dark/80 font-light leading-relaxed mb-8 first-letter:text-5xl first-letter:font-display first-letter:mr-2 first-letter:float-left first-letter:text-electric first-letter:font-bold">
+                <p className="text-lg text-canvas-dark/80 dark:text-canvas-light/80 font-light leading-relaxed mb-8 first-letter:text-5xl first-letter:font-display first-letter:mr-2 first-letter:float-left first-letter:text-electric first-letter:font-bold">
                   {project.description}
                 </p>
-                <p className="text-canvas-dark/60 leading-relaxed">
+                <p className="text-canvas-dark/60 dark:text-canvas-light/60 leading-relaxed">
                   Every architectural decision was made with long-term scalability in mind.
                   The goal was not to build a system that works today, but one that continues to
                   perform as the product grows — a philosophy that guided every design trade-off
@@ -627,17 +627,17 @@ const ProjectDetails: React.FC = () => {
 
           {/* ── ARCHITECTURE & USE CASE ── */}
           {(project.schemaImage || project.useCaseImage) && (
-            <section className="py-16 md:py-24 border-b border-canvas-dark/10">
+            <section className="py-16 md:py-24 border-b border-canvas-dark/10 dark:border-white/10">
               <div className="flex items-center gap-3 mb-10">
                 <Layers size={18} className="text-electric" />
-                <p className="font-mono text-xs text-canvas-dark/50 uppercase tracking-[0.25em]">
+                <p className="font-mono text-xs text-canvas-dark/50 dark:text-canvas-light/50 uppercase tracking-[0.25em]">
                   Architecture & Use Cases
                 </p>
               </div>
               <div className="grid grid-cols-1 gap-16">
                 {project.schemaImage && (
                   <div className="flex flex-col gap-6">
-                    <h3 className="font-display text-2xl font-bold text-canvas-dark">Database Schema</h3>
+                    <h3 className="font-display text-2xl font-bold text-canvas-dark dark:text-canvas-light">Database Schema</h3>
                     <div className="w-full bg-white rounded-xl overflow-hidden ring-1 ring-canvas-dark/10 shadow-xl p-2 md:p-6 flex items-center justify-center">
                       <img src={project.schemaImage} alt="Database Schema" loading="lazy" decoding="async" className="max-w-full h-auto rounded shadow-sm" />
                     </div>
@@ -645,7 +645,7 @@ const ProjectDetails: React.FC = () => {
                 )}
                 {project.useCaseImage && (
                   <div className="flex flex-col gap-6">
-                    <h3 className="font-display text-2xl font-bold text-canvas-dark">Use Case Diagram</h3>
+                    <h3 className="font-display text-2xl font-bold text-canvas-dark dark:text-canvas-light">Use Case Diagram</h3>
                     <div className="w-full bg-white rounded-xl overflow-hidden ring-1 ring-canvas-dark/10 shadow-xl p-2 md:p-6 flex items-center justify-center">
                       <img src={project.useCaseImage} alt="Use Case Diagram" loading="lazy" decoding="async" className="max-w-full h-auto rounded shadow-sm" />
                     </div>
@@ -657,18 +657,18 @@ const ProjectDetails: React.FC = () => {
 
           {/* ── USE CASES CAROUSEL ── */}
           {project.useCases && project.useCases.length > 0 && (
-            <section className="py-16 md:py-24 border-b border-canvas-dark/10">
+            <section className="py-16 md:py-24 border-b border-canvas-dark/10 dark:border-white/10">
               <div className="flex items-center gap-3 mb-10">
                 <LayoutGrid size={18} className="text-electric" />
-                <p className="font-mono text-xs text-canvas-dark/50 uppercase tracking-[0.25em]">
+                <p className="font-mono text-xs text-canvas-dark/50 dark:text-canvas-light/50 uppercase tracking-[0.25em]">
                   Use Cases
                 </p>
-                <span className="ml-auto font-mono text-xs text-canvas-dark/60">
+                <span className="ml-auto font-mono text-xs text-canvas-dark/60 dark:text-canvas-light/60">
                   {project.useCases.length} {project.useCases.length === 1 ? 'case' : 'cases'}
                 </span>
               </div>
               <UseCaseCarousel useCases={project.useCases} title={`${project.title} Use Cases`} />
-              <p className="mt-4 text-center text-canvas-dark/40 font-mono text-xs">
+              <p className="mt-4 text-center text-canvas-dark/40 dark:text-canvas-light/40 font-mono text-xs">
                 Use the arrows or dots to navigate
               </p>
             </section>
@@ -676,28 +676,28 @@ const ProjectDetails: React.FC = () => {
 
           {/* ── GALLERY CAROUSEL ── */}
           {gallery.length > 0 && (
-            <section className="py-16 md:py-24 border-b border-canvas-dark/10">
+            <section className="py-16 md:py-24 border-b border-canvas-dark/10 dark:border-white/10">
               <div className="flex items-center gap-3 mb-10">
                 <LayoutGrid size={18} className="text-electric" />
-                <p className="font-mono text-xs text-canvas-dark/50 uppercase tracking-[0.25em]">
+                <p className="font-mono text-xs text-canvas-dark/50 dark:text-canvas-light/50 uppercase tracking-[0.25em]">
                   Project Gallery
                 </p>
-                <span className="ml-auto font-mono text-xs text-canvas-dark/60">
+                <span className="ml-auto font-mono text-xs text-canvas-dark/60 dark:text-canvas-light/60">
                   {gallery.length} {gallery.length === 1 ? 'screenshot' : 'screenshots'}
                 </span>
               </div>
               <Carousel images={gallery} title={project.title} />
-              <p className="mt-4 text-center text-canvas-dark/40 font-mono text-xs">
+              <p className="mt-4 text-center text-canvas-dark/40 dark:text-canvas-light/40 font-mono text-xs">
                 Use the arrows or dots to navigate · Add more images via <code className="text-electric">gallery[]</code> in constants.ts
               </p>
             </section>
           )}
 
           {/* ── TECH STACK ── */}
-          <section className="py-16 md:py-24 border-b border-canvas-dark/10">
+          <section className="py-16 md:py-24 border-b border-canvas-dark/10 dark:border-white/10">
             <div className="flex items-center gap-3 mb-10">
               <Layers size={18} className="text-electric" />
-              <p className="font-mono text-xs text-canvas-dark/50 uppercase tracking-[0.25em]">
+              <p className="font-mono text-xs text-canvas-dark/50 dark:text-canvas-light/50 uppercase tracking-[0.25em]">
                 Technology Stack
               </p>
             </div>
@@ -709,7 +709,7 @@ const ProjectDetails: React.FC = () => {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.3, delay: i * 0.05 }}
-                  className="px-5 py-2.5 bg-white ring-1 ring-canvas-dark/10 shadow-sm rounded-xl font-mono text-sm text-canvas-dark/80 hover:ring-electric hover:text-electric hover:bg-electric/5 transition-all duration-200 cursor-default"
+                  className="px-5 py-2.5 bg-white ring-1 ring-canvas-dark/10 shadow-sm rounded-xl font-mono text-sm text-canvas-dark/80 dark:text-canvas-light/80 hover:ring-electric hover:text-electric hover:bg-electric/5 transition-all duration-200 cursor-default"
                 >
                   {tag}
                 </motion.span>
@@ -720,7 +720,7 @@ const ProjectDetails: React.FC = () => {
           <section className="py-16 md:py-24 flex flex-col md:flex-row items-center justify-between gap-8">
             <Link
               to="/"
-              className="flex items-center gap-3 text-canvas-dark/60 hover:text-canvas-dark transition-colors font-medium group"
+              className="flex items-center gap-3 text-canvas-dark/60 dark:text-canvas-light/60 hover:text-canvas-dark dark:text-canvas-light transition-colors font-medium group"
             >
               <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
               Back to Home
@@ -735,15 +735,15 @@ const ProjectDetails: React.FC = () => {
                   className="group flex items-center gap-4 card-base card-hover px-6 py-4"
                 >
                   <div>
-                    <p className="font-mono text-xs text-canvas-dark/40 uppercase tracking-widest mb-1">
+                    <p className="font-mono text-xs text-canvas-dark/40 dark:text-canvas-light/40 uppercase tracking-widest mb-1">
                       Next Project
                     </p>
-                    <p className="font-display font-bold text-canvas-dark text-lg">{next.title}</p>
+                    <p className="font-display font-bold text-canvas-dark dark:text-canvas-light text-lg">{next.title}</p>
                     <p className="text-electric font-mono text-xs">{next.subtitle}</p>
                   </div>
                   <ChevronRight
                     size={24}
-                    className="text-canvas-dark/50 group-hover:text-electric group-hover:translate-x-1 transition-all"
+                    className="text-canvas-dark/50 dark:text-canvas-light/50 group-hover:text-electric group-hover:translate-x-1 transition-all"
                   />
                 </Link>
               );
