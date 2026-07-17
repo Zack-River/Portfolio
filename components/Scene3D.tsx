@@ -832,7 +832,7 @@ const ModelWrapper = ({
 
   // The robot's origin is at its feet. To keep its chest vertically centered (at Y=0)
   // as it scales, positionY must proportionally move up.
-  // At scale=2, positionY=-4 perfectly centered it. So the ratio is -2 * scale.
+  // At scale=1, positionY=-1 perfectly centered it. So the ratio is -1 * scale.
   const positionY = isMobile ? -3 : isTablet ? -1 : -1 * scale;
 
   return <Model position={[positionX, positionY, 0]} scale={scale} />;

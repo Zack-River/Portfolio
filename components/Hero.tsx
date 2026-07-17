@@ -36,7 +36,7 @@ const Hero: React.FC = () => {
   return (
     <section
       id="home"
-      className="min-h-[auto] md:min-h-screen w-full relative overflow-x-hidden bg-canvas-light"
+      className="min-h-auto md:min-h-screen w-full relative overflow-x-hidden bg-canvas-light"
     >
       {/* 1. Base Canvas Layer */}
       <div className="absolute inset-0 w-full h-full z-0 pointer-events-auto">
@@ -92,8 +92,8 @@ const Hero: React.FC = () => {
       </div>
 
       {/* 2. Text Overlay Layer */}
-      <div className="relative z-10 w-full min-h-[auto] md:min-h-screen pointer-events-none flex flex-col justify-center">
-        <div className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24 flex flex-col md:flex-row min-h-[auto] md:min-h-screen md:items-center">
+      <div className="relative z-10 w-full min-h-auto md:min-h-screen pointer-events-none flex flex-col justify-center">
+        <div className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24 flex flex-col md:flex-row min-h-auto md:min-h-screen md:items-center">
           {/* Left Column Text (Desktop) / Vertical Stack (Mobile) */}
           <div className="w-full md:w-1/2 lg:w-1/2 flex flex-col justify-center items-center md:items-start text-center md:text-left pt-24 pb-32 md:py-0">
             <div className="pointer-events-auto flex flex-col items-center md:items-start w-full mb-2 md:mb-0">

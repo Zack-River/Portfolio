@@ -51,7 +51,7 @@ const Skills: React.FC = () => {
                   className="bg-white/5 border border-white/10 rounded-2xl p-6 relative overflow-hidden h-full flex flex-col group hover:bg-white/[0.07] hover:border-white/20 hover:-translate-y-2 hover:shadow-[0_8px_30px_rgba(14,165,233,0.15)] transition-all duration-500 ease-out shadow-xl"
                 >
                   {/* Ghost Icon */}
-                  <div className="absolute -bottom-10 -right-10 text-white/[0.03] group-hover:text-electric/[0.05] transition-colors duration-700 pointer-events-none z-0 transform group-hover:scale-110 group-hover:-rotate-6">
+                  <div className="absolute -bottom-10 -right-10 text-white/3 group-hover:text-electric/5 transition-colors duration-700 pointer-events-none z-0 transform group-hover:scale-110 group-hover:-rotate-6">
                     {CATEGORY_ICONS[category.title]}
                   </div>
                   
