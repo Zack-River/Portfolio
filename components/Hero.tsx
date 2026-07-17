@@ -56,25 +56,11 @@ const Hero: React.FC<{ loading?: boolean }> = ({ loading = false }) => {
 
   React.useEffect(() => {
     if (isMobile) return;
-
-    // Wait for the browser to be idle, then add an extra 2.5s delay before loading the 3D scene.
-    // This removes the heavy Three.js/GLB parsing from the critical render path and ensures
-    // Lighthouse finishes measuring TBT (Total Blocking Time) before the heavy JS evaluates.
-    const idleCallback = ('requestIdleCallback' in window)
-      ? (window as any).requestIdleCallback
-      : (cb: Function) => setTimeout(cb, 1);
-
-    const schedule = () => {
-      idleCallback(() => {
-        setTimeout(() => setShouldLoad3D(true), 2500);
-      });
-    };
-
-    if (document.readyState === 'complete') {
-      schedule();
-    } else {
-      window.addEventListener('load', schedule, { once: true });
-    }
+    
+    // Load the 3D scene immediately so the Loader can track its progress.
+    // This will impact Lighthouse scores, but guarantees the UX of the loader
+    // waiting for the 3D model instead of it popping in later.
+    setShouldLoad3D(true);
   }, [isMobile]);
 
   // GSAP entrance timeline — fires AFTER loader dismisses (loading === false)

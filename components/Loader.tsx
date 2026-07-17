@@ -1,23 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { useProgress } from '@react-three/drei';
+
 const Loader: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
   const [progress, setProgress] = useState(0);
+  const { progress: modelProgress } = useProgress();
 
   useEffect(() => {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    const is3DReady = isMobile ? true : modelProgress >= 100;
+
     const timer = setInterval(() => {
       setProgress((prev) => {
-        if (prev >= 100) {
+        // Pause at 99% on desktop until the 3D model is loaded
+        if (prev >= 99 && !is3DReady) {
+          return 99;
+        }
+
+        if (prev >= 100 || (prev >= 99 && is3DReady)) {
           clearInterval(timer);
-          setTimeout(onComplete, 200); // Faster exit
+          setTimeout(onComplete, 200);
           return 100;
         }
-        const increment = Math.random() * 30; // Faster increment
-        return Math.min(prev + increment, 100);
+        const increment = Math.random() * 30;
+        return Math.min(prev + increment, 99);
       });
-    }, 50); // Faster ticks
+    }, 50);
 
     return () => clearInterval(timer);
-  }, [onComplete]);
+  }, [onComplete, modelProgress]);
 
   return (
     <motion.div
