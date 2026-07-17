@@ -6,6 +6,7 @@ import StarsBackground from "./StarsBackground";
 import MobileHeroVisual from "./MobileHeroVisual";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import { useTheme } from "../hooks/useTheme";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -31,6 +32,8 @@ const SplitChars = React.forwardRef<HTMLSpanElement, { text: string; className?:
 );
 
 const Hero: React.FC<{ loading?: boolean }> = ({ loading = false }) => {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
   const [isMobile, setIsMobile] = React.useState(() =>
     typeof window !== "undefined" ? window.innerWidth < 768 : true
   );
@@ -154,7 +157,7 @@ const Hero: React.FC<{ loading?: boolean }> = ({ loading = false }) => {
                     </div>
                   }
                 >
-                  {shouldLoad3D && <Scene3D />}
+                  {shouldLoad3D && <Scene3D isDark={isDark} />}
                 </Suspense>
               </motion.div>
             </div>

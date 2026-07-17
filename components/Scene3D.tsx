@@ -839,7 +839,7 @@ const ModelWrapper = ({
 
 // Preload is handled by useGLTF inside Model — no eager preload needed
 
-const Scene3D: React.FC = () => {
+const Scene3D: React.FC<{ isDark?: boolean }> = ({ isDark = false }) => {
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
 
@@ -853,6 +853,16 @@ const Scene3D: React.FC = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Lighting tuned per theme:
+  // Light mode — bright sky, warm directional key, full ambient fill
+  // Dark mode  — deeper sky, cooler fill, same electric rim
+  const ambientIntensity   = isDark ? 0.5  : 1.1;
+  const skyColor           = isDark ? "#1a2a4a" : "#e8f4ff";
+  const groundColor        = isDark ? "#0d1117" : "#c8dff5";
+  const hemiIntensity      = isDark ? 0.6  : 1.4;
+  const dirIntensity       = isDark ? 1.2  : 2.0;
+  const fillIntensity      = isDark ? 0.4  : 0.9;
+
   return (
     <div className="w-full h-full bg-transparent relative overflow-hidden pointer-events-none">
       <Canvas
@@ -864,32 +874,31 @@ const Scene3D: React.FC = () => {
           alpha: true,
         }}
       >
-        {/* Soft, even ambient lighting to match light background */}
-        <ambientLight intensity={0.8} />
+        {/* Hemisphere light: sky→ground gradient replaces the HDRI environment.
+            Provides the ambient reflectivity that metallic materials need without
+            any network requests. */}
+        <hemisphereLight
+          args={[skyColor as any, groundColor as any, hemiIntensity]}
+        />
 
-        {/* Directional light acting as a main sun or key light */}
+        {/* Flat ambient fill so shadows never go fully black */}
+        <ambientLight intensity={ambientIntensity} />
+
+        {/* Main directional key light (sun) */}
         <directionalLight
           position={[10, 10, 5]}
-          intensity={1.5}
+          intensity={dirIntensity}
           color="#ffffff"
         />
 
-        {/* Subtle electric blue rim light from the side */}
-        <pointLight position={[-10, 2, -5]} intensity={2} color="#0ea5e9" />
+        {/* Electric blue rim from left */}
+        <pointLight position={[-10, 2, -5]} intensity={isDark ? 2 : 2.5} color="#0ea5e9" />
 
-        {/* Fill light to soften harsh shadows */}
-        <pointLight position={[0, -5, 5]} intensity={0.5} color="#ffffff" />
-
-        {/* No HDRI environment — pure manual lighting for zero extra network requests */}
+        {/* Soft under-fill to lift shadow areas */}
+        <pointLight position={[0, -5, 5]} intensity={fillIntensity} color="#ffffff" />
 
         <ModelWrapper isMobile={isMobile} isTablet={isTablet} />
 
-        {/* <OrbitControls
-          enableZoom={false}
-          enablePan={false}
-          minPolarAngle={Math.PI / 4} 
-          maxPolarAngle={Math.PI / 2}
-        /> */}
         <Preload all />
       </Canvas>
     </div>
