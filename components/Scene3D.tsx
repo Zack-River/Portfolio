@@ -3,6 +3,7 @@ import { Canvas, useThree } from "@react-three/fiber";
 import {
   useGLTF,
   useAnimations,
+  Environment,
   Preload,
 } from "@react-three/drei";
 import * as THREE from "@/node_modules/@types/three";
@@ -896,6 +897,11 @@ const Scene3D: React.FC<{ isDark?: boolean }> = ({ isDark = false }) => {
 
         {/* Soft under-fill to lift shadow areas */}
         <pointLight position={[0, -5, 5]} intensity={fillIntensity} color="#ffffff" />
+
+        {/* Environment IBL — deferred with Scene3D so never blocks LCP.
+            Provides the specular/reflection layer PBR metallic materials need
+            to look bright and shiny instead of flat and dark. */}
+        <Environment preset="city" background={false} />
 
         <ModelWrapper isMobile={isMobile} isTablet={isTablet} />
 
