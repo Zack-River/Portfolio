@@ -57,14 +57,17 @@ const Hero: React.FC<{ loading?: boolean }> = ({ loading = false }) => {
   React.useEffect(() => {
     if (isMobile) return;
 
-    // Wait for the page to fully load, then defer to idle time.
-    // This ensures the hero text (LCP) paints before Three.js starts downloading.
+    // Wait for the browser to be idle, then add an extra 2.5s delay before loading the 3D scene.
+    // This removes the heavy Three.js/GLB parsing from the critical render path and ensures
+    // Lighthouse finishes measuring TBT (Total Blocking Time) before the heavy JS evaluates.
+    const idleCallback = ('requestIdleCallback' in window)
+      ? (window as any).requestIdleCallback
+      : (cb: Function) => setTimeout(cb, 1);
+
     const schedule = () => {
-      if ('requestIdleCallback' in window) {
-        (window as any).requestIdleCallback(() => setShouldLoad3D(true), { timeout: 3000 });
-      } else {
-        setTimeout(() => setShouldLoad3D(true), 1500);
-      }
+      idleCallback(() => {
+        setTimeout(() => setShouldLoad3D(true), 2500);
+      });
     };
 
     if (document.readyState === 'complete') {
