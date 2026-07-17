@@ -45,22 +45,22 @@ const ProjectsPage: React.FC = () => {
   });
 
   return (
-    <div className="bg-canvas-light min-h-screen text-canvas-dark relative">
+    <div className="bg-canvas-light dark:bg-canvas-dark min-h-screen text-canvas-dark dark:text-canvas-light relative transition-colors duration-500">
       <main className="pt-32 pb-24 md:pt-40 md:pb-32 section-container mx-auto min-h-screen">
         <div className="mb-12 max-w-3xl">
           <GSAPReveal>
-            <Link to="/" className="inline-flex items-center gap-2 text-canvas-dark/60 hover:text-electric transition-colors mb-8 font-mono text-sm">
+            <Link to="/" className="inline-flex items-center gap-2 text-canvas-dark/60 dark:text-canvas-light/60 hover:text-electric dark:hover:text-electric transition-colors mb-6 font-medium text-sm">
               <ArrowLeft size={16} />
               <span>Back to Home</span>
             </Link>
           </GSAPReveal>
           <GSAPReveal delay={0.1}>
-            <h1 className="text-5xl md:text-7xl font-display font-bold tracking-tight mb-6">
-              All <span className="text-electric">Projects</span>
+            <h1 className="text-4xl md:text-6xl font-display font-bold text-canvas-dark dark:text-canvas-light mb-4">
+              Portfolio <span className="text-canvas-dark/20 dark:text-canvas-light/20">Archive</span>
             </h1>
           </GSAPReveal>
           <GSAPReveal delay={0.2}>
-            <p className="text-lg md:text-xl text-canvas-dark/70 font-mono">
+            <p className="text-secondary dark:text-canvas-light/70 text-lg max-w-2xl">
               A comprehensive archive of systems, interfaces, and platforms I've engineered over the years. Explore the architecture behind each experience.
             </p>
           </GSAPReveal>
@@ -77,7 +77,7 @@ const ProjectsPage: React.FC = () => {
                 className={`snap-start shrink-0 px-4 py-2 rounded-full font-mono text-xs font-medium transition-all duration-200 border whitespace-nowrap ${
                   activeFilter === category
                     ? 'bg-electric text-white border-electric shadow-md shadow-electric/25'
-                    : 'bg-white text-canvas-dark/60 border-canvas-dark/10'
+                    : 'bg-white dark:bg-white/5 text-canvas-dark/60 dark:text-canvas-light/60 border-canvas-dark/10 dark:border-white/10 hover:border-canvas-dark/20 dark:hover:border-white/20'
                 }`}
               >
                 {category}
@@ -87,15 +87,15 @@ const ProjectsPage: React.FC = () => {
 
           {/* Desktop: centered pill group inside a frosted track */}
           <div className="hidden md:flex items-center justify-center mb-12">
-            <div className="inline-flex items-center gap-1.5 p-1.5 bg-canvas-dark/5 rounded-full border border-canvas-dark/8 backdrop-blur-sm">
+            <div className="inline-flex items-center gap-1.5 p-1.5 bg-canvas-dark/5 dark:bg-white/5 rounded-full border border-canvas-dark/5 dark:border-white/10 backdrop-blur-sm">
               {CATEGORIES.map(category => (
                 <button
                   key={category}
                   onClick={() => setActiveFilter(category)}
                   className={`relative px-5 py-2 rounded-full font-mono text-sm font-medium transition-all duration-250 whitespace-nowrap ${
                     activeFilter === category
-                      ? 'bg-white text-canvas-dark shadow-sm ring-1 ring-canvas-dark/10'
-                      : 'text-canvas-dark/50 hover:text-canvas-dark hover:bg-white/50'
+                      ? 'bg-white dark:bg-[#111113] text-canvas-dark dark:text-canvas-light shadow-sm ring-1 ring-canvas-dark/10 dark:ring-white/10'
+                      : 'text-canvas-dark/50 dark:text-canvas-light/50 hover:text-canvas-dark dark:hover:text-canvas-light hover:bg-white/50 dark:hover:bg-white/10'
                   }`}
                 >
                   {activeFilter === category && (
@@ -160,7 +160,7 @@ const ProjectsPage: React.FC = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={`${bentoClasses} group relative rounded-xl overflow-hidden bg-white shadow-md ring-1 ring-canvas-dark/10 hover:shadow-xl hover:ring-electric/30 hover:-translate-y-1 transition-all duration-300 flex flex-col`}
+                className={`${bentoClasses} group relative rounded-xl overflow-hidden bg-white dark:bg-[#111113] shadow-md ring-1 ring-canvas-dark/10 dark:ring-white/10 hover:shadow-xl hover:ring-electric/30 dark:hover:ring-electric/50 hover:-translate-y-1 transition-all duration-300 flex flex-col`}
               >
                 <Link to={`/project/${project.id}`} className="absolute inset-0 z-20" aria-label={`View ${project.title}`}></Link>
                 

@@ -107,12 +107,12 @@ const Contact: React.FC = () => {
                     <Phone size={20} />
                   </div>
                   <div>
-                    <p className="text-xs text-canvas-dark/60 uppercase tracking-wider">
+                    <p className="text-xs text-canvas-dark/60 dark:text-white/60 uppercase tracking-wider">
                       Phone
                     </p>
                     <a
                       href="tel:+201201024880"
-                      className="text-canvas-dark/80 hover:text-electric transition-colors"
+                      className="text-canvas-dark/80 dark:text-white/90 hover:text-electric transition-colors"
                     >
                       +20 1201024880
                     </a>
@@ -126,12 +126,12 @@ const Contact: React.FC = () => {
                     <Mail size={20} />
                   </div>
                   <div>
-                    <p className="text-xs text-canvas-dark/60 uppercase tracking-wider">
+                    <p className="text-xs text-canvas-dark/60 dark:text-white/60 uppercase tracking-wider">
                       Email
                     </p>
                     <a
                       href={`mailto:${PERSONAL_INFO.email}`}
-                      className="text-canvas-dark/80 hover:text-electric transition-colors"
+                      className="text-canvas-dark/80 dark:text-white/90 hover:text-electric transition-colors"
                     >
                       {PERSONAL_INFO.email}
                     </a>
@@ -145,10 +145,10 @@ const Contact: React.FC = () => {
                     <MapPin size={20} />
                   </div>
                   <div>
-                    <p className="text-xs text-canvas-dark/60 uppercase tracking-wider">
+                    <p className="text-xs text-canvas-dark/60 dark:text-white/60 uppercase tracking-wider">
                       Location
                     </p>
-                    <p className="text-canvas-dark/80">Qalubiya, Egypt</p>
+                    <p className="text-canvas-dark/80 dark:text-white/90">Qalubiya, Egypt</p>
                   </div>
                 </div>
               </Reveal>
@@ -226,7 +226,7 @@ const Contact: React.FC = () => {
                 <div className="space-y-2">
                   <label
                     htmlFor="name"
-                    className="text-sm font-mono text-canvas-dark/60"
+                    className="text-sm font-mono text-canvas-dark/60 dark:text-white"
                   >
                     Name
                   </label>
@@ -250,7 +250,7 @@ const Contact: React.FC = () => {
                 <div className="space-y-2">
                   <label
                     htmlFor="email"
-                    className="text-sm font-mono text-canvas-dark/60"
+                    className="text-sm font-mono text-canvas-dark/60 dark:text-white"
                   >
                     Email
                   </label>
@@ -274,7 +274,7 @@ const Contact: React.FC = () => {
                 <div className="space-y-2">
                   <label
                     htmlFor="service"
-                    className="text-sm font-mono text-canvas-dark/60"
+                    className="text-sm font-mono text-canvas-dark/60 dark:text-white"
                   >
                     Service Inquiry
                   </label>
@@ -301,7 +301,7 @@ const Contact: React.FC = () => {
                 <div className="space-y-2 flex flex-col flex-1">
                   <label
                     htmlFor="message"
-                    className="text-sm font-mono text-canvas-dark/60"
+                    className="text-sm font-mono text-canvas-dark/60 dark:text-white"
                   >
                     Message
                   </label>
