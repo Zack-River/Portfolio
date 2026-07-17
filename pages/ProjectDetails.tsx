@@ -405,7 +405,7 @@ const ProjectDetails: React.FC = () => {
             <img
               src={project.image}
               alt={project.title}
-              fetchPriority="high"
+              fetchpriority="high"
               className="w-full h-full object-cover object-top"
             />
           ) : (
