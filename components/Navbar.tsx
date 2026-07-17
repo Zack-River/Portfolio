@@ -77,7 +77,7 @@ const Navbar: React.FC = () => {
           <button
             key={item.id}
             onClick={() => scrollTo(item.id)}
-            className={`group flex items-center justify-center px-3 py-3 md:px-4 md:py-2.5 rounded-full transition-all duration-300 hover:bg-canvas-dark/5 dark:hover:bg-white/10 ${activeSection === item.id ? 'bg-canvas-dark/5 dark:bg-white/10' : ''}`}
+            className={`group flex items-center justify-center px-3 py-3 md:px-4 md:py-2.5 rounded-full transition-all duration-300 hover:bg-canvas-dark/5 dark:hover:bg-white/30 ${activeSection === item.id ? 'bg-canvas-dark/5 dark:bg-white/10' : ''}`}
             aria-label={item.label}
           >
             <item.icon size={18} className={`transition-colors ${activeSection === item.id ? 'text-electric' : 'text-canvas-dark/70 dark:text-canvas-light/70 group-hover:text-electric dark:group-hover:text-electric'}`} />
@@ -90,7 +90,7 @@ const Navbar: React.FC = () => {
         {/* Theme Toggle */}
         <button
           onClick={toggleTheme}
-          className="group flex items-center justify-center px-3 py-3 md:px-4 md:py-2.5 rounded-full transition-all duration-300 hover:bg-canvas-dark/5 dark:hover:bg-white/10 ml-2 border-l border-canvas-dark/10 dark:border-white/10 pl-4"
+          className="group flex items-center justify-center px-3 py-3 md:px-4 md:py-2.5 rounded-full transition-all duration-300 hover:bg-canvas-dark/5 dark:hover:bg-white/30 ml-2 border-l border-canvas-dark/10 dark:border-white/10 pl-4"
           aria-label="Toggle Theme"
         >
           {theme === 'dark' ? (

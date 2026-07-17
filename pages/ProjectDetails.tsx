@@ -389,7 +389,7 @@ const ProjectDetails: React.FC = () => {
           {/* Theme Toggle */}
           <button
             onClick={toggleTheme}
-            className="flex items-center justify-center p-2 rounded-full transition-all duration-300 hover:bg-canvas-dark/5 dark:hover:bg-white/10"
+            className="flex items-center justify-center p-2 rounded-full transition-all duration-300 hover:bg-canvas-dark/5 dark:hover:bg-white/30"
             aria-label="Toggle Theme"
           >
             {theme === 'dark' ? (

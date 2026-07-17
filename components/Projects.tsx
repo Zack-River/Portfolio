@@ -63,7 +63,7 @@ const Projects: React.FC = () => {
             .map((project) => (
               <Link to={`/project/${project!.id}`} key={project!.id} className="project-card relative group block transition-all duration-300 hover:-translate-y-1">
                 <div className="w-full bg-white dark:bg-[#111113] rounded-xl overflow-hidden ring-1 ring-canvas-dark/5 dark:ring-white/10 shadow-md transition-all duration-300 group-hover:shadow-xl">
-                  <div className="h-10 bg-canvas-dark/5 dark:bg-white/5 border-b border-canvas-dark/10 dark:border-white/10 flex items-center px-4 relative z-30 transition-colors group-hover:bg-canvas-dark/10 dark:group-hover:bg-white/10">
+                  <div className="h-10 bg-canvas-dark/5 dark:bg-white/5 border-b border-canvas-dark/10 dark:border-white/10 flex items-center px-4 relative z-30 transition-colors group-hover:bg-canvas-dark/10 dark:group-hover:bg-white/30">
                     <div className="flex gap-2 z-10">
                       <div className="w-3 h-3 rounded-full bg-[#FF5F56]"></div>
                       <div className="w-3 h-3 rounded-full bg-[#FFBD2E]"></div>

@@ -193,7 +193,7 @@ const Contact: React.FC = () => {
                     href={`https://${PERSONAL_INFO.github}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 bg-white dark:bg-white/5 shadow-sm ring-1 ring-canvas-dark/5 dark:ring-white/10 border border-canvas-dark/10 dark:border-white/10 hover:bg-canvas-dark/90 dark:hover:bg-white/10 text-canvas-dark/80 dark:text-canvas-light/80 hover:text-canvas-light dark:hover:text-white rounded-xl transition-all"
+                    className="p-3 bg-white dark:bg-white/5 shadow-sm ring-1 ring-canvas-dark/5 dark:ring-white/10 border border-canvas-dark/10 dark:border-white/10 hover:bg-canvas-dark/90 dark:hover:bg-white/30 text-canvas-dark/80 dark:text-canvas-light/80 hover:text-canvas-light dark:hover:text-white rounded-xl transition-all"
                     aria-label="GitHub"
                   >
                     <Github size={24} />
