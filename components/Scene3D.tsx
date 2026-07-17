@@ -815,7 +815,11 @@ const ModelWrapper = ({ isMobile, isTablet }: { isMobile: boolean; isTablet: boo
   const { viewport } = useThree();
   const positionX = isMobile ? 0 : viewport.width / 4;
   const positionY = isMobile ? -3 : isTablet ? -3.5 : -4;
-  const scale = isMobile ? 1.4 : isTablet ? 1.2 : 2;
+  
+  // Smoothly scale down on narrow screens (like 1179px) so the left arm doesn't overlap the text.
+  // viewport.width is ~13.5 on 1080p, so 13.5 / 5.5 = ~2.4 (caps at 2).
+  // viewport.width is ~7.9 on 1179px, so 7.9 / 5.5 = ~1.43 (perfectly fits without overlap).
+  const scale = isMobile ? 1.4 : isTablet ? 1.2 : Math.min(2, Math.max(1.3, viewport.width / 5.5));
 
   return <Model position={[positionX, positionY, 0]} scale={scale} />;
 };
