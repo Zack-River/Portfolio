@@ -19,10 +19,17 @@ export default defineConfig(({ mode }) => {
         }
       },
       build: {
-        chunkSizeWarningLimit: 1000,
+        chunkSizeWarningLimit: 800,
+        // Inline small assets to avoid extra round trips
+        assetsInlineLimit: 4096,
         modulePreload: {
           resolveDependencies: (filename, deps) => {
-            return deps.filter(dep => !dep.includes('three-vendor') && !dep.includes('Scene3D'));
+            // Never eagerly preload Three.js or Scene3D — they defer to idle
+            return deps.filter(dep =>
+              !dep.includes('three-vendor') &&
+              !dep.includes('Scene3D') &&
+              !dep.includes('gsap-vendor')
+            );
           }
         },
         rollupOptions: {
@@ -31,6 +38,7 @@ export default defineConfig(({ mode }) => {
               'react-vendor': ['react', 'react-dom', 'react-router-dom'],
               'three-vendor': ['three', '@react-three/fiber', '@react-three/drei'],
               'motion-vendor': ['framer-motion'],
+              'gsap-vendor': ['gsap'],
               'ui-vendor': ['lucide-react', 'formik', 'yup', '@emailjs/browser']
             }
           }

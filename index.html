@@ -26,7 +26,10 @@
     <meta name="twitter:image" content="/favicon.webp" />
     <link rel="icon" type="image/webp" href="/favicon.webp" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <!-- Low-priority prefetch: GLB downloads in idle time, never blocks LCP -->
+    <link rel="prefetch" href="/robot_playground_draco.glb" as="fetch" crossorigin="anonymous" />
+    <link rel="prefetch" href="/draco/draco_decoder.wasm" as="fetch" crossorigin="anonymous" />
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" />
     <link
       rel="stylesheet"

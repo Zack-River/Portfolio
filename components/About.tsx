@@ -103,10 +103,10 @@ const About: React.FC = () => {
                     <img
                       src="/Zack.webp"
                       alt={PERSONAL_INFO.name}
-                      loading="lazy"
+                      loading="eager"
                       decoding="async"
-                      width="218"
-                      height="219"
+                      width="512"
+                      height="384"
                       className="w-full h-full object-cover object-top scale-[1.3] translate-y-6 transition-transform duration-700 ease-out md:group-hover:scale-[1.35]"
                     />
                   </div>

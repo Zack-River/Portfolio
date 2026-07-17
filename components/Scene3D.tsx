@@ -1,10 +1,8 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
 import {
-  OrbitControls,
   useGLTF,
   useAnimations,
-  Environment,
   Preload,
 } from "@react-three/drei";
 import * as THREE from "@/node_modules/@types/three";
@@ -882,7 +880,7 @@ const Scene3D: React.FC = () => {
         {/* Fill light to soften harsh shadows */}
         <pointLight position={[0, -5, 5]} intensity={0.5} color="#ffffff" />
 
-        <Environment preset="city" />
+        {/* No HDRI environment — pure manual lighting for zero extra network requests */}
 
         <ModelWrapper isMobile={isMobile} isTablet={isTablet} />
 
@@ -898,6 +896,5 @@ const Scene3D: React.FC = () => {
   );
 };
 
-useGLTF.preload("/robot_playground_draco.glb", "/draco/");
-
+// GLB is loaded lazily on component mount — no eager module-level preload
 export default Scene3D;

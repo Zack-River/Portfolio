@@ -53,8 +53,22 @@ const Hero: React.FC<{ loading?: boolean }> = ({ loading = false }) => {
 
   React.useEffect(() => {
     if (isMobile) return;
-    const timer = setTimeout(() => setShouldLoad3D(true), 100);
-    return () => clearTimeout(timer);
+
+    // Wait for the page to fully load, then defer to idle time.
+    // This ensures the hero text (LCP) paints before Three.js starts downloading.
+    const schedule = () => {
+      if ('requestIdleCallback' in window) {
+        (window as any).requestIdleCallback(() => setShouldLoad3D(true), { timeout: 3000 });
+      } else {
+        setTimeout(() => setShouldLoad3D(true), 1500);
+      }
+    };
+
+    if (document.readyState === 'complete') {
+      schedule();
+    } else {
+      window.addEventListener('load', schedule, { once: true });
+    }
   }, [isMobile]);
 
   // GSAP entrance timeline — fires AFTER loader dismisses (loading === false)
