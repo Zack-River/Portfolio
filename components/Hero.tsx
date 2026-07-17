@@ -53,11 +53,13 @@ const Hero: React.FC = () => {
           }}
         />
 
-        {/* Subtle electric blue decorative background glow */}
-        <div className="absolute top-1/2 left-1/2 md:left-3/4 -translate-x-1/2 -translate-y-1/2 w-[70%] md:w-[35%] h-[70%] md:h-[50%] bg-electric/15 rounded-full blur-[100px] pointer-events-none z-10"></div>
+        {/* Subtle electric blue decorative background glow — skip expensive blur on mobile */}
+        {!isMobile && (
+          <div className="absolute top-1/2 left-3/4 -translate-x-1/2 -translate-y-1/2 w-[35%] h-[50%] bg-electric/15 rounded-full blur-[100px] pointer-events-none z-10" />
+        )}
 
-        {/* Stars Background for whole screen */}
-        <StarsBackground colorClass="bg-electric" count={80} />
+        {/* Stars Background — desktop only. Mobile CPUs can't handle 30 animated divs */}
+        {!isMobile && <StarsBackground colorClass="bg-electric" count={30} />}
 
         <div className="absolute inset-0 w-full h-full z-20 pointer-events-auto">
           {isMobile ? (

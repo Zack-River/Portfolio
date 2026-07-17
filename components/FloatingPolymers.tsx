@@ -11,48 +11,40 @@ const SHAPES = {
 const SHAPE_KEYS = Object.keys(SHAPES) as (keyof typeof SHAPES)[];
 
 const FloatingPolymers: React.FC = () => {
-  // On mobile: render 0 polymers — entire component is effectively skipped.
-  // On desktop: 6 shapes (down from 8) with GPU-only transforms (no rotateX/Y).
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const polymers = useMemo(() => Array.from({ length: 6 }).map((_, i) => {
+    const shape = SHAPE_KEYS[i % SHAPE_KEYS.length];
+    const size = Math.random() * 50 + 30; // Smaller: 30px to 80px
+    const left = Math.random() * 100;
+    const top = Math.random() * 100;
+    const duration = Math.random() * 30 + 30; // Slower: 30s–60s (less repaints)
+    const delay = Math.random() * -30;
 
-  const polymers = useMemo(() => {
-    if (isMobile) return [];
-    return Array.from({ length: 6 }).map((_, i) => {
-      const shape = SHAPE_KEYS[i % SHAPE_KEYS.length];
-      const size = Math.random() * 50 + 30; // smaller: 30px to 80px
-      const left = Math.random() * 100;
-      const top = Math.random() * 100;
-      const duration = Math.random() * 30 + 30; // slower: 30s to 60s
-      const delay = Math.random() * -30;
-      return { id: i, shape, size, left, top, duration, delay };
-    });
-  }, [isMobile]);
-
-  if (polymers.length === 0) return null;
+    return { id: i, shape, size, left, top, duration, delay };
+  }), []);
 
   return (
     <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
       <style>{`
         @keyframes floatPolymer {
-          0%   { transform: translateY(0px)   rotateZ(0deg); }
-          50%  { transform: translateY(-40px) rotateZ(180deg); }
-          100% { transform: translateY(0px)   rotateZ(360deg); }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .float-polymer { animation: none !important; }
+          /* ONLY 2D transforms — translate + rotate are GPU-composited
+             and run entirely off the main thread.
+             3-axis rotateX/rotateY/rotateZ forces main-thread repaints. */
+          0%   { transform: translateY(0px)  rotate(0deg); }
+          50%  { transform: translateY(-40px) rotate(180deg); }
+          100% { transform: translateY(0px)  rotate(360deg); }
         }
       `}</style>
       {polymers.map((poly) => (
         <div
           key={poly.id}
-          className="float-polymer absolute text-electric/10"
+          className="absolute text-electric/10"
           style={{
             left: `${poly.left}%`,
             top: `${poly.top}%`,
             width: poly.size,
             height: poly.size,
             willChange: 'transform',
-            animation: `floatPolymer ${poly.duration}s linear infinite ${poly.delay}s`,
+            animation: `floatPolymer ${poly.duration}s ease-in-out infinite ${poly.delay}s`,
           }}
         >
           <svg
