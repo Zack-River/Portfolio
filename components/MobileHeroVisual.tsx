@@ -28,7 +28,7 @@ const MobileHeroVisual: React.FC = () => {
       {/* Robot SVG — NO drop-shadow filters at all */}
       <svg
         viewBox="0 0 200 280"
-        className="relative z-10 w-[220px] h-[308px]"
+        className="relative z-10 w-[220px] h-[308px] overflow-visible"
         style={{ animation: "floatRobot 7s ease-in-out infinite", willChange: "transform" }}
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
