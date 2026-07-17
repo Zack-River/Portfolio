@@ -58,14 +58,14 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle, number, 
     <div className={`relative mb-12 md:mb-16 text-center ${align === 'right' ? 'md:text-right' : 'md:text-left'}`}>
       <span
         ref={numberRef}
-        className={`absolute -top-10 text-[clamp(4rem,12vw,8rem)] font-bold select-none z-0 opacity-50 font-display left-1/2 -translate-x-1/2 ${dark ? 'text-white/15' : 'text-canvas-dark/5'} ${targetNum % 2 === 1 ? 'md:left-auto md:right-0 md:translate-x-0' : 'md:left-0 md:translate-x-0'}`}
+        className={`absolute -top-10 text-[clamp(4rem,12vw,8rem)] font-bold select-none z-0 opacity-50 font-display left-1/2 -translate-x-1/2 text-canvas-dark/5 dark:text-white/15 ${targetNum % 2 === 1 ? 'md:left-auto md:right-0 md:translate-x-0' : 'md:left-0 md:translate-x-0'}`}
       >
         {number}
       </span>
       <div className="relative z-10">
         <h2
           ref={titleRef}
-          className={`text-[clamp(1.75rem,5vw,3rem)] font-display font-bold mb-2 ${dark ? 'text-canvas-light' : 'text-primary'}`}
+          className={`text-[clamp(1.75rem,5vw,3rem)] font-display font-bold mb-2 text-primary dark:text-canvas-light`}
         >
           {title}
         </h2>
@@ -75,7 +75,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle, number, 
         />
         <p
           ref={subtitleRef}
-          className={`font-mono tracking-widest text-sm uppercase ${dark ? 'text-canvas-light/70' : 'text-secondary'}`}
+          className={`font-mono tracking-widest text-sm uppercase text-secondary dark:text-canvas-light/70`}
         >
           {subtitle}
         </p>

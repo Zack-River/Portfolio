@@ -84,7 +84,7 @@ const About: React.FC = () => {
   return (
     <section id="about" className="py-24 md:py-32 bg-canvas-light dark:bg-canvas-dark transition-colors duration-500 relative overflow-hidden">
       {/* Background Typography */}
-      <div className="absolute -left-10 md:-left-20 top-1/2 -translate-y-1/2 text-[clamp(5rem,15vw,12rem)] font-bold text-canvas-dark/3 opacity-30 font-display rotate-90 pointer-events-none origin-center">
+      <div className="absolute -left-10 md:-left-20 top-1/2 -translate-y-1/2 text-[clamp(5rem,15vw,12rem)] font-bold text-canvas-dark/3 dark:text-white/5 opacity-30 font-display rotate-90 pointer-events-none origin-center">
         ABOUT
       </div>
 
@@ -99,7 +99,7 @@ const About: React.FC = () => {
               <div className="flex flex-col">
                 <div ref={photoRef} className="mb-8 relative group w-full mx-auto md:mx-0">
                   <div className="absolute -inset-1 bg-linear-to-r from-electric to-canvas-dark/80 rounded-2xl blur opacity-25 transition duration-1000"></div>
-                  <div className="relative w-full aspect-4/3 rounded-xl shadow-2xl border border-canvas-dark/10 overflow-hidden">
+                  <div className="relative w-full aspect-4/3 rounded-xl shadow-2xl border border-canvas-dark/10 dark:border-white/10 overflow-hidden">
                     <img
                       src="/Zack.webp"
                       alt={PERSONAL_INFO.name}
@@ -121,7 +121,7 @@ const About: React.FC = () => {
           <div className="flex flex-col justify-between h-full space-y-8">
             <GSAPReveal delay={0.2}>
               <div className="pt-8">
-                <h3 className="text-2xl font-display text-canvas-dark mb-6 flex items-center justify-center md:justify-start gap-3">
+                <h3 className="text-2xl font-display text-canvas-dark dark:text-canvas-light mb-6 flex items-center justify-center md:justify-start gap-3">
                   <GraduationCap className="text-electric" /> Education
                 </h3>
 
@@ -131,20 +131,20 @@ const About: React.FC = () => {
                   <p className="text-secondary text-sm mb-2">{EDUCATION.institution}</p>
                   <div className="flex justify-center space-x-8 items-center text-xs font-mono text-primary mt-2">
                     <span>{EDUCATION.period}</span>
-                    <span className="px-2 py-1 bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/10 rounded text-electric">
+                    <span className="px-2 py-1 bg-white dark:bg-white/5 shadow-sm ring-1 ring-canvas-dark/5 dark:ring-white/10 border border-canvas-dark/10 dark:border-white/10 rounded text-electric">
                       {EDUCATION.grade}
                     </span>
                   </div>
                 </div>
 
                 {/* Desktop */}
-                <div className="hidden md:block border-l border-canvas-dark/10 pl-6 py-2 relative w-full">
+                <div className="hidden md:block border-l border-canvas-dark/10 dark:border-white/10 pl-6 py-2 relative w-full">
                   <span className="absolute left-[-5px] top-2 w-2 h-2 bg-electric rounded-full"></span>
                   <h4 className="text-xl text-primary">{EDUCATION.degree}</h4>
                   <p className="text-secondary text-sm mb-2">{EDUCATION.institution}</p>
                   <div className="flex justify-start space-x-8 items-center text-xs font-mono text-primary">
                     <span>{EDUCATION.period}</span>
-                    <span className="px-2 py-1 bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/10 rounded text-electric">
+                    <span className="px-2 py-1 bg-white dark:bg-white/5 shadow-sm ring-1 ring-canvas-dark/5 dark:ring-white/10 border border-canvas-dark/10 dark:border-white/10 rounded text-electric">
                       {EDUCATION.grade}
                     </span>
                   </div>
@@ -155,7 +155,7 @@ const About: React.FC = () => {
             <div className="space-y-8">
               <GSAPReveal delay={0.3}>
                 <div className="pt-8">
-                  <h3 className="text-2xl font-display text-canvas-dark mb-6 flex items-center justify-center md:justify-start gap-3">
+                  <h3 className="text-2xl font-display text-canvas-dark dark:text-canvas-light mb-6 flex items-center justify-center md:justify-start gap-3">
                     <Briefcase className="text-electric" /> Experience & Training
                   </h3>
                 </div>
@@ -175,10 +175,9 @@ const About: React.FC = () => {
                         <div
                           key={idx}
                           onClick={() => setExpandedIndex(isExpanded ? null : idx)}
-                          className="snap-center shrink-0 w-full py-8 px-8 flex flex-col items-center text-center rounded-3xl border border-canvas-dark/5 dark:border-white/5 shadow-sm cursor-pointer transition-all duration-500 ease-out"
-                          style={{ background: "radial-gradient(circle at center, #ffffff 0%, #f3f4f6 120%)" }}
+                          className="snap-center shrink-0 w-full py-8 px-8 flex flex-col items-center text-center rounded-3xl border border-canvas-dark/5 dark:border-white/5 bg-white dark:bg-[#111113] shadow-sm cursor-pointer transition-all duration-500 ease-out"
                         >
-                          <h4 className="text-xl text-primary dark:text-canvas-dark font-semibold mb-1">{job.role}</h4>
+                          <h4 className="text-xl text-primary dark:text-canvas-light font-semibold mb-1">{job.role}</h4>
                           <div className="flex flex-wrap items-center justify-center gap-2 mb-2">
                             <p className="text-xs font-mono text-electric bg-electric/10 px-3 py-1 rounded-full">{job.period}</p>
                             {job.certificate && (
@@ -197,12 +196,12 @@ const About: React.FC = () => {
                             <div className="w-12 h-px bg-canvas-dark/10 dark:bg-white/10 mb-4"></div>
                             <ul className="space-y-3">
                               {job.details.map((detail, dIdx) => (
-                                <li key={dIdx} className="text-secondary dark:text-canvas-dark/70 text-sm leading-relaxed">{detail}</li>
+                                <li key={dIdx} className="text-secondary dark:text-canvas-light/70 text-sm leading-relaxed">{detail}</li>
                               ))}
                             </ul>
                           </div>
 
-                          <div className="mt-4 flex flex-col items-center justify-center text-canvas-dark/30 hover:text-electric transition-colors">
+                          <div className="mt-4 flex flex-col items-center justify-center text-canvas-dark/30 dark:text-white/30 hover:text-electric transition-colors">
                             <span className="text-xs uppercase tracking-widest mb-1">{isExpanded ? "Show Less" : "View Details"}</span>
                             <span className={`inline-block text-xs transition-transform duration-500 ${isExpanded ? "rotate-180" : ""}`}>▼</span>
                           </div>
