@@ -598,6 +598,32 @@ export const SERVICES: Service[] = [
     ],
     icon: "ShieldCheck",
   },
+  {
+    id: "frontend",
+    title: "Frontend Engineering",
+    description:
+      "Crafting pixel-perfect, highly responsive, and accessible user interfaces with modern frameworks and smooth animations.",
+    highlights: [
+      "React & Next.js",
+      "3D WebGL (Three.js)",
+      "GSAP & Framer Motion",
+      "Performance Optimization",
+    ],
+    icon: "Monitor",
+  },
+  {
+    id: "ui-ux",
+    title: "UI/UX Design",
+    description:
+      "Designing intuitive, user-centered experiences that bridge the gap between human behavior and digital interaction.",
+    highlights: [
+      "Wireframing & Prototyping",
+      "User Research & Testing",
+      "Design Systems",
+      "Figma Prototyping",
+    ],
+    icon: "PenTool",
+  },
 ];
 
 export const SKILL_CATEGORIES: SkillCategory[] = [
@@ -615,6 +641,17 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       "OAuth2",
       "Google Auth",
       "Bcrypt",
+    ],
+  },
+  {
+    title: "UI/UX Design",
+    skills: [
+      "Figma",
+      "Wireframing",
+      "Rapid Prototyping",
+      "User Research",
+      "Interaction Design",
+      "Design Systems",
     ],
   },
   {

@@ -77,7 +77,7 @@ function App() {
         {loading && <Loader onComplete={() => setLoading(false)} />}
       </AnimatePresence>
       
-      <div className={`bg-canvas-light min-h-screen text-canvas-dark selection:bg-electric/90 selection:text-white ${loading ? 'h-screen overflow-hidden' : ''}`}>
+      <div className={`bg-canvas-light dark:bg-canvas-dark min-h-screen text-canvas-dark dark:text-canvas-light selection:bg-electric/90 selection:text-white transition-colors duration-500 ${loading ? 'h-screen overflow-hidden' : ''}`}>
         {location.pathname === '/' && <Navbar />}
         <React.Suspense fallback={<div className="min-h-screen flex items-center justify-center text-canvas-dark/40 font-mono text-sm animate-pulse">Loading Route...</div>}>
           <Routes>

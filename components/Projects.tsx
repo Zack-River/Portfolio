@@ -46,7 +46,7 @@ const Projects: React.FC = () => {
   }, []);
 
   return (
-    <section id="projects" className="py-24 md:py-32 bg-canvas-light relative">
+    <section id="projects" className="py-24 md:py-32 bg-canvas-light dark:bg-canvas-dark transition-colors duration-500 relative">
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
         <GSAPReveal>
           <SectionHeader
@@ -63,15 +63,14 @@ const Projects: React.FC = () => {
             .map((project) => (
               <Link to={`/project/${project!.id}`} key={project!.id} className="project-card relative group block transition-all duration-300 hover:-translate-y-1">
                 <div className="w-full bg-white rounded-xl overflow-hidden ring-1 ring-canvas-dark/5 shadow-md transition-all duration-300 group-hover:shadow-xl">
-                  {/* Browser Header */}
-                  <div className="h-10 bg-canvas-dark/5 border-b border-canvas-dark/10 flex items-center px-4 relative z-30 transition-colors group-hover:bg-canvas-dark/10">
+                  <div className="h-10 bg-canvas-dark/5 dark:bg-white/5 border-b border-canvas-dark/10 dark:border-white/10 flex items-center px-4 relative z-30 transition-colors group-hover:bg-canvas-dark/10 dark:group-hover:bg-white/10">
                     <div className="flex gap-2 z-10">
                       <div className="w-3 h-3 rounded-full bg-[#FF5F56]"></div>
                       <div className="w-3 h-3 rounded-full bg-[#FFBD2E]"></div>
                       <div className="w-3 h-3 rounded-full bg-[#27C93F]"></div>
                     </div>
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                      <span className="font-mono text-xs text-canvas-dark/65 tracking-wider group-hover:text-canvas-dark/80 transition-colors">
+                      <span className="font-mono text-xs text-canvas-dark/65 dark:text-white/50 tracking-wider group-hover:text-canvas-dark/80 dark:group-hover:text-white/80 transition-colors">
                         {project!.title}
                       </span>
                     </div>
@@ -108,7 +107,7 @@ const Projects: React.FC = () => {
 
                 {/* Mobile title */}
                 <div className="md:hidden mt-4 text-center">
-                  <h3 className="text-xl font-display font-bold text-canvas-dark">{project!.title}</h3>
+                  <h3 className="text-xl font-display font-bold text-canvas-dark dark:text-canvas-light">{project!.title}</h3>
                   <p className="text-electric font-mono text-xs mb-3">{project!.subtitle}</p>
                   <span className="inline-flex items-center gap-2 text-electric font-medium bg-electric/10 px-5 py-2 rounded-full text-sm">
                     View Case Study <ArrowRight size={14} />

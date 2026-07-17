@@ -99,11 +99,7 @@ const Hero: React.FC<{ loading?: boolean }> = ({ loading = false }) => {
   }, [isMobile, loading]);
 
   return (
-    <section
-      id="home"
-      ref={sectionRef}
-      className="min-h-auto md:min-h-screen w-full relative overflow-x-hidden bg-canvas-light"
-    >
+    <section id="home" className="relative min-h-screen flex items-center justify-center pt-20 pb-16 overflow-hidden bg-canvas-light dark:bg-canvas-dark transition-colors duration-500" ref={sectionRef}>
       {/* 1. Base Canvas Layer */}
       <div className="absolute inset-0 w-full h-full z-0 pointer-events-auto">
         {/* Blueprint grid */}
@@ -139,7 +135,7 @@ const Hero: React.FC<{ loading?: boolean }> = ({ loading = false }) => {
               >
                 <Suspense
                   fallback={
-                    <div className="w-full h-full flex items-center justify-center text-canvas-dark/60 font-mono text-xs animate-pulse">
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/60 dark:bg-white/5 border border-canvas-dark/5 dark:border-white/10 backdrop-blur-sm mb-6 shadow-sm">
                       LOADING 3D ASSET...
                     </div>
                   }
@@ -162,7 +158,7 @@ const Hero: React.FC<{ loading?: boolean }> = ({ loading = false }) => {
             <div className="pointer-events-auto flex flex-col items-center md:items-start w-full mb-2 md:mb-4">
               <p
                 ref={labelRef}
-                className="font-mono text-electric tracking-widest text-sm md:opacity-0"
+                className="text-xs font-mono font-medium tracking-wide text-canvas-dark/70 dark:text-canvas-light/80"
               >
                 ENG. ZACK RIVER
               </p>
@@ -172,7 +168,7 @@ const Hero: React.FC<{ loading?: boolean }> = ({ loading = false }) => {
             <div className="pointer-events-auto overflow-visible mb-2 md:mb-6 w-full flex justify-center md:justify-start">
               <h1 className="block w-full">
                 <span
-                  className="block text-[clamp(2.5rem,10vw,4.5rem)] md:text-[clamp(3.5rem,8vw,5.5rem)] lg:text-[clamp(3.5rem,7.5vw,8.5rem)] tracking-[-0.02em] font-display font-bold text-canvas-dark leading-none pt-2 pb-2 w-full text-center md:text-left"
+                  className="block text-[clamp(2.5rem,10vw,4.5rem)] md:text-[clamp(3.5rem,8vw,5.5rem)] lg:text-[clamp(3.5rem,7.5vw,8.5rem)] tracking-[-0.02em] font-display font-bold text-canvas-dark dark:text-canvas-light leading-none pt-2 pb-2 w-full text-center md:text-left"
                   style={{ perspective: "800px" }}
                 >
                   <SplitChars ref={firstNameRef} text="Abdallah" />
@@ -180,7 +176,7 @@ const Hero: React.FC<{ loading?: boolean }> = ({ loading = false }) => {
                   <SplitChars
                     ref={lastNameRef}
                     text="Wageeh"
-                    className="text-canvas-dark/60"
+                    className="text-canvas-dark/60 dark:text-canvas-light/60"
                   />
                 </span>
               </h1>
@@ -197,11 +193,11 @@ const Hero: React.FC<{ loading?: boolean }> = ({ loading = false }) => {
             <div className="pointer-events-auto mb-8 md:mb-8 mt-4 md:mt-0 w-full flex justify-center md:justify-start">
               <p
                 ref={descRef}
-                className="text-base md:text-lg text-canvas-dark/80 max-w-xl mx-auto md:mx-0 font-light leading-relaxed md:leading-loose text-center md:text-left md:opacity-0"
+                className="text-base md:text-lg text-canvas-dark/80 dark:text-canvas-light/70 max-w-xl mx-auto md:mx-0 font-light leading-relaxed md:leading-loose text-center md:text-left md:opacity-0"
               >
                 {PERSONAL_INFO.title} &{" "}
                 <br className="hidden md:block" />
-                <span className="text-canvas-dark/80 font-medium">Full Stack Specialist</span>
+                <span className="text-canvas-dark/80 dark:text-canvas-light font-medium">Full Stack Specialist</span>
                 . Crafting scalable digital architectures with artistic precision.
               </p>
             </div>

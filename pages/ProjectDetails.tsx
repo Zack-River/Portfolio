@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { PROJECTS } from '../constants';
+import { useTheme } from '../hooks/useTheme';
 import Footer from '../components/Footer';
 import {
   ArrowLeft,
@@ -13,6 +14,8 @@ import {
   ChevronLeft,
   LayoutGrid,
   X,
+  Moon,
+  Sun,
 } from 'lucide-react';
 import { UseCase } from '../types';
 
@@ -311,6 +314,7 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({ images, title
 /* ── MAIN PAGE ── */
 const ProjectDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const { theme, toggleTheme } = useTheme();
   const project = PROJECTS.find((p) => p.id === id);
   const heroRef = useRef<HTMLDivElement>(null);
   const [stickyVisible, setStickyVisible] = useState(false);
@@ -371,18 +375,33 @@ const ProjectDetails: React.FC = () => {
         initial={{ y: -80 }}
         animate={{ y: stickyVisible ? 0 : -80 }}
         transition={{ duration: 0.35, ease: 'easeInOut' }}
-        className="fixed top-0 left-0 right-0 z-50 bg-canvas-light/80 backdrop-blur-xl border-b border-canvas-dark/10 flex items-center justify-between px-6 md:px-12 h-16"
+        className="fixed top-0 left-0 right-0 z-50 bg-canvas-light/80 dark:bg-canvas-dark/80 backdrop-blur-xl border-b border-canvas-dark/10 dark:border-white/10 flex items-center justify-between px-6 md:px-12 h-16"
       >
         <Link
           to="/projects"
-          className="flex items-center gap-2 text-canvas-dark/70 hover:text-canvas-dark transition-colors text-sm font-medium"
+          className="flex items-center gap-2 text-canvas-dark/60 dark:text-canvas-light/60 hover:text-canvas-dark dark:hover:text-canvas-light text-sm font-medium transition-colors"
         >
-          <ArrowLeft size={16} /> Projects
+          <ArrowLeft size={16} />
+          Back to Projects
         </Link>
-        <span className="font-display font-bold text-canvas-dark tracking-tight hidden md:block">
-          {project.title}
-        </span>
-        <div className="flex items-center gap-3">
+        
+        <div className="flex items-center gap-4">
+          {/* Theme Toggle */}
+          <button
+            onClick={toggleTheme}
+            className="flex items-center justify-center p-2 rounded-full transition-all duration-300 hover:bg-canvas-dark/5 dark:hover:bg-white/10"
+            aria-label="Toggle Theme"
+          >
+            {theme === 'dark' ? (
+              <Sun size={18} className="text-canvas-light hover:text-electric transition-colors" />
+            ) : (
+              <Moon size={18} className="text-canvas-dark/70 hover:text-electric transition-colors" />
+            )}
+          </button>
+          
+          <div className="font-display font-medium text-canvas-dark dark:text-canvas-light hidden md:block">
+            {project.title}
+          </div>
 
           {project.link && (
             <a

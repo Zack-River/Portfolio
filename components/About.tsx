@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { EDUCATION, TRAINING, PERSONAL_INFO } from "../constants";
 import SectionHeader from "./SectionHeader";
-import { GraduationCap, Briefcase, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
+import { GraduationCap, Briefcase, ChevronLeft, ChevronRight, ExternalLink, Monitor, PenTool } from "lucide-react";
 import GSAPReveal from "./GSAPReveal";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -82,7 +82,7 @@ const About: React.FC = () => {
   }, []);
 
   return (
-    <section id="about" className="py-24 md:py-32 bg-canvas-light relative overflow-hidden">
+    <section id="about" className="py-24 md:py-32 bg-canvas-light dark:bg-canvas-dark transition-colors duration-500 relative overflow-hidden">
       {/* Background Typography */}
       <div className="absolute -left-10 md:-left-20 top-1/2 -translate-y-1/2 text-[clamp(5rem,15vw,12rem)] font-bold text-canvas-dark/3 opacity-30 font-display rotate-90 pointer-events-none origin-center">
         ABOUT
@@ -175,11 +175,10 @@ const About: React.FC = () => {
                         <div
                           key={idx}
                           onClick={() => setExpandedIndex(isExpanded ? null : idx)}
-                          className="snap-center shrink-0 w-full py-8 px-8 flex flex-col items-center text-center rounded-3xl border border-canvas-dark/5 shadow-sm cursor-pointer transition-all duration-500 ease-out"
+                          className="snap-center shrink-0 w-full py-8 px-8 flex flex-col items-center text-center rounded-3xl border border-canvas-dark/5 dark:border-white/5 shadow-sm cursor-pointer transition-all duration-500 ease-out"
                           style={{ background: "radial-gradient(circle at center, #ffffff 0%, #f3f4f6 120%)" }}
                         >
-                          <h4 className="text-xl text-primary font-semibold mb-1">{job.role}</h4>
-                          <p className="text-secondary text-sm mb-3">{job.company}</p>
+                          <h4 className="text-xl text-primary dark:text-canvas-dark font-semibold mb-1">{job.role}</h4>
                           <div className="flex flex-wrap items-center justify-center gap-2 mb-2">
                             <p className="text-xs font-mono text-electric bg-electric/10 px-3 py-1 rounded-full">{job.period}</p>
                             {job.certificate && (
@@ -195,10 +194,10 @@ const About: React.FC = () => {
                             )}
                           </div>
                           <div className={`overflow-hidden transition-all duration-500 ease-in-out w-full flex flex-col items-center ${isExpanded ? "max-h-[500px] opacity-100 mt-4" : "max-h-0 opacity-0 mt-0"}`}>
-                            <div className="w-12 h-px bg-canvas-dark/10 mb-4"></div>
+                            <div className="w-12 h-px bg-canvas-dark/10 dark:bg-white/10 mb-4"></div>
                             <ul className="space-y-3">
                               {job.details.map((detail, dIdx) => (
-                                <li key={dIdx} className="text-secondary text-sm leading-relaxed">{detail}</li>
+                                <li key={dIdx} className="text-secondary dark:text-canvas-dark/70 text-sm leading-relaxed">{detail}</li>
                               ))}
                             </ul>
                           </div>
@@ -211,10 +210,10 @@ const About: React.FC = () => {
                       );
                     })}
                   </div>
-                  <button onClick={() => scroll("left")} className="absolute -left-4 top-1/2 -translate-y-1/2 z-10 p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-md text-electric border border-canvas-dark/10 hover:bg-white transition-colors" aria-label="Previous experience">
+                  <button onClick={() => scroll("left")} className="absolute -left-4 top-1/2 -translate-y-1/2 z-10 p-2 bg-white/90 dark:bg-canvas-dark/80 backdrop-blur-sm rounded-full shadow-md text-electric border border-canvas-dark/10 dark:border-white/10 hover:bg-white dark:hover:bg-canvas-dark transition-colors" aria-label="Previous experience">
                     <ChevronLeft size={20} />
                   </button>
-                  <button onClick={() => scroll("right")} className="absolute -right-4 top-1/2 -translate-y-1/2 z-10 p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-md text-electric border border-canvas-dark/10 hover:bg-white transition-colors" aria-label="Next experience">
+                  <button onClick={() => scroll("right")} className="absolute -right-4 top-1/2 -translate-y-1/2 z-10 p-2 bg-white/90 dark:bg-canvas-dark/80 backdrop-blur-sm rounded-full shadow-md text-electric border border-canvas-dark/10 dark:border-white/10 hover:bg-white dark:hover:bg-canvas-dark transition-colors" aria-label="Next experience">
                     <ChevronRight size={20} />
                   </button>
                 </div>
@@ -222,31 +221,34 @@ const About: React.FC = () => {
                 {/* Desktop timeline with GSAP line draw + stagger */}
                 <div ref={timelineRef} className="hidden md:block space-y-8 w-full relative">
                   {TRAINING.slice(0, -1).map((job, idx) => (
-                    <div key={idx} className="timeline-item border-l border-canvas-dark/10 pl-6 py-2 relative group w-full">
-                      <span className="absolute left-[-5px] top-2 w-2 h-2 bg-canvas-dark/60 group-hover:bg-electric transition-colors rounded-full"></span>
-                      <h4 className="text-xl text-primary">{job.role}</h4>
-                      <p className="text-secondary text-sm mb-2">{job.company}</p>
-                      <div className="flex flex-wrap items-center gap-3 mb-4">
-                        <p className="text-xs font-mono text-secondary">{job.period}</p>
-                        {job.certificate && (
-                          <a 
-                            href={job.certificate} 
-                            target="_blank" 
-                            rel="noopener noreferrer" 
-                            className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-electric hover:text-white bg-electric/10 hover:bg-electric px-3 py-1 rounded-full transition-all border border-electric/20"
-                          >
-                            <ExternalLink size={12} /> Certificate
-                          </a>
-                        )}
+                    <div key={idx} className="timeline-item border-l border-canvas-dark/10 dark:border-white/10 pl-6 py-2 relative group w-full">
+                      <span className="absolute left-[-5px] top-2 w-2 h-2 bg-canvas-dark/60 dark:bg-white/60 group-hover:bg-electric transition-colors rounded-full"></span>
+                      <div className="pl-4">
+                        <div className="flex items-center gap-3 mb-1">
+                          <h4 className="text-base font-display font-bold text-canvas-dark dark:text-canvas-light">{job.role}</h4>
+                        </div>
+                        <p className="text-secondary dark:text-canvas-light/60 text-sm mb-2">{job.company}</p>
+                        <div className="flex flex-wrap items-center gap-3 mb-4">
+                          <p className="text-xs font-mono text-secondary dark:text-canvas-light/50">{job.period}</p>
+                          {job.certificate && (
+                            <a 
+                              href={job.certificate} 
+                              target="_blank" 
+                              rel="noopener noreferrer" 
+                              className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-electric hover:text-white bg-electric/10 hover:bg-electric px-3 py-1 rounded-full transition-all border border-electric/20"
+                            >
+                              <ExternalLink size={12} /> Certificate
+                            </a>
+                          )}
+                        </div>
+                        <ul className="space-y-2 mb-4">
+                          {job.details.map((detail, dIdx) => (
+                            <li key={dIdx} className="text-secondary dark:text-canvas-light/70 text-sm pl-4 relative before:content-['-'] before:absolute before:left-0 before:text-muted">
+                              {detail}
+                            </li>
+                          ))}
+                        </ul>
                       </div>
-                      <ul className="space-y-2 mb-4">
-                        {job.details.map((detail, dIdx) => (
-                          <li key={dIdx} className="text-secondary text-sm pl-4 relative before:content-['-'] before:absolute before:left-0 before:text-muted">
-                            {detail}
-                          </li>
-                        ))}
-                      </ul>
-
                     </div>
                   ))}
                 </div>
@@ -262,7 +264,7 @@ const About: React.FC = () => {
               <span className="w-2 h-2 rounded-full bg-white animate-pulse"></span>
               Current Stage
             </div>
-            <h3 className="text-3xl md:text-4xl font-display text-primary mb-2">{TRAINING[TRAINING.length - 1].role}</h3>
+            <h3 className="text-3xl md:text-4xl font-display text-canvas-dark dark:text-canvas-light mb-2">{TRAINING[TRAINING.length - 1].role}</h3>
             <p className="text-xl md:text-2xl text-electric font-medium mb-6">@ {TRAINING[TRAINING.length - 1].company}</p>
             <div className="w-24 h-[3px] bg-electric/30 rounded-full mb-10 mx-auto"></div>
           </GSAPReveal>

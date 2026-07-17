@@ -78,7 +78,7 @@ const Contact: React.FC = () => {
   return (
     <section
       id="contact"
-      className="py-24 md:py-32 bg-canvas-light text-canvas-dark relative flex-1 flex flex-col justify-center"
+      className="py-24 md:py-32 bg-canvas-light dark:bg-canvas-dark transition-colors duration-500 text-canvas-dark dark:text-canvas-light relative flex-1 flex flex-col justify-center"
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-10 lg:gap-16 items-start">
@@ -103,7 +103,7 @@ const Contact: React.FC = () => {
               <div className="space-y-6 inline-block text-left">
               <Reveal delay={0.3}>
                 <div className="flex items-center justify-start space-x-4 mb-6">
-                  <div className="p-3 bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/10 rounded-xl text-electric">
+                  <div className="p-3 bg-white dark:bg-white/5 shadow-sm ring-1 ring-canvas-dark/5 dark:ring-white/10 border border-canvas-dark/10 dark:border-white/10 rounded-xl text-electric">
                     <Phone size={20} />
                   </div>
                   <div>
@@ -122,7 +122,7 @@ const Contact: React.FC = () => {
 
               <Reveal delay={0.3}>
                 <div className="flex items-center justify-start space-x-4 mb-6">
-                  <div className="p-3 bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/10 rounded-xl text-electric">
+                  <div className="p-3 bg-white dark:bg-white/5 shadow-sm ring-1 ring-canvas-dark/5 dark:ring-white/10 border border-canvas-dark/10 dark:border-white/10 rounded-xl text-electric">
                     <Mail size={20} />
                   </div>
                   <div>
@@ -141,7 +141,7 @@ const Contact: React.FC = () => {
 
               <Reveal delay={0.4}>
                 <div className="flex items-center justify-start space-x-4 mb-6">
-                  <div className="p-3 bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/10 rounded-xl text-electric">
+                  <div className="p-3 bg-white dark:bg-white/5 shadow-sm ring-1 ring-canvas-dark/5 dark:ring-white/10 border border-canvas-dark/10 dark:border-white/10 rounded-xl text-electric">
                     <MapPin size={20} />
                   </div>
                   <div>
@@ -159,7 +159,7 @@ const Contact: React.FC = () => {
                     href={`https://wa.me/${PERSONAL_INFO.phone}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/10 hover:bg-success/10 text-canvas-dark/80 hover:text-success rounded-xl transition-all"
+                    className="p-3 bg-white dark:bg-white/5 shadow-sm ring-1 ring-canvas-dark/5 dark:ring-white/10 border border-canvas-dark/10 dark:border-white/10 hover:bg-success/10 text-canvas-dark/80 dark:text-canvas-light/80 hover:text-success rounded-xl transition-all"
                     aria-label="WhatsApp"
                   >
                     <svg
@@ -185,7 +185,7 @@ const Contact: React.FC = () => {
                     href={`https://${PERSONAL_INFO.linkedin}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/10 hover:bg-electric/10 text-canvas-dark/80 hover:text-electric rounded-xl transition-all"
+                    className="p-3 bg-white dark:bg-white/5 shadow-sm ring-1 ring-canvas-dark/5 dark:ring-white/10 border border-canvas-dark/10 dark:border-white/10 hover:bg-electric/10 text-canvas-dark/80 dark:text-canvas-light/80 hover:text-electric rounded-xl transition-all"
                     aria-label="LinkedIn"
                   >
                     <Linkedin size={24} />
@@ -194,7 +194,7 @@ const Contact: React.FC = () => {
                     href={`https://${PERSONAL_INFO.github}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/10 hover:bg-canvas-dark/90 text-canvas-dark/80 hover:text-canvas-light rounded-xl transition-all"
+                    className="p-3 bg-white dark:bg-white/5 shadow-sm ring-1 ring-canvas-dark/5 dark:ring-white/10 border border-canvas-dark/10 dark:border-white/10 hover:bg-canvas-dark/90 dark:hover:bg-white/10 text-canvas-dark/80 dark:text-canvas-light/80 hover:text-canvas-light dark:hover:text-white rounded-xl transition-all"
                     aria-label="GitHub"
                   >
                     <Github size={24} />
@@ -203,7 +203,7 @@ const Contact: React.FC = () => {
                     href="https://mostaql.com/u/ZackRiver"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 bg-white shadow-sm ring-1 ring-canvas-dark/5 border border-canvas-dark/10 hover:bg-[#2386c8]/10 text-canvas-dark/80 hover:text-[#2386c8] rounded-xl transition-all"
+                    className="p-3 bg-white dark:bg-white/5 shadow-sm ring-1 ring-canvas-dark/5 dark:ring-white/10 border border-canvas-dark/10 dark:border-white/10 hover:bg-[#2386c8]/10 text-canvas-dark/80 dark:text-canvas-light/80 hover:text-[#2386c8] rounded-xl transition-all"
                     aria-label="Mostaql"
                     title="Mostaql"
                   >
@@ -216,7 +216,7 @@ const Contact: React.FC = () => {
           </div>
 
           <Reveal delay={0.4} className="h-full flex flex-col w-full max-w-[340px] md:max-w-md mx-auto lg:ml-auto">
-            <div className="h-full bg-canvas-light p-5 md:p-8 card-base relative flex flex-col">
+            <div className="h-full bg-canvas-light dark:bg-[#111113] p-5 md:p-8 card-base relative flex flex-col">
               <div className="absolute top-0 right-0 w-20 h-20 bg-electric/10 rounded-bl-[4rem]"></div>
 
               <form
@@ -285,7 +285,7 @@ const Contact: React.FC = () => {
                     onBlur={formik.handleBlur}
                     value={formik.values.service}
                     disabled={status === "sending"}
-                    className="input-base cursor-pointer appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%230a0a0b%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] bg-no-repeat bg-position-[right_1rem_center] bg-size-[1em]"
+                    className="input-base cursor-pointer appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%230a0a0b%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] dark:bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] bg-no-repeat bg-position-[right_1rem_center] bg-size-[1em]"
                   >
                     <option value="Branding Websites">Branding Websites</option>
                     <option value="Websites & Web Apps">
