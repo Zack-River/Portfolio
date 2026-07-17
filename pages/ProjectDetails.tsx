@@ -223,7 +223,7 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({ images, title
 
       {/* Slide container */}
       <div 
-        className="relative w-full aspect-video bg-canvas-dark rounded-2xl overflow-hidden ring-1 ring-canvas-dark/10 shadow-xl cursor-zoom-in group"
+        className="relative w-full aspect-video bg-canvas-dark rounded-2xl overflow-hidden ring-1 ring-canvas-dark/10 shadow-xl cursor-zoom-in hover:scale-[1.01] transition-transform duration-500"
         onClick={() => setIsModalOpen(true)}
       >
         <AnimatePresence custom={direction} initial={false}>
@@ -237,7 +237,7 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({ images, title
             transition={{ duration: 0.4, ease: 'easeInOut' }}
             src={images[current]}
             alt={`${title} – screenshot ${current + 1}`}
-            className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-700"
+            className="absolute inset-0 w-full h-full object-cover object-top"
           />
         </AnimatePresence>
 
@@ -398,7 +398,7 @@ const ProjectDetails: React.FC = () => {
             <img
               src={project.image}
               alt={project.title}
-              loading="lazy"
+              fetchPriority="high"
               className="w-full h-full object-cover object-top"
             />
           ) : (
@@ -627,7 +627,7 @@ const ProjectDetails: React.FC = () => {
                 <p className="font-mono text-xs text-canvas-dark/50 uppercase tracking-[0.25em]">
                   Use Cases
                 </p>
-                <span className="ml-auto font-mono text-xs text-canvas-dark/30">
+                <span className="ml-auto font-mono text-xs text-canvas-dark/60">
                   {project.useCases.length} {project.useCases.length === 1 ? 'case' : 'cases'}
                 </span>
               </div>
@@ -646,7 +646,7 @@ const ProjectDetails: React.FC = () => {
                 <p className="font-mono text-xs text-canvas-dark/50 uppercase tracking-[0.25em]">
                   Project Gallery
                 </p>
-                <span className="ml-auto font-mono text-xs text-canvas-dark/30">
+                <span className="ml-auto font-mono text-xs text-canvas-dark/60">
                   {gallery.length} {gallery.length === 1 ? 'screenshot' : 'screenshots'}
                 </span>
               </div>
@@ -707,7 +707,7 @@ const ProjectDetails: React.FC = () => {
                   </div>
                   <ChevronRight
                     size={24}
-                    className="text-canvas-dark/30 group-hover:text-electric group-hover:translate-x-1 transition-all"
+                    className="text-canvas-dark/50 group-hover:text-electric group-hover:translate-x-1 transition-all"
                   />
                 </Link>
               );
