@@ -69,7 +69,7 @@ const Hero: React.FC = () => {
             </div>
           ) : (
             /* Desktop: Full 3D experience */
-            <div className="absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing">
+            <div className="absolute inset-0 md:left-1/2 md:w-1/2 h-full cursor-grab active:cursor-grabbing">
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
