@@ -811,19 +811,29 @@ export function Model(props: any) {
   );
 }
 
-const ModelWrapper = ({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) => {
+const ModelWrapper = ({
+  isMobile,
+  isTablet,
+}: {
+  isMobile: boolean;
+  isTablet: boolean;
+}) => {
   const { viewport } = useThree();
   const positionX = isMobile ? 0 : viewport.width / 4;
-  
+
   // Smoothly scale down on narrow screens (like 1179px) so the left arm doesn't overlap the text.
   // viewport.width is ~13.5 on 1080p, so 13.5 / 5.5 = ~2.4 (caps at 2).
   // viewport.width is ~7.9 on 1179px, so 7.9 / 5.5 = ~1.43 (perfectly fits without overlap).
-  const scale = isMobile ? 1.4 : isTablet ? 1.2 : Math.min(2, Math.max(1.3, viewport.width / 5.5));
+  const scale = isMobile
+    ? 1.4
+    : isTablet
+      ? 1.2
+      : Math.min(2, Math.max(1.3, viewport.width / 5.5));
 
-  // The robot's origin is at its feet. To keep its chest vertically centered (at Y=0) 
+  // The robot's origin is at its feet. To keep its chest vertically centered (at Y=0)
   // as it scales, positionY must proportionally move up.
   // At scale=2, positionY=-4 perfectly centered it. So the ratio is -2 * scale.
-  const positionY = isMobile ? -3 : isTablet ? -2.4 : -2 * scale;
+  const positionY = isMobile ? -3 : isTablet ? -1 : -1 * scale;
 
   return <Model position={[positionX, positionY, 0]} scale={scale} />;
 };
