@@ -65,22 +65,47 @@ const ProjectsPage: React.FC = () => {
           </Reveal>
         </div>
 
-        {/* Filter Buttons */}
+        {/* Filter Bar */}
         <Reveal delay={0.3}>
-          <div className="flex flex-wrap gap-3 mb-12">
+          {/* Mobile: horizontally-scrollable snap strip — no wrapping, no mess */}
+          <div className="md:hidden flex gap-2 overflow-x-auto pb-2 mb-10 snap-x snap-mandatory scrollbar-hide -mx-4 px-4">
             {CATEGORIES.map(category => (
               <button
                 key={category}
                 onClick={() => setActiveFilter(category)}
-                className={`px-5 py-2.5 rounded-full font-mono text-sm transition-all duration-300 border ${
-                  activeFilter === category 
-                    ? 'bg-electric text-white border-electric shadow-lg shadow-electric/20' 
-                    : 'bg-white text-canvas-dark/70 border-canvas-dark/10 hover:border-electric/50 hover:text-electric hover:bg-electric/5'
+                className={`snap-start shrink-0 px-4 py-2 rounded-full font-mono text-xs font-medium transition-all duration-200 border whitespace-nowrap ${
+                  activeFilter === category
+                    ? 'bg-electric text-white border-electric shadow-md shadow-electric/25'
+                    : 'bg-white text-canvas-dark/60 border-canvas-dark/10'
                 }`}
               >
                 {category}
               </button>
             ))}
+          </div>
+
+          {/* Desktop: centered pill group inside a frosted track */}
+          <div className="hidden md:flex items-center justify-center mb-12">
+            <div className="inline-flex items-center gap-1.5 p-1.5 bg-canvas-dark/5 rounded-full border border-canvas-dark/8 backdrop-blur-sm">
+              {CATEGORIES.map(category => (
+                <button
+                  key={category}
+                  onClick={() => setActiveFilter(category)}
+                  className={`relative px-5 py-2 rounded-full font-mono text-sm font-medium transition-all duration-250 whitespace-nowrap ${
+                    activeFilter === category
+                      ? 'bg-white text-canvas-dark shadow-sm ring-1 ring-canvas-dark/10'
+                      : 'text-canvas-dark/50 hover:text-canvas-dark hover:bg-white/50'
+                  }`}
+                >
+                  {activeFilter === category && (
+                    <span className="absolute inset-0 rounded-full bg-electric opacity-10 pointer-events-none" />
+                  )}
+                  <span className={activeFilter === category ? 'text-electric font-semibold' : ''}>
+                    {category}
+                  </span>
+                </button>
+              ))}
+            </div>
           </div>
         </Reveal>
 
