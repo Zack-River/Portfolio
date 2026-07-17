@@ -829,7 +829,7 @@ const ModelWrapper = ({
     ? 1.4
     : isTablet
       ? 1.2
-      : Math.min(2, Math.max(1.3, viewport.width / 5.5));
+      : Math.min(2, Math.max(1.3, viewport.width / 7.5));
 
   // The robot's origin is at its feet. To keep its chest vertically centered (at Y=0)
   // as it scales, positionY must proportionally move up.

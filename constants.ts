@@ -644,18 +644,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
     ],
   },
   {
-    title: "UI/UX Design",
-    skills: [
-      "Figma",
-      "Wireframing",
-      "Rapid Prototyping",
-      "User Research",
-      "Interaction Design",
-      "Design Systems",
-    ],
-  },
-  {
-    title: "Frontend Development",
+    title: "Frontend & UI/UX",
     skills: [
       "React",
       "Next.js",
@@ -663,7 +652,10 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       "Redux",
       "Zustand",
       "Three.js",
-      "React Three Fiber",
+      "Figma",
+      "Wireframing",
+      "Prototyping",
+      "Design Systems",
     ],
   },
   {
