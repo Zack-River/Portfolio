@@ -855,14 +855,14 @@ const Scene3D: React.FC<{ isDark?: boolean }> = ({ isDark = false }) => {
   }, []);
 
   // Lighting tuned per theme:
-  // Light mode — bright sky, warm directional key, full ambient fill
+  // Light mode — softer, natural lighting so the model isn't blown out
   // Dark mode  — deeper sky, cooler fill, same electric rim
-  const ambientIntensity   = isDark ? 0.5  : 1.1;
-  const skyColor           = isDark ? "#1a2a4a" : "#e8f4ff";
-  const groundColor        = isDark ? "#0d1117" : "#c8dff5";
-  const hemiIntensity      = isDark ? 0.6  : 1.4;
-  const dirIntensity       = isDark ? 1.2  : 2.0;
-  const fillIntensity      = isDark ? 0.4  : 0.9;
+  const ambientIntensity = isDark ? 0.5  : 0.5;
+  const skyColor         = isDark ? "#1a2a4a" : "#d0e4f5";
+  const groundColor      = isDark ? "#0d1117" : "#9ab8d0";
+  const hemiIntensity    = isDark ? 0.6  : 0.7;
+  const dirIntensity     = isDark ? 1.2  : 1.2;
+  const fillIntensity    = isDark ? 0.4  : 0.4;
 
   return (
     <div className="w-full h-full bg-transparent relative overflow-hidden pointer-events-none">
@@ -875,9 +875,7 @@ const Scene3D: React.FC<{ isDark?: boolean }> = ({ isDark = false }) => {
           alpha: true,
         }}
       >
-        {/* Hemisphere light: sky→ground gradient replaces the HDRI environment.
-            Provides the ambient reflectivity that metallic materials need without
-            any network requests. */}
+        {/* Hemisphere light: sky→ground gradient ambient fill */}
         <hemisphereLight
           args={[skyColor as any, groundColor as any, hemiIntensity]}
         />
@@ -885,7 +883,7 @@ const Scene3D: React.FC<{ isDark?: boolean }> = ({ isDark = false }) => {
         {/* Flat ambient fill so shadows never go fully black */}
         <ambientLight intensity={ambientIntensity} />
 
-        {/* Main directional key light (sun) */}
+        {/* Main directional key light */}
         <directionalLight
           position={[10, 10, 5]}
           intensity={dirIntensity}
@@ -893,23 +891,24 @@ const Scene3D: React.FC<{ isDark?: boolean }> = ({ isDark = false }) => {
         />
 
         {/* Electric blue rim from left */}
-        <pointLight position={[-10, 2, -5]} intensity={isDark ? 2 : 2.5} color="#0ea5e9" />
+        <pointLight position={[-10, 2, -5]} intensity={isDark ? 2 : 2} color="#0ea5e9" />
 
         {/* Soft under-fill to lift shadow areas */}
         <pointLight position={[0, -5, 5]} intensity={fillIntensity} color="#ffffff" />
 
         {/* Environment IBL — theme-aware:
-            Light mode: procedural white sphere → zero network requests, bright white IBL
-            Dark mode:  city HDR preset → rich dark reflections (still deferred, never blocks LCP) */}
+            Light mode: soft grey procedural sphere → natural shading, zero network requests
+            Dark mode:  city HDR preset → rich reflections (deferred, never blocks LCP) */}
         {isDark
           ? <Environment preset="city" background={false} />
           : (
             <Environment background={false} resolution={32}>
-              {/* Inline white sphere rendered into a cubemap — no file download needed */}
+              {/* Soft grey sphere for IBL — gives metallic materials subtle reflections
+                  without the blown-out look of a pure white environment */}
               <mesh scale={100}>
                 <sphereGeometry args={[1, 8, 8]} />
-                {/* side=1 = THREE.BackSide: renders the inside surface as the sky dome */}
-                <meshBasicMaterial side={1} color="#f0f7ff" />
+                {/* side=1 = THREE.BackSide — #8aabcc is a muted steel-blue grey */}
+                <meshBasicMaterial side={1} color="#8aabcc" />
               </mesh>
             </Environment>
           )
