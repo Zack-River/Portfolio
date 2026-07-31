@@ -796,7 +796,7 @@ export const TESTIMONIALS: Testimonial[] = [
     name: "Heba A.",
     rating: 5,
     text: "Excellent experience. The platform was built exactly to specifications, with a clean backend that makes managing data a breeze.",
-    image: "/clients/sarah.webp",
+    image: "/clients/heba.webp",
   },
 ];
 
