@@ -214,7 +214,7 @@ const Contact: React.FC = () => {
             </div>
           </div>
 
-          <Reveal delay={0.4} className="h-full flex flex-col w-full max-w-[340px] md:max-w-md mx-auto lg:ml-auto">
+          <Reveal delay={0.4} className="h-full flex flex-col w-full max-w-85 md:max-w-md mx-auto lg:ml-auto">
             <div className="h-full bg-canvas-light dark:bg-[#111113] p-5 md:p-8 card-base relative flex flex-col">
               <div className="absolute top-0 right-0 w-20 h-20 bg-electric/10 rounded-bl-[4rem]"></div>
 

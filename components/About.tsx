@@ -139,7 +139,7 @@ const About: React.FC = () => {
 
                 {/* Desktop */}
                 <div className="hidden md:block border-l border-canvas-dark/10 dark:border-white/10 pl-6 py-2 relative w-full">
-                  <span className="absolute left-[-5px] top-2 w-2 h-2 bg-electric rounded-full"></span>
+                  <span className="absolute -left-1.25 top-2 w-2 h-2 bg-electric rounded-full"></span>
                   <h4 className="text-xl text-primary">{EDUCATION.degree}</h4>
                   <p className="text-secondary text-sm mb-2">{EDUCATION.institution}</p>
                   <div className="flex justify-start space-x-8 items-center text-xs font-mono text-primary">
@@ -192,7 +192,7 @@ const About: React.FC = () => {
                               </a>
                             )}
                           </div>
-                          <div className={`overflow-hidden transition-all duration-500 ease-in-out w-full flex flex-col items-center ${isExpanded ? "max-h-[500px] opacity-100 mt-4" : "max-h-0 opacity-0 mt-0"}`}>
+                          <div className={`overflow-hidden transition-all duration-500 ease-in-out w-full flex flex-col items-center ${isExpanded ? "max-h-125 opacity-100 mt-4" : "max-h-0 opacity-0 mt-0"}`}>
                             <div className="w-12 h-px bg-canvas-dark/10 dark:bg-white/10 mb-4"></div>
                             <ul className="space-y-3">
                               {job.details.map((detail, dIdx) => (
@@ -221,7 +221,7 @@ const About: React.FC = () => {
                 <div ref={timelineRef} className="hidden md:block space-y-8 w-full relative">
                   {TRAINING.slice(0, -1).map((job, idx) => (
                     <div key={idx} className="timeline-item border-l border-canvas-dark/10 dark:border-white/10 pl-6 py-2 relative group w-full">
-                      <span className="absolute left-[-5px] top-2 w-2 h-2 bg-canvas-dark/60 dark:bg-white/60 group-hover:bg-electric transition-colors rounded-full"></span>
+                      <span className="absolute -left-1.25 top-2 w-2 h-2 bg-canvas-dark/60 dark:bg-white/60 group-hover:bg-electric transition-colors rounded-full"></span>
                       <div className="pl-4">
                         <div className="flex items-center gap-3 mb-1">
                           <h4 className="text-base font-display font-bold text-canvas-dark dark:text-canvas-light">{job.role}</h4>
@@ -265,7 +265,7 @@ const About: React.FC = () => {
             </div>
             <h3 className="text-3xl md:text-4xl font-display text-canvas-dark dark:text-canvas-light mb-2">{TRAINING[TRAINING.length - 1].role}</h3>
             <p className="text-xl md:text-2xl text-electric font-medium mb-6">@ {TRAINING[TRAINING.length - 1].company}</p>
-            <div className="w-24 h-[3px] bg-electric/30 rounded-full mb-10 mx-auto"></div>
+            <div className="w-24 h-0.75 bg-electric/30 rounded-full mb-10 mx-auto"></div>
           </GSAPReveal>
         </div>
       </div>

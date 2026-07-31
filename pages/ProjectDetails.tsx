@@ -420,7 +420,7 @@ const ProjectDetails: React.FC = () => {
       {/* ── IMMERSIVE HERO ── */}
       <section
         ref={heroRef}
-        className="relative h-[90vh] min-h-[550px] flex items-end overflow-hidden group cursor-default"
+        className="relative h-[90vh] min-h-137.5 flex items-end overflow-hidden group cursor-default"
         onMouseEnter={() => setIsHeroHovered(true)}
         onMouseLeave={() => setIsHeroHovered(false)}
       >
@@ -526,7 +526,7 @@ const ProjectDetails: React.FC = () => {
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
                 transition={{ duration: 0.8, delay: 0.7, ease: 'circOut' }}
-                className="mt-8 h-[2px] w-24 bg-electric origin-left"
+                className="mt-8 h-0.5 w-24 bg-electric origin-left"
               />
             </motion.div>
           )}
@@ -594,7 +594,7 @@ const ProjectDetails: React.FC = () => {
                 <h2 className="font-display text-3xl md:text-4xl font-bold text-canvas-dark dark:text-canvas-light leading-tight">
                   The Engineering Story
                 </h2>
-                <div className="mt-4 h-[2px] w-12 bg-electric" />
+                <div className="mt-4 h-0.5 w-12 bg-electric" />
               </div>
               <div>
                 <p className="text-lg text-canvas-dark/80 dark:text-canvas-light/80 font-light leading-relaxed mb-8 first-letter:text-5xl first-letter:font-display first-letter:mr-2 first-letter:float-left first-letter:text-electric first-letter:font-bold">

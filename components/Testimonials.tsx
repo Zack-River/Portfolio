@@ -80,7 +80,7 @@ const VoiceNotePlayer: React.FC<{ src: string }> = ({ src }) => {
 
 /* ── TESTIMONIAL CARD ── */
 const TestimonialCard: React.FC<{ testo: Testimonial }> = ({ testo }) => (
-  <div className="shrink-0 w-[320px] md:w-[380px] bg-white/5 border border-white/10 rounded-3xl p-6 md:p-8 flex flex-col group hover:bg-white/10 hover:border-white/20 transition-all duration-500 relative overflow-hidden mx-3">
+  <div className="shrink-0 w-[320px] md:w-95 bg-white/5 border border-white/10 rounded-3xl p-6 md:p-8 flex flex-col group hover:bg-white/10 hover:border-white/20 transition-all duration-500 relative overflow-hidden mx-3">
     {testo.link && (
       <a href={testo.link} target="_blank" rel="noopener noreferrer" className="absolute inset-0 z-10 cursor-pointer" title={`View ${testo.name}'s profile`} />
     )}
