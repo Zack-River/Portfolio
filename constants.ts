@@ -16,13 +16,13 @@ import {
 } from "lucide-react";
 
 export const PERSONAL_INFO = {
-  name: "Abdallah Wageeh Ahmed",
+  name: "Abdullah Wajih Ahmed",
   title: "Software Engineer",
   subtitle:
     "Building scalable web applications and backend systems with a focus on performance, clean architecture, and long-term maintainability.",
   email: "zackriver.dev@gmail.com",
   phone: "+201201024880",
-  linkedin: "linkedin.com/in/labdallah-wageehl",
+  linkedin: "linkedin.com/in/abdullah-wajih",
   github: "github.com/Zack-River",
   bio: "Software Engineer specializing in full-stack and backend development and Freelancer with a strong focus on scalable architecture, performance, and maintainability with +3 years of Experience. I build modern web applications, REST APIs, authentication systems, CMS platforms, and real-time solutions while emphasizing clean code and long-term reliability. My goal is to create software that not only works today but continues to scale as products grow.",
 };
@@ -745,7 +745,8 @@ export const TRAINING: Experience[] = [
     details: [
       "Developed an e-commerce platform utilizing .NET Core & Angular, with Stripe and Redis.",
     ],
-    certificate: "https://drive.google.com/file/d/1oJ6ODnjqUaUBpa0eDuUPOJVJDa0yJN7z/view?usp=sharing",
+    certificate:
+      "https://drive.google.com/file/d/1oJ6ODnjqUaUBpa0eDuUPOJVJDa0yJN7z/view?usp=sharing",
   },
   {
     role: "Full Stack Trainee (MEAN Stack)",
@@ -755,7 +756,8 @@ export const TRAINING: Experience[] = [
       "Developed full-stack Instagram clone with full functionality.",
       "Built Backend Spotify clone focusing on performance.",
     ],
-    certificate: "https://drive.google.com/file/d/1jctAU3yMyxMliebGVIpWO-4S_IOPUSBF/view?usp=sharing",
+    certificate:
+      "https://drive.google.com/file/d/1jctAU3yMyxMliebGVIpWO-4S_IOPUSBF/view?usp=sharing",
   },
   {
     role: "Software Engineer",
@@ -769,7 +771,15 @@ export const TRAINING: Experience[] = [
   },
 ];
 
-export const CATEGORIES = ["All", "Landing Pages", "Web Apps", "UI/UX Designs", "Backend", "Desktop Apps", "QA"];
+export const CATEGORIES = [
+  "All",
+  "Landing Pages",
+  "Web Apps",
+  "UI/UX Designs",
+  "Backend",
+  "Desktop Apps",
+  "QA",
+];
 
 export const TESTIMONIALS: Testimonial[] = [
   {
@@ -803,8 +813,9 @@ export const TESTIMONIALS: Testimonial[] = [
 export const SITE_CONTENT = {
   hero: {
     greeting: "Hey, I'm",
-    name: "Abdallah Wageeh",
-    subtitle: "A Software Engineer specializing in backend systems, scalable architectures, and seamless digital experiences.",
+    name: "Abdullah Wajih",
+    subtitle:
+      "A Software Engineer specializing in backend systems, scalable architectures, and seamless digital experiences.",
     ctaPrimary: "View My Work",
     ctaSecondary: "Get In Touch",
     scroll: "Scroll Down",
@@ -885,7 +896,8 @@ export const SITE_CONTENT = {
     backBtn: "Back to Home",
     titlePrimary: "Portfolio",
     titleSecondary: "Archive",
-    description: "A comprehensive archive of systems, interfaces, and platforms I've engineered over the years. Explore the architecture behind each experience.",
+    description:
+      "A comprehensive archive of systems, interfaces, and platforms I've engineered over the years. Explore the architecture behind each experience.",
   },
   projectDetails: {
     backBtn: "Back to Home",
@@ -894,7 +906,8 @@ export const SITE_CONTENT = {
     aboutProject: "About this project",
     features: "Key Features & Use Cases",
     techStack: "Technology Stack",
-    imageNavPrompt: "Use the arrows or dots to navigate · Add more images via gallery[] in constants.ts",
+    imageNavPrompt:
+      "Use the arrows or dots to navigate · Add more images via gallery[] in constants.ts",
     nextProject: "Next Project",
     steps: "Steps",
     expectedResult: "Expected Result",

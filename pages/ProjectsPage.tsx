@@ -38,7 +38,7 @@ const ProjectsPage: React.FC = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "All Projects | Abdallah Wageeh Portfolio";
+    document.title = "All Projects | Abdullah Wajih Portfolio";
   }, []);
 
   const filteredProjects = PROJECTS.filter(project => {

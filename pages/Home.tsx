@@ -15,7 +15,7 @@ interface HomeProps {
 
 const Home: React.FC<HomeProps> = ({ loading = false }) => {
   React.useEffect(() => {
-    document.title = "Abdallah Wageeh | Software Engineer";
+    document.title = "Abdullah Wajih | Software Engineer";
   }, []);
 
   return (

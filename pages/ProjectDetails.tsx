@@ -329,9 +329,9 @@ const ProjectDetails: React.FC = () => {
 
   useEffect(() => {
     if (project) {
-      document.title = `${project.title} | Abdallah Wageeh Portfolio`;
+      document.title = `${project.title} | Abdullah Wajih Portfolio`;
     } else {
-      document.title = `Project Not Found | Abdallah Wageeh Portfolio`;
+      document.title = `Project Not Found | Abdullah Wajih Portfolio`;
     }
   }, [project]);
 
