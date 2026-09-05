@@ -100,10 +100,10 @@ const About: React.FC = () => {
             <div className="relative z-10">
               <GSAPReveal delay={0.1}>
               <div className="flex flex-col">
-                <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-[#C7F000] mb-8 flex items-center justify-center md:justify-start gap-3">
+                <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-electric mb-8 flex items-center justify-center md:justify-start gap-3">
                   <User size={16} /> ABOUT
                 </h3>
-                <p className="text-sm md:text-base font-medium text-[#F2F1EB]/70 leading-relaxed text-justify md:text-left w-full mt-8 md:mt-0">
+                <p className="text-sm md:text-base font-medium text-canvas-light/70 leading-relaxed text-justify md:text-left w-full mt-8 md:mt-0">
                   {PERSONAL_INFO.bio}
                 </p>
               </div>
@@ -112,17 +112,17 @@ const About: React.FC = () => {
             {/* Education Moved to Left Column */}
             <GSAPReveal delay={0.2}>
               <div className="pt-8 md:pt-0">
-                <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-[#C7F000] mb-8 flex items-center justify-center md:justify-start gap-3">
+                <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-electric mb-8 flex items-center justify-center md:justify-start gap-3">
                   <GraduationCap size={16} /> {SITE_CONTENT.about.educationTitle}
                 </h3>
 
                 {/* Mobile */}
                 <div className="md:hidden py-2 flex flex-col items-center text-center w-full">
-                  <h4 className="text-base text-[#F2F1EB] font-bold tracking-wide uppercase mb-1">{EDUCATION.degree}</h4>
-                  <p className="text-[#F2F1EB]/60 text-xs mb-4 tracking-widest uppercase">{EDUCATION.institution}</p>
-                  <div className="flex justify-center space-x-4 items-center text-[9px] font-mono text-[#F2F1EB]/50">
+                  <h4 className="text-base text-canvas-light font-bold tracking-wide uppercase mb-1">{EDUCATION.degree}</h4>
+                  <p className="text-canvas-light/60 text-xs mb-4 tracking-widest uppercase">{EDUCATION.institution}</p>
+                  <div className="flex justify-center space-x-4 items-center text-[9px] font-mono text-canvas-light/50">
                     <span className="bg-white/5 px-3 py-1 rounded-sm border border-white/10 tracking-widest uppercase">{EDUCATION.period}</span>
-                    <span className="px-3 py-1 bg-[#C7F000]/10 text-[#C7F000] border border-[#C7F000]/20 rounded-sm tracking-widest uppercase">
+                    <span className="px-3 py-1 bg-electric/10 text-electric border border-electric/20 rounded-sm tracking-widest uppercase">
                       {EDUCATION.grade}
                     </span>
                   </div>
@@ -130,12 +130,12 @@ const About: React.FC = () => {
 
                 {/* Desktop */}
                 <div className="hidden md:block border-l border-white/10 pl-6 py-2 relative w-full">
-                  <span className="absolute -left-1 top-2 w-2 h-2 bg-[#C7F000] rounded-sm"></span>
-                  <h4 className="text-lg text-[#F2F1EB] font-bold tracking-wide uppercase mb-1">{EDUCATION.degree}</h4>
-                  <p className="text-[#F2F1EB]/60 text-xs mb-4 tracking-widest uppercase">{EDUCATION.institution}</p>
-                  <div className="flex justify-start space-x-4 items-center text-[10px] font-mono text-[#F2F1EB]/50">
+                  <span className="absolute -left-1 top-2 w-2 h-2 bg-electric rounded-sm"></span>
+                  <h4 className="text-lg text-canvas-light font-bold tracking-wide uppercase mb-1">{EDUCATION.degree}</h4>
+                  <p className="text-canvas-light/60 text-xs mb-4 tracking-widest uppercase">{EDUCATION.institution}</p>
+                  <div className="flex justify-start space-x-4 items-center text-[10px] font-mono text-canvas-light/50">
                     <span className="bg-white/5 px-3 py-1 rounded-sm border border-white/10 tracking-widest uppercase">{EDUCATION.period}</span>
-                    <span className="px-3 py-1 bg-[#C7F000]/10 text-[#C7F000] border border-[#C7F000]/20 rounded-sm tracking-widest uppercase">
+                    <span className="px-3 py-1 bg-electric/10 text-electric border border-electric/20 rounded-sm tracking-widest uppercase">
                       {EDUCATION.grade}
                     </span>
                   </div>
@@ -255,17 +255,17 @@ const About: React.FC = () => {
         {/* Current Role (Centered at Bottom) */}
         <div className="mt-16 md:mt-24 relative w-full flex flex-col items-center text-center border-t border-white/5 pt-16">
           <GSAPReveal delay={0.2} className="w-full flex flex-col items-center">
-            <div className="inline-flex items-center gap-2 bg-[#C7F000] text-[#0D0F0E] px-4 py-1.5 text-[10px] md:text-xs font-bold uppercase tracking-widest rounded-sm mb-6">
-              <span className="w-1.5 h-1.5 rounded-sm bg-[#0D0F0E] animate-pulse"></span>
+            <div className="inline-flex items-center gap-2 bg-electric text-canvas-dark px-4 py-1.5 text-[10px] md:text-xs font-bold uppercase tracking-widest rounded-sm mb-6">
+              <span className="w-1.5 h-1.5 rounded-sm bg-canvas-dark animate-pulse"></span>
               Current Stage
             </div>
-            <h3 className="text-4xl md:text-5xl font-black uppercase tracking-tighter text-[#F2F1EB] mb-2 leading-none">
+            <h3 className="text-4xl md:text-5xl font-black uppercase tracking-tighter text-canvas-light mb-2 leading-none">
               {TRAINING[TRAINING.length - 1].role}
             </h3>
-            <p className="text-base md:text-xl text-[#C7F000] font-bold tracking-[0.2em] uppercase mb-6">
+            <p className="text-base md:text-xl text-electric font-bold tracking-[0.2em] uppercase mb-6">
               @ {TRAINING[TRAINING.length - 1].company}
             </p>
-            <div className="w-24 h-1 bg-[#C7F000]/30 rounded-sm mb-10 mx-auto"></div>
+            <div className="w-24 h-1 bg-electric/30 rounded-sm mb-10 mx-auto"></div>
           </GSAPReveal>
         </div>
       </div>

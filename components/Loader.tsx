@@ -73,11 +73,11 @@ const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden"
+      className="fixed inset-0 z-100 flex flex-col items-center justify-center overflow-hidden"
     >
       <div
         ref={backgroundRef}
-        className="absolute inset-0 bg-[#C7F000] z-0"
+        className="absolute inset-0 bg-electric z-0"
         style={{ transformOrigin: 'top' }}
       />
 
