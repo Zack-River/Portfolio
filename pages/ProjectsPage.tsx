@@ -38,7 +38,7 @@ const ProjectsPage: React.FC = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "All Projects | Abdullah Wajih Portfolio";
+    document.title = "All Projects | Abdallah Wageeh Portfolio";
   }, []);
 
   const filteredProjects = PROJECTS.filter(project => {
@@ -111,7 +111,7 @@ const ProjectsPage: React.FC = () => {
                   onClick={() => setActiveFilter(category)}
                   className={`relative px-5 py-2 rounded-full font-mono text-sm font-medium transition-all duration-250 whitespace-nowrap ${
                     activeFilter === category
-                      ? 'bg-white dark:bg-[#111113] text-canvas-dark dark:text-canvas-light shadow-sm ring-1 ring-canvas-dark/10 dark:ring-white/10'
+                      ? 'bg-white dark:bg-[#252925] text-canvas-dark dark:text-canvas-light shadow-sm ring-1 ring-canvas-dark/10 dark:ring-white/10'
                       : 'text-canvas-dark/50 dark:text-canvas-light/50 hover:text-canvas-dark dark:hover:text-canvas-light hover:bg-white/50 dark:hover:bg-white/30'
                   }`}
                 >
@@ -177,7 +177,7 @@ const ProjectsPage: React.FC = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={`${bentoClasses} group relative rounded-xl overflow-hidden bg-white dark:bg-[#111113] shadow-md ring-1 ring-canvas-dark/10 dark:ring-white/10 hover:shadow-xl hover:ring-electric/30 dark:hover:ring-electric/50 hover:-translate-y-1 transition-all duration-300 flex flex-col`}
+                className={`${bentoClasses} group relative rounded-xl overflow-hidden bg-white dark:bg-[#252925] shadow-md ring-1 ring-canvas-dark/10 dark:ring-white/10 hover:shadow-xl hover:ring-electric/30 dark:hover:ring-electric/50 hover:-translate-y-1 transition-all duration-300 flex flex-col`}
               >
                 <Link to={`/project/${project.id}`} className="absolute inset-0 z-20" aria-label={`View ${project.title}`}></Link>
                 

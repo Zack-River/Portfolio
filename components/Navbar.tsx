@@ -11,10 +11,8 @@ const navItems = [
   { id: 'services', icon: Briefcase, label: 'Services' },
 ];
 
-import { useTheme } from '../hooks/useTheme';
 
 const Navbar: React.FC = () => {
-  const { theme, toggleTheme } = useTheme();
   const [isVisible, setIsVisible] = useState(true);
   const [activeSection, setActiveSection] = useState('home');
   const { scrollY } = useScroll();
@@ -86,19 +84,6 @@ const Navbar: React.FC = () => {
             </span>
           </button>
         ))}
-        
-        {/* Theme Toggle */}
-        <button
-          onClick={toggleTheme}
-          className="group flex items-center justify-center px-3 py-3 md:px-4 md:py-2.5 rounded-full transition-all duration-300 hover:bg-canvas-dark/5 dark:hover:bg-white/30 ml-2 border-l border-canvas-dark/10 dark:border-white/10 pl-4"
-          aria-label="Toggle Theme"
-        >
-          {theme === 'dark' ? (
-            <Sun size={18} className="text-canvas-light group-hover:text-electric transition-colors" />
-          ) : (
-            <Moon size={18} className="text-canvas-dark/70 group-hover:text-electric transition-colors" />
-          )}
-        </button>
       </nav>
     </motion.div>
   );

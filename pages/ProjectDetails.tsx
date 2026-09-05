@@ -174,10 +174,10 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({ images, title
       <AnimatePresence>
         {isModalOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-100 flex items-center justify-center bg-[#0a0a0b]/98 p-4 md:p-8"
+            className="fixed inset-0 z-100 flex items-center justify-center bg-[#0D0F0E]/98 p-4 md:p-8"
+            initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
+            animate={{ opacity: 1, backdropFilter: "blur(8px)" }}
+            exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
             onClick={() => setIsModalOpen(false)}
           >
             <button
@@ -329,9 +329,9 @@ const ProjectDetails: React.FC = () => {
 
   useEffect(() => {
     if (project) {
-      document.title = `${project.title} | Abdullah Wajih Portfolio`;
+      document.title = `${project.title} | Abdallah Wageeh Portfolio`;
     } else {
-      document.title = `Project Not Found | Abdullah Wajih Portfolio`;
+      document.title = `Project Not Found | Abdallah Wageeh Portfolio`;
     }
   }, [project]);
 
@@ -454,8 +454,8 @@ const ProjectDetails: React.FC = () => {
           className="absolute inset-0 pointer-events-none opacity-[0.04]"
           style={{
             backgroundImage:
-              'linear-gradient(to right, #3d7fff 1px, transparent 1px), linear-gradient(to bottom, #3d7fff 1px, transparent 1px)',
-            backgroundSize: '60px 60px',
+              'linear-gradient(to right, #C7F000 1px, transparent 1px), linear-gradient(to bottom, #C7F000 1px, transparent 1px)',
+            backgroundSize: '40px 40px',
           }}
         />
 

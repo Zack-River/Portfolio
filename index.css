@@ -44,7 +44,7 @@ img {
 @layer components {
   /* --- CARDS --- */
   .card-base {
-    @apply bg-white dark:bg-[#111113] rounded-xl ring-1 ring-canvas-dark/10 dark:ring-white/10 shadow-md;
+    @apply bg-white dark:bg-[#252925] rounded-xl ring-1 ring-canvas-dark/10 dark:ring-white/10 shadow-md;
   }
   .card-hover {
     @apply hover:shadow-xl hover:-translate-y-1 transition-all duration-300;

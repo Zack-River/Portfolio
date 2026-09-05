@@ -9,19 +9,15 @@ import Services from '../components/Services';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
 
-interface HomeProps {
-  loading?: boolean;
-}
-
-const Home: React.FC<HomeProps> = ({ loading = false }) => {
+const Home: React.FC = () => {
   React.useEffect(() => {
-    document.title = "Abdullah Wajih | Software Engineer";
+    document.title = "Abdallah Wageeh | Software Engineer";
   }, []);
 
   return (
     <>
       <main className="scroll-smooth">
-        <Hero loading={loading} />
+        <Hero />
         <div className="border-t border-canvas-dark/10 w-full max-w-7xl mx-auto"></div>
         <About />
         <div className="border-t border-canvas-dark/10 w-full max-w-7xl mx-auto"></div>

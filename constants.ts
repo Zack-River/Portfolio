@@ -16,14 +16,16 @@ import {
 } from "lucide-react";
 
 export const PERSONAL_INFO = {
-  name: "Abdullah Wajih Ahmed",
+  name: "Abdallah Wageeh Ahmed",
   title: "Software Engineer",
   subtitle:
     "Building scalable web applications and backend systems with a focus on performance, clean architecture, and long-term maintainability.",
   email: "zackriver.dev@gmail.com",
   phone: "+201201024880",
-  linkedin: "linkedin.com/in/abdullah-wajih",
+  linkedin: "linkedin.com/in/zackriver",
   github: "github.com/Zack-River",
+  website: "zackriver.com",
+  facebook: "facebook.com/zack0river",
   bio: "Software Engineer specializing in full-stack and backend development and Freelancer with a strong focus on scalable architecture, performance, and maintainability with +3 years of Experience. I build modern web applications, REST APIs, authentication systems, CMS platforms, and real-time solutions while emphasizing clean code and long-term reliability. My goal is to create software that not only works today but continues to scale as products grow.",
 };
 
@@ -813,7 +815,7 @@ export const TESTIMONIALS: Testimonial[] = [
 export const SITE_CONTENT = {
   hero: {
     greeting: "Hey, I'm",
-    name: "Abdullah Wajih",
+    name: "Abdallah Wageeh",
     subtitle:
       "A Software Engineer specializing in backend systems, scalable architectures, and seamless digital experiences.",
     ctaPrimary: "View My Work",

@@ -11,14 +11,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        "canvas-light": "#f2f2f0",
-        "canvas-dark": "#0a0a0b",
-        electric: "#3d7fff",
-        "electric-glow": "rgba(61, 127, 255, 0.6)",
+        "canvas-light": "#F2F1EB",
+        "canvas-dark": "#0D0F0E",
+        electric: "#C7F000",
+        "electric-glow": "rgba(199, 240, 0, 0.6)",
         success: "#22c55e",
         error: "#ef4444",
         warning: "#f59e0b",
-        slate: "#64748b",
+        slate: "#252925",
       },
       fontFamily: {
         sans: ["Inter", "sans-serif"],

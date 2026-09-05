@@ -3,7 +3,7 @@ import emailjs from "@emailjs/browser";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import SectionHeader from "./SectionHeader";
-import { Mail, MapPin, Linkedin, Github, Phone, Briefcase } from "lucide-react";
+import { Mail, MapPin, Linkedin, Github, Phone, Briefcase, Facebook, Globe } from "lucide-react";
 import { PERSONAL_INFO, SITE_CONTENT } from "../constants";
 import Reveal from "./Reveal";
 
@@ -202,11 +202,29 @@ const Contact: React.FC = () => {
                     href="https://mostaql.com/u/ZackRiver"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 bg-white dark:bg-white/5 shadow-sm ring-1 ring-canvas-dark/5 dark:ring-white/10 border border-canvas-dark/10 dark:border-white/10 hover:bg-[#2386c8]/10 text-canvas-dark/80 dark:text-canvas-light/80 hover:text-[#2386c8] rounded-xl transition-all"
+                    className="p-3 bg-white dark:bg-white/5 shadow-sm ring-1 ring-canvas-dark/5 dark:ring-white/10 border border-canvas-dark/10 dark:border-white/10 hover:bg-electric/10 text-canvas-dark/80 dark:text-canvas-light/80 hover:text-electric rounded-xl transition-all"
                     aria-label="Mostaql"
                     title="Mostaql"
                   >
                     <Briefcase size={24} />
+                  </a>
+                  <a
+                    href={`https://${PERSONAL_INFO.facebook}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-3 bg-white dark:bg-white/5 shadow-sm ring-1 ring-canvas-dark/5 dark:ring-white/10 border border-canvas-dark/10 dark:border-white/10 hover:bg-[#1877F2]/10 text-canvas-dark/80 dark:text-canvas-light/80 hover:text-[#1877F2] rounded-xl transition-all"
+                    aria-label="Facebook"
+                  >
+                    <Facebook size={24} />
+                  </a>
+                  <a
+                    href={`https://${PERSONAL_INFO.website}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-3 bg-white dark:bg-white/5 shadow-sm ring-1 ring-canvas-dark/5 dark:ring-white/10 border border-canvas-dark/10 dark:border-white/10 hover:bg-electric/10 text-canvas-dark/80 dark:text-canvas-light/80 hover:text-electric rounded-xl transition-all"
+                    aria-label="Website"
+                  >
+                    <Globe size={24} />
                   </a>
                 </div>
               </Reveal>
@@ -215,7 +233,7 @@ const Contact: React.FC = () => {
           </div>
 
           <Reveal delay={0.4} className="h-full flex flex-col w-full max-w-85 md:max-w-md mx-auto lg:ml-auto">
-            <div className="h-full bg-canvas-light dark:bg-[#111113] p-5 md:p-8 card-base relative flex flex-col">
+            <div className="h-full bg-canvas-light dark:bg-[#252925] p-5 md:p-8 card-base relative flex flex-col">
               <div className="absolute top-0 right-0 w-20 h-20 bg-electric/10 rounded-bl-[4rem]"></div>
 
               <form

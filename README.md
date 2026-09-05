@@ -1,4 +1,4 @@
-# Abdullah Wajih | Software Engineer Portfolio
+# Abdallah Wageeh | Software Engineer Portfolio
 
 An immersive, high-performance personal portfolio that blends modern web development with interactive 3D graphics. Designed to showcase engineering capabilities without sacrificing user experience or load times.
 

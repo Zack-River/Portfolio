@@ -1,93 +1,97 @@
-import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { useProgress } from '@react-three/drei';
+import React, { useRef, useEffect } from 'react';
+import gsap from 'gsap';
 
-const Loader: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
-  const [progress, setProgress] = useState(0);
-  const { progress: modelProgress } = useProgress();
+interface LoaderProps {
+  onComplete: () => void;
+}
+
+/** Critical assets that must be loaded before the loader exits */
+const CRITICAL_IMAGES = ['/zack-photo-new.jpg'];
+
+const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const logoRef = useRef<HTMLImageElement>(null);
+  const backgroundRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    let dismissed = false;
 
-    // Mobile: No 3D model, so use a fast fake progress
-    if (isMobile) {
-      const timer = setInterval(() => {
-        setProgress((prev) => {
-          if (prev >= 100) {
-            clearInterval(timer);
-            setTimeout(onComplete, 200);
-            return 100;
-          }
-          return Math.min(prev + Math.random() * 30, 100);
-        });
-      }, 50);
-      return () => clearInterval(timer);
-    }
+    const dismiss = () => {
+      if (dismissed) return;
+      dismissed = true;
+
+      gsap.to(logoRef.current, {
+        scale: 5,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power4.inOut',
+      });
+
+      gsap.to(backgroundRef.current, {
+        yPercent: -100,
+        duration: 1,
+        delay: 0.2,
+        ease: 'expo.inOut',
+        onComplete,
+      });
+    };
+
+    const ctx = gsap.context(() => {
+      // Entrance animation
+      gsap.from(logoRef.current, {
+        scale: 0.8,
+        opacity: 0,
+        duration: 1.2,
+        ease: 'power3.out',
+      });
+    }, containerRef);
+
+    // Preload critical images
+    let loaded = 0;
+    const MIN_TIME = 800; // ms — ensures logo entrance is always seen
+    const start = Date.now();
+
+    const tryDismiss = () => {
+      loaded++;
+      if (loaded >= CRITICAL_IMAGES.length) {
+        const elapsed = Date.now() - start;
+        const remaining = Math.max(0, MIN_TIME - elapsed);
+        setTimeout(dismiss, remaining);
+      }
+    };
+
+    CRITICAL_IMAGES.forEach((src) => {
+      const img = new Image();
+      img.onload = tryDismiss;
+      img.onerror = tryDismiss; // Don't block on broken images
+      img.src = src;
+    });
+
+    return () => ctx.revert();
   }, [onComplete]);
 
-  useEffect(() => {
-    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-    
-    // Desktop: Sync directly with the 3D model's true download progress
-    if (!isMobile) {
-      setProgress(modelProgress);
-      if (modelProgress >= 100) {
-        const timer = setTimeout(onComplete, 200);
-        return () => clearTimeout(timer);
-      }
-    }
-  }, [modelProgress, onComplete]);
-
   return (
-    <motion.div
-      className="fixed inset-0 z-100 bg-canvas-light flex flex-col items-center justify-center overflow-hidden"
-      exit={{ opacity: 0, y: -50 }}
-      transition={{ duration: 0.8, ease: "easeInOut" }}
+    <div
+      ref={containerRef}
+      className="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden"
     >
-      <div className="relative w-64">
-        {/* Text Glitch Effect */}
-        <motion.div 
-          className="font-display text-3xl text-canvas-dark/80 text-center mb-8 font-bold tracking-tighter"
-          animate={{ opacity: [0.5, 1, 0.5, 1] }}
-          transition={{ duration: 0.2, repeat: 5 }}
-        >
-          ZackRiver
-          <span className="text-electric">.dev</span>
-        </motion.div>
+      <div
+        ref={backgroundRef}
+        className="absolute inset-0 bg-[#C7F000] z-0"
+        style={{ transformOrigin: 'top' }}
+      />
 
-        {/* Progress Bar Container */}
-        <div className="h-1 w-full bg-canvas-dark/10 overflow-hidden relative rounded-full">
-          <motion.div 
-            className="h-full bg-electric absolute left-0 top-0 rounded-full"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
-
-        {/* Status Text */}
-        <div className="flex justify-between mt-2 font-mono text-[10px] text-canvas-dark/60 uppercase">
-          <span>
-            {progress < 100 ? 'Initializing Core...' : 'System Ready'}
-          </span>
-          <span>{Math.floor(progress)}%</span>
-        </div>
+      {/* Central Logo */}
+      <div className="relative z-10 flex flex-col items-center">
+        <img
+          ref={logoRef}
+          src="/logo.png"
+          alt="Zack River"
+          className="w-40 md:w-56"
+          style={{ filter: "brightness(0) invert(0)" }}
+        />
       </div>
-
-      {/* Background Grid Animation */}
-      <div className="absolute inset-0 z-[-1] opacity-5">
-        <div className="absolute top-0 left-0 w-full h-px bg-electric animate-scanline"></div>
-      </div>
-      
-      <style>{`
-        @keyframes scanline {
-          0% { transform: translateY(0vh); opacity: 0; }
-          50% { opacity: 1; }
-          100% { transform: translateY(100vh); opacity: 0; }
-        }
-        .animate-scanline {
-          animation: scanline 3s linear infinite;
-        }
-      `}</style>
-    </motion.div>
+    </div>
   );
 };
 

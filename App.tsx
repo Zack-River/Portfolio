@@ -7,6 +7,8 @@ import Home from './pages/Home';
 // Lazy load heavy routes to reduce initial bundle size
 const ProjectDetails = React.lazy(() => import('./pages/ProjectDetails'));
 const ProjectsPage = React.lazy(() => import('./pages/ProjectsPage'));
+
+
 import { useLenis } from './hooks/useLenis';
 
 // Scroll to top helper
@@ -77,11 +79,11 @@ function App() {
         {loading && <Loader onComplete={() => setLoading(false)} />}
       </AnimatePresence>
       
-      <div className={`bg-canvas-light dark:bg-canvas-dark min-h-screen text-canvas-dark dark:text-canvas-light selection:bg-electric/90 selection:text-white transition-colors duration-500 ${loading ? 'h-screen overflow-hidden' : ''}`}>
+      <div className={`bg-canvas-dark min-h-screen text-canvas-light selection:bg-electric/90 selection:text-white transition-colors duration-500 ${loading ? 'h-screen overflow-hidden' : ''}`}>
         {location.pathname === '/' && <Navbar />}
         <React.Suspense fallback={<div className="min-h-screen flex items-center justify-center text-canvas-dark/40 font-mono text-sm animate-pulse">Loading Route...</div>}>
           <Routes>
-            <Route path="/" element={<Home loading={loading} />} />
+            <Route path="/" element={<Home />} />
             <Route path="/projects" element={<ProjectsPage />} />
             <Route path="/project/:id" element={<ProjectDetails />} />
           </Routes>
