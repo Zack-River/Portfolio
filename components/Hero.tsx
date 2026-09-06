@@ -282,25 +282,25 @@ const Hero: React.FC = () => {
                 {/* Pulse dot — path 1: CLIENT → GATEWAY → AUTH → DB_01 */}
                 <circle r="5" fill="#C7F000" filter="url(#glow-dot)">
                   <animateMotion dur="2s" repeatCount="indefinite" begin="0s">
-                    <mpath href="#pulse-path-1" />
+                    <mpath xlinkHref="#pulse-path-1" />
                   </animateMotion>
                 </circle>
                 {/* Pulse dot — path 2: CLIENT → GATEWAY → CACHE → DB_02 */}
                 <circle r="5" fill="#C7F000" filter="url(#glow-dot)">
                   <animateMotion dur="2s" repeatCount="indefinite" begin="0.5s">
-                    <mpath href="#pulse-path-2" />
+                    <mpath xlinkHref="#pulse-path-2" />
                   </animateMotion>
                 </circle>
                 {/* Pulse dot — path 3: GATEWAY → CORE_API */}
                 <circle r="5" fill="#C7F000" filter="url(#glow-dot)">
                   <animateMotion dur="1.5s" repeatCount="indefinite" begin="1.0s">
-                    <mpath href="#pulse-path-3" />
+                    <mpath xlinkHref="#pulse-path-3" />
                   </animateMotion>
                 </circle>
                 {/* Pulse dot — path 4: AUTH → CORE_API → output */}
                 <circle r="5" fill="#C7F000" filter="url(#glow-dot)">
                   <animateMotion dur="1.8s" repeatCount="indefinite" begin="1.5s">
-                    <mpath href="#pulse-path-4" />
+                    <mpath xlinkHref="#pulse-path-4" />
                   </animateMotion>
                 </circle>
 
