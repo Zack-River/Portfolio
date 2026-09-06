@@ -6,6 +6,25 @@ export interface UseCase {
   expectedResult: string;
 }
 
+export interface ProjectStack {
+  frontend?: string[];
+  backend?: string[];
+  database?: string[];
+  infrastructure?: string[];
+  other?: string[];
+}
+
+export interface ProjectContent {
+  overview?: string;
+  role?: string;
+  architecture?: string;
+  stack?: ProjectStack;
+  technicalWork?: string[];
+  challenges?: string[];
+  solutions?: string[];
+  outcome?: string[];
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -21,6 +40,7 @@ export interface Project {
   useCases?: UseCase[];
   stats: string[];
   featured?: boolean;
+  content?: ProjectContent;
 }
 
 export interface Service {

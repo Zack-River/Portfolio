@@ -413,6 +413,10 @@ const ProjectDetails: React.FC = () => {
   if (!project) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-canvas-light dark:bg-canvas-dark text-canvas-dark dark:text-canvas-light gap-6">
+        <Helmet>
+          <meta name="robots" content="noindex" />
+          <title>Project Not Found | Abdallah Wageeh (Zack River)</title>
+        </Helmet>
         <h1 className="text-4xl font-display font-bold">Project Not Found</h1>
         <Link
           to="/"
@@ -446,6 +450,17 @@ const ProjectDetails: React.FC = () => {
           rel="canonical"
           href={`https://www.zackriver.com/projects/${project.id}`}
         />
+        <meta property="og:title" content={`${project.title} | Abdallah Wageeh (Zack River)`} />
+        <meta
+          property="og:description"
+          content={
+            project.subtitle ||
+            `Case study for ${project.title}, a project by Abdallah Wageeh.`
+          }
+        />
+        <meta property="og:url" content={`https://www.zackriver.com/projects/${project.id}`} />
+        <meta property="og:type" content="article" />
+        {project.image && <meta property="og:image" content={`https://www.zackriver.com${project.image}`} />}
       </Helmet>
 
       {/* ── STICKY TOP NAV BAR ── */}
@@ -666,33 +681,28 @@ const ProjectDetails: React.FC = () => {
             </div>
           </section>
 
-          {/* ── NARRATIVE DESCRIPTION ── */}
-          <section className="py-16 md:py-24 border-b border-canvas-dark/10 dark:border-white/10">
-            <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 md:gap-24">
+          {/* ── PROJECT CASE STUDY ── */}
+          <article className="py-16 md:py-24 border-b border-canvas-dark/10 dark:border-white/10 flex flex-col gap-16 md:gap-24">
+            
+            {/* Overview */}
+            <section className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 md:gap-24">
               <div className="md:sticky md:top-24 md:self-start">
                 <p className="font-mono text-xs text-canvas-dark/40 dark:text-canvas-light/40 uppercase tracking-[0.25em] mb-3">
-                  Overview
+                  Summary
                 </p>
                 <h2 className="font-display text-3xl md:text-4xl font-bold text-canvas-dark dark:text-canvas-light leading-tight">
-                  The Engineering Story
+                  Overview
                 </h2>
                 <div className="mt-4 h-0.5 w-12 bg-electric" />
               </div>
               <div>
                 <p className="text-lg text-canvas-dark/80 dark:text-canvas-light/80 font-light leading-relaxed mb-8 first-letter:text-5xl first-letter:font-display first-letter:mr-2 first-letter:float-left first-letter:text-electric first-letter:font-bold">
-                  {project.description}
-                </p>
-                <p className="text-canvas-dark/60 dark:text-canvas-light/60 leading-relaxed">
-                  Every architectural decision was made with long-term
-                  scalability in mind. The goal was not to build a system that
-                  works today, but one that continues to perform as the product
-                  grows — a philosophy that guided every design trade-off from
-                  data modelling to API contract design.
+                  {project.content?.overview || project.description}
                 </p>
 
                 {/* CTA Links — GitHub + Demo side by side */}
                 <div className="mt-10 flex flex-col sm:flex-row gap-4">
-                  {project.link && (
+                  {project.link && project.link !== "#" && (
                     <a
                       href={project.link}
                       target="_blank"
@@ -702,10 +712,122 @@ const ProjectDetails: React.FC = () => {
                       <ExternalLink size={18} /> Live Demo
                     </a>
                   )}
+                  {project.repo && (
+                    <a
+                      href={project.repo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-secondary flex items-center justify-center gap-2"
+                    >
+                      <Github size={18} /> Repository
+                    </a>
+                  )}
                 </div>
               </div>
-            </div>
-          </section>
+            </section>
+
+            {/* My Role */}
+            {project.content?.role && (
+              <section className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 md:gap-24">
+                <div className="md:sticky md:top-24 md:self-start">
+                  <h2 className="font-display text-3xl md:text-4xl font-bold text-canvas-dark dark:text-canvas-light leading-tight">
+                    My Role
+                  </h2>
+                  <div className="mt-4 h-0.5 w-12 bg-electric" />
+                </div>
+                <div>
+                  <p className="text-canvas-dark/80 dark:text-canvas-light/80 leading-relaxed whitespace-pre-wrap">
+                    {project.content.role}
+                  </p>
+                </div>
+              </section>
+            )}
+
+            {/* Architecture */}
+            {project.content?.architecture && (
+              <section className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 md:gap-24">
+                <div className="md:sticky md:top-24 md:self-start">
+                  <h2 className="font-display text-3xl md:text-4xl font-bold text-canvas-dark dark:text-canvas-light leading-tight">
+                    Architecture
+                  </h2>
+                  <div className="mt-4 h-0.5 w-12 bg-electric" />
+                </div>
+                <div>
+                  <p className="text-canvas-dark/80 dark:text-canvas-light/80 leading-relaxed whitespace-pre-wrap">
+                    {project.content.architecture}
+                  </p>
+                </div>
+              </section>
+            )}
+
+            {/* Key Technical Work */}
+            {project.content?.technicalWork && project.content.technicalWork.length > 0 && (
+              <section className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 md:gap-24">
+                <div className="md:sticky md:top-24 md:self-start">
+                  <h2 className="font-display text-3xl md:text-4xl font-bold text-canvas-dark dark:text-canvas-light leading-tight">
+                    Key Technical Work
+                  </h2>
+                  <div className="mt-4 h-0.5 w-12 bg-electric" />
+                </div>
+                <div>
+                  <ul className="list-disc list-inside space-y-3 text-canvas-dark/80 dark:text-canvas-light/80 leading-relaxed">
+                    {project.content.technicalWork.map((item, idx) => (
+                      <li key={idx}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              </section>
+            )}
+
+            {/* Challenges & Solutions */}
+            {(project.content?.challenges || project.content?.solutions) && (
+              <section className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 md:gap-24">
+                <div className="md:sticky md:top-24 md:self-start">
+                  <h2 className="font-display text-3xl md:text-4xl font-bold text-canvas-dark dark:text-canvas-light leading-tight">
+                    Challenges & Solutions
+                  </h2>
+                  <div className="mt-4 h-0.5 w-12 bg-electric" />
+                </div>
+                <div className="space-y-8">
+                  {project.content?.challenges && (
+                    <div>
+                      <h3 className="font-mono text-sm text-electric uppercase tracking-widest mb-3">The Challenge</h3>
+                      <p className="text-canvas-dark/80 dark:text-canvas-light/80 leading-relaxed whitespace-pre-wrap">
+                        {project.content.challenges}
+                      </p>
+                    </div>
+                  )}
+                  {project.content?.solutions && (
+                    <div>
+                      <h3 className="font-mono text-sm text-electric uppercase tracking-widest mb-3">The Solution</h3>
+                      <p className="text-canvas-dark/80 dark:text-canvas-light/80 leading-relaxed whitespace-pre-wrap">
+                        {project.content.solutions}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </section>
+            )}
+
+            {/* Outcome */}
+            {project.content?.outcome && (
+              <section className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 md:gap-24">
+                <div className="md:sticky md:top-24 md:self-start">
+                  <h2 className="font-display text-3xl md:text-4xl font-bold text-canvas-dark dark:text-canvas-light leading-tight">
+                    Outcome
+                  </h2>
+                  <div className="mt-4 h-0.5 w-12 bg-electric" />
+                </div>
+                <div>
+                  <p className="text-canvas-dark/80 dark:text-canvas-light/80 leading-relaxed whitespace-pre-wrap">
+                    {project.content.outcome}
+                  </p>
+                </div>
+              </section>
+            )}
+
+          </article>
+
 
           {/* ── ARCHITECTURE & USE CASE ── */}
           {(project.schemaImage || project.useCaseImage) && (
@@ -838,7 +960,7 @@ const ProjectDetails: React.FC = () => {
               const next = PROJECTS[(currentIdx + 1) % PROJECTS.length];
               return (
                 <Link
-                  to={`/project/${next.id}`}
+                  to={`/projects/${next.id}`}
                   className="group flex items-center gap-4 card-base card-hover px-6 py-4"
                 >
                   <div>

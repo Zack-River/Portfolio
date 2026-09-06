@@ -173,7 +173,7 @@ const ProjectsPage: React.FC = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className={`${bentoClasses} group relative rounded-xl overflow-hidden bg-white dark:bg-[#252925] shadow-md ring-1 ring-canvas-dark/10 dark:ring-white/10 hover:shadow-xl hover:ring-electric/30 dark:hover:ring-electric/50 hover:-translate-y-1 transition-all duration-300 flex flex-col`}
               >
-                <Link to={`/project/${project.id}`} className="absolute inset-0 z-20" aria-label={`View ${project.title}`}></Link>
+                <Link to={`/projects/${project.id}`} className="absolute inset-0 z-20" aria-label={`View ${project.title}`}></Link>
                 
                 {/* Background Image */}
                 <div className="absolute inset-0 bg-canvas-dark/5 overflow-hidden">
@@ -205,7 +205,7 @@ const ProjectsPage: React.FC = () => {
                       ))}
                     </div>
                     <h3 className="text-2xl md:text-3xl font-display font-bold mb-2 leading-tight">
-                      {project.title}
+                      <Link to={`/projects/${project.id}`} className="hover:underline">{project.title}</Link>
                     </h3>
                     
                     <div className="mt-2">

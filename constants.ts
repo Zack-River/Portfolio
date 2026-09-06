@@ -164,6 +164,20 @@ export const PROJECTS: Project[] = [
           "App utilizes proper Tizen viewport tags or relative CSS (vw/vh) to scale the UI dynamically, filling the entire physical screen.",
       },
     ],
+    content: {
+      overview: "This project involved a complete End-to-End Quality Assurance cycle for the BeePlayer Smart TV application built for Samsung Tizen OS. The goal was to validate full system readiness for production deployment, including UI behavior, media playback stability, remote control interactions, and Smart TV platform compliance.",
+      // TODO - User input required: What was your specific role?
+      // TODO - User input required: What were the main challenges?
+      // TODO - User input required: What was the outcome?
+      stack: {
+        other: ["QA Testing", "Samsung Tizen", "Smart TV"]
+      },
+      technicalWork: [
+        "100% Test Case Coverage",
+        "System-level Tizen audit",
+        "4K Cross-resolution testing"
+      ]
+    },
     featured: true,
   },
   {
@@ -200,6 +214,23 @@ export const PROJECTS: Project[] = [
       "/projects/streamflow/16-Mobile-Dark.webp",
       "/projects/streamflow/17-Mobile-Light.webp",
     ],
+    content: {
+      overview: "A production-inspired MERN audio streaming platform designed to deliver a Spotify-like experience for listeners while providing artists and administrators with powerful content management tools.",
+      stack: {
+        frontend: ["React"],
+        backend: ["Node.js", "Express"],
+        database: ["MongoDB"],
+        infrastructure: ["Cloudinary"],
+        other: ["JWT"]
+      },
+      technicalWork: [
+        "74 REST APIs",
+        "4-Level RBAC",
+        "34 Req/sec under load testing",
+        "Optimized compound/text indexing"
+      ]
+      // TODO - User input required: Please describe your specific role, the architecture, challenges, and solutions.
+    },
     featured: true,
   },
   {
@@ -242,6 +273,18 @@ export const PROJECTS: Project[] = [
       "/projects/karbala/21-Admin-Cards-Form.webp",
       "/projects/karbala/22-Admin-Magles-Form.webp",
     ],
+    content: {
+      overview: "A fully structured digital experience delivering sequential content over 13 nights. Transforms passive reading into an active, gamified learning journey with interactive quizzes and assessments.",
+      stack: {
+        frontend: ["React"],
+        other: ["LMS", "Gamification", "Interactive Design"]
+      },
+      technicalWork: [
+        "13-night structured curriculum",
+        "Gamified learning journey"
+      ]
+      // TODO - User input required: Please describe your specific role, challenges, and solutions.
+    },
     featured: true,
   },
   {
@@ -282,6 +325,19 @@ export const PROJECTS: Project[] = [
       "/projects/smartq/20-Admin-Settings-Themes.webp",
       "/projects/smartq/21-Admin-Dashboard-Dark.webp",
     ],
+    content: {
+      overview: "A modern educational platform designed to transform traditional testing into an engaging, gamified experience. Empowers students with interactive quizzes and provides instructors with advanced management tools.",
+      stack: {
+        frontend: ["React"],
+        backend: ["Node.js", "Express"],
+        other: ["Gamification"]
+      },
+      technicalWork: [
+        "Interactive gamification engine",
+        "Streamlined instructor workflows"
+      ]
+      // TODO - User input required: Please describe your specific role, challenges, and solutions.
+    },
     featured: true,
   },
   {
@@ -307,6 +363,19 @@ export const PROJECTS: Project[] = [
       "/projects/sara-ragab/05-Rates.webp",
       "/projects/sara-ragab/06-CTA.webp",
     ],
+    content: {
+      overview: "Designed and developed a responsive, high-conversion landing page for a Saudi AI educational initiative. Included minimalist design, WhatsApp integration, domain setup, DNS configuration, and a future-ready subdomain architecture.",
+      stack: {
+        infrastructure: ["Vercel", "DNS"],
+        other: ["Landing Page", "UI/UX"]
+      },
+      technicalWork: [
+        "Responsive UI",
+        "Domain and DNS setup",
+        "Future-ready architecture"
+      ]
+      // TODO - User input required: Please describe the challenges and outcome.
+    },
     featured: false,
   },
   {
@@ -354,6 +423,19 @@ export const PROJECTS: Project[] = [
       "/projects/mostafa-nawareg/18-Books-About.webp",
       "/projects/mostafa-nawareg/19-Book-Faq.webp",
     ],
+    content: {
+      overview: "A professional portfolio and landing page for a business consultant and author of 40 books. Designed to highlight expertise, academic achievements, and marketing consultation services.",
+      stack: {
+        frontend: ["HTML", "CSS", "JS"],
+        backend: ["PHP"],
+        other: ["Wordpress", "Astra", "Elementor", "W3Cache"]
+      },
+      technicalWork: [
+        "Integrated consulting funnels",
+        "Responsive global audience reach"
+      ]
+      // TODO - User input required: Please describe your specific role, challenges, and outcome.
+    },
     featured: true,
   },
   {
@@ -393,6 +475,19 @@ export const PROJECTS: Project[] = [
       "/projects/ding/19-Noro-Response-2.webp",
       "/projects/ding/20-Media-and-video-preview.webp",
     ],
+    content: {
+      overview: "A novel social networking platform explicitly designed to prioritize positive mental health using deep learning and affective computing to detect real-time sentiment without compromising privacy.",
+      stack: {
+        backend: ["Python"],
+        other: ["AI", "Deep Learning", "Affective Computing"]
+      },
+      technicalWork: [
+        "Real-time sentiment analysis",
+        "Cross-platform architecture",
+        "Privacy-first design"
+      ]
+      // TODO - User input required: Please describe your specific role, architecture, challenges, and solutions.
+    },
     featured: true,
   },
   {
@@ -419,6 +514,21 @@ export const PROJECTS: Project[] = [
       "/projects/pos/Add-Product.webp",
       "/projects/pos/Inovice.webp",
     ],
+    content: {
+      overview: "A professional, ultra-fast point-of-sale (POS) desktop system designed for small and medium businesses. Built as a fully local (Local-First) application, it eliminates the need for internet connectivity or monthly subscriptions while providing real-time inventory management, instantaneous barcode scanning, and reliable thermal printing with background retry mechanisms.",
+      stack: {
+        frontend: ["Avalonia UI", "MVVM"],
+        backend: [".NET 10"],
+        database: ["SQLite"],
+        other: ["Dapper", "ClosedXML"]
+      },
+      technicalWork: [
+        "Zero-latency barcode scanning",
+        "Offline-first architecture",
+        "Atomic transaction safety"
+      ]
+      // TODO - User input required: Please describe your specific role, challenges, and solutions.
+    },
     featured: true,
   },
   {
@@ -459,6 +569,19 @@ export const PROJECTS: Project[] = [
       "/projects/luxe-dental/19-Contact-.webp",
       "/projects/luxe-dental/19-Contact-Page.webp",
     ],
+    content: {
+      overview: "A high-end healthcare website focusing on patient experience and trust. Features luxury hospitality design aesthetics, transparent treatment information, and seamless appointment booking.",
+      stack: {
+        frontend: ["Next.js"],
+        other: ["Web Design", "Healthcare", "UI/UX"]
+      },
+      technicalWork: [
+        "Luxury hospitality aesthetics",
+        "Patient-first transparent flow",
+        "Optimized booking conversions"
+      ]
+      // TODO - User input required: Please describe the challenges and outcome.
+    },
     featured: false,
   },
   {
@@ -488,6 +611,19 @@ export const PROJECTS: Project[] = [
       "/projects/hotel-pro/09-Home-Call-to-Action.webp",
       "/projects/hotel-pro/10-Home-Footer.webp",
     ],
+    content: {
+      overview: "A comprehensive SaaS landing page for luxury hotels and resorts. Replaces standard technical features with an emotion-driven narrative that feels like a 5-star hotel lobby.",
+      stack: {
+        frontend: ["React", "Tailwind"],
+        other: ["SaaS", "Hospitality"]
+      },
+      technicalWork: [
+        "Emotion-driven narrative",
+        "SaaS technical feature showcase",
+        "High-end visual branding"
+      ]
+      // TODO - User input required: Please describe the challenges and outcome.
+    },
     featured: false,
   },
   {
@@ -518,6 +654,18 @@ export const PROJECTS: Project[] = [
       "/projects/khaled-nasser/10-Time-Line.webp",
       "/projects/khaled-nasser/11-Change-Point.webp",
     ],
+    content: {
+      overview: "A striking personal portfolio built with deep blue brand accents, highlighting workflows, professional results, and service offerings in a clean, modern interface.",
+      stack: {
+        other: ["UI/UX", "Portfolio", "Web Design"]
+      },
+      technicalWork: [
+        "Deep brand accent integration",
+        "Service and workflow showcases",
+        "High-performance rendering"
+      ]
+      // TODO - User input required: Please describe the challenges and outcome.
+    },
     featured: false,
   },
   {
@@ -544,6 +692,18 @@ export const PROJECTS: Project[] = [
       "/projects/ahmed-hakim/06-Services-Hero.webp",
       "/projects/ahmed-hakim/07-Results.webp",
     ],
+    content: {
+      overview: "A highly visual and interactive digital portfolio showcasing creative projects, achievements, and professional background with smooth transition effects.",
+      stack: {
+        frontend: ["Frontend", "Animation", "Framer Motion"]
+      },
+      technicalWork: [
+        "Framer Motion integrations",
+        "Immersive visual storytelling",
+        "Smooth layout transitions"
+      ]
+      // TODO - User input required: Please describe the challenges and outcome.
+    },
     featured: false,
   },
 ];

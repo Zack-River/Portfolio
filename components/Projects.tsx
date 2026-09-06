@@ -49,7 +49,7 @@ const Projects: React.FC = () => {
             .filter(Boolean)
             .map((project, idx) => (
               <Link 
-                to={`/project/${project!.id}`} 
+                to={`/projects/${project!.id}`} 
                 key={project!.id} 
                 aria-label={`View case study for ${project!.title}`}
                 className="project-card relative group block transition-all hover:-translate-y-1"
