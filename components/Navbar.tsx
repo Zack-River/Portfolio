@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Home, User, Layers, Users, Briefcase, Moon, Sun } from 'lucide-react';
-import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
+import { Home, User, Layers, Users, Briefcase } from 'lucide-react';
 
 const navItems = [
   { id: 'home', icon: Home, label: 'Home' },
@@ -15,16 +14,22 @@ const navItems = [
 const Navbar: React.FC = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [activeSection, setActiveSection] = useState('home');
-  const { scrollY } = useScroll();
+  const lastScrollY = useRef(0);
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    const previous = scrollY.getPrevious() || 0;
-    if (latest > previous && latest > 50) {
-      setIsVisible(false);
-    } else if (latest < previous || latest <= 50) {
-      setIsVisible(true);
-    }
-  });
+  useEffect(() => {
+    const handleScroll = () => {
+      const current = window.scrollY;
+      const previous = lastScrollY.current;
+      if (current > previous && current > 50) {
+        setIsVisible(false);
+      } else if (current < previous || current <= 50) {
+        setIsVisible(true);
+      }
+      lastScrollY.current = current;
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -61,14 +66,13 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <motion.div 
-      initial={{ y: 0, opacity: 1 }}
-      animate={{ 
-        y: isVisible ? 0 : -150,
-        opacity: isVisible ? 1 : 0
+    <div
+      className="fixed bottom-6 md:bottom-auto md:top-6 left-1/2 -translate-x-1/2 z-50 transition-all duration-400 ease-in-out"
+      style={{
+        transform: `translateX(-50%) translateY(${isVisible ? '0' : '-150px'})`,
+        opacity: isVisible ? 1 : 0,
+        pointerEvents: isVisible ? 'auto' : 'none',
       }}
-      transition={{ duration: 0.4, ease: "easeInOut" }}
-      className="fixed bottom-6 md:bottom-auto md:top-6 left-1/2 -translate-x-1/2 z-50"
     >
       <nav className="flex items-center space-x-1 md:space-x-2 px-4 py-2 md:px-6 md:py-3 bg-white/80 dark:bg-canvas-dark/80 backdrop-blur-lg rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-canvas-dark/5 dark:border-white/10">
         {navItems.map((item) => (
@@ -85,7 +89,7 @@ const Navbar: React.FC = () => {
           </button>
         ))}
       </nav>
-    </motion.div>
+    </div>
   );
 };
 

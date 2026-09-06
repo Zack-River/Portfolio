@@ -72,8 +72,10 @@ const Hero: React.FC = () => {
                       style={{ fontSize: 'clamp(2.5rem, 5vw, 6.5rem)' }}>
                       Abdallah
                     </h1>
-                    {/* Back Side: Zack */}
-                    <h1 className="col-start-1 row-start-1 backface-hidden rotate-x-180 font-black uppercase leading-[0.85] tracking-tighter text-canvas-light text-center md:text-left w-full m-0 pb-1 -translate-y-3 md:translate-y-[-0.8vw] lg:-translate-y-6"
+                    {/* Back Side: Zack — aria-hidden so Lighthouse ignores this invisible element for LCP */}
+                    <h1
+                      aria-hidden="true"
+                      className="col-start-1 row-start-1 backface-hidden rotate-x-180 font-black uppercase leading-[0.85] tracking-tighter text-canvas-light text-center md:text-left w-full m-0 pb-1 -translate-y-3 md:translate-y-[-0.8vw] lg:-translate-y-6"
                       style={{ fontSize: 'clamp(3.5rem, 7vw, 9rem)' }}>
                       Zack
                     </h1>
@@ -94,8 +96,10 @@ const Hero: React.FC = () => {
                       style={{ fontSize: 'clamp(2.8rem, 5.5vw, 7rem)' }}>
                       Wageeh
                     </h1>
-                    {/* Back Side: River */}
-                    <h1 className="col-start-1 row-start-1 backface-hidden rotate-x-180 font-black uppercase leading-[0.85] tracking-tighter text-electric text-center md:text-left w-full m-0 pt-1 translate-y-3 md:translate-y-[0.8vw] lg:translate-y-6"
+                    {/* Back Side: River — aria-hidden so Lighthouse ignores this invisible element for LCP */}
+                    <h1
+                      aria-hidden="true"
+                      className="col-start-1 row-start-1 backface-hidden rotate-x-180 font-black uppercase leading-[0.85] tracking-tighter text-electric text-center md:text-left w-full m-0 pt-1 translate-y-3 md:translate-y-[0.8vw] lg:translate-y-6"
                       style={{ fontSize: 'clamp(3.5rem, 7vw, 9rem)' }}>
                       River
                     </h1>
@@ -146,12 +150,12 @@ const Hero: React.FC = () => {
               <div className="relative w-full max-w-[320px] sm:max-w-90 md:w-[38vw] md:max-w-90 lg:w-full lg:max-w-120 xl:max-w-137.5 aspect-square md:aspect-4/5 z-10 flex items-center justify-center translate-y-6 md:translate-y-4 md:-translate-x-4 lg:-translate-x-4 lg:translate-y-4 mx-auto md:mx-0">
                 <img
                   src="/zack-photo-new-sm.webp"
-                  srcSet="/zack-photo-new-sm.webp 700w, /zack-photo-new.webp 1100w"
+                  srcSet="/zack-photo-new-sm.webp 560w, /zack-photo-new.webp 1100w"
                   sizes="(max-width: 768px) 320px, (max-width: 1280px) 550px, 700px"
                   alt="Zack River / Abdallah Wageeh"
                   fetchPriority="high"
-                  width="700"
-                  height="1051"
+                  width="560"
+                  height="841"
                   className="absolute inset-0 w-full h-full object-cover object-center grayscale contrast-125 brightness-90 md:scale-105 lg:scale-110 photo-mask"
                 />
                 <div className="absolute inset-0 bg-canvas-dark/20 photo-mask"></div>
