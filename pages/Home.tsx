@@ -1,12 +1,6 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
-import About from "../components/About";
-import Skills from "../components/Skills";
-import Projects from "../components/Projects";
-import Testimonials from "../components/Testimonials";
-import Services from "../components/Services";
-import Contact from "../components/Contact";
 import Footer from "../components/Footer";
 
 // Lazy load components below the fold
@@ -29,27 +23,27 @@ const Home: React.FC = () => {
       <main className="scroll-smooth">
         <Hero />
         <div className="border-t border-canvas-dark/10 w-full max-w-7xl mx-auto"></div>
-        <LazySection placeholderHeight="100vh">
+        <LazySection placeholderHeight="100vh" sectionId="about">
           <LazyAbout />
         </LazySection>
         <div className="border-t border-canvas-dark/10 w-full max-w-7xl mx-auto"></div>
-        <LazySection placeholderHeight="100vh">
+        <LazySection placeholderHeight="100vh" sectionId="skills">
           <LazySkills />
         </LazySection>
         <div className="border-t border-canvas-dark/10 w-full max-w-7xl mx-auto"></div>
-        <LazySection placeholderHeight="100vh">
+        <LazySection placeholderHeight="100vh" sectionId="projects">
           <LazyProjects />
         </LazySection>
         <div className="border-t border-canvas-dark/10 w-full max-w-7xl mx-auto"></div>
-        <LazySection placeholderHeight="100vh">
+        <LazySection placeholderHeight="100vh" sectionId="testimonials">
           <LazyTestimonials />
         </LazySection>
         <div className="border-t border-canvas-dark/10 w-full max-w-7xl mx-auto"></div>
-        <LazySection placeholderHeight="100vh">
+        <LazySection placeholderHeight="100vh" sectionId="services">
           <LazyServices />
         </LazySection>
         <div className="border-t border-canvas-dark/10 w-full max-w-7xl mx-auto"></div>
-        <LazySection placeholderHeight="100vh">
+        <LazySection placeholderHeight="100vh" sectionId="contact">
           <section className="flex flex-col justify-between">
             <LazyContact />
             <Footer />

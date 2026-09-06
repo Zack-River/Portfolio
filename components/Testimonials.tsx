@@ -119,6 +119,7 @@ const TestimonialCard: React.FC<{ testo: Testimonial }> = ({ testo }) => (
         href={testo.link}
         target="_blank"
         rel="noopener noreferrer"
+        aria-label={`View ${testo.name}'s profile on Facebook`}
         className="absolute inset-0 z-10 cursor-pointer"
         title={`View ${testo.name}'s profile`}
       />
@@ -142,7 +143,7 @@ const TestimonialCard: React.FC<{ testo: Testimonial }> = ({ testo }) => (
         <h3 className="font-display font-medium text-lg text-white flex items-center gap-2">
           {testo.name}
           {testo.link && (
-            <span className="text-[9px] font-mono text-electric/60 border border-electric/20 rounded-full px-1.5 py-0.5 leading-none">
+            <span className="text-[9px] font-mono text-electric/90 border border-electric/20 rounded-full px-1.5 py-0.5 leading-none">
               fb
             </span>
           )}
@@ -175,7 +176,7 @@ const Testimonials: React.FC = () => {
   return (
     <section
       id="testimonials"
-      className="py-24 md:py-32 bg-canvas-dark dark:bg-canvas-dark text-canvas-light relative overflow-hidden transition-colors duration-500"
+      className="py-24 md:py-32 bg-canvas-dark dark:bg-canvas-dark text-canvas-light relative overflow-hidden"
     >
       <div className="absolute top-1/2 left-1/2 md:left-1/4 -translate-x-1/2 -translate-y-1/2 w-[70%] md:w-[45%] h-[70%] md:h-[60%] bg-electric/25 rounded-full blur-[140px] pointer-events-none z-0 hidden md:block"></div>
       <StarsBackground colorClass="bg-electric" count={20} />

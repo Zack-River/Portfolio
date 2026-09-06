@@ -175,7 +175,7 @@ const Contact: React.FC = () => {
   return (
     <section
       id="contact"
-      className="py-24 md:py-32 bg-canvas-light dark:bg-canvas-dark transition-colors duration-500 text-canvas-dark dark:text-canvas-light relative flex-1 flex flex-col justify-center"
+      className="py-24 md:py-32 bg-canvas-light dark:bg-canvas-dark text-canvas-dark dark:text-canvas-light relative flex-1 flex flex-col justify-center"
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-10 lg:gap-16 items-start">
@@ -250,78 +250,69 @@ const Contact: React.FC = () => {
               </Reveal>
 
               <Reveal delay={0.5}>
-                <div className="flex items-center justify-start space-x-4 pt-4">
+                <div className="flex items-center justify-start gap-3 pt-4 flex-wrap">
+                  {/* WhatsApp */}
                   <a
                     href={`https://wa.me/${PERSONAL_INFO.phone}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 bg-white dark:bg-white/5 shadow-sm ring-1 ring-canvas-dark/5 dark:ring-white/10 border border-canvas-dark/10 dark:border-white/10 hover:bg-success/10 text-canvas-dark/80 dark:text-canvas-light/80 hover:text-success rounded-xl transition-all"
+                    className="p-3 rounded-xl border border-canvas-dark/15 dark:border-white/15 bg-canvas-dark/5 dark:bg-white/8 text-canvas-dark/70 dark:text-canvas-light/70 hover:border-green-500/60 hover:bg-green-500/10 hover:text-green-500 dark:hover:border-green-400/60 dark:hover:bg-green-400/10 dark:hover:text-green-400 hover:shadow-[0_0_12px_rgba(34,197,94,0.3)] transition-all duration-200"
                     aria-label="WhatsApp"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="lucide lucide-message-circle"
-                    >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" />
-                      <path
-                        d="M9 10a.5.5 0 0 0 .5-.5V9m3 1a.5.5 0 0 0 .5-.5V9m3 1a.5.5 0 0 0 .5-.5V9"
-                        stroke="none"
-                      />
                     </svg>
                   </a>
+                  {/* LinkedIn */}
                   <a
                     href={`https://${PERSONAL_INFO.linkedin}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 bg-white dark:bg-white/5 shadow-sm ring-1 ring-canvas-dark/5 dark:ring-white/10 border border-canvas-dark/10 dark:border-white/10 hover:bg-electric/10 text-canvas-dark/80 dark:text-canvas-light/80 hover:text-electric rounded-xl transition-all"
+                    className="p-3 rounded-xl border border-canvas-dark/15 dark:border-white/15 bg-canvas-dark/5 dark:bg-white/8 text-canvas-dark/70 dark:text-canvas-light/70 hover:border-electric/60 hover:bg-electric/10 hover:text-electric dark:hover:border-electric/60 dark:hover:bg-electric/10 dark:hover:text-electric hover:shadow-[0_0_12px_rgba(180,255,0,0.25)] transition-all duration-200"
                     aria-label="LinkedIn"
                   >
-                    <Linkedin size={24} />
+                    <Linkedin size={22} />
                   </a>
+                  {/* GitHub */}
                   <a
                     href={`https://${PERSONAL_INFO.github}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 bg-white dark:bg-white/5 shadow-sm ring-1 ring-canvas-dark/5 dark:ring-white/10 border border-canvas-dark/10 dark:border-white/10 hover:bg-canvas-dark/90 dark:hover:bg-white/30 text-canvas-dark/80 dark:text-canvas-light/80 hover:text-canvas-light dark:hover:text-white rounded-xl transition-all"
+                    className="p-3 rounded-xl border border-canvas-dark/15 dark:border-white/15 bg-canvas-dark/5 dark:bg-white/8 text-canvas-dark/70 dark:text-canvas-light/70 hover:border-white/50 hover:bg-white/10 hover:text-canvas-dark dark:hover:border-white/50 dark:hover:bg-white/15 dark:hover:text-white hover:shadow-[0_0_12px_rgba(255,255,255,0.2)] transition-all duration-200"
                     aria-label="GitHub"
                   >
-                    <Github size={24} />
+                    <Github size={22} />
                   </a>
+                  {/* Mostaql */}
                   <a
                     href="https://mostaql.com/u/ZackRiver"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 bg-white dark:bg-white/5 shadow-sm ring-1 ring-canvas-dark/5 dark:ring-white/10 border border-canvas-dark/10 dark:border-white/10 hover:bg-electric/10 text-canvas-dark/80 dark:text-canvas-light/80 hover:text-electric rounded-xl transition-all"
+                    className="p-3 rounded-xl border border-canvas-dark/15 dark:border-white/15 bg-canvas-dark/5 dark:bg-white/8 text-canvas-dark/70 dark:text-canvas-light/70 hover:border-electric/60 hover:bg-electric/10 hover:text-electric dark:hover:border-electric/60 dark:hover:bg-electric/10 dark:hover:text-electric hover:shadow-[0_0_12px_rgba(180,255,0,0.25)] transition-all duration-200"
                     aria-label="Mostaql"
                     title="Mostaql"
                   >
-                    <Briefcase size={24} />
+                    <Briefcase size={22} />
                   </a>
+                  {/* Facebook */}
                   <a
                     href={`https://${PERSONAL_INFO.facebook}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 bg-white dark:bg-white/5 shadow-sm ring-1 ring-canvas-dark/5 dark:ring-white/10 border border-canvas-dark/10 dark:border-white/10 hover:bg-[#1877F2]/10 text-canvas-dark/80 dark:text-canvas-light/80 hover:text-[#1877F2] rounded-xl transition-all"
+                    className="p-3 rounded-xl border border-canvas-dark/15 dark:border-white/15 bg-canvas-dark/5 dark:bg-white/8 text-canvas-dark/70 dark:text-canvas-light/70 hover:border-[#1877F2]/60 hover:bg-[#1877F2]/10 hover:text-[#1877F2] dark:hover:border-[#1877F2]/60 dark:hover:bg-[#1877F2]/10 dark:hover:text-[#1877F2] hover:shadow-[0_0_12px_rgba(24,119,242,0.3)] transition-all duration-200"
                     aria-label="Facebook"
                   >
-                    <Facebook size={24} />
+                    <Facebook size={22} />
                   </a>
+                  {/* Website */}
                   <a
                     href={`https://${PERSONAL_INFO.website}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 bg-white dark:bg-white/5 shadow-sm ring-1 ring-canvas-dark/5 dark:ring-white/10 border border-canvas-dark/10 dark:border-white/10 hover:bg-electric/10 text-canvas-dark/80 dark:text-canvas-light/80 hover:text-electric rounded-xl transition-all"
+                    className="p-3 rounded-xl border border-canvas-dark/15 dark:border-white/15 bg-canvas-dark/5 dark:bg-white/8 text-canvas-dark/70 dark:text-canvas-light/70 hover:border-electric/60 hover:bg-electric/10 hover:text-electric dark:hover:border-electric/60 dark:hover:bg-electric/10 dark:hover:text-electric hover:shadow-[0_0_12px_rgba(180,255,0,0.25)] transition-all duration-200"
                     aria-label="Website"
                   >
-                    <Globe size={24} />
+                    <Globe size={22} />
                   </a>
                 </div>
               </Reveal>
@@ -330,7 +321,7 @@ const Contact: React.FC = () => {
           </div>
 
           <Reveal delay={0.4} className="h-full flex flex-col w-full max-w-85 md:max-w-md mx-auto lg:ml-auto">
-            <div className="h-full bg-canvas-light dark:bg-[#252925] p-5 md:p-8 card-base relative flex flex-col">
+            <div className="h-full bg-white dark:bg-electric/4 p-5 md:p-8 rounded-2xl border border-canvas-dark/10 dark:border-electric/15 shadow-md relative flex flex-col hover:dark:border-electric/30 transition-all duration-300">
               <div className="absolute top-0 right-0 w-20 h-20 bg-electric/10 rounded-bl-[4rem]"></div>
               <ContactForm />
             </div>

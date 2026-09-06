@@ -33,7 +33,7 @@ const Projects: React.FC = () => {
   }, []);
 
   return (
-    <section id="projects" className="py-24 md:py-32 bg-canvas-light dark:bg-canvas-dark transition-colors duration-500 relative">
+    <section id="projects" className="py-24 md:py-32 bg-canvas-light dark:bg-canvas-dark relative">
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
         <GSAPReveal>
           <SectionHeader
@@ -51,6 +51,7 @@ const Projects: React.FC = () => {
               <Link 
                 to={`/project/${project!.id}`} 
                 key={project!.id} 
+                aria-label={`View case study for ${project!.title}`}
                 className="project-card relative group block transition-all hover:-translate-y-1"
                 style={{
                   opacity: isVisible ? 1 : 0,
@@ -113,7 +114,7 @@ const Projects: React.FC = () => {
         {/* View All CTA */}
         <div className="mt-16 flex justify-center">
           <GSAPReveal>
-            <Link to="/projects" className="btn-primary group">
+            <Link to="/projects" aria-label="View all projects" className="btn-primary group">
               <span>{SITE_CONTENT.projects.viewAll}</span>
               <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-white group-hover:text-electric transition-colors">
                 <ArrowRight size={14} />

@@ -25,7 +25,7 @@ const Hero: React.FC = () => {
   return (
     <div
       ref={containerRef}
-      className="relative min-h-screen bg-canvas-dark text-canvas-light overflow-hidden selection:bg-electric selection:text-canvas-dark cursor-crosshair"
+      className="relative min-h-screen bg-canvas-dark text-canvas-light overflow-hidden selection:bg-electric selection:text-canvas-dark md:cursor-crosshair"
       onMouseEnter={() => setIsHovering(true)}
       onMouseMove={() => { if (!isHovering) setIsHovering(true); }}
       onMouseLeave={() => setIsHovering(false)}
@@ -38,9 +38,9 @@ const Hero: React.FC = () => {
         <div className="absolute right-0 top-1/2 -translate-y-1/2 w-200 h-200 bg-electric/5 rounded-full blur-[100px] pointer-events-none opacity-50 z-0"></div>
 
         <div className="relative z-10 container mx-auto px-[4vw] w-full h-full flex flex-col justify-center">
-          <div className="flex flex-col md:flex-row items-center justify-center md:justify-between h-full w-full gap-6 md:gap-[4vw]">
+          <div className="flex flex-col md:flex-row items-center justify-center md:justify-between h-full w-full gap-0 md:gap-[4vw]">
             {/* LEFT COLUMN: THE TEXT */}
-            <div className="flex flex-col justify-center items-center text-center md:items-start md:text-left pt-12 md:pt-0 z-20 w-full max-w-105 md:max-w-[52%] lg:max-w-[55%] mx-auto md:mx-0">
+            <div className="flex flex-col justify-center items-center text-center md:items-start md:text-left pt-4 md:pt-0 z-20 w-full max-w-105 md:max-w-[52%] lg:max-w-[55%] mx-auto md:mx-0">
               {/* TOP LABEL */}
               <div
                 className="mb-[2vw] flex items-center justify-center md:justify-start gap-[0.6vw] animate-fade-in-up w-full mx-auto md:mx-0 pointer-events-auto"
@@ -61,11 +61,11 @@ const Hero: React.FC = () => {
                 {/* 3D Flip Container for Line 1 (Abdallah front / Zack back) */}
                 <div
                   className={`animate-fade-in-up group perspective-1000 cursor-pointer w-full transition-[margin] duration-500 ${namesHovered || isLine1Flipped ? 'mb-[1.5vw] lg:mb-[2vw]' : 'mb-0'}`}
-                  style={{ animationDelay: "0.05s" }}
+                  style={{ animationDelay: "0s" }}
                   onClick={() => setIsLine1Flipped(!isLine1Flipped)}
                 >
                   <div
-                    className={`relative transform-style-3d transition-transform duration-700 w-full grid ${isLine1Flipped ? "rotate-x-180 delay-0" : "group-hover:rotate-x-180 group-hover:delay-0 delay-500"}`}
+                    className={`relative transform-style-3d transition-transform duration-700 w-full grid ${isLine1Flipped ? "rotate-x-180" : "group-hover:rotate-x-180"}`}
                   >
                     {/* Front Side: Abdallah */}
                     <h1 className="col-start-1 row-start-1 backface-hidden font-black uppercase leading-[0.85] tracking-tighter text-canvas-light text-center md:text-left w-full m-0 pb-1"
@@ -84,12 +84,12 @@ const Hero: React.FC = () => {
 
                 {/* 3D Flip Container for Line 2 (Wageeh front / River back) */}
                 <div
-                  className="animate-fade-in-up group perspective-1000 mb-8 cursor-pointer w-full pointer-events-auto"
-                  style={{ animationDelay: "0.1s" }}
+                  className="animate-fade-in-up group perspective-1000 mb-2 md:mb-8 cursor-pointer w-full pointer-events-auto"
+                  style={{ animationDelay: "0s" }}
                   onClick={() => setIsLine2Flipped(!isLine2Flipped)}
                 >
                   <div
-                    className={`relative transform-style-3d transition-transform duration-700 w-full grid ${isLine2Flipped ? "rotate-x-180 delay-0" : "group-hover:rotate-x-180 group-hover:delay-0 delay-500"}`}
+                    className={`relative transform-style-3d transition-transform duration-700 w-full grid ${isLine2Flipped ? "rotate-x-180" : "group-hover:rotate-x-180"}`}
                   >
                     {/* Front Side: Wageeh */}
                     <h1 className="col-start-1 row-start-1 backface-hidden font-black uppercase leading-[0.85] tracking-tighter text-electric text-center md:text-left w-full m-0 pt-1"
@@ -99,7 +99,7 @@ const Hero: React.FC = () => {
                     {/* Back Side: River — aria-hidden so Lighthouse ignores this invisible element for LCP */}
                     <h1
                       aria-hidden="true"
-                      className="col-start-1 row-start-1 backface-hidden rotate-x-180 font-black uppercase leading-[0.85] tracking-tighter text-electric text-center md:text-left w-full m-0 pt-1 translate-y-3 md:translate-y-[0.8vw] lg:translate-y-6"
+                      className="col-start-1 row-start-1 backface-hidden rotate-x-180 font-black uppercase leading-[0.85] tracking-tighter text-electric text-center md:text-left w-full m-0 pt-1 -translate-y-3 md:translate-y-[-0.8vw] lg:-translate-y-6"
                       style={{ fontSize: 'clamp(3.5rem, 7vw, 9rem)' }}>
                       River
                     </h1>
@@ -126,6 +126,7 @@ const Hero: React.FC = () => {
               >
                 <a
                   href="#projects"
+                  aria-label="View my featured projects"
                   className="group inline-flex items-center justify-center bg-canvas-light text-canvas-dark rounded-sm font-bold uppercase tracking-[0.12em] transition-all duration-300 ease-out hover:bg-canvas-dark hover:text-electric hover:shadow-[0_0_15px_rgba(180,255,0,0.3)] ring-1 ring-transparent hover:ring-electric hover:-translate-y-0.5 whitespace-nowrap"
                   style={{ fontSize: 'clamp(9px, 0.9vw, 14px)', padding: 'clamp(10px, 1vw, 20px) clamp(18px, 2vw, 40px)' }}
                 >
@@ -133,6 +134,7 @@ const Hero: React.FC = () => {
                 </a>
                 <a
                   href="#contact"
+                  aria-label="Contact me directly"
                   className="group relative font-semibold uppercase tracking-[0.12em] text-canvas-light/80 hover:text-canvas-light transition-colors duration-300 whitespace-nowrap"
                   style={{ fontSize: 'clamp(9px, 0.9vw, 14px)', padding: 'clamp(10px, 1vw, 20px) 0' }}
                 >
@@ -144,20 +146,20 @@ const Hero: React.FC = () => {
 
             {/* RIGHT COLUMN — Normal Photo */}
             <div
-              className="relative flex items-center justify-center md:justify-end animate-fade-in pointer-events-none mb-8 md:mb-0 md:h-screen w-full md:w-auto lg:w-full md:shrink-0 lg:shrink"
-              style={{ animationDelay: "0.6s" }}
+              className="relative flex items-center justify-center md:justify-end pointer-events-none mb-0 md:mb-0 md:h-screen w-full md:w-auto lg:w-full md:shrink-0 lg:shrink"
             >
               <div className="relative w-full max-w-[320px] sm:max-w-90 md:w-[38vw] md:max-w-90 lg:w-full lg:max-w-120 xl:max-w-137.5 aspect-square md:aspect-4/5 z-10 flex items-center justify-center translate-y-6 md:translate-y-4 md:-translate-x-4 lg:-translate-x-4 lg:translate-y-4 mx-auto md:mx-0">
-                <img
-                  src="/zack-photo-new-sm.webp"
-                  srcSet="/zack-photo-new-sm.webp 560w, /zack-photo-new.webp 1100w"
-                  sizes="(max-width: 768px) 320px, 560px"
-                  alt="Zack River / Abdallah Wageeh"
-                  fetchPriority="high"
-                  width="560"
-                  height="841"
-                  className="absolute inset-0 w-full h-full object-cover object-center grayscale contrast-125 brightness-90 md:scale-105 lg:scale-110 photo-mask"
-                />
+                <picture>
+                  <source media="(min-width: 768px)" srcSet="/zack-photo-new-sm.webp 1x, /zack-photo-new.webp 2x" />
+                  <img
+                    src="/zack-photo-new-mobile.webp"
+                    alt="Zack River / Abdallah Wageeh"
+                    fetchPriority="high"
+                    width="320"
+                    height="480"
+                    className="absolute inset-0 w-full h-full object-cover object-center grayscale contrast-125 brightness-90 md:scale-105 lg:scale-110 photo-mask"
+                  />
+                </picture>
                 <div className="absolute inset-0 bg-canvas-dark/20 photo-mask"></div>
               </div>
             </div>

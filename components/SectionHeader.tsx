@@ -80,12 +80,23 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle, number =
   return (
     <div className={`relative mb-12 md:mb-16 text-center ${align === 'right' ? 'md:text-right' : 'md:text-left'} pt-8`}>
       {number && (
-        <span
+        <div
           ref={numberRef}
-          className={`absolute -top-4 text-[clamp(4rem,12vw,8rem)] font-bold select-none z-0 opacity-60 font-display leading-none pointer-events-none ${numberColor} ${numberPos}`}
+          aria-hidden="true"
+          className={`absolute -top-4 w-full h-32 select-none z-0 pointer-events-none ${numberPos}`}
         >
-          00
-        </span>
+          <svg className="w-full h-full overflow-visible">
+            <text
+              x={align === 'right' ? '100%' : align === 'center' ? '50%' : '0'}
+              y="50%"
+              dominantBaseline="middle"
+              textAnchor={align === 'right' ? 'end' : align === 'center' ? 'middle' : 'start'}
+              className={`text-[clamp(4rem,12vw,8rem)] font-bold font-display opacity-60 ${numberColor.replace(/text-/g, 'fill-')}`}
+            >
+              {number}
+            </text>
+          </svg>
+        </div>
       )}
       <div className="relative z-10">
         <h2

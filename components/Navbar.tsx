@@ -32,23 +32,38 @@ const Navbar: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
+    let rafId: number | null = null;
 
-    navItems.forEach((item) => {
-      const element = document.getElementById(item.id);
-      if (element) observer.observe(element);
-    });
+    const detectActiveSection = () => {
+      const viewportMid = window.innerHeight * 0.4;
+      for (const item of [...navItems].reverse()) {
+        if (item.id === 'home') continue;
+        const el = document.getElementById(item.id);
+        if (!el) continue;
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= viewportMid) {
+          setActiveSection(item.id);
+          return;
+        }
+      }
+      setActiveSection('home');
+    };
 
-    return () => observer.disconnect();
+    const onScroll = () => {
+      // Throttle to one check per animation frame to avoid layout thrashing
+      if (rafId !== null) return;
+      rafId = requestAnimationFrame(() => {
+        detectActiveSection();
+        rafId = null;
+      });
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    detectActiveSection();
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (rafId !== null) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   const navigate = useNavigate();
@@ -57,6 +72,10 @@ const Navbar: React.FC = () => {
   const scrollTo = (id: string) => {
     if (location.pathname !== '/') {
       navigate(`/#${id}`);
+      return;
+    }
+    if (id === 'home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
     const element = document.getElementById(id);

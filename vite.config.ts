@@ -17,6 +17,7 @@ export default defineConfig(({ mode }) => {
         react(),
         VitePWA({
           registerType: 'autoUpdate',
+          injectRegister: 'inline',
           workbox: {
             // Only precache critical assets to keep initial Service Worker install lightning fast.
             // This intentionally excludes React.lazy() chunks and section images from precaching.
@@ -58,8 +59,7 @@ export default defineConfig(({ mode }) => {
         modulePreload: {
           resolveDependencies: (filename, deps) => {
             return deps.filter(dep =>
-              !dep.includes('gsap-vendor') &&
-              !dep.includes('motion-vendor')
+              !dep.includes('gsap-vendor')
             );
           }
         },
@@ -67,7 +67,6 @@ export default defineConfig(({ mode }) => {
           output: {
             manualChunks: {
               'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-              'motion-vendor': ['framer-motion'],
               'gsap-vendor': ['gsap'],
               'ui-vendor': ['lucide-react', 'formik', 'yup', '@emailjs/browser']
             }

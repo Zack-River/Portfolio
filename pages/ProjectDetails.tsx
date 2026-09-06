@@ -424,7 +424,7 @@ const ProjectDetails: React.FC = () => {
               src={project.image}
               alt={project.title}
               loading="eager"
-              fetchPriority="high"
+              fetchpriority="high"
               decoding="async"
               className="w-full h-full object-cover object-top"
             />

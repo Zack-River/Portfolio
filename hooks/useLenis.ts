@@ -11,7 +11,7 @@ export function useLenis() {
   const initialized = useRef(false);
 
   useEffect(() => {
-    // Desktop only — native scroll is better on touch devices
+    // Desktop only — Lenis intercepts touch events on mobile which breaks native swipe scroll
     if (window.innerWidth < 768) return;
     // Already initialized (React StrictMode double-invoke guard)
     if (initialized.current) return;

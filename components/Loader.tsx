@@ -6,7 +6,7 @@ interface LoaderProps {
 }
 
 /** Critical assets that must be loaded before the loader exits */
-const CRITICAL_IMAGES = ['/zack-photo-new-sm.webp'];
+const CRITICAL_IMAGES = [window.innerWidth < 768 ? '/zack-photo-new-mobile.webp' : '/zack-photo-new-sm.webp'];
 
 const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -65,13 +65,8 @@ const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
         tl.to(logoRef.current, {
           scale: 0.5,
           opacity: 0,
-          duration: 0.8,
+          duration: 0.5,
           ease: 'power3.inOut',
-        }, 0);
-
-        tl.to(topTextRef.current, {
-          opacity: 0,
-          duration: 0.4,
         }, 0);
 
         // B. ONE single progress value drives the curtain reveal
@@ -79,7 +74,7 @@ const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
         const revealProxy = { val: 0 };
         tl.to(revealProxy, {
           val: 50,
-          duration: 1.5,
+          duration: 0.8,
           ease: 'power2.inOut',
           onUpdate: () => {
             const p = revealProxy.val;
@@ -101,12 +96,21 @@ const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
         }, 0);
         
         // C. Fade out the vertical lines as they hit the edges (when p is near 50)
-        tl.to([leftLineRef.current, rightLineRef.current], { opacity: 0, duration: 0.3 }, 1.2);
+        tl.to([leftLineRef.current, rightLineRef.current], { opacity: 0, duration: 0.3 }, 0.5);
+
+        // D. Fade out the wrapper container
+        tl.to(containerRef.current, {
+          opacity: 0,
+          duration: 0.2,
+          onComplete: () => {
+            if (onComplete) onComplete();
+          }
+        });
       };
 
       const checkReady = () => {
         if (completedTasks >= totalTasks && progressProxy.val >= 99) {
-          const MIN_TIME = 1000; 
+          const MIN_TIME = 0; 
           const elapsed = Date.now() - start;
           const remaining = Math.max(0, MIN_TIME - elapsed);
           setTimeout(triggerDismiss, remaining);
@@ -223,10 +227,12 @@ const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
           
           {/* Logo */}
           <img
-            src="/logo-sm.png"
+            src="/logo-sm.webp"
             alt="Zack River"
             className="w-24 md:w-32 relative z-10"
             style={{ filter: "brightness(0) invert(1)" }}
+            width="128"
+            height="128"
           />
         </div>
 

@@ -66,7 +66,9 @@ export const Reveal = ({ children, width = "100%", delay = 0.25, className = "" 
           opacity: isVisible ? 1 : 0,
           transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
           transition: `opacity 0.5s ease-out ${delay}s, transform 0.5s ease-out ${delay}s`,
-          willChange: 'transform, opacity',
+          // will-change is expensive on mobile — only apply on desktop
+          willChange: isMobile ? 'auto' : 'transform, opacity',
+          pointerEvents: isVisible ? 'auto' : 'none',
         }}
       >
         {children}

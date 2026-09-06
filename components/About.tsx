@@ -98,7 +98,7 @@ const About: React.FC = () => {
   return (
     <section
       id="about"
-      className="py-24 md:py-32 bg-canvas-light dark:bg-canvas-dark transition-colors duration-500 relative overflow-hidden"
+      className="py-24 md:py-32 bg-canvas-light dark:bg-canvas-dark relative overflow-hidden"
     >
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24 relative z-10">
         <GSAPReveal>
@@ -112,8 +112,22 @@ const About: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-start">
           <div className="flex flex-col space-y-8 md:sticky md:top-32 md:z-10 relative">
             {/* Background Typography (Centered relative to the left column, but pinned to viewport left) */}
-            <div className="hidden md:block absolute left-[calc(min(50vw,40rem)-50vw-4rem)] md:left-[calc(min(50vw,40rem)-50vw-8rem)] lg:left-[calc(min(50vw,40rem)-50vw-11rem)] top-1/2 -translate-y-1/2 text-[clamp(5rem,15vw,12rem)] font-bold text-canvas-dark/8 dark:text-white/5 font-display rotate-90 pointer-events-none origin-center select-none z-0">
-              ABOUT
+            <div 
+              aria-hidden="true" 
+              className="hidden md:block absolute left-[calc(min(50vw,40rem)-50vw-4rem)] md:left-[calc(min(50vw,40rem)-50vw-8rem)] lg:left-[calc(min(50vw,40rem)-50vw-11rem)] top-1/2 -translate-y-1/2 rotate-90 pointer-events-none origin-center select-none z-0 text-canvas-dark/8 dark:text-white/5"
+            >
+              <svg className="overflow-visible" width="800" height="200">
+                <text
+                  x="50%"
+                  y="50%"
+                  dominantBaseline="middle"
+                  textAnchor="middle"
+                  className="text-[clamp(5rem,15vw,12rem)] font-bold font-display"
+                  fill="currentColor"
+                >
+                  ABOUT
+                </text>
+              </svg>
             </div>
 
             <div className="relative z-10">
@@ -219,7 +233,7 @@ const About: React.FC = () => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 onClick={(e) => e.stopPropagation()}
-                                className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-electric hover:text-white bg-electric/10 hover:bg-electric px-3 py-1 rounded-full transition-all border border-electric/20"
+                                className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-electric hover:text-canvas-dark bg-transparent hover:bg-electric px-3 py-1 rounded-full transition-all border border-electric/30"
                               >
                                 <ExternalLink size={12} /> Certificate
                               </a>
@@ -241,7 +255,7 @@ const About: React.FC = () => {
                             </ul>
                           </div>
 
-                          <div className="mt-4 flex flex-col items-center justify-center text-canvas-dark/30 dark:text-white/30 hover:text-electric transition-colors">
+                          <div className="mt-4 flex flex-col items-center justify-center text-canvas-dark/60 dark:text-white/60 hover:text-electric transition-colors">
                             <span className="text-xs uppercase tracking-widest mb-1">
                               {isExpanded ? "Show Less" : "View Details"}
                             </span>
@@ -300,7 +314,7 @@ const About: React.FC = () => {
                               href={job.certificate}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-electric hover:text-white bg-electric/10 hover:bg-electric px-3 py-1 rounded-full transition-all border border-electric/20"
+                              className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-electric hover:text-canvas-dark bg-transparent hover:bg-electric px-3 py-1 rounded-full transition-all border border-electric/30"
                             >
                               <ExternalLink size={12} /> Certificate
                             </a>

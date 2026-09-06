@@ -24,8 +24,7 @@
       content="Portfolio of Abdallah Wageeh, Software Engineer specialized in high-performance digital architectures, scalable MERN stack apps, and artistic UI/UX design."
     />
     <meta name="twitter:image" content="/favicon.webp" />
-    <link rel="icon" type="image/png" href="/logo-sm.png" />
-    <link rel="preload" as="image" href="/zack-photo-new-sm.webp" fetchpriority="high" />
+    <link rel="icon" type="image/webp" href="/logo-sm.webp" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" />
@@ -43,7 +42,100 @@
     </noscript>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- SEO Semantic Skeleton (Fully visible to bots, visually covered by the loader for users) -->
+      <header style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;" aria-label="Main Navigation">
+        <nav aria-label="Primary SEO Navigation">
+          <ul>
+            <li><a href="#about" aria-label="Go to About section">About</a></li>
+            <li><a href="#skills" aria-label="Go to Skills section">Skills</a></li>
+            <li><a href="#projects" aria-label="Go to Projects section">Projects</a></li>
+            <li><a href="#testimonials" aria-label="Go to Testimonials section">Testimonials</a></li>
+            <li><a href="#services" aria-label="Go to Services section">Services</a></li>
+            <li><a href="#contact" aria-label="Go to Contact section">Contact</a></li>
+          </ul>
+        </nav>
+      </header>
+      
+      <main style="background-color: #0d0e0d; color: #F2F1EB; min-height: 100vh; padding: 2rem; font-family: sans-serif;">
+        <section id="hero" style="padding-top: 10vh;" aria-label="Hero Introduction">
+          <!-- Visually hidden LCP image for instant browser discovery -->
+          <img src="/zack-photo-new-mobile.webp" fetchpriority="high" style="position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none;" alt="" />
+          <h1 style="font-size: 3rem; font-weight: 900; text-transform: uppercase;">Abdallah Wageeh</h1>
+          <h2 style="font-size: 2.5rem; font-weight: 900; color: #b4ff00; text-transform: uppercase;">Software Engineer</h2>
+          <p style="font-size: 1.25rem; max-width: 600px; margin-top: 1rem; color: rgba(242, 241, 235, 0.7);">
+            Creative Full Stack Software Engineer specialized in high-performance digital architectures, scalable MERN stack applications, and artistic UI/UX design. Merging technical excellence with immersive web experiences.
+          </p>
+          <div style="margin-top: 2rem;">
+            <a href="#projects" aria-label="View my featured projects" style="color: #0d0e0d; background-color: #F2F1EB; padding: 1rem 2rem; border-radius: 9999px; font-weight: bold; text-decoration: none;">View Works</a>
+            <a href="#contact" aria-label="Contact me directly" style="color: #b4ff00; margin-left: 1rem; font-weight: bold; text-decoration: none;">Contact Me</a>
+          </div>
+        </section>
+
+        <section id="about" style="margin-top: 5rem;" aria-label="About Me">
+          <h2 style="font-size: 2rem; font-weight: bold;">About Me</h2>
+          <p style="margin-top: 1rem; color: rgba(242, 241, 235, 0.7); max-width: 600px;">
+            I build immersive digital experiences. With a deep focus on React, Node.js, and modern web animations, I craft applications that perform seamlessly and engage users through sophisticated interfaces and solid back-end architectures.
+          </p>
+        </section>
+
+        <section id="skills" style="margin-top: 5rem;" aria-label="Technical Skills">
+          <h2 style="font-size: 2rem; font-weight: bold;">Technical Skills</h2>
+          <ul style="margin-top: 1rem; color: rgba(242, 241, 235, 0.7); list-style-type: none; padding-left: 0;">
+            <li><strong>Frontend:</strong> React, TypeScript, Tailwind CSS, GSAP, Framer Motion, Three.js</li>
+            <li><strong>Backend:</strong> Node.js, Express, MongoDB, PostgreSQL, REST APIs</li>
+            <li><strong>Tools & DevOps:</strong> Git, Docker, Vercel, AWS, CI/CD</li>
+          </ul>
+        </section>
+
+        <section id="projects" style="margin-top: 5rem;" aria-label="Featured Projects">
+          <h2 style="font-size: 2rem; font-weight: bold;">Featured Projects</h2>
+          <ul style="margin-top: 1rem; color: rgba(242, 241, 235, 0.7); list-style-type: none; padding-left: 0;">
+            <li style="margin-bottom: 1rem;">
+              <strong>E-Commerce Platform:</strong> A full-stack MERN shopping experience with real-time inventory and Stripe payments.
+            </li>
+            <li style="margin-bottom: 1rem;">
+              <strong>3D Interactive Portfolio:</strong> A WebGL-powered creative portfolio featuring immersive ScrollTrigger animations.
+            </li>
+            <li style="margin-bottom: 1rem;">
+              <strong>SaaS Dashboard:</strong> A high-performance analytics dashboard built with React and D3.js.
+            </li>
+          </ul>
+        </section>
+
+        <section id="testimonials" style="margin-top: 5rem;" aria-label="Client Testimonials">
+          <h2 style="font-size: 2rem; font-weight: bold;">Testimonials</h2>
+          <p style="margin-top: 1rem; color: rgba(242, 241, 235, 0.7); max-width: 600px;">
+            Trusted by clients worldwide to deliver scalable, high-performance web applications that drive business growth and user engagement.
+          </p>
+        </section>
+
+        <section id="services" style="margin-top: 5rem;" aria-label="Professional Services">
+          <h2 style="font-size: 2rem; font-weight: bold;">Services</h2>
+          <ul style="margin-top: 1rem; color: rgba(242, 241, 235, 0.7); list-style-type: none; padding-left: 0;">
+            <li style="margin-bottom: 1rem;"><strong>Full Stack Development:</strong> Custom web applications built from scratch using modern technologies.</li>
+            <li style="margin-bottom: 1rem;"><strong>UI/UX Design:</strong> Visually stunning, highly interactive interfaces that captivate users.</li>
+            <li style="margin-bottom: 1rem;"><strong>Performance Optimization:</strong> Lightning-fast load times and smooth 60fps animations.</li>
+          </ul>
+        </section>
+
+        <section id="contact" style="margin-top: 5rem; padding-bottom: 5rem;" aria-label="Contact Section">
+          <h2 style="font-size: 2rem; font-weight: bold;">Let's Work Together</h2>
+          <p style="margin-top: 1rem; color: rgba(242, 241, 235, 0.7); max-width: 600px;">
+            I'm always open to discussing product design work, backend architecture, or partnership opportunities.
+          </p>
+          <a href="mailto:contact@example.com" aria-label="Send me an email" style="display: inline-block; margin-top: 2rem; color: #0d0e0d; background-color: #b4ff00; padding: 1rem 2rem; border-radius: 9999px; font-weight: bold; text-decoration: none;">Say Hello</a>
+        </section>
+      </main>
+
+      <!-- The Visual Loader (Covers the screen while React hydrates) -->
+      <div style="position: fixed; inset: 0; z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; background-color: #0d0e0d;">
+        <div style="position: absolute; inset: 0; background-color: #0d0e0d; z-index: 0; overflow: hidden; background-image: url('data:image/svg+xml,%3Csvg width=\'40\' height=\'40\' viewBox=\'0 0 40 40\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M0 0h40v40H0V0zm1 1h38v38H1V1z\' fill=\'%23b4ff00\' fill-opacity=\'0.02\' fill-rule=\'evenodd\'/%3E%3C/svg%3E');"></div>
+        <div style="position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+          <img src="/logo-sm.webp" alt="Abdallah Wageeh - Loading" style="width: 6rem; filter: brightness(0) invert(1);" />
+        </div>
+      </div>
+    </div>
     <script type="module" src="/index.tsx"></script>
   </body>
 </html>

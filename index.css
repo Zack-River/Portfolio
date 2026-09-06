@@ -5,7 +5,9 @@
 html {
   overflow-y: scroll;
   scrollbar-gutter: stable;
-  overflow-x: hidden;
+  /* overflow-x: clip prevents horizontal scroll without creating an iOS scroll container
+     — unlike overflow-x: hidden, it does NOT break touch/swipe scroll on iOS */
+  overflow-x: clip;
   /* Firefox */
   scrollbar-color: rgba(13, 15, 14, 0.3) #F2F1EB;
   scrollbar-width: thin;
@@ -16,16 +18,13 @@ html.dark {
 }
 
 body {
-  @apply bg-canvas-light dark:bg-canvas-dark text-canvas-dark dark:text-canvas-light transition-colors duration-500;
+  @apply bg-canvas-light dark:bg-canvas-dark text-canvas-dark dark:text-canvas-light;
   font-family: 'Inter', sans-serif;
   user-select: none;
   -webkit-user-select: none;
-  /* Smooth momentum scrolling on iOS */
-  -webkit-overflow-scrolling: touch;
   overscroll-behavior-y: none;
   /* Tell the browser we handle touch natively — removes 300ms tap delay */
   touch-action: manipulation;
-  overflow-x: hidden;
 }
 
 /* Chrome, Edge, Safari Custom Scrollbar */
@@ -62,6 +61,14 @@ img {
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
 }
 
 

@@ -55,7 +55,7 @@ const Services: React.FC = () => {
   };
 
   return (
-    <section id="services" className="py-24 md:py-32 bg-canvas-light dark:bg-canvas-dark transition-colors duration-500 text-canvas-dark dark:text-canvas-light relative">
+    <section id="services" className="py-24 md:py-32 bg-canvas-light dark:bg-canvas-dark text-canvas-dark dark:text-canvas-light relative">
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
         <GSAPReveal>
           <SectionHeader 
@@ -68,10 +68,10 @@ const Services: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {SERVICES_DATA.map((service, idx) => (
             <GSAPReveal key={idx} delay={idx * 0.1} className={`h-full ${idx === 2 ? 'md:col-span-2 lg:col-span-1' : ''}`}>
-              <div className="card-base p-8 card-hover h-full flex flex-col relative overflow-hidden group">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-canvas-dark/5 rounded-bl-full transition-all group-hover:bg-electric/5"></div>
+              <div className="bg-white dark:bg-electric/4 border border-canvas-dark/10 dark:border-electric/15 rounded-2xl shadow-md p-8 card-hover h-full flex flex-col relative overflow-hidden group hover:dark:border-electric/30 transition-all duration-300">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-canvas-dark/5 dark:bg-electric/5 rounded-bl-full transition-all group-hover:bg-electric/10"></div>
                 
-                <div className="mb-6 p-4 bg-canvas-light dark:bg-canvas-dark/50 rounded-2xl w-fit border border-canvas-dark/5 dark:border-white/10">
+                <div className="mb-6 p-4 bg-canvas-dark/5 dark:bg-electric/10 rounded-2xl w-fit border border-canvas-dark/5 dark:border-electric/20">
                   {service.icon}
                 </div>
                 

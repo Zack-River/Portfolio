@@ -71,7 +71,8 @@ const GSAPReveal: React.FC<GSAPRevealProps> = ({
         opacity: !shouldAnimate || isVisible ? 1 : 0,
         transform: getTransform(),
         transition: shouldAnimate ? `opacity ${duration}s ease-out ${delay}s, transform ${duration}s ease-out ${delay}s` : 'none',
-        willChange: 'transform, opacity',
+        willChange: shouldAnimate ? 'transform, opacity' : 'auto',
+        pointerEvents: !shouldAnimate || isVisible ? 'auto' : 'none',
       }}
     >
       {children}
