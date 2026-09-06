@@ -55,8 +55,8 @@ const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
         const tl = gsap.timeline({ onComplete });
 
         // Initialize the two vertical lines at the exact center
-        gsap.set(leftLineRef.current, { left: '50%', opacity: 0.8 });
-        gsap.set(rightLineRef.current, { right: '50%', opacity: 0.8 });
+        gsap.set(leftLineRef.current, { left: "50%", opacity: 0.8 });
+        gsap.set(rightLineRef.current, { right: "50%", opacity: 0.8 });
 
         // Ensure background clipPath is removed so maskImage takes full control
         gsap.set(backgroundRef.current, { clipPath: 'none' });
@@ -79,9 +79,11 @@ const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
           onUpdate: () => {
             const p = revealProxy.val;
             
-            // Move lines outward
-            if (leftLineRef.current) leftLineRef.current.style.left = `${50 - p}%`;
-            if (rightLineRef.current) rightLineRef.current.style.right = `${50 - p}%`;
+            // Move lines outward using transforms to avoid CLS (Cumulative Layout Shift)
+            if (leftLineRef.current)
+              leftLineRef.current.style.transform = `translateX(-${p}vw)`;
+            if (rightLineRef.current)
+              rightLineRef.current.style.transform = `translateX(${p}vw)`;
             
             // Mask the background.
             // Everything from 0 to (50-p) is black (visible loader).
