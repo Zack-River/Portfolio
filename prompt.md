@@ -1,87 +1,316 @@
-Phase 2 implementation is approved.
+I approve the recommended architecture:
 
-Before we move on, perform **one final read-only verification audit**. Do NOT modify any files, refactor anything, add features, or begin Phase 3.
+**Remove Service Worker + implement build-time static HTML generation.**
 
-Verify the current implementation against the Phase 2 requirements:
+However, implement it carefully according to the following constraints.
 
-1. **Routing**
+## 1. Service Worker removal
 
-   * Confirm every project card links to `/projects/:id`.
-   * Confirm every valid project route resolves correctly.
-   * Confirm canonical URLs use `/projects/:id`.
-   * Confirm sitemap URLs use `/projects/:id`.
-   * Confirm there are no remaining `/project/:id` references unless intentionally required.
+Remove `vite-plugin-pwa` completely:
 
-2. **SEO metadata**
+* Remove the dependency from `package.json`.
+* Remove `VitePWA` from `vite.config.ts`.
+* Remove the application's normal SW registration/integration.
+* Ensure the new build no longer produces `sw.js` or Workbox precache assets.
 
-   * Confirm every project detail page has a unique `<title>`.
-   * Confirm every project has a unique meta description.
-   * Confirm canonical is unique and correct.
-   * Confirm Open Graph URL/title/description are consistent.
-   * Confirm nonexistent project routes do not accidentally inherit metadata from another project.
+### Existing users
 
-3. **Heading hierarchy**
+Because previous deployments may already have the old service worker installed, add a small one-time cleanup mechanism that:
 
-   * Confirm each project detail page has exactly one meaningful H1.
-   * Confirm case-study sections use H2 appropriately.
-   * Confirm there are no empty H2/H3 elements.
-   * Confirm the project listing page has an appropriate heading hierarchy.
+* detects existing registrations for this site's origin
+* unregisters them
+* does not introduce a new service worker
+* does not interfere with normal browser HTTP caching
+* does not run unnecessary work after the old registration is gone
 
-4. **Case-study content**
+Do NOT clear unrelated browser storage.
 
-   * Confirm only populated content fields are rendered.
-   * Confirm no TODO comments or placeholder text are rendered to users.
-   * Confirm no personal role, challenges, solutions, outcomes, or experience were invented.
-   * Confirm existing project facts were not exaggerated or transformed into unsupported claims.
+Do NOT add localStorage/sessionStorage just to track cleanup unless there is a compelling reason.
 
-5. **Internal linking**
+## 2. Static project HTML generation
 
-   * Confirm project listing → project detail links are crawlable normal links.
-   * Confirm there are no broken project links.
-   * Confirm links use descriptive project names rather than generic anchor text such as "Click here".
+Implement the approved custom build-time generation approach.
 
-6. **Sitemap**
+The desired output is:
 
-   * Confirm every publicly accessible project detail page is represented exactly once.
-   * Confirm there are no nonexistent project URLs.
-   * Confirm XML remains valid.
-   * Do not add URLs merely for SEO if the corresponding page does not actually exist.
+```text
+dist/
+  index.html
+  about/
+    index.html
+  services/
+    index.html
+  projects/
+    index.html
+    streamflow/
+      index.html
+    ding/
+      index.html
+    ...
+```
 
-7. **404 behavior**
+At minimum, generate physical HTML for every valid project route.
 
-   * Test a nonexistent project such as `/projects/this-project-does-not-exist`.
-   * Confirm it does not display another project.
-   * Confirm the not-found state applies `noindex`.
-   * Explicitly document whether the deployment still returns HTTP 200 because of the SPA rewrite.
-   * Do NOT attempt to redesign the routing/deployment architecture during this audit.
+Do NOT generate HTML for nonexistent projects.
 
-8. **Structured data**
+## 3. Source of truth
 
-   * Confirm Phase 1 Person/WebSite structured data remains intact.
-   * Confirm no duplicate Person/ProfilePage/FAQ/etc. schemas were accidentally introduced.
-   * Do not add Project/CreativeWork schema unless there is a clear, evidence-based reason and it is explicitly approved first.
+Before implementing the generator, inspect how project data is exported.
 
-9. **Build**
+Do NOT parse TypeScript using fragile regex if it can be avoided.
 
-   * Run `npm run build`.
-   * Report whether it passes cleanly.
+Prefer importing/reusing the existing project data safely.
 
-10. **Scope control**
+If importing `constants.ts` directly from Node is not practical because of TypeScript/React/browser-only dependencies, stop and report the issue rather than introducing a fragile parser.
 
-* Do not change anything.
-* Do not start blog/content generation.
-* Do not perform keyword research.
-* Do not begin Phase 3.
-* Do not invent missing project information.
+Do NOT duplicate project metadata manually in two unrelated files unless absolutely necessary.
 
-Final response should contain only:
+The project data should ideally have one source of truth.
 
-* PASS / FAIL / PASS WITH FINDINGS
-* Findings, grouped by severity
-* Exact files/routes affected, if any
-* Build result
-* Any remaining issues that should be addressed later
+## 4. Metadata
 
-If everything is clean, explicitly state:
+For each generated project HTML file, inject the project's actual metadata into the raw `<head>`:
 
-"Phase 2 implementation is verified and ready for Phase 3."
+* `<title>`
+* `<meta name="description">`
+* `<link rel="canonical">`
+* `og:title`
+* `og:description`
+* `og:url`
+* `og:type`
+* `og:image` when a valid image exists
+
+Use:
+
+```text
+https://www.zackriver.com/projects/${project.id}
+```
+
+for the canonical and `og:url`.
+
+Do NOT invent descriptions, images, or project facts.
+
+## 5. Preserve React functionality
+
+The generated HTML must remain compatible with the existing React application.
+
+Do NOT:
+
+* rewrite the application architecture
+* duplicate the entire React page into static HTML
+* remove React Router
+* remove Helmet
+* remove existing client-side metadata handling
+* break animations
+* break GSAP/Three.js/WebGL
+* change the visual design
+
+React should still hydrate/render the project normally after the initial HTML is delivered.
+
+## 6. Avoid metadata duplication problems
+
+The generated raw HTML will contain project metadata.
+
+The existing React Helmet will also execute client-side.
+
+Make sure this does NOT result in persistent duplicate `<title>`, canonical, or OG tags after React loads.
+
+If Helmet already replaces the generated tags correctly, keep the existing implementation.
+
+Do not create a second competing metadata system.
+
+## 7. Vercel routing verification
+
+This is critical.
+
+After generation, verify that:
+
+```text
+/projects/streamflow
+```
+
+actually resolves to:
+
+```text
+/projects/streamflow/index.html
+```
+
+before falling through to:
+
+```text
+/(.*) -> /index.html
+```
+
+Do not assume this behavior.
+
+Test the actual production deployment if possible.
+
+Verify the raw HTTP response with something equivalent to:
+
+```bash
+curl -s https://www.zackriver.com/projects/streamflow
+```
+
+and confirm the response contains Streamflow-specific:
+
+* title
+* description
+* canonical
+* og:title
+* og:description
+* og:url
+* og:image
+
+Also test at least one other project.
+
+## 8. SPA fallback
+
+Ensure the SPA still works for:
+
+* `/`
+* `/about`
+* `/services`
+* `/projects`
+* `/projects/streamflow`
+* another valid project
+* `/projects/does-not-exist`
+
+Do not remove the SPA fallback because static project HTML now exists.
+
+## 9. 404 behavior
+
+Do NOT attempt to solve the HTTP 404 architecture in this task.
+
+Keep the existing client-side "Project Not Found" + `noindex` behavior.
+
+Document that the SPA fallback still produces HTTP 200 for nonexistent routes if that remains true.
+
+## 10. Cache strategy
+
+Do NOT modify `vercel.json` cache headers unless testing proves a problem.
+
+Desired behavior:
+
+* hashed JS/CSS/assets → long-lived immutable caching
+* HTML → fresh/revalidated
+* sitemap → fresh/revalidated
+* robots.txt → fresh/revalidated
+* Google verification HTML → directly accessible
+* images → safe normal caching
+
+Do not introduce aggressive HTML caching.
+
+## 11. Google Search Console verification
+
+Make absolutely sure the existing Google verification file remains directly accessible.
+
+The SPA rewrite must NOT swallow it.
+
+Test:
+
+```text
+https://www.zackriver.com/googleaaf8fa4ec4c7a91c.html
+```
+
+and confirm it returns the actual verification file rather than `index.html`.
+
+Do not rename or remove it.
+
+## 12. Build
+
+Update the build process only as necessary.
+
+Run:
+
+```bash
+npm run build
+```
+
+Confirm:
+
+* build succeeds
+* generated project HTML exists
+* no unexpected service worker files exist
+* no broken imports
+* no TypeScript/build errors
+
+## 13. Search the final build
+
+Inspect `dist/` and confirm:
+
+* project HTML files exist for every valid project
+* each generated project HTML has the correct metadata
+* no project HTML accidentally contains another project's metadata
+* no `sw.js` remains
+* no Workbox precache manifest remains
+
+## 14. Important scope restrictions
+
+Do NOT:
+
+* migrate to Next.js
+* add SSR
+* add Vercel middleware
+* add a database
+* add localStorage
+* add IndexedDB
+* add API caching
+* add a PWA
+* start Phase 3
+* add blog pages
+* perform keyword research
+* invent project content
+* redesign the UI
+* refactor unrelated code
+
+## 15. Final verification report
+
+After implementation, report:
+
+### Service Worker
+
+* removed?
+* old-client cleanup implemented?
+* generated SW files gone?
+
+### Static generation
+
+* generator location
+* number of project pages generated
+* source of project data
+
+### Metadata
+
+For at least 2 projects, show the generated raw values for:
+
+* title
+* description
+* canonical
+* OG title
+* OG description
+* OG URL
+* OG image
+
+### Routing
+
+* direct project URL test
+* SPA navigation test
+* nonexistent project test
+
+### Google
+
+* verification file test
+* sitemap test
+* robots.txt test
+
+### Build
+
+* `npm run build` result
+
+### Caching
+
+* confirm no unnecessary cache-header changes were introduced
+
+If anything unexpected occurs, STOP and report it instead of improvising a workaround.
+
+Do not begin Phase 3.

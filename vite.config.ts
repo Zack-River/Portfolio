@@ -2,7 +2,6 @@ import path from 'path';
 import { defineConfig, loadEnv } from 'vite';
 // @ts-ignore
 import react from '@vitejs/plugin-react';
-import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
@@ -14,38 +13,7 @@ export default defineConfig(({ mode }) => {
         historyApiFallback: true,
       },
       plugins: [
-        react(),
-        VitePWA({
-          registerType: 'autoUpdate',
-          injectRegister: 'inline',
-          workbox: {
-            // Only precache critical assets to keep initial Service Worker install lightning fast.
-            // This intentionally excludes React.lazy() chunks and section images from precaching.
-            globPatterns: ['**/*.html', 'assets/index-*.{js,css}', 'assets/*vendor*.js', 'logo-*.png'],
-            runtimeCaching: [
-              {
-                // Cache JS chunks (like LazyAbout.js) when they are naturally fetched on scroll
-                urlPattern: /\.js$/,
-                handler: 'StaleWhileRevalidate',
-                options: {
-                  cacheName: 'js-lazy-chunks',
-                }
-              },
-              {
-                // Cache images as they appear in the viewport
-                urlPattern: /\.(?:png|jpg|jpeg|svg|webp)$/,
-                handler: 'CacheFirst',
-                options: {
-                  cacheName: 'images-cache',
-                  expiration: {
-                    maxEntries: 50,
-                    maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
-                  },
-                },
-              }
-            ]
-          }
-        })
+        react()
       ],
       resolve: {
         alias: {
