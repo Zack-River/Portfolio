@@ -78,3 +78,5 @@ img {
   .text-muted { @apply text-canvas-dark/50 dark:text-canvas-light/50; }
   .text-ghost { @apply text-canvas-dark/30 dark:text-canvas-light/30; }
 }
+
+

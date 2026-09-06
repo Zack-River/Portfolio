@@ -838,25 +838,18 @@ export const SITE_CONTENT = {
       value: "Cairo, EG",
     },
   },
-  services: {
-    sectionHeader: {
-      title: "Specialized Services",
-      subtitle: "Technical Expertise",
-      number: "02",
-    },
-  },
   skills: {
     sectionHeader: {
       title: "Technical Arsenal",
       subtitle: "Skills & Technologies",
-      number: "03",
+      number: "02",
     },
   },
   projects: {
     sectionHeader: {
       title: "Selected Work",
       subtitle: "Featured Projects",
-      number: "04",
+      number: "03",
     },
     viewCaseStudy: "View Case Study",
     viewAll: "View All Projects",
@@ -865,9 +858,16 @@ export const SITE_CONTENT = {
     sectionHeader: {
       title: "Client Feedback",
       subtitle: "What People Say",
-      number: "05",
+      number: "04",
     },
     voiceNoteBtn: "Listen to Voice Note",
+  },
+  services: {
+    sectionHeader: {
+      title: "Specialized Services",
+      subtitle: "Technical Expertise",
+      number: "05",
+    },
   },
   contact: {
     sectionHeader: {

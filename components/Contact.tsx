@@ -17,10 +17,8 @@ const ContactSchema = Yup.object().shape({
   service: Yup.string().required("Required"),
 });
 
-const Contact: React.FC = () => {
-  const [status, setStatus] = React.useState<
-    "idle" | "sending" | "success" | "error"
-  >("idle");
+const ContactForm = () => {
+  const [status, setStatus] = React.useState<"idle" | "sending" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = React.useState("");
 
   const formik = useFormik({
@@ -36,15 +34,12 @@ const Contact: React.FC = () => {
       setErrorMessage("");
 
       try {
-        const serviceId =
-          import.meta.env.VITE_EMAILJS_SERVICE_ID || "service_luknsgi";
+        const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || "service_luknsgi";
         const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
         const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
         if (!templateId || !publicKey) {
-          throw new Error(
-            "EmailJS configuration missing. Please check .env.local",
-          );
+          throw new Error("EmailJS configuration missing. Please check .env.local");
         }
 
         /* @ts-ignore */
@@ -67,14 +62,116 @@ const Contact: React.FC = () => {
       } catch (error: any) {
         console.error("EmailJS Error:", error);
         setStatus("error");
-        setErrorMessage(
-          error.text || error.message || "Failed to send message",
-        );
+        setErrorMessage(error.text || error.message || "Failed to send message");
         setTimeout(() => setStatus("idle"), 5000);
       }
     },
   });
 
+  return (
+    <form
+      onSubmit={formik.handleSubmit}
+      className="space-y-4 md:space-y-6 relative z-10 flex flex-col flex-1"
+    >
+      <div className="space-y-2">
+        <label htmlFor="name" className="text-sm font-mono text-canvas-dark/60 dark:text-white">
+          Name
+        </label>
+        <input
+          id="name"
+          name="name"
+          type="text"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.name}
+          disabled={status === "sending"}
+          className="input-base"
+        />
+        {formik.touched.name && formik.errors.name ? (
+          <div className="text-error text-xs">{formik.errors.name}</div>
+        ) : null}
+      </div>
+
+      <div className="space-y-2">
+        <label htmlFor="email" className="text-sm font-mono text-canvas-dark/60 dark:text-white">
+          Email
+        </label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.email}
+          disabled={status === "sending"}
+          className="input-base"
+        />
+        {formik.touched.email && formik.errors.email ? (
+          <div className="text-error text-xs">{formik.errors.email}</div>
+        ) : null}
+      </div>
+
+      <div className="space-y-2">
+        <label htmlFor="service" className="text-sm font-mono text-canvas-dark/60 dark:text-white">
+          Service Inquiry
+        </label>
+        <select
+          id="service"
+          name="service"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.service}
+          disabled={status === "sending"}
+          className="input-base cursor-pointer appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%230a0a0b%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] dark:bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] bg-no-repeat bg-position-[right_1rem_center] bg-size-[1em]"
+        >
+          <option value="Branding Websites">Branding Websites</option>
+          <option value="Websites & Web Apps">Websites & Web Apps</option>
+          <option value="Online Consultation">Online Consultation ($10/h)</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div className="space-y-2 flex flex-col flex-1">
+        <label htmlFor="message" className="text-sm font-mono text-canvas-dark/60 dark:text-white">
+          Message
+        </label>
+        <textarea
+          id="message"
+          name="message"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.message}
+          disabled={status === "sending"}
+          className="input-base resize-none flex-1"
+        />
+        {formik.touched.message && formik.errors.message ? (
+          <div className="text-error text-xs">{formik.errors.message}</div>
+        ) : null}
+      </div>
+
+      <button
+        type="submit"
+        disabled={status === "sending"}
+        className="btn-primary w-full mt-4 disabled:opacity-70 disabled:cursor-not-allowed"
+      >
+        {status === "sending" ? "Sending..." : "Send Message"}
+      </button>
+
+      {status === "success" && (
+        <div className="p-3 bg-success/10 border border-success/20 text-success rounded-xl text-sm text-center">
+          Message sent successfully!
+        </div>
+      )}
+      {status === "error" && (
+        <div className="p-3 bg-error/10 border border-error/20 text-error rounded-xl text-sm text-center">
+          {errorMessage}
+        </div>
+      )}
+    </form>
+  );
+};
+
+const Contact: React.FC = () => {
   return (
     <section
       id="contact"
@@ -235,128 +332,7 @@ const Contact: React.FC = () => {
           <Reveal delay={0.4} className="h-full flex flex-col w-full max-w-85 md:max-w-md mx-auto lg:ml-auto">
             <div className="h-full bg-canvas-light dark:bg-[#252925] p-5 md:p-8 card-base relative flex flex-col">
               <div className="absolute top-0 right-0 w-20 h-20 bg-electric/10 rounded-bl-[4rem]"></div>
-
-              <form
-                onSubmit={formik.handleSubmit}
-                className="space-y-4 md:space-y-6 relative z-10 flex flex-col flex-1"
-              >
-                <div className="space-y-2">
-                  <label
-                    htmlFor="name"
-                    className="text-sm font-mono text-canvas-dark/60 dark:text-white"
-                  >
-                    Name
-                  </label>
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.name}
-                    disabled={status === "sending"}
-                    className="input-base"
-                  />
-                  {formik.touched.name && formik.errors.name ? (
-                    <div className="text-error text-xs">
-                      {formik.errors.name}
-                    </div>
-                  ) : null}
-                </div>
-
-                <div className="space-y-2">
-                  <label
-                    htmlFor="email"
-                    className="text-sm font-mono text-canvas-dark/60 dark:text-white"
-                  >
-                    Email
-                  </label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.email}
-                    disabled={status === "sending"}
-                    className="input-base"
-                  />
-                  {formik.touched.email && formik.errors.email ? (
-                    <div className="text-error text-xs">
-                      {formik.errors.email}
-                    </div>
-                  ) : null}
-                </div>
-
-                <div className="space-y-2">
-                  <label
-                    htmlFor="service"
-                    className="text-sm font-mono text-canvas-dark/60 dark:text-white"
-                  >
-                    Service Inquiry
-                  </label>
-                  <select
-                    id="service"
-                    name="service"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.service}
-                    disabled={status === "sending"}
-                    className="input-base cursor-pointer appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%230a0a0b%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] dark:bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] bg-no-repeat bg-position-[right_1rem_center] bg-size-[1em]"
-                  >
-                    <option value="Branding Websites">Branding Websites</option>
-                    <option value="Websites & Web Apps">
-                      Websites & Web Apps
-                    </option>
-                    <option value="Online Consultation">
-                      Online Consultation ($10/h)
-                    </option>
-                    <option value="Other">Other</option>
-                  </select>
-                </div>
-
-                <div className="space-y-2 flex flex-col flex-1">
-                  <label
-                    htmlFor="message"
-                    className="text-sm font-mono text-canvas-dark/60 dark:text-white"
-                  >
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.message}
-                    disabled={status === "sending"}
-                    className="input-base resize-none flex-1"
-                  />
-                  {formik.touched.message && formik.errors.message ? (
-                    <div className="text-error text-xs">
-                      {formik.errors.message}
-                    </div>
-                  ) : null}
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={status === "sending"}
-                  className="btn-primary w-full mt-4 disabled:opacity-70 disabled:cursor-not-allowed"
-                >
-                  {status === "sending" ? "Sending..." : "Send Message"}
-                </button>
-
-                {status === "success" && (
-                  <div className="p-3 bg-success/10 border border-success/20 text-success rounded-xl text-sm text-center">
-                    Message sent successfully!
-                  </div>
-                )}
-                {status === "error" && (
-                  <div className="p-3 bg-error/10 border border-error/20 text-error rounded-xl text-sm text-center">
-                    {errorMessage}
-                  </div>
-                )}
-              </form>
+              <ContactForm />
             </div>
           </Reveal>
         </div>

@@ -1,48 +1,35 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { PROJECTS , SITE_CONTENT } from "../constants";
 import SectionHeader from './SectionHeader';
 import GSAPReveal from './GSAPReveal';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import gsap from 'gsap';
-import ScrollTrigger from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const Projects: React.FC = () => {
   const gridRef = useRef<HTMLDivElement>(null);
 
+  const [isVisible, setIsVisible] = useState(false);
+
   useEffect(() => {
     const grid = gridRef.current;
     if (!grid) return;
+    
     const isMobile = window.innerWidth < 768;
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (isMobile || prefersReducedMotion) return;
+    if (isMobile || prefersReducedMotion) {
+      setIsVisible(true);
+      return;
+    }
 
-    const ctx = gsap.context(() => {
-      const cards = grid.querySelectorAll('.project-card');
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setIsVisible(true);
+      },
+      { threshold: 0, rootMargin: '-50px 0px -50px 0px' }
+    );
 
-      // Stagger entrance — use timeline so stagger reversal is reliable
-      const cardArr = Array.from(cards);
-      gsap.set(cardArr, { opacity: 0, y: 80 });
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: grid,
-          start: 'top bottom',
-          end: 'bottom top',
-          toggleActions: 'play none none reverse',
-        },
-      });
-      tl.to(cardArr, {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: 'power3.out',
-      });
-    }, grid);
-
-    return () => ctx.revert();
+    observer.observe(grid);
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -56,12 +43,22 @@ const Projects: React.FC = () => {
           />
         </GSAPReveal>
 
-        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-stretch">
+        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-stretch mt-12">
           {["streamflow", "smartq", "omnipos", "karbala"]
             .map(id => PROJECTS.find(p => p.id === id))
             .filter(Boolean)
-            .map((project) => (
-              <Link to={`/project/${project!.id}`} key={project!.id} className="project-card relative group block transition-all duration-300 hover:-translate-y-1">
+            .map((project, idx) => (
+              <Link 
+                to={`/project/${project!.id}`} 
+                key={project!.id} 
+                className="project-card relative group block transition-all hover:-translate-y-1"
+                style={{
+                  opacity: isVisible ? 1 : 0,
+                  transform: isVisible ? 'translateY(0)' : 'translateY(60px)',
+                  transition: `opacity 0.7s cubic-bezier(0.215, 0.61, 0.355, 1) ${idx * 0.15}s, transform 0.7s cubic-bezier(0.215, 0.61, 0.355, 1) ${idx * 0.15}s, box-shadow 0.3s ease`,
+                  willChange: 'transform, opacity'
+                }}
+              >
                 <div className="w-full bg-white dark:bg-[#252925] rounded-xl overflow-hidden ring-1 ring-canvas-dark/5 dark:ring-white/10 shadow-md transition-all duration-300 group-hover:shadow-xl">
                   <div className="h-10 bg-canvas-dark/5 dark:bg-white/5 border-b border-canvas-dark/10 dark:border-white/10 flex items-center px-4 relative z-30 transition-colors group-hover:bg-canvas-dark/10 dark:group-hover:bg-white/30">
                     <div className="flex gap-2 z-10">

@@ -24,7 +24,17 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle, number =
     const el = numberRef.current;
     const isMobile = window.innerWidth < 768;
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (isMobile || prefersReducedMotion) return;
+    
+    // Fallback instantly for mobile to save performance
+    if (isMobile || prefersReducedMotion) {
+      if (el && !isNaN(targetNum)) {
+        el.textContent = String(targetNum).padStart(2, '0');
+      }
+      if (titleRef.current) titleRef.current.style.opacity = '1';
+      if (lineRef.current) lineRef.current.style.opacity = '1';
+      if (subtitleRef.current) subtitleRef.current.style.opacity = '1';
+      return;
+    }
 
     const ctx = gsap.context(() => {
       // Counter animation: 00 → target number
@@ -34,6 +44,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle, number =
           val: targetNum,
           duration: 1,
           ease: 'power2.out',
+          // Play and reverse to keep the "life feeling"
           scrollTrigger: { trigger: el, start: 'top 85%', end: 'top 20%', toggleActions: 'play none none reverse' },
           onUpdate: () => {
             el.textContent = String(Math.round(obj.val)).padStart(2, '0');
@@ -48,6 +59,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle, number =
         duration: 0.6,
         stagger: 0.1,
         ease: 'power2.out',
+        // Play and reverse to keep the "life feeling"
         scrollTrigger: { trigger: titleRef.current, start: 'top 88%', end: 'top 20%', toggleActions: 'play none none reverse' },
       });
     });
@@ -72,7 +84,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle, number =
           ref={numberRef}
           className={`absolute -top-4 text-[clamp(4rem,12vw,8rem)] font-bold select-none z-0 opacity-60 font-display leading-none pointer-events-none ${numberColor} ${numberPos}`}
         >
-          {number}
+          00
         </span>
       )}
       <div className="relative z-10">

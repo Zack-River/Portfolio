@@ -1,8 +1,4 @@
-import React, { useRef, useEffect } from 'react';
-import gsap from 'gsap';
-import ScrollTrigger from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
+import React, { useRef, useEffect, useState } from 'react';
 
 interface GSAPRevealProps {
   children: React.ReactNode;
@@ -11,7 +7,6 @@ interface GSAPRevealProps {
   duration?: number;
   from?: 'bottom' | 'left' | 'right';
   stagger?: number;
-  /** If true, children are staggered individually (wraps each child in a span) */
   staggerChildren?: boolean;
   y?: number;
 }
@@ -25,6 +20,8 @@ const GSAPReveal: React.FC<GSAPRevealProps> = ({
   y = 40,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const [shouldAnimate, setShouldAnimate] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
@@ -33,41 +30,50 @@ const GSAPReveal: React.FC<GSAPRevealProps> = ({
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isMobile = window.innerWidth < 768;
 
-    // Skip on mobile or reduced motion for performance
-    if (isMobile || prefersReducedMotion) return;
+    if (isMobile || prefersReducedMotion) {
+      setIsVisible(true);
+      return;
+    }
 
-    const fromVars: gsap.TweenVars = {
-      opacity: 0,
-      y: from === 'bottom' ? y : 0,
-      x: from === 'left' ? -60 : from === 'right' ? 60 : 0,
-    };
+    setShouldAnimate(true);
 
-    const ctx = gsap.context(() => {
-      gsap.from(el, {
-        ...fromVars,
-        duration,
-        delay,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 88%',
-          end: 'top 20%',
-          toggleActions: 'play none none reverse',
-        },
-      });
-    }, el);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        } else {
+          // Revert when out of view for the "life feeling", but optimized by CSS transforms
+          setIsVisible(false);
+        }
+      },
+      { rootMargin: '-10% 0px -10% 0px', threshold: 0 }
+    );
 
-    // Refresh so GSAP re-measures after any layout shifts (e.g. deferred 3D load)
-    const rafId = requestAnimationFrame(() => ScrollTrigger.refresh());
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
-    return () => {
-      cancelAnimationFrame(rafId);
-      ctx.revert();
-    };
-  }, [delay, duration, from, y]);
+  const getTransform = () => {
+    if (!shouldAnimate || isVisible) return 'translate3d(0, 0, 0)';
+    if (from === 'bottom') return `translate3d(0, ${y}px, 0)`;
+    if (from === 'left') return `translate3d(-60px, 0, 0)`;
+    if (from === 'right') return `translate3d(60px, 0, 0)`;
+    return 'translate3d(0, 0, 0)';
+  };
 
   return (
-    <div ref={ref} className={className} style={{ position: 'relative', width: '100%', opacity: 1 }}>
+    <div
+      ref={ref}
+      className={className}
+      style={{
+        position: 'relative',
+        width: '100%',
+        opacity: !shouldAnimate || isVisible ? 1 : 0,
+        transform: getTransform(),
+        transition: shouldAnimate ? `opacity ${duration}s ease-out ${delay}s, transform ${duration}s ease-out ${delay}s` : 'none',
+        willChange: 'transform, opacity',
+      }}
+    >
       {children}
     </div>
   );
