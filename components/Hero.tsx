@@ -151,7 +151,7 @@ const Hero: React.FC = () => {
                 <img
                   src="/zack-photo-new-sm.webp"
                   srcSet="/zack-photo-new-sm.webp 560w, /zack-photo-new.webp 1100w"
-                  sizes="(max-width: 768px) 320px, (max-width: 1280px) 550px, 700px"
+                  sizes="(max-width: 768px) 320px, 560px"
                   alt="Zack River / Abdallah Wageeh"
                   fetchPriority="high"
                   width="560"

@@ -1,5 +1,4 @@
-import React, { useEffect, useRef } from 'react';
-import { motion, useInView, useAnimation } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface Props {
   children: React.ReactNode;
@@ -9,22 +8,36 @@ interface Props {
 }
 
 export const Reveal = ({ children, width = "100%", delay = 0.25, className = "" }: Props) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-50px' });
-  const mainControls = useAnimation();
+  const ref = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
   const isFullHeight = className.includes('h-full');
 
   // On mobile, skip all animation machinery — just render children immediately.
-  // Framer Motion's IntersectionObserver + animation controller is heavy on
-  // low-end phone CPUs when multiplied across dozens of cards.
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
   useEffect(() => {
-    if (isMobile) return;
-    if (isInView) {
-      mainControls.start("visible");
+    if (isMobile) {
+      setIsVisible(true);
+      return;
     }
-  }, [isInView, mainControls, isMobile]);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0, rootMargin: '-50px' }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, [isMobile]);
 
   if (isMobile) {
     return (
@@ -47,21 +60,17 @@ export const Reveal = ({ children, width = "100%", delay = 0.25, className = "" 
         ...(isFullHeight ? { height: '100%' } : {}),
       }}
     >
-      <motion.div
+      <div
         style={{
           ...(isFullHeight ? { height: '100%' } : {}),
+          opacity: isVisible ? 1 : 0,
+          transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
+          transition: `opacity 0.5s ease-out ${delay}s, transform 0.5s ease-out ${delay}s`,
           willChange: 'transform, opacity',
         }}
-        variants={{
-          hidden: { opacity: 0, y: 30 },
-          visible: { opacity: 1, y: 0 },
-        }}
-        initial="hidden"
-        animate={mainControls}
-        transition={{ duration: 0.5, delay, ease: "easeOut" }}
       >
         {children}
-      </motion.div>
+      </div>
     </div>
   );
 };

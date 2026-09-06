@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Loader from './components/Loader';
-import { AnimatePresence } from 'framer-motion';
 import Home from './pages/Home';
 
 // Lazy load heavy routes to reduce initial bundle size
@@ -75,9 +74,7 @@ function App() {
   return (
     <>
       <ScrollToTop />
-      <AnimatePresence>
-        {loading && <Loader onComplete={() => setLoading(false)} />}
-      </AnimatePresence>
+      {loading && <Loader onComplete={() => setLoading(false)} />}
       
       <div className={`bg-canvas-dark min-h-screen text-canvas-light selection:bg-electric/90 selection:text-white transition-colors duration-500 ${loading ? 'h-screen overflow-hidden' : ''}`}>
         {location.pathname === '/' && <Navbar />}
