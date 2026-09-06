@@ -62,15 +62,20 @@ const Skills: React.FC = () => {
           />
         </GSAPReveal>
 
+        {/* Mobile Swipe Indicator */}
+        <div className="md:hidden flex items-center justify-end text-electric/70 text-[10px] font-mono uppercase tracking-widest mt-2 mb-4 animate-pulse">
+          <span>Swipe to explore &rarr;</span>
+        </div>
+
         <div 
           ref={gridRef} 
-          className="flex md:grid overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mt-12 pb-6 md:pb-0"
+          className="flex md:grid overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mt-6 md:mt-12 pb-6 md:pb-0 -mx-6 px-6 md:mx-0 md:px-0"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           {SKILL_CATEGORIES.map((category, idx) => (
             <div
               key={idx}
-              className="skill-card snap-center shrink-0 w-[85vw] md:w-auto bg-white/5 border border-white/10 rounded-2xl p-6 relative overflow-hidden h-full flex flex-col group hover:bg-white/[0.07] hover:border-white/20 hover:-translate-y-2 hover:shadow-[0_8px_30px_rgba(14,165,233,0.15)] transition-all ease-out shadow-xl"
+              className="skill-card snap-center shrink-0 w-[80%] max-w-[320px] md:w-auto md:max-w-none bg-white/5 border border-white/10 rounded-2xl p-6 relative overflow-hidden h-full flex flex-col group hover:bg-white/[0.07] hover:border-white/20 hover:-translate-y-2 hover:shadow-[0_8px_30px_rgba(14,165,233,0.15)] transition-all ease-out shadow-xl"
               style={{
                 opacity: isVisible ? 1 : 0,
                 transform: isVisible ? 'translateY(0) scale(1)' : 'translateY(60px) scale(0.95)',
