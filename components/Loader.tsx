@@ -263,6 +263,7 @@ const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
             alt="Zack River"
             aria-hidden="true"
             className="w-24 md:w-32 relative z-10"
+            style={{ filter: "brightness(0) invert(1)" }}
             width="128"
             height="128"
           />
