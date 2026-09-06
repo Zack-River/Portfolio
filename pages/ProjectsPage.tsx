@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { PROJECTS, CATEGORIES, SITE_CONTENT } from "../constants";
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -40,7 +41,6 @@ const ProjectsPage: React.FC = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     lenisScrollTo(0, { immediate: true });
-    document.title = "All Projects | Abdallah Wageeh Portfolio";
   }, []);
 
   const filteredProjects = PROJECTS.filter(project => {
@@ -50,6 +50,11 @@ const ProjectsPage: React.FC = () => {
 
   return (
     <div className="bg-canvas-light dark:bg-canvas-dark min-h-screen text-canvas-dark dark:text-canvas-light relative transition-colors duration-500">
+      <Helmet>
+        <title>Projects | Abdallah Wageeh (Zack River) - Software Engineer</title>
+        <meta name="description" content="Explore my portfolio of web applications, SaaS platforms, backend APIs, and custom software projects. Built with React, Next.js, Node.js, and more." />
+        <link rel="canonical" href="https://www.zackriver.com/projects" />
+      </Helmet>
 
 
       <main className="pt-32 pb-24 md:pt-40 md:pb-32 section-container mx-auto min-h-screen">

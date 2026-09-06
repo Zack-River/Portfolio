@@ -1,240 +1,1108 @@
-What I would keep
-Part	Verdict
-IntersectionObserver for sections below the hero	✅ Good
-hasLoaded so sections stay mounted	✅ Good
-React.lazy() for lower sections	✅ Good
-Loading chunks only near the viewport	✅ Good
-Service Worker for repeat visits	✅ Good
-Testing with DevTools	✅ Good
-1. Lazy loading: good, but don't confuse it with image lazy loading
+# Portfolio SEO Phase 1 — Deep Audit & Verification
 
-The plan says:
+You have already implemented Phase 1 of the SEO and technical foundation for my personal portfolio website.
 
-Replace direct static imports with React.lazy() imports.
+**Do NOT start Phase 2 yet.**
 
-That is useful for JavaScript bundle splitting, but it does not automatically lazy-load every image inside those sections.
+Your task now is to perform a **deep implementation audit and verification of Phase 1** using the actual source code and build output.
 
-For example, if Projects contains 20 project images, you should also make sure those images are lazy-loaded appropriately.
+Do not assume that the previous implementation summary is correct. Inspect the code yourself and identify anything that is incomplete, incorrect, misleading, unnecessary, or potentially harmful to SEO, accessibility, UX, performance, or maintainability.
 
-So I would ask him to handle both:
+The website is my personal portfolio and professional identity.
 
-Lazy loading
-├── Section JavaScript chunks
-├── Images inside sections
-└── Other heavy resources where appropriate
+Primary domain:
 
-Also, 400px is a reasonable starting point, but it should be tested. If a section takes 500ms to load, 400px might not be enough for a smooth experience on a slower connection.
+`https://www.zackriver.com/`
 
-2. Important: don't lazy-load the Hero
+My professional positioning should primarily be:
 
-Your loader/reveal architecture depends on the hero being ready before the reveal starts.
+* Abdallah Wageeh
+* Zack River
+* Software Engineer
+* Full-Stack Engineer / Full-Stack Developer
+* Web Developer / Web Engineer
 
-So the plan should explicitly say:
+The goal is to establish a strong, coherent personal entity around my name and brand while naturally demonstrating my technical expertise.
 
-The Hero and all resources required for the initial loader/reveal must remain eagerly loaded. Only sections below the Hero should be lazy-loaded.
+---
 
-Otherwise, someone could accidentally make the hero lazy-loaded too, which would conflict with the loader.
+# 1. First: Inspect the Existing Implementation
 
-3. Service Worker: good idea, but the caching strategy matters
+Before changing anything, inspect the actual project structure and relevant files.
 
-This is the part I would be most careful about.
+Pay particular attention to:
 
-The plan says:
+* `Hero.tsx`
+* `Navbar`
+* `App.tsx`
+* routing configuration
+* `index.html`
+* SEO / Helmet components
+* About page
+* Services page
+* Projects page
+* any shared layout components
+* `package.json`
+* `vite.config.*`
+* `public/sitemap.xml`
+* `public/robots.txt`
+* all relevant CSS
+* any existing JSON-LD / structured-data code
 
-Store the website assets (HTML, CSS, JS, Images) in the user's browser cache.
+Search the entire codebase for:
 
-That is broadly correct, but you don't want to blindly cache everything.
+* `<h1`
+* `<title`
+* `description`
+* `canonical`
+* `application/ld+json`
+* `Person`
+* `WebSite`
+* `ProfilePage`
+* `sameAs`
+* `robots`
+* `sitemap`
+* `Helmet`
+* `react-helmet`
+* `react-helmet-async`
+* `Link`
+* `BrowserRouter`
+* `createBrowserRouter`
+
+Also search for duplicate or conflicting SEO implementations.
+
+Do not make assumptions based on filenames.
+
+---
+
+# 2. H1 Audit — CRITICAL
+
+The previous implementation claimed that the Hero was refactored into a single H1 but also described the H1 as "visually hidden."
+
+This must be investigated carefully.
+
+## Requirements
+
+The homepage must have:
+
+* exactly one primary `<h1>`
+* the H1 must be present in the DOM
+* the H1 must contain meaningful visible content
+* it must NOT be hidden purely for SEO
+* it must NOT use:
+
+  * `display: none`
+  * `visibility: hidden`
+  * `opacity: 0` as an SEO workaround
+  * off-screen positioning purely to hide SEO text
+  * zero-sized text
+  * clipping intended to hide the entire heading
+  * `aria-hidden="true"` on the actual heading content
+
+The H1 should represent the actual visible identity/hero content.
+
+A good conceptual structure would be something similar to:
+
+```html
+<h1>
+  <span>Abdallah Wageeh</span>
+  <span>Software Engineer</span>
+</h1>
+```
+
+However, preserve the existing visual design and animations if possible.
+
+If the existing 3D/flipping hero requires multiple spans for animation, those spans can remain inside the H1.
+
+The semantic structure must not be sacrificed for the animation.
+
+## Verify
+
+Check:
+
+1. Is there exactly one H1 on `/`?
+2. Is it visible to users?
+3. Does it accurately describe the page?
+4. Does the animated implementation still expose meaningful text in the DOM?
+5. Are any other components generating an H1?
+6. Are mobile and desktop both correct?
+7. Does the H1 remain usable if JavaScript or animation fails?
+
+If incorrect, fix it.
+
+---
+
+# 3. Heading Hierarchy
+
+Audit the entire website for heading hierarchy.
+
+Verify:
+
+* one primary H1 per page
+* H2 sections underneath the H1
+* H3 only when logically nested under H2
+* no heading elements used merely for visual styling
+* no skipped hierarchy without a legitimate reason
+* no duplicate H1s generated by components
+
+Check:
+
+* `/`
+* `/about`
+* `/services`
+* `/projects`
+
+Report the heading hierarchy for each page.
+
+Example:
+
+```text
+/
+H1: ...
+H2: ...
+H2: ...
+H2: ...
+
+/about
+H1: ...
+H2: ...
+...
+```
+
+---
+
+# 4. Metadata Audit
+
+Every indexable page must have unique metadata.
+
+Audit:
+
+* `/`
+* `/about`
+* `/services`
+* `/projects`
+
+For every route verify:
+
+### Title
+
+Each title must be unique and descriptive.
+
+The homepage should strongly establish the personal entity.
+
+Example concept:
+
+`Abdallah Wageeh (Zack River) | Software Engineer & Full-Stack Developer`
+
+Do not blindly use this exact title if a better implementation exists.
+
+### Meta description
+
+Each page should have a unique, useful meta description.
+
+Do NOT keyword-stuff.
+
+The description should be written for humans while naturally containing relevant professional terminology.
+
+### Canonical
+
+Every canonical URL must:
+
+* use HTTPS
+* use `www.zackriver.com`
+* represent the actual canonical route
+* avoid unnecessary query parameters
+* not point every page to `/`
+
+Expected conceptual mapping:
+
+```text
+/           -> https://www.zackriver.com/
+/about      -> https://www.zackriver.com/about
+/services   -> https://www.zackriver.com/services
+/projects   -> https://www.zackriver.com/projects
+```
+
+Verify that trailing-slash behavior is consistent.
+
+### Open Graph
+
+Check whether Open Graph metadata exists and whether it is sensible.
+
+At minimum investigate:
+
+* `og:title`
+* `og:description`
+* `og:url`
+* `og:type`
+* `og:image`
+
+Do not add unnecessary complexity if it is not needed yet, but identify any obvious deficiencies.
+
+### Twitter/X metadata
+
+Check whether Twitter/X metadata is appropriate.
+
+---
+
+# 5. React Helmet / Dynamic Metadata Audit
+
+If `react-helmet-async` is being used, verify that it is implemented correctly.
+
+Check:
+
+* Is `HelmetProvider` mounted exactly where necessary?
+* Are metadata components rendered correctly?
+* Are tags replaced rather than duplicated during navigation?
+* Does navigation from `/` → `/about` → `/services` correctly update metadata?
+* Does browser refresh preserve the correct metadata?
+* Is there stale metadata from the previous page?
+* Are duplicate `<title>` or canonical tags created?
+
+Inspect the actual rendered HTML if possible.
+
+Do not assume that having a Helmet component means SEO is automatically correct.
+
+---
+
+# 6. React Router / Deep-Link Audit
+
+This is extremely important for a Vite + React SPA.
+
+Verify that these routes exist:
+
+```text
+/
+/about
+/services
+/projects
+```
+
+Then verify:
+
+* clicking navigation links works
+* browser refresh works
+* direct navigation to each URL works
+* opening each URL in a new browser tab works
+* production hosting does not return a 404 for SPA routes
+* Vite build does not break routes
+* React Router correctly resolves each path
+
+Pay special attention to deployment behavior.
+
+If the site is deployed on a platform such as Vercel, Hostinger, Netlify, or another host, verify whether SPA fallback/rewrite configuration is required.
+
+Do NOT claim that React Router itself improves SEO.
+
+The important requirement is that every intended URL is directly accessible and returns usable content.
+
+---
+
+# 7. Structured Data Audit
+
+Audit every JSON-LD implementation in the project.
+
+Search the entire codebase for:
+
+```text
+application/ld+json
+```
+
+There must not be accidental duplicate or contradictory schemas.
+
+The personal identity should be coherent.
+
+The main person should be represented consistently as:
+
+```text
+Abdallah Wageeh
+```
+
+with:
+
+```text
+alternateName: Zack River
+```
+
+where appropriate.
+
+Do NOT create separate unrelated Person entities for:
+
+* Abdallah
+* Wageeh
+* Abdallah Wageeh
+* Zack
+* River
+* Zack River
+
+These are identity/name variants, not separate people.
+
+---
+
+# 8. Person Schema
+
+Audit the Person structured data.
+
+Potential properties to evaluate:
+
+* `@type`
+* `name`
+* `alternateName`
+* `url`
+* `image`
+* `jobTitle`
+* `description`
+* `sameAs`
+* `worksFor` if genuinely applicable
+* relevant professional links
+
+Only include facts that are actually true.
+
+Do NOT invent:
+
+* employers
+* companies
+* certifications
+* social profiles
+* job titles
+* locations
+* awards
+* credentials
+
+Do not add fake `sameAs` URLs.
+
+`sameAs` should only contain real profiles/accounts that clearly represent the same person.
+
+---
+
+# 9. WebSite Schema
+
+Audit the WebSite structured data.
+
+It should represent:
+
+`https://www.zackriver.com/`
+
+and should not conflict with the Person entity.
+
+Check whether the website name and URL are consistent.
+
+Avoid unnecessary schema types that have no real purpose.
+
+---
+
+# 10. ProfilePage Consideration
+
+Determine whether the About page is an appropriate candidate for `ProfilePage` structured data.
+
+Do NOT add ProfilePage simply because it sounds beneficial.
+
+Check Google's current requirements and determine whether the page actually qualifies.
+
+If it qualifies, implement it correctly.
+
+If it does not, explain why it should not be added.
+
+Do not create duplicate Person entities simply to support ProfilePage.
+
+---
+
+# 11. Entity Consistency
+
+Audit the entire website for consistency around my identity.
+
+The site should consistently establish:
+
+```text
+Abdallah Wageeh
+Zack River
+Software Engineer
+Full-Stack Engineer / Developer
+```
+
+Check:
+
+* visible content
+* title tags
+* descriptions
+* structured data
+* footer
+* About page
+* social/profile links
+* image alt text where appropriate
+* Open Graph
+* internal links
+
+Avoid unnatural repetition.
+
+The objective is entity clarity, not keyword stuffing.
+
+---
+
+# 12. Keyword Strategy Audit
+
+Do NOT add a giant keyword list to the homepage.
+
+Do NOT add a meta keywords tag.
+
+Do NOT hide keywords.
+
+Do NOT repeat phrases unnaturally.
+
+Instead verify that relevant concepts naturally appear where appropriate.
+
+Potential concepts include:
+
+### Identity
+
+* Abdallah Wageeh
+* Zack River
+
+### Professional role
+
+* Software Engineer
+* Full-Stack Engineer
+* Full-Stack Developer
+* Web Developer
+* Web Engineer
+
+### Frontend
+
+* React
+* Next.js
+* JavaScript
+* TypeScript
+* GSAP
+* WebGL
+
+### Backend
+
+* Node.js
+* NestJS
+* Express
+* Laravel
+* REST APIs
+
+### Databases
+
+* PostgreSQL
+* MongoDB
+* Neo4j
+* Supabase
+
+### Other capabilities
+
+* Docker
+* custom software
+* SaaS
+* dashboards
+* API development
+* integrations
+* QA/testing
+* WordPress
+* Shopify
+
+However:
+
+**Only mention technologies/services that are genuinely supported by my actual experience and portfolio.**
+
+Do not claim expertise simply because a technology was added for SEO.
+
+---
+
+# 13. Content Accuracy Audit
+
+Read the actual content of:
+
+* About
+* Services
+* Projects
+* Homepage
+
+Identify claims that may be exaggerated, inaccurate, vague, or unsupported.
 
 For example:
 
-HTML: Usually use a strategy that allows updates to reach users.
-JS/CSS: Cache versioned build assets.
-Images: Cache them, but avoid making the cache unnecessarily huge.
-API requests: Don't cache them unless there is a specific reason.
-Old assets: Make sure outdated caches are cleaned up.
+If the site says:
 
-And registerType: 'autoUpdate' is good, but it doesn't mean every user instantly gets the new version without any possibility of stale content. You still need to test the update behavior.
+> Expert in X
 
-4. The biggest thing missing: don't make the first visit slower
+verify that the portfolio actually supports that claim.
 
-This is important for your goal.
+Prefer concrete evidence such as:
 
-You want:
+* projects
+* technologies used
+* technical decisions
+* APIs
+* architectures
+* measurable implementation details
 
-First visit → fast initial load → instant repeat visits
+Do not fabricate metrics.
 
-But if the implementation eagerly caches too many assets on the first visit, the Service Worker could actually make the first visit slower.
+---
 
-So I would explicitly tell him:
+# 14. Internal Linking Audit
 
-Do not precache every image or every section's JavaScript. Only precache the critical initial assets. Let lower-section chunks and images be cached naturally when they are first loaded.
+Verify that the site has a logical internal-link structure.
 
-That gives you a better balance:
+At minimum:
 
-First visit:
-Critical assets → load immediately
-Hero → ready
-Lower sections → lazy-load
-Service Worker → cache what is needed
+```text
+Homepage
+  ↓
+About
+Services
+Projects
+```
 
-Repeat visit:
-Critical assets → served from cache
-Hero → much faster
-Lower sections → cached if previously visited
-5. One thing I would change in the plan
+And where appropriate:
 
-Instead of:
+```text
+Projects → relevant technology/service
+Services → relevant project
+About → Projects
+Projects → other projects
+```
 
-Offline caching via Service Workers (PWA)
+Use normal semantic links.
 
-I would phrase it as:
+Do not create hidden SEO links.
 
-Service Worker caching for repeat-visit performance, with optional PWA metadata if needed.
+Check that navigation links use React Router correctly where appropriate.
 
-Because you don't necessarily need to turn the website into an installable PWA just to get caching.
+---
 
-The Service Worker is the important part here.
+# 15. Sitemap Audit
 
-My recommendation
+Inspect `sitemap.xml`.
 
-Approve the general direction, but ask for these changes before implementation:
+Verify that it contains only real, canonical, indexable URLs.
 
-Keep the Hero eagerly loaded.
-Lazy-load only sections below the Hero.
-Lazy-load images inside those sections too.
-Don't precache every asset on the first visit.
-Use appropriate caching strategies for HTML, JS/CSS, and images.
-Test first visit, repeat visit, hard refresh, and offline behavior.
-Make sure the loader/reveal still works correctly after lazy loading is introduced.
+At minimum evaluate:
 
-One more thing: if this is your Vite + React portfolio, vite-plugin-pwa is a reasonable choice. But I would not install it blindly before checking the current vite.config.ts and package versions, because the exact configuration depends on your existing setup.
-and 
-The plan I would approve
-Change	My recommendation
-Lazy-load About, Skills, Projects, Testimonials, Services, Contact	✅ Yes
-Keep Hero eagerly loaded	Absolutely
-Keep Navbar eagerly loaded	Yes
-Keep Footer eagerly loaded	Yes
-Keep the existing loader/reveal logic	Do not change it as part of this task
-Use IntersectionObserver with rootMargin: 400px	✅ Good starting point
-Keep loaded sections mounted	✅ Yes
-Lazy-load images inside lower sections	✅ Yes
-Install vite-plugin-pwa	✅ Reasonable
-Precache every image and every section chunk	❌ No
-Cache HTML forever	❌ No
-Change the loader architecture while doing this	❌ No
-The most important thing: protect your existing loader
+```text
+https://www.zackriver.com/
+https://www.zackriver.com/about
+https://www.zackriver.com/services
+https://www.zackriver.com/projects
+```
 
-Because you just spent time getting the loader/reveal behavior right, I would explicitly tell him:
+Do not include:
 
-Do not modify the existing loader, Hero loading, or reveal transition as part of this optimization. The Hero must remain eagerly loaded and available from the initial render. Only sections below the Hero should be lazy-loaded.
+* nonexistent routes
+* duplicate URLs
+* development URLs
+* query parameters
+* hash URLs
+* redirected URLs
+* private pages
+* assets
 
-That prevents him from accidentally introducing another loading dependency.
+Verify that the sitemap is syntactically valid.
 
-How I would structure Home.tsx
+---
 
-Conceptually, I would want something like this:
+# 16. Robots.txt Audit
 
-const About = React.lazy(() => import("../components/About"));
-const Skills = React.lazy(() => import("../components/Skills"));
-const Projects = React.lazy(() => import("../components/Projects"));
-const Testimonials = React.lazy(() => import("../components/Testimonials"));
-const Services = React.lazy(() => import("../components/Services"));
-const Contact = React.lazy(() => import("../components/Contact"));
+Inspect `robots.txt`.
 
-Then:
+Verify:
 
-<Hero />
+* Googlebot is not accidentally blocked
+* the site is not globally disallowed
+* sitemap location is correct
+* there are no unnecessary directives
 
-<LazySection>
-  <About />
-</LazySection>
+Do not use robots.txt to try to force ranking.
 
-<LazySection>
-  <Skills />
-</LazySection>
+---
 
-<LazySection>
-  <Projects />
-</LazySection>
+# 17. Production Build Audit
 
-The important part is that LazySection should not mount the component until it is near the viewport.
+Run:
 
-And once it mounts:
+```bash
+npm install
+npm run build
+```
 
-hasLoaded = true
+If a preview command exists:
 
-It should stay mounted permanently.
+```bash
+npm run preview
+```
 
-One thing I would NOT do
+Fix any build errors.
 
-I would not make the entire lower page one giant lazy-loaded component.
+Then inspect the generated production output.
 
-For example:
+Do not stop at "build passed."
 
-<LazySection>
-  <About />
-  <Skills />
-  <Projects />
-  <Testimonials />
-  <Services />
-  <Contact />
-</LazySection>
+A successful build does not prove SEO correctness.
 
-That would defeat the purpose because scrolling near About could load everything below it.
+---
 
-You want each section to have its own lazy boundary.
+# 18. Test Every Route
 
-About the Service Worker
+Test:
 
-Your current project is:
+```text
+/
+ /about
+ /services
+ /projects
+```
 
-Vite
-React 18
-TypeScript
-Static portfolio
-No backend required for the page itself
+For each route check:
 
-So vite-plugin-pwa is a reasonable choice.
+### Functional
 
-But I would configure it conservatively:
+* page loads
+* no console errors
+* navigation works
+* refresh works
+* back/forward works
+* mobile works
+* desktop works
 
-Initial visit:
-Hero + critical assets → load immediately
-Lower sections → lazy-load
-Service Worker → cache assets as they are used
+### SEO
 
-Repeat visit:
-Critical assets → served from cache
-Previously visited sections → served from cache
-New sections → load when needed
+* correct title
+* correct description
+* correct canonical
+* correct H1
+* correct headings
+* correct structured data
+* no duplicate JSON-LD
 
-I would not precache all lower-section JavaScript chunks or all images. That would work against your goal of reducing the initial load.
+### UX
 
-One more thing: your modulePreload configuration
+* no layout shift caused by SEO changes
+* no broken animations
+* no hidden content
+* no accessibility regressions
 
-You currently have:
+---
 
-modulePreload: {
-  resolveDependencies: (filename, deps) => {
-    return deps.filter(
-      dep =>
-        !dep.includes("gsap-vendor") &&
-        !dep.includes("motion-vendor")
-    );
-  }
-}
+# 19. Inspect Rendered HTML
 
-This is already trying to reduce unnecessary initial preloads.
+Do not rely only on source files.
 
-But after adding React.lazy(), you should verify that the lower-section chunks are actually deferred. Don't assume they are just because you used React.lazy().
+Where possible, inspect the actual rendered DOM / page source for each route.
 
-My final recommendation
+Verify:
 
-Approve the plan, but ask him to revise it with these exact constraints:
+```text
+<title>
+<meta name="description">
+<link rel="canonical">
+<h1>
+<script type="application/ld+json">
+```
 
-Keep the Hero and existing loader/reveal implementation unchanged. Lazy-load only the sections below the Hero, one section at a time, using React.lazy() and IntersectionObserver. Keep loaded sections mounted permanently. Lazy-load images inside those sections where appropriate. Add Service Worker caching for repeat-visit performance, but do not precache every lower-section chunk or image. Use appropriate caching strategies and verify that the initial page does not download unnecessary lower-section assets.
+Check that the metadata actually appears as expected.
 
-That is the version I would actually implement on your portfolio.
+Pay particular attention to the difference between:
 
-And honestly, with your current setup, the lazy loading is probably the more immediately valuable optimization. The Service Worker is useful, but it won't magically make the first visit faster — it mainly helps repeat visits.
+* initial document HTML
+* client-rendered DOM
+
+Because this is a Vite React SPA.
+
+---
+
+# 20. JavaScript / SEO Reality Check
+
+Explicitly evaluate whether the current architecture gives Google access to the important content.
+
+Do not assume:
+
+> "React Router + Helmet = perfect SEO."
+
+Determine whether the important textual content is accessible after rendering.
+
+Identify any content that is:
+
+* JS-only
+* hidden
+* injected too late
+* inaccessible without interaction
+* present only through animation
+* missing from the DOM
+
+If important SEO content depends entirely on an animation or interaction, recommend a semantic fallback.
+
+---
+
+# 21. Accessibility Audit Related to SEO
+
+Check:
+
+* meaningful alt text
+* decorative images correctly marked
+* buttons vs links
+* semantic navigation
+* heading hierarchy
+* keyboard accessibility
+* visible focus states
+* color/contrast where obvious
+* ARIA attributes
+* `aria-hidden`
+* animated content accessibility
+
+Do not add ARIA unnecessarily.
+
+Make sure SEO improvements did not damage accessibility.
+
+---
+
+# 22. Performance Regression Audit
+
+Phase 1 should not introduce unnecessary performance problems.
+
+Check:
+
+* bundle size
+* unnecessary dependencies
+* duplicated libraries
+* excessive JavaScript
+* oversized images
+* fonts
+* unnecessary animation work
+* third-party scripts
+* repeated rendering
+
+Do not prematurely optimize everything.
+
+Only identify real problems.
+
+If the SEO implementation introduced a dependency solely for a minor feature, evaluate whether it is justified.
+
+---
+
+# 23. Image / Social Preview Audit
+
+Inspect important images.
+
+Verify:
+
+* useful `alt` text
+* appropriate dimensions
+* no unnecessary giant images
+* social preview image exists if configured
+* image URLs are correct
+* no broken assets
+
+Do not stuff keywords into alt text.
+
+---
+
+# 24. URL Architecture
+
+Evaluate whether the current URL structure is clean and scalable.
+
+Current routes:
+
+```text
+/
+/about
+/services
+/projects
+```
+
+Determine whether this structure can later support:
+
+```text
+/projects/project-name
+/blog/article-name
+```
+
+without needing a major architectural rewrite.
+
+Do not add routes just for the sake of SEO.
+
+---
+
+# 25. Google Indexing Readiness
+
+Determine whether the current implementation is technically ready for Google indexing.
+
+Check:
+
+* HTTP accessibility
+* canonical URLs
+* robots.txt
+* sitemap
+* crawlable navigation
+* indexable content
+* unique metadata
+* no accidental `noindex`
+* no accidental blocking
+* valid URLs
+* mobile usability
+
+Do NOT claim that implementation guarantees indexing.
+
+---
+
+# 26. Search Console Readiness
+
+The implementation should be ready for:
+
+* sitemap submission
+* URL inspection
+* indexing request
+* monitoring coverage
+* monitoring search queries
+* monitoring impressions/clicks
+
+Do not attempt to manipulate Google into indexing through artificial techniques.
+
+---
+
+# 27. Do Not Implement These SEO Tactics
+
+Absolutely do NOT introduce:
+
+* hidden H1s
+* hidden keyword blocks
+* keyword stuffing
+* meta keywords
+* invisible text
+* fake reviews
+* fake testimonials
+* fake structured data
+* fake company associations
+* fake credentials
+* fake social accounts
+* fake backlinks
+* doorway pages
+* automatically generated low-value pages
+* duplicate pages targeting spelling variations
+* unnecessary schema
+* misleading `sameAs`
+* cloaking
+* content visible only to crawlers
+
+If any of these already exist, identify and remove/fix them.
+
+---
+
+# 28. Preserve the Existing Design
+
+SEO improvements must not unnecessarily change the visual identity.
+
+Do NOT redesign the website.
+
+Do NOT remove:
+
+* animations
+* 3D effects
+* visual identity
+* existing hero design
+* existing navigation design
+
+unless something is directly causing a technical/accessibility/SEO problem.
+
+The goal is:
+
+**better semantics + better crawlability + better metadata + better architecture**
+
+without sacrificing the design.
+
+---
+
+# 29. Make Fixes Yourself
+
+After completing the audit:
+
+1. List every issue.
+2. Classify each issue as:
+
+   * Critical
+   * High
+   * Medium
+   * Low
+   * No issue
+3. Fix all Critical and High issues.
+4. Fix Medium issues when they are low-risk.
+5. Do not make speculative SEO changes.
+6. Do not add unnecessary complexity.
+
+After modifying the code, run the build again.
+
+---
+
+# 30. Final Verification
+
+After your changes, run the equivalent of:
+
+```bash
+npm run build
+```
+
+and verify there are no errors.
+
+Then re-check:
+
+```text
+/
+ /about
+ /services
+ /projects
+```
+
+For each route provide:
+
+```text
+URL:
+Title:
+Meta description:
+Canonical:
+H1:
+H2s:
+Structured data:
+Indexability:
+Internal links:
+Issues:
+```
+
+---
+
+# 31. Final Report
+
+At the end, provide a concise but detailed report with these sections:
+
+## A. Overall Status
+
+Choose one:
+
+* PASS — Phase 1 is production-ready
+* PASS WITH MINOR FIXES
+* NEEDS FIXES
+* NOT READY
+
+## B. What Was Already Correct
+
+List the parts that were implemented correctly.
+
+## C. Problems Found
+
+For every issue:
+
+```text
+Severity:
+File:
+Problem:
+Why it matters:
+Fix applied:
+```
+
+## D. Files Changed
+
+List every modified file and explain why.
+
+## E. SEO Configuration
+
+Show the final metadata for every route.
+
+## F. Structured Data
+
+Show a summary of the final schema architecture.
+
+Example:
+
+```text
+Homepage
+ ├── WebSite
+ └── Person
+
+About
+ └── ProfilePage
+      └── mainEntity → Person
+```
+
+Only show this if that is actually what the implementation contains.
+
+## G. Routing
+
+Confirm whether direct access works for every route.
+
+## H. Sitemap / Robots
+
+Confirm their status.
+
+## I. Build
+
+Report:
+
+```text
+npm run build: PASS/FAIL
+```
+
+## J. Remaining Risks
+
+Mention anything that cannot be verified locally, especially:
+
+* hosting rewrites
+* HTTPS/canonical behavior
+* Search Console
+* actual Google indexing
+* production headers
+* production-rendered HTML
+
+---
+
+# 32. IMPORTANT — Do Not Start Phase 2
+
+Do NOT create:
+
+* individual project SEO pages
+* blog
+* technical articles
+* new keyword landing pages
+* large-scale content
+* backlink strategy
+* additional schema
+
+yet.
+
+First prove that Phase 1 is technically correct.
+
+Once Phase 1 passes the audit, stop and report:
+
+> "Phase 1 verified. Ready for Phase 2."
+
+Then wait for my approval.
+
+The priority is **correctness over quantity**.
+
+I would rather have 4 technically excellent indexable pages than 50 weak SEO pages.
+
+---
+
+# Core Principle
+
+The purpose of this project is not to trick Google into ranking the website.
+
+The purpose is to make it extremely clear, through:
+
+* semantic HTML
+* high-quality content
+* coherent identity
+* technically accessible pages
+* clean URLs
+* internal linking
+* accurate structured data
+* unique metadata
+* useful project content
+* strong technical demonstrations
+
+that:
+
+**Abdallah Wageeh = Zack River = Software Engineer / Full-Stack Engineer**
+
+and that `zackriver.com` is the authoritative website representing that professional identity.
+
+Audit the actual implementation, fix what is wrong, verify the build, and stop after Phase 1.

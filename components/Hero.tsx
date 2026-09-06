@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 
 const Hero: React.FC = () => {
   const [isHovering, setIsHovering] = useState(false);
@@ -42,70 +43,72 @@ const Hero: React.FC = () => {
             {/* LEFT COLUMN: THE TEXT */}
             <div className="flex flex-col justify-center items-center text-center md:items-start md:text-left pt-4 md:pt-0 z-20 w-full max-w-105 md:max-w-[52%] lg:max-w-[55%] mx-auto md:mx-0">
               {/* TOP LABEL */}
-              <div
-                className="mb-[2vw] flex items-center justify-center md:justify-start gap-[0.6vw] animate-fade-in-up w-full mx-auto md:mx-0 pointer-events-auto"
-                style={{ animationDelay: "0s" }}
-              >
-                <span className="w-[0.5vw] h-[0.5vw] min-w-1.5 min-h-1.5 bg-electric rounded-sm shrink-0 animate-pulse" style={{ animationDuration: '2s' }}></span>
-                <h2 className="font-mono text-[1.1vw] min-text-[10px] uppercase tracking-[0.3em] text-canvas-light/60 whitespace-nowrap" style={{ fontSize: 'clamp(10px, 1.1vw, 14px)' }}>
-                  Software engineer
-                </h2>
-              </div>
-
-              {/* Names wrapper — tracks hover to control gap between Zack/River */}
-              <div
-                className="w-full pointer-events-auto"
-                onMouseEnter={() => setNamesHovered(true)}
-                onMouseLeave={() => setNamesHovered(false)}
-              >
-                {/* 3D Flip Container for Line 1 (Abdallah front / Zack back) */}
+              {/* Main H1 Wrapper containing subtitle and names for SEO */}
+              <h1 className="w-full pointer-events-auto flex flex-col">
+                {/* TOP LABEL (Subtitle) */}
                 <div
-                  className={`animate-fade-in-up group perspective-1000 cursor-pointer w-full transition-[margin] duration-500 ${namesHovered || isLine1Flipped ? 'mb-[1.5vw] lg:mb-[2vw]' : 'mb-0'}`}
+                  className="mb-[2vw] flex items-center justify-center md:justify-start gap-[0.6vw] animate-fade-in-up w-full mx-auto md:mx-0 pointer-events-auto"
                   style={{ animationDelay: "0s" }}
-                  onClick={() => setIsLine1Flipped(!isLine1Flipped)}
                 >
-                  <div
-                    className={`relative transform-style-3d transition-transform duration-700 w-full grid ${isLine1Flipped ? "rotate-x-180" : "group-hover:rotate-x-180"}`}
-                  >
-                    {/* Front Side: Abdallah */}
-                    <h1 className="col-start-1 row-start-1 backface-hidden font-black uppercase leading-[0.85] tracking-tighter text-canvas-light text-center md:text-left w-full m-0 pb-1"
-                      style={{ fontSize: 'clamp(2.5rem, 5vw, 6.5rem)' }}>
-                      Abdallah
-                    </h1>
-                    {/* Back Side: Zack — aria-hidden so Lighthouse ignores this invisible element for LCP */}
-                    <h1
-                      aria-hidden="true"
-                      className="col-start-1 row-start-1 backface-hidden rotate-x-180 font-black uppercase leading-[0.85] tracking-tighter text-canvas-light text-center md:text-left w-full m-0 pb-1 -translate-y-3 md:translate-y-[-0.8vw] lg:-translate-y-6"
-                      style={{ fontSize: 'clamp(3.5rem, 7vw, 9rem)' }}>
-                      Zack
-                    </h1>
-                  </div>
+                  <span className="w-[0.5vw] h-[0.5vw] min-w-1.5 min-h-1.5 bg-electric rounded-sm shrink-0 animate-pulse" style={{ animationDuration: '2s' }} aria-hidden="true"></span>
+                  <span className="font-mono text-[1.1vw] min-text-[10px] uppercase tracking-[0.3em] text-canvas-light/60 whitespace-nowrap" style={{ fontSize: 'clamp(10px, 1.1vw, 14px)' }}>
+                    Software Engineer / Full-Stack Developer
+                  </span>
                 </div>
 
-                {/* 3D Flip Container for Line 2 (Wageeh front / River back) */}
-                <div
-                  className="animate-fade-in-up group perspective-1000 mb-2 md:mb-8 cursor-pointer w-full pointer-events-auto"
-                  style={{ animationDelay: "0s" }}
-                  onClick={() => setIsLine2Flipped(!isLine2Flipped)}
+                {/* Names wrapper — tracks hover to control gap between Zack/River */}
+                <span
+                  className="w-full flex flex-col"
+                  onMouseEnter={() => setNamesHovered(true)}
+                  onMouseLeave={() => setNamesHovered(false)}
                 >
-                  <div
-                    className={`relative transform-style-3d transition-transform duration-700 w-full grid ${isLine2Flipped ? "rotate-x-180" : "group-hover:rotate-x-180"}`}
+                  {/* 3D Flip Container for Line 1 (Abdallah front / Zack back) */}
+                  <span
+                    className={`animate-fade-in-up group perspective-1000 cursor-pointer w-full transition-[margin] duration-500 ${namesHovered || isLine1Flipped ? 'mb-[1.5vw] lg:mb-[2vw]' : 'mb-0'} block`}
+                    style={{ animationDelay: "0s" }}
+                    onClick={() => setIsLine1Flipped(!isLine1Flipped)}
                   >
-                    {/* Front Side: Wageeh */}
-                    <h1 className="col-start-1 row-start-1 backface-hidden font-black uppercase leading-[0.85] tracking-tighter text-electric text-center md:text-left w-full m-0 pt-1"
-                      style={{ fontSize: 'clamp(2.8rem, 5.5vw, 7rem)' }}>
-                      Wageeh
-                    </h1>
-                    {/* Back Side: River — aria-hidden so Lighthouse ignores this invisible element for LCP */}
-                    <h1
-                      aria-hidden="true"
-                      className="col-start-1 row-start-1 backface-hidden rotate-x-180 font-black uppercase leading-[0.85] tracking-tighter text-electric text-center md:text-left w-full m-0 pt-1 -translate-y-3 md:translate-y-[-0.8vw] lg:-translate-y-6"
-                      style={{ fontSize: 'clamp(3.5rem, 7vw, 9rem)' }}>
-                      River
-                    </h1>
-                  </div>
-                </div>
-              </div>
+                    <span
+                      className={`relative transform-style-3d transition-transform duration-700 w-full grid ${isLine1Flipped ? "rotate-x-180" : "group-hover:rotate-x-180"}`}
+                    >
+                      {/* Front Side: Abdallah */}
+                      <span className="col-start-1 row-start-1 backface-hidden font-black uppercase leading-[0.85] tracking-tighter text-canvas-light text-center md:text-left w-full m-0 pb-1 block"
+                        style={{ fontSize: 'clamp(2.5rem, 5vw, 6.5rem)' }}>
+                        Abdallah
+                      </span>
+                      {/* Back Side: Zack */}
+                      <span
+                        className="col-start-1 row-start-1 backface-hidden rotate-x-180 font-black uppercase leading-[0.85] tracking-tighter text-canvas-light text-center md:text-left w-full m-0 pb-1 -translate-y-3 md:translate-y-[-0.8vw] lg:-translate-y-6 block"
+                        style={{ fontSize: 'clamp(3.5rem, 7vw, 9rem)' }}>
+                        Zack
+                      </span>
+                    </span>
+                  </span>
+
+                  {/* 3D Flip Container for Line 2 (Wageeh front / River back) */}
+                  <span
+                    className="animate-fade-in-up group perspective-1000 mb-2 md:mb-8 cursor-pointer w-full pointer-events-auto block"
+                    style={{ animationDelay: "0s" }}
+                    onClick={() => setIsLine2Flipped(!isLine2Flipped)}
+                  >
+                    <span
+                      className={`relative transform-style-3d transition-transform duration-700 w-full grid ${isLine2Flipped ? "rotate-x-180" : "group-hover:rotate-x-180"}`}
+                    >
+                      {/* Front Side: Wageeh */}
+                      <span className="col-start-1 row-start-1 backface-hidden font-black uppercase leading-[0.85] tracking-tighter text-electric text-center md:text-left w-full m-0 pt-1 block"
+                        style={{ fontSize: 'clamp(2.8rem, 5.5vw, 7rem)' }}>
+                        Wageeh
+                      </span>
+                      {/* Back Side: River */}
+                      <span
+                        className="col-start-1 row-start-1 backface-hidden rotate-x-180 font-black uppercase leading-[0.85] tracking-tighter text-electric text-center md:text-left w-full m-0 pt-1 -translate-y-3 md:translate-y-[-0.8vw] lg:-translate-y-6 block"
+                        style={{ fontSize: 'clamp(3.5rem, 7vw, 9rem)' }}>
+                        River
+                      </span>
+                    </span>
+                  </span>
+                </span>
+              </h1>
 
               <div
                 className="animate-fade-in-up w-full mx-auto md:mx-0 flex flex-col mb-[2vw] pointer-events-auto relative z-30 gap-1"
@@ -124,23 +127,23 @@ const Hero: React.FC = () => {
                 className="flex flex-row justify-center md:justify-start items-center w-full mx-auto md:mx-0 mb-[3vw] animate-fade-in-up pointer-events-auto relative z-30"
                 style={{ animationDelay: "0.25s", gap: 'clamp(16px, 2vw, 32px)' }}
               >
-                <a
-                  href="#projects"
+                <Link
+                  to="/projects"
                   aria-label="View my featured projects"
                   className="group inline-flex items-center justify-center bg-canvas-light text-canvas-dark rounded-sm font-bold uppercase tracking-[0.12em] transition-all duration-300 ease-out hover:bg-canvas-dark hover:text-electric hover:shadow-[0_0_15px_rgba(180,255,0,0.3)] ring-1 ring-transparent hover:ring-electric hover:-translate-y-0.5 whitespace-nowrap"
                   style={{ fontSize: 'clamp(9px, 0.9vw, 14px)', padding: 'clamp(10px, 1vw, 20px) clamp(18px, 2vw, 40px)' }}
                 >
                   View Works
-                </a>
-                <a
-                  href="#contact"
-                  aria-label="Contact me directly"
+                </Link>
+                <Link
+                  to="/about"
+                  aria-label="Learn more about me"
                   className="group relative font-semibold uppercase tracking-[0.12em] text-canvas-light/80 hover:text-canvas-light transition-colors duration-300 whitespace-nowrap"
                   style={{ fontSize: 'clamp(9px, 0.9vw, 14px)', padding: 'clamp(10px, 1vw, 20px) 0' }}
                 >
-                  Contact Me
+                  About Me
                   <span className="absolute bottom-[clamp(10px,1vw,20px)] left-0 w-0 h-px bg-electric transition-all duration-500 ease-out group-hover:w-full"></span>
-                </a>
+                </Link>
               </div>
             </div>
 

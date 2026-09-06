@@ -1,10 +1,16 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { PROJECTS , SITE_CONTENT } from "../constants";
+import React, { useEffect, useRef, useState, useCallback } from "react";
+import { Helmet } from "react-helmet-async";
+import { useParams, Link } from "react-router-dom";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  AnimatePresence,
+} from "framer-motion";
+import { PROJECTS, SITE_CONTENT } from "../constants";
 
-import { lenisScrollTo } from '../hooks/useLenis';
-import Footer from '../components/Footer';
+import { lenisScrollTo } from "../hooks/useLenis";
+import Footer from "../components/Footer";
 import {
   ArrowLeft,
   Github,
@@ -15,26 +21,32 @@ import {
   ChevronLeft,
   LayoutGrid,
   X,
-} from 'lucide-react';
-import { UseCase } from '../types';
+} from "lucide-react";
+import { UseCase } from "../types";
 
 /* ── USE CASE CAROUSEL COMPONENT ── */
-const UseCaseCarousel: React.FC<{ useCases: UseCase[]; title: string }> = ({ useCases, title }) => {
+const UseCaseCarousel: React.FC<{ useCases: UseCase[]; title: string }> = ({
+  useCases,
+  title,
+}) => {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(0);
 
-  const goTo = useCallback((next: number) => {
-    setDirection(next > current ? 1 : -1);
-    setCurrent(next);
-  }, [current]);
+  const goTo = useCallback(
+    (next: number) => {
+      setDirection(next > current ? 1 : -1);
+      setCurrent(next);
+    },
+    [current],
+  );
 
   const prev = () => goTo((current - 1 + useCases.length) % useCases.length);
   const next = () => goTo((current + 1) % useCases.length);
 
   const variants = {
-    enter: (d: number) => ({ x: d > 0 ? '100%' : '-100%', opacity: 0 }),
+    enter: (d: number) => ({ x: d > 0 ? "100%" : "-100%", opacity: 0 }),
     center: { x: 0, opacity: 1 },
-    exit: (d: number) => ({ x: d > 0 ? '-100%' : '100%', opacity: 0 }),
+    exit: (d: number) => ({ x: d > 0 ? "-100%" : "100%", opacity: 0 }),
   };
 
   if (useCases.length === 0) return null;
@@ -50,7 +62,7 @@ const UseCaseCarousel: React.FC<{ useCases: UseCase[]; title: string }> = ({ use
             initial="enter"
             animate="center"
             exit="exit"
-            transition={{ duration: 0.4, ease: 'easeInOut' }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
             className="absolute inset-0 w-full h-full p-8 md:p-16 flex flex-col justify-center overflow-y-auto scrollbar-hide"
           >
             <div className="max-w-3xl mx-auto w-full pb-8">
@@ -65,15 +77,23 @@ const UseCaseCarousel: React.FC<{ useCases: UseCase[]; title: string }> = ({ use
               <p className="text-black/80 dark:text-white/80 text-sm md:text-base leading-relaxed mb-6 font-sans">
                 {useCases[current].description}
               </p>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 pt-6 border-t border-black/10 dark:border-white/10">
                 <div>
-                  <p className="font-mono text-xs text-electric uppercase tracking-widest mb-2">{SITE_CONTENT.projectDetails.steps}</p>
-                  <p className="text-black dark:text-white text-sm leading-relaxed font-medium">{useCases[current].steps}</p>
+                  <p className="font-mono text-xs text-electric uppercase tracking-widest mb-2">
+                    {SITE_CONTENT.projectDetails.steps}
+                  </p>
+                  <p className="text-black dark:text-white text-sm leading-relaxed font-medium">
+                    {useCases[current].steps}
+                  </p>
                 </div>
                 <div>
-                  <p className="font-mono text-xs text-electric uppercase tracking-widest mb-2">{SITE_CONTENT.projectDetails.expectedResult}</p>
-                  <p className="text-black dark:text-white text-sm leading-relaxed font-medium">{useCases[current].expectedResult}</p>
+                  <p className="font-mono text-xs text-electric uppercase tracking-widest mb-2">
+                    {SITE_CONTENT.projectDetails.expectedResult}
+                  </p>
+                  <p className="text-black dark:text-white text-sm leading-relaxed font-medium">
+                    {useCases[current].expectedResult}
+                  </p>
                 </div>
               </div>
             </div>
@@ -110,7 +130,9 @@ const UseCaseCarousel: React.FC<{ useCases: UseCase[]; title: string }> = ({ use
                 onClick={() => goTo(i)}
                 aria-label={`Go to use case ${i + 1}`}
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  i === current ? 'bg-electric w-6' : 'bg-black/20 dark:bg-white/20 hover:bg-black/40 hover:dark:bg-white/40'
+                  i === current
+                    ? "bg-electric w-6"
+                    : "bg-black/20 dark:bg-white/20 hover:bg-black/40 hover:dark:bg-white/40"
                 }`}
               />
             ))}
@@ -121,9 +143,11 @@ const UseCaseCarousel: React.FC<{ useCases: UseCase[]; title: string }> = ({ use
   );
 };
 
-
 /* ── CAROUSEL COMPONENT ── */
-const Carousel: React.FC<{ images: string[]; title: string }> = ({ images, title }) => {
+const Carousel: React.FC<{ images: string[]; title: string }> = ({
+  images,
+  title,
+}) => {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(0); // -1 = left, 1 = right
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -133,7 +157,7 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({ images, title
       setDirection(next > current ? 1 : -1);
       setCurrent(next);
     },
-    [current]
+    [current],
   );
 
   // Preload all gallery images to eliminate black screen delay during transitions
@@ -144,25 +168,31 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({ images, title
     });
   }, [images]);
 
-  const prev = useCallback(() => goTo((current - 1 + images.length) % images.length), [current, images.length, goTo]);
-  const next = useCallback(() => goTo((current + 1) % images.length), [current, images.length, goTo]);
+  const prev = useCallback(
+    () => goTo((current - 1 + images.length) % images.length),
+    [current, images.length, goTo],
+  );
+  const next = useCallback(
+    () => goTo((current + 1) % images.length),
+    [current, images.length, goTo],
+  );
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (isModalOpen) {
-        if (e.key === 'Escape') setIsModalOpen(false);
-        if (e.key === 'ArrowRight') next();
-        if (e.key === 'ArrowLeft') prev();
+        if (e.key === "Escape") setIsModalOpen(false);
+        if (e.key === "ArrowRight") next();
+        if (e.key === "ArrowLeft") prev();
       }
     };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isModalOpen, next, prev]);
 
   const variants = {
-    enter: (d: number) => ({ x: d > 0 ? '100%' : '-100%', opacity: 0 }),
+    enter: (d: number) => ({ x: d > 0 ? "100%" : "-100%", opacity: 0 }),
     center: { x: 0, opacity: 1 },
-    exit: (d: number) => ({ x: d > 0 ? '-100%' : '100%', opacity: 0 }),
+    exit: (d: number) => ({ x: d > 0 ? "-100%" : "100%", opacity: 0 }),
   };
 
   if (images.length === 0) return null;
@@ -185,8 +215,11 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({ images, title
             >
               <X size={24} />
             </button>
-            
-            <div className="relative w-full h-full max-w-7xl flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
+
+            <div
+              className="relative w-full h-full max-w-7xl flex items-center justify-center"
+              onClick={(e) => e.stopPropagation()}
+            >
               <AnimatePresence custom={direction} initial={false}>
                 <motion.img
                   key={current}
@@ -195,23 +228,29 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({ images, title
                   initial="enter"
                   animate="center"
                   exit="exit"
-                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
                   src={images[current]}
                   alt={`${title} – fullscreen screenshot ${current + 1}`}
                   className="absolute max-w-full max-h-full object-contain rounded-lg shadow-2xl"
                 />
               </AnimatePresence>
-              
+
               {images.length > 1 && (
                 <>
                   <button
-                    onClick={(e) => { e.stopPropagation(); prev(); }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      prev();
+                    }}
                     className="absolute left-2 md:-left-16 top-1/2 -translate-y-1/2 z-110 p-3 bg-black/50 dark:bg-white/10 hover:bg-black/80 hover:dark:bg-white/20 rounded-full text-white transition-colors border border-white/10"
                   >
                     <ChevronLeft size={24} />
                   </button>
                   <button
-                    onClick={(e) => { e.stopPropagation(); next(); }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      next();
+                    }}
                     className="absolute right-2 md:-right-16 top-1/2 -translate-y-1/2 z-110 p-3 bg-black/50 dark:bg-white/10 hover:bg-black/80 hover:dark:bg-white/20 rounded-full text-white transition-colors border border-white/10"
                   >
                     <ChevronRight size={24} />
@@ -224,7 +263,7 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({ images, title
       </AnimatePresence>
 
       {/* Slide container */}
-      <div 
+      <div
         className="relative w-full aspect-video bg-canvas-dark rounded-2xl overflow-hidden ring-1 ring-canvas-dark/10 shadow-xl cursor-zoom-in hover:scale-[1.01] transition-transform duration-500"
         onClick={() => setIsModalOpen(true)}
       >
@@ -236,7 +275,7 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({ images, title
             initial="enter"
             animate="center"
             exit="exit"
-            transition={{ duration: 0.4, ease: 'easeInOut' }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
             src={images[current]}
             alt={`${title} – screenshot ${current + 1}`}
             className="absolute inset-0 w-full h-full object-cover object-top"
@@ -250,14 +289,20 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({ images, title
         {images.length > 1 && (
           <>
             <button
-              onClick={(e) => { e.stopPropagation(); prev(); }}
+              onClick={(e) => {
+                e.stopPropagation();
+                prev();
+              }}
               aria-label="Previous image"
               className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-white/15 backdrop-blur-sm border border-white/20 rounded-full text-white hover:bg-white/30 hover:scale-110 transition-all duration-200"
             >
               <ChevronLeft size={20} />
             </button>
             <button
-              onClick={(e) => { e.stopPropagation(); next(); }}
+              onClick={(e) => {
+                e.stopPropagation();
+                next();
+              }}
               aria-label="Next image"
               className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-white/15 backdrop-blur-sm border border-white/20 rounded-full text-white hover:bg-white/30 hover:scale-110 transition-all duration-200"
             >
@@ -275,7 +320,9 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({ images, title
                 onClick={() => goTo(i)}
                 aria-label={`Go to image ${i + 1}`}
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  i === current ? 'bg-electric w-6' : 'bg-white/40 hover:bg-white/70'
+                  i === current
+                    ? "bg-electric w-6"
+                    : "bg-white/40 hover:bg-white/70"
                 }`}
               />
             ))}
@@ -291,10 +338,18 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({ images, title
               key={i}
               onClick={() => goTo(i)}
               className={`shrink-0 w-20 h-14 rounded-lg overflow-hidden ring-2 transition-all duration-200 ${
-                i === current ? 'ring-electric' : 'ring-transparent opacity-60 hover:opacity-100'
+                i === current
+                  ? "ring-electric"
+                  : "ring-transparent opacity-60 hover:opacity-100"
               }`}
             >
-              <img src={img} alt={`thumb ${i + 1}`} loading="lazy" decoding="async" className="w-full h-full object-cover object-top" />
+              <img
+                src={img}
+                alt={`thumb ${i + 1}`}
+                loading="lazy"
+                decoding="async"
+                className="w-full h-full object-cover object-top"
+              />
             </button>
           ))}
         </div>
@@ -318,18 +373,20 @@ const ProjectDetails: React.FC = () => {
   const heroRef = useRef<HTMLDivElement>(null);
   const [stickyVisible, setStickyVisible] = useState(false);
   const [isHeroHovered, setIsHeroHovered] = useState(false);
-  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' ? window.innerWidth < 1024 : false);
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== "undefined" ? window.innerWidth < 1024 : false,
+  );
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 1024);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);
     lenisScrollTo(0, { immediate: true });
-    
+
     if (project) {
       document.title = `${project.title} | Abdallah Wageeh Portfolio`;
     } else {
@@ -339,18 +396,18 @@ const ProjectDetails: React.FC = () => {
 
   const { scrollYProgress } = useScroll({
     target: heroRef,
-    offset: ['start start', 'end start'],
+    offset: ["start start", "end start"],
   });
   const heroOpacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
-  const heroY = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
+  const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
   const overlayOpacity = useTransform(scrollYProgress, [0, 0.6], [0.85, 0.97]);
 
   useEffect(() => {
     const onScroll = () => {
       setStickyVisible(window.scrollY > window.innerHeight * 0.75);
     };
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   if (!project) {
@@ -367,16 +424,35 @@ const ProjectDetails: React.FC = () => {
     );
   }
 
-  const gallery = project.gallery && project.gallery.length > 0 ? project.gallery : project.image ? [project.image] : [];
+  const gallery =
+    project.gallery && project.gallery.length > 0
+      ? project.gallery
+      : project.image
+        ? [project.image]
+        : [];
 
   return (
     <div className="bg-canvas-light dark:bg-canvas-dark text-canvas-dark dark:text-canvas-light min-h-screen font-sans overflow-x-hidden">
+      <Helmet>
+        <title>{project.title} | Abdallah Wageeh (Zack River)</title>
+        <meta
+          name="description"
+          content={
+            project.subtitle ||
+            `Case study for ${project.title}, a project by Abdallah Wageeh.`
+          }
+        />
+        <link
+          rel="canonical"
+          href={`https://www.zackriver.com/projects/${project.id}`}
+        />
+      </Helmet>
 
       {/* ── STICKY TOP NAV BAR ── */}
       <motion.nav
         initial={{ y: -80 }}
         animate={{ y: stickyVisible ? 0 : -80 }}
-        transition={{ duration: 0.35, ease: 'easeInOut' }}
+        transition={{ duration: 0.35, ease: "easeInOut" }}
         className="fixed top-0 left-0 right-0 z-50 bg-canvas-light dark:bg-canvas-dark/80 backdrop-blur-xl border-b border-canvas-dark/10 dark:border-white/10 flex items-center justify-between px-6 md:px-12 h-16"
       >
         <Link
@@ -386,10 +462,8 @@ const ProjectDetails: React.FC = () => {
           <ArrowLeft size={16} />
           Back to Projects
         </Link>
-        
-        <div className="flex items-center gap-4">
 
-          
+        <div className="flex items-center gap-4">
           <div className="font-display font-medium text-canvas-dark dark:text-canvas-light hidden md:block">
             {project.title}
           </div>
@@ -402,7 +476,9 @@ const ProjectDetails: React.FC = () => {
               className="flex items-center gap-2 text-sm font-medium bg-white/5 border border-electric text-electric px-4 py-1.5 rounded-full hover:bg-electric/10 hover:shadow-[0_0_15px_rgba(180,255,0,0.2)] transition-all"
             >
               <ExternalLink size={14} />
-              <span className="hidden md:inline">{SITE_CONTENT.projectDetails.liveDemo}</span>
+              <span className="hidden md:inline">
+                {SITE_CONTENT.projectDetails.liveDemo}
+              </span>
             </a>
           )}
         </div>
@@ -424,7 +500,7 @@ const ProjectDetails: React.FC = () => {
               src={project.image}
               alt={project.title}
               loading="eager"
-              fetchpriority="high"
+              fetchPriority="high"
               decoding="async"
               className="w-full h-full object-cover object-top"
             />
@@ -445,8 +521,8 @@ const ProjectDetails: React.FC = () => {
           className="absolute inset-0 pointer-events-none opacity-[0.04]"
           style={{
             backgroundImage:
-              'linear-gradient(to right, #C7F000 1px, transparent 1px), linear-gradient(to bottom, #C7F000 1px, transparent 1px)',
-            backgroundSize: '40px 40px',
+              "linear-gradient(to right, #C7F000 1px, transparent 1px), linear-gradient(to bottom, #C7F000 1px, transparent 1px)",
+            backgroundSize: "40px 40px",
           }}
         />
 
@@ -472,13 +548,17 @@ const ProjectDetails: React.FC = () => {
                 transition={{ duration: 0.6, delay: 0.1 }}
                 className="font-mono text-electric text-xs tracking-[0.3em] uppercase mb-4"
               >
-                Case Study / {String(PROJECTS.findIndex((p) => p.id === id) + 1).padStart(2, '0')}
+                Case Study /{" "}
+                {String(PROJECTS.findIndex((p) => p.id === id) + 1).padStart(
+                  2,
+                  "0",
+                )}
               </motion.p>
 
               <motion.h1
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.2, ease: 'circOut' }}
+                transition={{ duration: 0.7, delay: 0.2, ease: "circOut" }}
                 className="text-[clamp(3rem,10vw,8rem)] font-display font-bold text-white leading-none tracking-[-0.03em] mb-4"
               >
                 {project.title}
@@ -500,7 +580,6 @@ const ProjectDetails: React.FC = () => {
                 transition={{ duration: 0.6, delay: 0.55 }}
                 className="mt-8 flex flex-wrap gap-3"
               >
-
                 {project.link && (
                   <a
                     href={project.link}
@@ -516,7 +595,7 @@ const ProjectDetails: React.FC = () => {
               <motion.div
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
-                transition={{ duration: 0.8, delay: 0.7, ease: 'circOut' }}
+                transition={{ duration: 0.8, delay: 0.7, ease: "circOut" }}
                 className="mt-8 h-0.5 w-24 bg-electric origin-left"
               />
             </motion.div>
@@ -526,27 +605,37 @@ const ProjectDetails: React.FC = () => {
 
       {/* ── CONTENT BODY ── */}
       <div className="relative bg-canvas-light dark:bg-canvas-dark">
-
         {/* ── EXECUTIVE OVERVIEW STRIP ── */}
         <section className="border-b border-canvas-dark/10 dark:border-white/10 bg-canvas-dark text-white">
           <div className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24 py-10 grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-0 md:divide-x divide-white/10">
             <div className="sm:pr-8">
-              <p className="font-mono text-xs text-white/40 uppercase tracking-widest mb-2">Role</p>
-              <p className="text-white font-medium">Backend / Full-Stack Engineer</p>
+              <p className="font-mono text-xs text-white/40 uppercase tracking-widest mb-2">
+                Role
+              </p>
+              <p className="text-white font-medium">
+                Backend / Full-Stack Engineer
+              </p>
             </div>
             <div className="sm:px-8">
-              <p className="font-mono text-xs text-white/40 uppercase tracking-widest mb-2">Context</p>
-              <p className="text-white font-medium">Personal Project · Solo Architecture</p>
+              <p className="font-mono text-xs text-white/40 uppercase tracking-widest mb-2">
+                Context
+              </p>
+              <p className="text-white font-medium">
+                Personal Project · Solo Architecture
+              </p>
             </div>
             <div className="sm:pl-8">
-              <p className="font-mono text-xs text-white/40 uppercase tracking-widest mb-2">Core Stack</p>
-              <p className="text-white font-medium">{project.tags.slice(0, 4).join(', ')}</p>
+              <p className="font-mono text-xs text-white/40 uppercase tracking-widest mb-2">
+                Core Stack
+              </p>
+              <p className="text-white font-medium">
+                {project.tags.slice(0, 4).join(", ")}
+              </p>
             </div>
           </div>
         </section>
 
         <div className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
-
           {/* ── ENGINEERING IMPACT ── */}
           <section className="py-16 md:py-24 border-b border-canvas-dark/10 dark:border-white/10">
             <div className="flex items-center gap-3 mb-10">
@@ -567,9 +656,11 @@ const ProjectDetails: React.FC = () => {
                 >
                   <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-electric scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
                   <span className="text-electric font-mono text-4xl font-bold leading-none">
-                    {i === 0 ? '∞' : i === 1 ? '~35%' : '~50%'}
+                    {i === 0 ? "∞" : i === 1 ? "~35%" : "~50%"}
                   </span>
-                  <p className="mt-4 text-canvas-dark/80 dark:text-canvas-light/80 text-sm leading-relaxed">{stat}</p>
+                  <p className="mt-4 text-canvas-dark/80 dark:text-canvas-light/80 text-sm leading-relaxed">
+                    {stat}
+                  </p>
                 </motion.div>
               ))}
             </div>
@@ -592,15 +683,15 @@ const ProjectDetails: React.FC = () => {
                   {project.description}
                 </p>
                 <p className="text-canvas-dark/60 dark:text-canvas-light/60 leading-relaxed">
-                  Every architectural decision was made with long-term scalability in mind.
-                  The goal was not to build a system that works today, but one that continues to
-                  perform as the product grows — a philosophy that guided every design trade-off
-                  from data modelling to API contract design.
+                  Every architectural decision was made with long-term
+                  scalability in mind. The goal was not to build a system that
+                  works today, but one that continues to perform as the product
+                  grows — a philosophy that guided every design trade-off from
+                  data modelling to API contract design.
                 </p>
 
                 {/* CTA Links — GitHub + Demo side by side */}
                 <div className="mt-10 flex flex-col sm:flex-row gap-4">
-
                   {project.link && (
                     <a
                       href={project.link}
@@ -628,17 +719,33 @@ const ProjectDetails: React.FC = () => {
               <div className="grid grid-cols-1 gap-16">
                 {project.schemaImage && (
                   <div className="flex flex-col gap-6">
-                    <h3 className="font-display text-2xl font-bold text-canvas-dark dark:text-canvas-light">Database Schema</h3>
+                    <h3 className="font-display text-2xl font-bold text-canvas-dark dark:text-canvas-light">
+                      Database Schema
+                    </h3>
                     <div className="w-full bg-white rounded-xl overflow-hidden ring-1 ring-canvas-dark/10 shadow-xl p-2 md:p-6 flex items-center justify-center">
-                      <img src={project.schemaImage} alt="Database Schema" loading="lazy" decoding="async" className="max-w-full h-auto rounded shadow-sm" />
+                      <img
+                        src={project.schemaImage}
+                        alt="Database Schema"
+                        loading="lazy"
+                        decoding="async"
+                        className="max-w-full h-auto rounded shadow-sm"
+                      />
                     </div>
                   </div>
                 )}
                 {project.useCaseImage && (
                   <div className="flex flex-col gap-6">
-                    <h3 className="font-display text-2xl font-bold text-canvas-dark dark:text-canvas-light">Use Case Diagram</h3>
+                    <h3 className="font-display text-2xl font-bold text-canvas-dark dark:text-canvas-light">
+                      Use Case Diagram
+                    </h3>
                     <div className="w-full bg-white rounded-xl overflow-hidden ring-1 ring-canvas-dark/10 shadow-xl p-2 md:p-6 flex items-center justify-center">
-                      <img src={project.useCaseImage} alt="Use Case Diagram" loading="lazy" decoding="async" className="max-w-full h-auto rounded shadow-sm" />
+                      <img
+                        src={project.useCaseImage}
+                        alt="Use Case Diagram"
+                        loading="lazy"
+                        decoding="async"
+                        className="max-w-full h-auto rounded shadow-sm"
+                      />
                     </div>
                   </div>
                 )}
@@ -655,10 +762,14 @@ const ProjectDetails: React.FC = () => {
                   Use Cases
                 </p>
                 <span className="ml-auto font-mono text-xs text-canvas-dark/60 dark:text-canvas-light/60">
-                  {project.useCases.length} {project.useCases.length === 1 ? 'case' : 'cases'}
+                  {project.useCases.length}{" "}
+                  {project.useCases.length === 1 ? "case" : "cases"}
                 </span>
               </div>
-              <UseCaseCarousel useCases={project.useCases} title={`${project.title} Use Cases`} />
+              <UseCaseCarousel
+                useCases={project.useCases}
+                title={`${project.title} Use Cases`}
+              />
               <p className="mt-4 text-center text-canvas-dark/40 dark:text-canvas-light/40 font-mono text-xs">
                 Use the arrows or dots to navigate
               </p>
@@ -674,12 +785,14 @@ const ProjectDetails: React.FC = () => {
                   Project Gallery
                 </p>
                 <span className="ml-auto font-mono text-xs text-canvas-dark/60 dark:text-canvas-light/60">
-                  {gallery.length} {gallery.length === 1 ? 'screenshot' : 'screenshots'}
+                  {gallery.length}{" "}
+                  {gallery.length === 1 ? "screenshot" : "screenshots"}
                 </span>
               </div>
               <Carousel images={gallery} title={project.title} />
               <p className="mt-4 text-center text-canvas-dark/40 dark:text-canvas-light/40 font-mono text-xs">
-                Use the arrows or dots to navigate · Add more images via <code className="text-electric">gallery[]</code> in constants.ts
+                Use the arrows or dots to navigate · Add more images via{" "}
+                <code className="text-electric">gallery[]</code> in constants.ts
               </p>
             </section>
           )}
@@ -713,7 +826,10 @@ const ProjectDetails: React.FC = () => {
               to="/"
               className="flex items-center gap-3 text-canvas-dark/60 dark:text-canvas-light/60 hover:text-canvas-dark hover:dark:text-canvas-light transition-colors font-medium group"
             >
-              <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
+              <ArrowLeft
+                size={18}
+                className="group-hover:-translate-x-1 transition-transform"
+              />
               Back to Home
             </Link>
 
@@ -729,8 +845,12 @@ const ProjectDetails: React.FC = () => {
                     <p className="font-mono text-xs text-canvas-dark/40 dark:text-canvas-light/40 uppercase tracking-widest mb-1">
                       Next Project
                     </p>
-                    <p className="font-display font-bold text-canvas-dark dark:text-canvas-light text-lg">{next.title}</p>
-                    <p className="text-electric font-mono text-xs">{next.subtitle}</p>
+                    <p className="font-display font-bold text-canvas-dark dark:text-canvas-light text-lg">
+                      {next.title}
+                    </p>
+                    <p className="text-electric font-mono text-xs">
+                      {next.subtitle}
+                    </p>
                   </div>
                   <ChevronRight
                     size={24}
