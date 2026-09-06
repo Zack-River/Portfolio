@@ -230,6 +230,7 @@ const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
             src="/logo-sm.webp"
             alt="Zack River"
             className="w-24 md:w-32 relative z-10"
+            style={{ filter: "brightness(0) invert(1)" }}
             width="128"
             height="128"
           />
