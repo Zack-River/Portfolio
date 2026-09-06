@@ -6,7 +6,7 @@ interface LoaderProps {
 }
 
 /** Critical assets that must be loaded before the loader exits */
-const CRITICAL_IMAGES = ['/zack-photo-new.jpg'];
+const CRITICAL_IMAGES = ['/zack-photo-new-sm.webp'];
 
 const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -85,7 +85,7 @@ const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
       <div className="relative z-10 flex flex-col items-center">
         <img
           ref={logoRef}
-          src="/logo.png"
+          src="/logo-sm.png"
           alt="Zack River"
           className="w-40 md:w-56"
           style={{ filter: "brightness(0) invert(0)" }}

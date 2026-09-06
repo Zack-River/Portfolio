@@ -27,6 +27,7 @@ const Hero: React.FC = () => {
       ref={containerRef}
       className="relative min-h-screen bg-canvas-dark text-canvas-light overflow-hidden selection:bg-electric selection:text-canvas-dark cursor-crosshair"
       onMouseEnter={() => setIsHovering(true)}
+      onMouseMove={() => { if (!isHovering) setIsHovering(true); }}
       onMouseLeave={() => setIsHovering(false)}
     >
       {/* ====================================================================
@@ -72,7 +73,7 @@ const Hero: React.FC = () => {
                       Abdallah
                     </h1>
                     {/* Back Side: Zack */}
-                    <h1 className="col-start-1 row-start-1 backface-hidden rotate-x-180 font-black uppercase leading-[0.85] tracking-tighter text-canvas-light text-center md:text-left w-full m-0 pb-1 -translate-y-3 md:-translate-y-[0.8vw] lg:-translate-y-6"
+                    <h1 className="col-start-1 row-start-1 backface-hidden rotate-x-180 font-black uppercase leading-[0.85] tracking-tighter text-canvas-light text-center md:text-left w-full m-0 pb-1 -translate-y-3 md:translate-y-[-0.8vw] lg:-translate-y-6"
                       style={{ fontSize: 'clamp(3.5rem, 7vw, 9rem)' }}>
                       Zack
                     </h1>
@@ -144,11 +145,13 @@ const Hero: React.FC = () => {
             >
               <div className="relative w-full max-w-[320px] sm:max-w-90 md:w-[38vw] md:max-w-90 lg:w-full lg:max-w-120 xl:max-w-137.5 aspect-square md:aspect-4/5 z-10 flex items-center justify-center translate-y-6 md:translate-y-4 md:-translate-x-4 lg:-translate-x-4 lg:translate-y-4 mx-auto md:mx-0">
                 <img
-                  src="/zack-photo-new.webp"
+                  src="/zack-photo-new-sm.webp"
+                  srcSet="/zack-photo-new-sm.webp 700w, /zack-photo-new.webp 1100w"
+                  sizes="(max-width: 768px) 320px, (max-width: 1280px) 550px, 700px"
                   alt="Zack River / Abdallah Wageeh"
-                  fetchpriority="high"
-                  width="853"
-                  height="1067"
+                  fetchPriority="high"
+                  width="700"
+                  height="1051"
                   className="absolute inset-0 w-full h-full object-cover object-center grayscale contrast-125 brightness-90 md:scale-105 lg:scale-110 photo-mask"
                 />
                 <div className="absolute inset-0 bg-canvas-dark/20 photo-mask"></div>
@@ -338,19 +341,19 @@ const Hero: React.FC = () => {
           -webkit-mask-image: radial-gradient(ellipse at 50% 50%, black 30%, transparent 68%);
         }
         .data-pulses path {
-          stroke-dasharray: 40 1000;
-          stroke-dashoffset: 1040;
-          animation: pulseAnim 3s infinite linear;
-          filter: drop-shadow(0 0 10px #C7F000);
-          will-change: stroke-dashoffset;
+          stroke-dasharray: 30 250;
+          stroke-dashoffset: 280;
+          animation: pulseAnim 2s infinite linear;
+          filter: drop-shadow(0 0 8px #C7F000);
+          will-change: opacity, transform;
         }
         .pulse-1 { animation-delay: 0s !important; }
-        .pulse-2 { animation-delay: 1.2s !important; }
-        .pulse-3 { animation-delay: 0.6s !important; }
-        .pulse-4 { animation-delay: 1.8s !important; }
+        .pulse-2 { animation-delay: 0.5s !important; }
+        .pulse-3 { animation-delay: 1.0s !important; }
+        .pulse-4 { animation-delay: 1.5s !important; }
 
         @keyframes pulseAnim {
-          0% { stroke-dashoffset: 1040; }
+          0% { stroke-dashoffset: 280; }
           100% { stroke-dashoffset: 0; }
         }
         @keyframes fadeInUp {

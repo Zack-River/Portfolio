@@ -79,7 +79,6 @@ const Contact: React.FC = () => {
     <section
       id="contact"
       className="py-24 md:py-32 bg-canvas-light dark:bg-canvas-dark transition-colors duration-500 text-canvas-dark dark:text-canvas-light relative flex-1 flex flex-col justify-center"
-      style={{ contentVisibility: 'auto', containIntrinsicSize: '0 800px' }}
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-10 lg:gap-16 items-start">

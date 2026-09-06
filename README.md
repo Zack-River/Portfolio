@@ -12,12 +12,8 @@ An immersive, high-performance personal portfolio that blends modern web develop
 - **Routing:** React Router v6
 - **Styling:** Tailwind CSS (with custom design tokens & dark mode)
 
-### 3D & Graphics
-- **Engine:** Three.js
-- **Integration:** React Three Fiber (`@react-three/fiber`) & Drei (`@react-three/drei`)
-- **Optimization:** Draco 3D Geometry Compression (reducing model size by >80%)
-
 ### Animation & Physics
+- **Animations:** GSAP & Framer Motion
 - **Scroll Animations:** GSAP (GreenSock) & ScrollTrigger
 - **UI Transitions:** Framer Motion
 - **Smooth Scrolling:** Lenis 
