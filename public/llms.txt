@@ -1,0 +1,13 @@
+# Zack River Portfolio
+
+Welcome to the digital portfolio of Abdallah Wageeh (Zack River). I am a Software Engineer specialized in building scalable backend architectures and delivering seamless, high-performance web experiences.
+
+## Core Expertise
+- Backend Architecture (Node.js, Express, Go)
+- Frontend Development (React, TypeScript, Tailwind CSS)
+- Performance Optimization & SEO
+- Systems Design
+
+## Links
+- [Main Website](https://www.zackriver.com/)
+- [GitHub Profile](https://github.com/abdallah-wageeh)
