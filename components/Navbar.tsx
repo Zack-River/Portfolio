@@ -67,12 +67,11 @@ const Navbar: React.FC = () => {
 
   return (
     <div
-      className="fixed bottom-6 md:bottom-auto md:top-6 left-1/2 -translate-x-1/2 z-50 transition-all duration-400 ease-in-out"
-      style={{
-        transform: `translateX(-50%) translateY(${isVisible ? '0' : '-150px'})`,
-        opacity: isVisible ? 1 : 0,
-        pointerEvents: isVisible ? 'auto' : 'none',
-      }}
+      className={`fixed bottom-6 md:bottom-auto md:top-6 left-1/2 z-50 transition-all duration-500 ease-in-out ${
+        isVisible 
+          ? '-translate-x-1/2 translate-y-0 opacity-100 pointer-events-auto' 
+          : '-translate-x-1/2 translate-y-32 md:-translate-y-32 opacity-0 pointer-events-none'
+      }`}
     >
       <nav className="flex items-center space-x-1 md:space-x-2 px-4 py-2 md:px-6 md:py-3 bg-white/80 dark:bg-canvas-dark/80 backdrop-blur-lg rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-canvas-dark/5 dark:border-white/10">
         {navItems.map((item) => (
