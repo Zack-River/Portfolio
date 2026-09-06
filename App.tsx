@@ -30,6 +30,11 @@ function App() {
   const isHome = location.pathname === '/';
   const [loading, setLoading] = useState(isHome);
 
+  // Synchronously expose loader state so child components (like Hero) can check it on mount
+  if (typeof window !== 'undefined') {
+    (window as any).__LOADER_ACTIVE__ = loading;
+  }
+
   useEffect(() => {
     // Disable Right Click
     const handleContextMenu = (e: MouseEvent) => {

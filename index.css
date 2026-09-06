@@ -2,6 +2,19 @@
 @import "tailwindcss";
 @config "./tailwind.config.js";
 
+html {
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
+  overflow-x: hidden;
+  /* Firefox */
+  scrollbar-color: rgba(13, 15, 14, 0.3) #F2F1EB;
+  scrollbar-width: thin;
+}
+
+html.dark {
+  scrollbar-color: rgba(199, 240, 0, 0.8) #0D0F0E;
+}
+
 body {
   @apply bg-canvas-light dark:bg-canvas-dark text-canvas-dark dark:text-canvas-light transition-colors duration-500;
   font-family: 'Inter', sans-serif;
@@ -12,6 +25,27 @@ body {
   overscroll-behavior-y: none;
   /* Tell the browser we handle touch natively — removes 300ms tap delay */
   touch-action: manipulation;
+  overflow-x: hidden;
+}
+
+/* Chrome, Edge, Safari Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-canvas-light dark:bg-canvas-dark;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-canvas-dark/30 dark:bg-electric/80 rounded-full;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-canvas-dark/50 dark:bg-electric;
 }
 
 img {
@@ -52,7 +86,7 @@ img {
 
   /* --- BUTTONS --- */
   .btn-primary {
-    @apply bg-electric text-white rounded-full font-medium text-base hover:bg-electric/80 transition-colors duration-300 px-6 py-3 flex items-center justify-center gap-2;
+    @apply bg-white/5 border border-electric text-electric rounded-full font-medium text-base hover:bg-electric/10 hover:shadow-[0_0_20px_rgba(180,255,0,0.2)] transition-all duration-300 px-6 py-3 flex items-center justify-center gap-2;
   }
   .btn-secondary {
     @apply bg-canvas-dark dark:bg-canvas-light text-canvas-light dark:text-canvas-dark rounded-full font-medium text-base hover:bg-canvas-dark/80 dark:hover:bg-canvas-light/80 transition-colors duration-300 px-6 py-3 flex items-center justify-center gap-2;

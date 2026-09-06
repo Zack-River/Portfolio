@@ -44,7 +44,7 @@ const Hero: React.FC = () => {
               {/* TOP LABEL */}
               <div
                 className="mb-[2vw] flex items-center justify-center md:justify-start gap-[0.6vw] animate-fade-in-up w-full mx-auto md:mx-0 pointer-events-auto"
-                style={{ animationDelay: "0.1s" }}
+                style={{ animationDelay: "0s" }}
               >
                 <span className="w-[0.5vw] h-[0.5vw] min-w-1.5 min-h-1.5 bg-electric rounded-sm shrink-0 animate-pulse" style={{ animationDuration: '2s' }}></span>
                 <h2 className="font-mono text-[1.1vw] min-text-[10px] uppercase tracking-[0.3em] text-canvas-light/60 whitespace-nowrap" style={{ fontSize: 'clamp(10px, 1.1vw, 14px)' }}>
@@ -61,7 +61,7 @@ const Hero: React.FC = () => {
                 {/* 3D Flip Container for Line 1 (Abdallah front / Zack back) */}
                 <div
                   className={`animate-fade-in-up group perspective-1000 cursor-pointer w-full transition-[margin] duration-500 ${namesHovered || isLine1Flipped ? 'mb-[1.5vw] lg:mb-[2vw]' : 'mb-0'}`}
-                  style={{ animationDelay: "0.2s" }}
+                  style={{ animationDelay: "0.05s" }}
                   onClick={() => setIsLine1Flipped(!isLine1Flipped)}
                 >
                   <div
@@ -85,7 +85,7 @@ const Hero: React.FC = () => {
                 {/* 3D Flip Container for Line 2 (Wageeh front / River back) */}
                 <div
                   className="animate-fade-in-up group perspective-1000 mb-8 cursor-pointer w-full pointer-events-auto"
-                  style={{ animationDelay: "0.2s" }}
+                  style={{ animationDelay: "0.1s" }}
                   onClick={() => setIsLine2Flipped(!isLine2Flipped)}
                 >
                   <div
@@ -109,7 +109,7 @@ const Hero: React.FC = () => {
 
               <div
                 className="animate-fade-in-up w-full mx-auto md:mx-0 flex flex-col mb-[2vw] pointer-events-auto relative z-30 gap-1"
-                style={{ animationDelay: "0.3s" }}
+                style={{ animationDelay: "0.2s" }}
               >
                 <div className="w-full font-medium text-canvas-light/70 leading-relaxed" style={{ fontSize: 'clamp(10px, 1.1vw, 15px)' }}>
                   Building scalable backend architectures,
@@ -122,11 +122,11 @@ const Hero: React.FC = () => {
               {/* CTAs */}
               <div
                 className="flex flex-row justify-center md:justify-start items-center w-full mx-auto md:mx-0 mb-[3vw] animate-fade-in-up pointer-events-auto relative z-30"
-                style={{ animationDelay: "0.4s", gap: 'clamp(16px, 2vw, 32px)' }}
+                style={{ animationDelay: "0.25s", gap: 'clamp(16px, 2vw, 32px)' }}
               >
                 <a
                   href="#projects"
-                  className="group inline-flex items-center justify-center bg-canvas-light text-canvas-dark rounded-sm font-bold uppercase tracking-[0.12em] transition-all duration-300 ease-out hover:bg-electric hover:-translate-y-0.5 whitespace-nowrap"
+                  className="group inline-flex items-center justify-center bg-canvas-light text-canvas-dark rounded-sm font-bold uppercase tracking-[0.12em] transition-all duration-300 ease-out hover:bg-canvas-dark hover:text-electric hover:shadow-[0_0_15px_rgba(180,255,0,0.3)] ring-1 ring-transparent hover:ring-electric hover:-translate-y-0.5 whitespace-nowrap"
                   style={{ fontSize: 'clamp(9px, 0.9vw, 14px)', padding: 'clamp(10px, 1vw, 20px) clamp(18px, 2vw, 40px)' }}
                 >
                   View Works
@@ -361,7 +361,7 @@ const Hero: React.FC = () => {
         }
         .animate-fade-in-up {
           opacity: 0;
-          animation: fadeInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         @keyframes fadeIn {
           from { opacity: 0; }

@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { PROJECTS, CATEGORIES, SITE_CONTENT } from "../constants";
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, ExternalLink, Github, Moon, Sun } from 'lucide-react';
-import { useTheme } from '../hooks/useTheme';
+import { ArrowLeft, ArrowRight, ExternalLink, Github } from 'lucide-react';
+
 import GSAPReveal from '../components/GSAPReveal';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { lenisScrollTo } from '../hooks/useLenis';
 
 
 
@@ -34,10 +35,11 @@ const getProjectCategories = (id: string): string[] => {
 
 const ProjectsPage: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState("All");
-  const { theme, toggleTheme } = useTheme();
+
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    lenisScrollTo(0, { immediate: true });
     document.title = "All Projects | Abdallah Wageeh Portfolio";
   }, []);
 
@@ -48,20 +50,7 @@ const ProjectsPage: React.FC = () => {
 
   return (
     <div className="bg-canvas-light dark:bg-canvas-dark min-h-screen text-canvas-dark dark:text-canvas-light relative transition-colors duration-500">
-      {/* Theme Toggle Button at top right */}
-      <div className="fixed top-6 right-6 md:top-8 md:right-12 z-50">
-        <button
-          onClick={toggleTheme}
-          className="flex items-center justify-center p-3 rounded-full transition-all duration-300 bg-white/80 dark:bg-canvas-dark/80 backdrop-blur-md shadow-sm border border-canvas-dark/10 dark:border-white/10 hover:bg-canvas-dark/5 dark:hover:bg-white/30"
-          aria-label="Toggle Theme"
-        >
-          {theme === 'dark' ? (
-            <Sun size={20} className="text-canvas-light hover:text-electric transition-colors" />
-          ) : (
-            <Moon size={20} className="text-canvas-dark/70 hover:text-electric transition-colors" />
-          )}
-        </button>
-      </div>
+
 
       <main className="pt-32 pb-24 md:pt-40 md:pb-32 section-container mx-auto min-h-screen">
         <div className="mb-12 max-w-3xl">
@@ -93,7 +82,7 @@ const ProjectsPage: React.FC = () => {
                 onClick={() => setActiveFilter(category)}
                 className={`snap-start shrink-0 px-4 py-2 rounded-full font-mono text-xs font-medium transition-all duration-200 border whitespace-nowrap ${
                   activeFilter === category
-                    ? 'bg-electric text-white border-electric shadow-md shadow-electric/25'
+                    ? 'bg-white/10 border-electric text-electric shadow-[0_0_15px_rgba(180,255,0,0.2)]'
                     : 'bg-white dark:bg-white/5 text-canvas-dark/60 dark:text-canvas-light/60 border-canvas-dark/10 dark:border-white/10 hover:border-canvas-dark/20 dark:hover:border-white/30'
                 }`}
               >

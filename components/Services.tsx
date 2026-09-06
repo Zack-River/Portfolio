@@ -100,7 +100,7 @@ const Services: React.FC = () => {
                     <a 
                       href={service.action.link}
                       onClick={(e) => scrollToContact(e, service.id)}
-                      className="w-full py-3 px-4 bg-electric text-white rounded-xl font-medium flex items-center justify-center gap-2 hover:bg-electric/80 transition-colors shadow-lg shadow-electric/20"
+                      className="w-full py-3 px-4 bg-white/5 border border-electric text-electric rounded-xl font-medium flex items-center justify-center gap-2 hover:bg-electric/10 hover:shadow-[0_0_15px_rgba(180,255,0,0.2)] transition-all"
                     >
                       {service.action.text}
                       <ArrowRight size={16} />
@@ -110,7 +110,7 @@ const Services: React.FC = () => {
                       href={service.action.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full py-3 px-4 bg-electric text-white rounded-xl font-medium flex items-center justify-center gap-2 hover:bg-electric/80 transition-colors shadow-lg shadow-electric/20"
+                      className="w-full py-3 px-4 bg-white/5 border border-electric text-electric rounded-xl font-medium flex items-center justify-center gap-2 hover:bg-electric/10 hover:shadow-[0_0_15px_rgba(180,255,0,0.2)] transition-all"
                     >
                       <Calendar size={16} />
                       {service.action.text}

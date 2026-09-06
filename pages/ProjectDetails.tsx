@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { PROJECTS , SITE_CONTENT } from "../constants";
-import { useTheme } from '../hooks/useTheme';
+
+import { lenisScrollTo } from '../hooks/useLenis';
 import Footer from '../components/Footer';
 import {
   ArrowLeft,
@@ -14,8 +15,6 @@ import {
   ChevronLeft,
   LayoutGrid,
   X,
-  Moon,
-  Sun,
 } from 'lucide-react';
 import { UseCase } from '../types';
 
@@ -42,7 +41,7 @@ const UseCaseCarousel: React.FC<{ useCases: UseCase[]; title: string }> = ({ use
 
   return (
     <div className="w-full">
-      <div className="relative w-full aspect-square md:aspect-video lg:aspect-21/9 bg-[radial-gradient(circle_at_center,#ffffff_0%,#e5e7eb_100%)] rounded-2xl overflow-hidden ring-1 ring-black/5 shadow-xl flex items-center justify-center p-6 md:p-16">
+      <div className="relative w-full aspect-square md:aspect-video lg:aspect-21/9 bg-[radial-gradient(circle_at_center,#252925_0%,#1a1c1a_100%)] rounded-2xl overflow-hidden ring-1 ring-white/10 shadow-xl flex items-center justify-center p-6 md:p-16">
         <AnimatePresence custom={direction} initial={false} mode="wait">
           <motion.div
             key={current}
@@ -82,7 +81,7 @@ const UseCaseCarousel: React.FC<{ useCases: UseCase[]; title: string }> = ({ use
         </AnimatePresence>
 
         {/* Gradient vignette on sides */}
-        <div className="absolute inset-0 bg-linear-to-r from-black/5 via-transparent to-black/5 pointer-events-none" />
+        <div className="absolute inset-0 bg-linear-to-r from-canvas-dark/50 via-transparent to-canvas-dark/50 pointer-events-none" />
 
         {useCases.length > 1 && (
           <>
@@ -314,7 +313,7 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({ images, title
 /* ── MAIN PAGE ── */
 const ProjectDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { theme, toggleTheme } = useTheme();
+
   const project = PROJECTS.find((p) => p.id === id);
   const heroRef = useRef<HTMLDivElement>(null);
   const [stickyVisible, setStickyVisible] = useState(false);
@@ -328,6 +327,9 @@ const ProjectDetails: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+    lenisScrollTo(0, { immediate: true });
+    
     if (project) {
       document.title = `${project.title} | Abdallah Wageeh Portfolio`;
     } else {
@@ -386,18 +388,7 @@ const ProjectDetails: React.FC = () => {
         </Link>
         
         <div className="flex items-center gap-4">
-          {/* Theme Toggle */}
-          <button
-            onClick={toggleTheme}
-            className="flex items-center justify-center p-2 rounded-full transition-all duration-300 hover:bg-canvas-dark/5 dark:hover:bg-white/30"
-            aria-label="Toggle Theme"
-          >
-            {theme === 'dark' ? (
-              <Sun size={18} className="text-canvas-light hover:text-electric transition-colors" />
-            ) : (
-              <Moon size={18} className="text-canvas-dark/70 dark:text-canvas-light/70 hover:text-electric transition-colors" />
-            )}
-          </button>
+
           
           <div className="font-display font-medium text-canvas-dark dark:text-canvas-light hidden md:block">
             {project.title}
@@ -408,7 +399,7 @@ const ProjectDetails: React.FC = () => {
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-sm font-medium bg-electric text-white px-4 py-1.5 rounded-full hover:bg-electric/80 transition-colors"
+              className="flex items-center gap-2 text-sm font-medium bg-white/5 border border-electric text-electric px-4 py-1.5 rounded-full hover:bg-electric/10 hover:shadow-[0_0_15px_rgba(180,255,0,0.2)] transition-all"
             >
               <ExternalLink size={14} />
               <span className="hidden md:inline">{SITE_CONTENT.projectDetails.liveDemo}</span>
@@ -515,7 +506,7 @@ const ProjectDetails: React.FC = () => {
                     href={project.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-5 py-2.5 bg-electric text-white rounded-full text-sm font-medium hover:bg-electric/80 transition-colors"
+                    className="flex items-center gap-2 px-5 py-2.5 bg-white/5 border border-electric text-electric rounded-full text-sm font-medium hover:bg-electric/10 hover:shadow-[0_0_15px_rgba(180,255,0,0.2)] transition-all"
                   >
                     <ExternalLink size={16} /> Live Demo
                   </a>
