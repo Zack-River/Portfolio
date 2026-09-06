@@ -46,7 +46,7 @@ const Hero: React.FC = () => {
                 className="mb-[2vw] flex items-center justify-center md:justify-start gap-[0.6vw] animate-fade-in-up w-full mx-auto md:mx-0 pointer-events-auto"
                 style={{ animationDelay: "0.1s" }}
               >
-                <span className="w-[0.5vw] h-[0.5vw] min-w-1.5 min-h-1.5 bg-electric rounded-sm shrink-0"></span>
+                <span className="w-[0.5vw] h-[0.5vw] min-w-1.5 min-h-1.5 bg-electric rounded-sm shrink-0 animate-pulse" style={{ animationDuration: '2s' }}></span>
                 <h2 className="font-mono text-[1.1vw] min-text-[10px] uppercase tracking-[0.3em] text-canvas-light/60 whitespace-nowrap" style={{ fontSize: 'clamp(10px, 1.1vw, 14px)' }}>
                   Software engineer
                 </h2>
