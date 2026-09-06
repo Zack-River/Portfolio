@@ -255,39 +255,50 @@ const Hero: React.FC = () => {
                 </pattern>
                 <rect width="100%" height="100%" fill="url(#grid)" />
 
-                {/* Static Paths */}
+                {/* Static Paths — also used as motion paths for animateMotion */}
                 <g stroke="rgba(199,240,0,0.3)" strokeWidth="2" fill="none">
-                  <path d="M100,400 L300,400 L400,200 L600,200" />
-                  <path d="M100,400 L300,400 L400,600 L600,600" />
-                  <path d="M300,400 L600,400" />
-                  <path d="M400,200 L600,400" />
+                  <path id="pulse-path-1" d="M100,400 L300,400 L400,200 L600,200" />
+                  <path id="pulse-path-2" d="M100,400 L300,400 L400,600 L600,600" />
+                  <path id="pulse-path-3" d="M300,400 L600,400" />
+                  <path id="pulse-path-4" d="M400,200 L600,400 L750,400" />
                   <path d="M400,600 L600,400" />
                   <path d="M600,200 L750,200" />
                   <path d="M600,400 L750,400" />
                   <path d="M600,600 L750,600" />
                 </g>
 
-                {/* Animated Data Pulses */}
-                <g
-                  stroke="#C7F000"
-                  strokeWidth="4"
-                  fill="none"
-                  className="data-pulses"
-                >
-                  <path
-                    d="M100,400 L300,400 L400,200 L600,200"
-                    className="pulse-1"
-                  />
-                  <path
-                    d="M100,400 L300,400 L400,600 L600,600"
-                    className="pulse-2"
-                  />
-                  <path d="M300,400 L600,400" className="pulse-3" />
-                  <path
-                    d="M400,200 L600,400 L750,400"
-                    className="pulse-4"
-                  />
-                </g>
+                {/* Animated Data Pulses — animateMotion is GPU-composited */}
+                <defs>
+                  <filter id="glow-dot" x="-100%" y="-100%" width="300%" height="300%">
+                    <feGaussianBlur stdDeviation="4" result="blur" />
+                    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                  </filter>
+                </defs>
+
+                {/* Pulse dot — path 1: CLIENT → GATEWAY → AUTH → DB_01 */}
+                <circle r="5" fill="#C7F000" filter="url(#glow-dot)">
+                  <animateMotion dur="2s" repeatCount="indefinite" begin="0s">
+                    <mpath href="#pulse-path-1" />
+                  </animateMotion>
+                </circle>
+                {/* Pulse dot — path 2: CLIENT → GATEWAY → CACHE → DB_02 */}
+                <circle r="5" fill="#C7F000" filter="url(#glow-dot)">
+                  <animateMotion dur="2s" repeatCount="indefinite" begin="0.5s">
+                    <mpath href="#pulse-path-2" />
+                  </animateMotion>
+                </circle>
+                {/* Pulse dot — path 3: GATEWAY → CORE_API */}
+                <circle r="5" fill="#C7F000" filter="url(#glow-dot)">
+                  <animateMotion dur="1.5s" repeatCount="indefinite" begin="1.0s">
+                    <mpath href="#pulse-path-3" />
+                  </animateMotion>
+                </circle>
+                {/* Pulse dot — path 4: AUTH → CORE_API → output */}
+                <circle r="5" fill="#C7F000" filter="url(#glow-dot)">
+                  <animateMotion dur="1.8s" repeatCount="indefinite" begin="1.5s">
+                    <mpath href="#pulse-path-4" />
+                  </animateMotion>
+                </circle>
 
                 {/* Nodes */}
                 <g fill="#0D0F0E" stroke="#C7F000" strokeWidth="3">
@@ -339,22 +350,6 @@ const Hero: React.FC = () => {
         .photo-mask {
           mask-image: radial-gradient(ellipse at 50% 50%, black 30%, transparent 68%);
           -webkit-mask-image: radial-gradient(ellipse at 50% 50%, black 30%, transparent 68%);
-        }
-        .data-pulses path {
-          stroke-dasharray: 30 250;
-          stroke-dashoffset: 280;
-          animation: pulseAnim 2s infinite linear;
-          filter: drop-shadow(0 0 8px #C7F000);
-          will-change: opacity, transform;
-        }
-        .pulse-1 { animation-delay: 0s !important; }
-        .pulse-2 { animation-delay: 0.5s !important; }
-        .pulse-3 { animation-delay: 1.0s !important; }
-        .pulse-4 { animation-delay: 1.5s !important; }
-
-        @keyframes pulseAnim {
-          0% { stroke-dashoffset: 280; }
-          100% { stroke-dashoffset: 0; }
         }
         @keyframes fadeInUp {
           from { opacity: 0; transform: translateY(24px); }
