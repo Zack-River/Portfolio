@@ -28,7 +28,7 @@ function generateHtml(baseHtml: string, metadata: {
   html = html.replace(/<meta\s+name="description"\s+content="[^"]*"\s*\/?>/i, `<meta name="description" content="${metadata.description}" />`);
   
   // Replace Canonical
-  html = html.replace(/<link\s+rel="canonical"\s+href="[^"]*"\s*\/?>/i, `<link rel="canonical" href="${metadata.url}" />`);
+  html = html.replace(/<!-- Canonical is managed per-page by react-helmet-async -->/i, `<link rel="canonical" href="${metadata.url}" />`);
   
   // Replace Open Graph Tags
   html = html.replace(/<meta\s+property="og:title"\s+content="[^"]*"\s*\/?>/i, `<meta property="og:title" content="${metadata.title}" />`);

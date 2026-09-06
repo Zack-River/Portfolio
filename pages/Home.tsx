@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from 'react-helmet-async';
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import Footer from "../components/Footer";
@@ -14,12 +15,13 @@ const LazyServices = React.lazy(() => import("../components/Services"));
 const LazyContact = React.lazy(() => import("../components/Contact"));
 
 const Home: React.FC = () => {
-  React.useEffect(() => {
-    document.title = "Abdallah Wageeh | Software Engineer";
-  }, []);
-
   return (
     <>
+      <Helmet>
+        <title>Abdallah Wageeh (Zack River) | Software Engineer &amp; Full-Stack Developer</title>
+        <link rel="canonical" href="https://www.zackriver.com/" />
+        <meta property="og:url" content="https://www.zackriver.com/" />
+      </Helmet>
       <main className="scroll-smooth">
         <Hero />
         <div className="border-t border-canvas-dark/10 w-full max-w-7xl mx-auto"></div>

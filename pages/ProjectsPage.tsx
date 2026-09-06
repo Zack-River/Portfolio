@@ -190,7 +190,8 @@ const ProjectsPage: React.FC = () => {
                       No Image
                     </div>
                   )}
-                  {/* Overlay Gradient */}
+                  {/* Overlay Gradient and Darkening Layer */}
+                  <div className="absolute inset-0 bg-black/40 transition-colors duration-300 group-hover:bg-black/50"></div>
                   <div className="absolute inset-0 bg-linear-to-t from-canvas-dark/90 via-canvas-dark/40 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-300"></div>
                 </div>
 

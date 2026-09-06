@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { PERSONAL_INFO } from "../constants";
 
 const Hero: React.FC = () => {
   const [isHovering, setIsHovering] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isLine1Flipped, setIsLine1Flipped] = useState(false);
   const [isLine2Flipped, setIsLine2Flipped] = useState(false);
+  const [isSubtitleFlipped, setIsSubtitleFlipped] = useState(false);
   const [namesHovered, setNamesHovered] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -21,6 +23,13 @@ const Hero: React.FC = () => {
     };
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsSubtitleFlipped((prev) => !prev);
+    }, 2500);
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -46,15 +55,20 @@ const Hero: React.FC = () => {
               {/* Main H1 Wrapper containing subtitle and names for SEO */}
               <h1 className="w-full pointer-events-auto flex flex-col">
                 {/* TOP LABEL (Subtitle) */}
-                <div
-                  className="mb-[2vw] flex items-center justify-center md:justify-start gap-[0.6vw] animate-fade-in-up w-full mx-auto md:mx-0 pointer-events-auto"
+                <span
+                  className="mb-[2vw] flex items-center justify-center md:justify-start gap-[0.6vw] animate-fade-in-up w-full mx-auto md:mx-0 pointer-events-auto perspective-1000"
                   style={{ animationDelay: "0s" }}
                 >
                   <span className="w-[0.5vw] h-[0.5vw] min-w-1.5 min-h-1.5 bg-electric rounded-sm shrink-0 animate-pulse" style={{ animationDuration: '2s' }} aria-hidden="true"></span>
-                  <span className="font-mono text-[1.1vw] min-text-[10px] uppercase tracking-[0.3em] text-canvas-light/60 whitespace-nowrap" style={{ fontSize: 'clamp(10px, 1.1vw, 14px)' }}>
-                    Software Engineer / Full-Stack Developer
+                  <span className={`relative transform-style-3d transition-transform duration-700 grid ${isSubtitleFlipped ? "rotate-x-180" : ""}`}>
+                    <span className="col-start-1 row-start-1 backface-hidden font-mono uppercase tracking-[0.3em] text-electric whitespace-nowrap" style={{ fontSize: 'clamp(10px, 1.1vw, 14px)' }}>
+                      Software Engineer
+                    </span>
+                    <span className="col-start-1 row-start-1 backface-hidden rotate-x-180 font-mono uppercase tracking-[0.3em] text-canvas-light/60 whitespace-nowrap" style={{ fontSize: 'clamp(10px, 1.1vw, 14px)' }}>
+                      Full-Stack Developer
+                    </span>
                   </span>
-                </div>
+                </span>
 
                 {/* Names wrapper — tracks hover to control gap between Zack/River */}
                 <span
@@ -157,7 +171,6 @@ const Hero: React.FC = () => {
                   <img
                     src="/zack-photo-new-mobile.webp"
                     alt="Zack River / Abdallah Wageeh"
-                    fetchPriority="high"
                     width="320"
                     height="480"
                     className="absolute inset-0 w-full h-full object-cover object-center grayscale contrast-125 brightness-90 md:scale-105 lg:scale-110 photo-mask"

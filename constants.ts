@@ -24,8 +24,9 @@ export const PERSONAL_INFO = {
   phone: "+201201024880",
   linkedin: "linkedin.com/in/zackriver",
   github: "github.com/Zack-River",
-  website: "zackriver.com",
+  website: "www.zackriver.com",
   facebook: "facebook.com/zack0river",
+  resume: "https://drive.google.com/file/d/1oj9kMdNrlhfq2KeO2WlRGCoiqAdw5ZZg/view?usp=sharing",
   bio: "Software Engineer specializing in full-stack and backend development and Freelancer with a strong focus on scalable architecture, performance, and maintainability with +3 years of Experience. I build modern web applications, REST APIs, authentication systems, CMS platforms, and real-time solutions while emphasizing clean code and long-term reliability. My goal is to create software that not only works today but continues to scale as products grow.",
 };
 
@@ -894,9 +895,16 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
 
 export const EDUCATION: Education = {
   degree: "Bachelor of Computer Science",
-  institution: "SHA Academy Higher Institute",
-  period: "10/2022 – 07/2026",
+  institution: "SHA Academy Higher Institute - College of Computer Science",
+  period: "09/22 - 06/26",
   grade: "Very Good",
+  projectGrade: "Excellent",
+  certificate: "https://drive.google.com/file/d/1-BtKyydcWBVWHrPoVE5LGvUwUq_VO1G8/view?usp=drive_link",
+  details: [
+    "Specialized in Software Engineering, Backend Architecture, and Scalable Systems.",
+    "Led the development of a full-stack platform for the graduation project, earning an 'Excellent' grade.",
+    "Built a strong foundation in Data Structures, Algorithms, Databases, and Clean Code practices."
+  ],
 };
 
 export const TRAINING: Experience[] = [

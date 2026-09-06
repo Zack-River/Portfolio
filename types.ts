@@ -61,6 +61,9 @@ export interface Education {
   institution: string;
   period: string;
   grade: string;
+  projectGrade?: string;
+  certificate?: string;
+  details?: string[];
 }
 
 export interface Experience {
