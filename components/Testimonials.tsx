@@ -69,7 +69,7 @@ const VoiceNotePlayer: React.FC<{ src: string }> = ({ src }) => {
           <div className="h-full bg-electric rounded-full transition-none" style={{ width: `${progress}%` }} />
         </div>
         {duration > 0 && (
-          <div className="text-right mt-0.5 font-mono text-[8.5px] text-white/40">
+          <div className="text-right mt-0.5 font-mono text-[10px] text-white/60">
             {fmt((progress / 100) * duration)} / {fmt(duration)}
           </div>
         )}
@@ -157,7 +157,7 @@ const Testimonials: React.FC = () => {
   }, []);
 
   return (
-    <section id="testimonials" className="py-24 md:py-32 bg-canvas-dark dark:bg-canvas-dark text-canvas-light relative overflow-hidden transition-colors duration-500">
+    <section id="testimonials" className="py-24 md:py-32 bg-canvas-dark dark:bg-canvas-dark text-canvas-light relative overflow-hidden transition-colors duration-500" style={{ contentVisibility: 'auto', containIntrinsicSize: '0 800px' }}>
       <div className="absolute top-1/2 left-1/2 md:left-1/4 -translate-x-1/2 -translate-y-1/2 w-[70%] md:w-[45%] h-[70%] md:h-[60%] bg-electric/25 rounded-full blur-[140px] pointer-events-none z-0 hidden md:block"></div>
       <StarsBackground colorClass="bg-electric" count={20} />
       <FloatingPolymers />

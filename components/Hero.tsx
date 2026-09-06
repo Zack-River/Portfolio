@@ -144,8 +144,11 @@ const Hero: React.FC = () => {
             >
               <div className="relative w-full max-w-[320px] sm:max-w-90 md:w-[38vw] md:max-w-90 lg:w-full lg:max-w-120 xl:max-w-137.5 aspect-square md:aspect-4/5 z-10 flex items-center justify-center translate-y-6 md:translate-y-4 md:-translate-x-4 lg:-translate-x-4 lg:translate-y-4 mx-auto md:mx-0">
                 <img
-                  src="/zack-photo-new.jpg"
+                  src="/zack-photo-new.webp"
                   alt="Zack River / Abdallah Wageeh"
+                  fetchpriority="high"
+                  width="853"
+                  height="1067"
                   className="absolute inset-0 w-full h-full object-cover object-center grayscale contrast-125 brightness-90 md:scale-105 lg:scale-110 photo-mask"
                 />
                 <div className="absolute inset-0 bg-canvas-dark/20 photo-mask"></div>
@@ -339,6 +342,7 @@ const Hero: React.FC = () => {
           stroke-dashoffset: 1040;
           animation: pulseAnim 3s infinite linear;
           filter: drop-shadow(0 0 10px #C7F000);
+          will-change: stroke-dashoffset;
         }
         .pulse-1 { animation-delay: 0s !important; }
         .pulse-2 { animation-delay: 1.2s !important; }

@@ -82,7 +82,7 @@ const About: React.FC = () => {
   }, []);
 
   return (
-    <section id="about" className="py-24 md:py-32 bg-canvas-light dark:bg-canvas-dark transition-colors duration-500 relative overflow-hidden">
+    <section id="about" className="py-24 md:py-32 bg-canvas-light dark:bg-canvas-dark transition-colors duration-500 relative overflow-hidden" style={{ contentVisibility: 'auto', containIntrinsicSize: '0 800px' }}>
 
 
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24 relative z-10">

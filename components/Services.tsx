@@ -55,7 +55,7 @@ const Services: React.FC = () => {
   };
 
   return (
-    <section id="services" className="py-24 md:py-32 bg-canvas-light dark:bg-canvas-dark transition-colors duration-500 text-canvas-dark dark:text-canvas-light relative">
+    <section id="services" className="py-24 md:py-32 bg-canvas-light dark:bg-canvas-dark transition-colors duration-500 text-canvas-dark dark:text-canvas-light relative" style={{ contentVisibility: 'auto', containIntrinsicSize: '0 800px' }}>
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
         <GSAPReveal>
           <SectionHeader 
