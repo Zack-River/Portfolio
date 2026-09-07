@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Home, User, Layers, Users, Briefcase } from 'lucide-react';
+import { Home, User, Layers, Users, Briefcase, Mail } from 'lucide-react';
 
 const navItems = [
   { id: 'home', route: '/', icon: Home, label: 'Home' },
   { id: 'about', route: '/about', icon: User, label: 'About' },
   { id: 'projects', route: '/projects', icon: Layers, label: 'Works' },
   { id: 'services', route: '/services', icon: Briefcase, label: 'Services' },
+  { id: 'contact', route: '/contact', icon: Mail, label: 'Contact' },
 ];
 
 const Navbar: React.FC = () => {
@@ -45,7 +46,7 @@ const Navbar: React.FC = () => {
           : '-translate-x-1/2 translate-y-32 md:-translate-y-32 opacity-0 pointer-events-none'
       }`}
     >
-      <nav className="flex items-center space-x-1 md:space-x-2 px-4 py-2 md:px-6 md:py-3 bg-white/80 dark:bg-canvas-dark/80 backdrop-blur-lg rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-canvas-dark/5 dark:border-white/10">
+      <nav aria-label="Main Navigation" className="flex items-center space-x-1 md:space-x-2 px-4 py-2 md:px-6 md:py-3 bg-white/80 dark:bg-canvas-dark/80 backdrop-blur-lg rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-canvas-dark/5 dark:border-white/10">
         {navItems.map((item) => {
           const isActive = location.pathname === item.route || (item.route !== '/' && location.pathname.startsWith(item.route));
           

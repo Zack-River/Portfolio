@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { PERSONAL_INFO } from "../constants";
 
 const Hero: React.FC = () => {
   const [isHovering, setIsHovering] = useState(false);
@@ -12,17 +11,43 @@ const Hero: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
+    let top: number | null = null;
+    let left: number | null = null;
+
+    const updateOffsets = () => {
       if (containerRef.current) {
         const rect = containerRef.current.getBoundingClientRect();
-        setMousePos({
-          x: e.clientX - rect.left,
-          y: e.clientY - rect.top,
-        });
+        top = rect.top + window.scrollY;
+        left = rect.left + window.scrollX;
       }
     };
+
+    let resizeTimeout: any;
+    const handleResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        top = null;
+        left = null;
+      }, 200);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (top === null || left === null) {
+        updateOffsets();
+      }
+      setMousePos({
+        x: e.pageX - (left || 0),
+        y: e.pageY - (top || 0),
+      });
+    };
+    
     window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   useEffect(() => {
@@ -173,6 +198,8 @@ const Hero: React.FC = () => {
                     alt="Zack River / Abdallah Wageeh"
                     width="320"
                     height="480"
+                    fetchPriority="high"
+                    loading="eager"
                     className="absolute inset-0 w-full h-full object-cover object-center grayscale contrast-125 brightness-90 md:scale-105 lg:scale-110 photo-mask"
                   />
                 </picture>

@@ -1,8 +1,6 @@
 import React, { useRef, useEffect } from 'react';
-import gsap from 'gsap';
-import ScrollTrigger from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger);
+type GsapContext = { revert: () => void };
 
 interface SectionHeaderProps {
   title: string;
@@ -29,20 +27,45 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle, number =
       return;
     }
 
-    const ctx = gsap.context(() => {
-      // Stagger in the title, line, and subtitle
-      gsap.from([titleRef.current, lineRef.current, subtitleRef.current], {
-        opacity: 0,
-        y: 20,
-        duration: 0.6,
-        stagger: 0.1,
-        ease: 'power2.out',
-        // Play and reverse to keep the "life feeling"
-        scrollTrigger: { trigger: titleRef.current, start: 'top 88%', end: 'top 20%', toggleActions: 'play none none reverse' },
-      });
+    let ctx: GsapContext;
+    let frame: number;
+    let ScrollTriggerModule: any;
+
+    frame = requestAnimationFrame(async () => {
+      try {
+        const [gsapModule, stModule] = await Promise.all([
+          import('gsap'),
+          import('gsap/ScrollTrigger')
+        ]);
+        const gsap = gsapModule.default;
+        ScrollTriggerModule = stModule.default;
+        
+        gsap.registerPlugin(ScrollTriggerModule);
+
+        ctx = gsap.context(() => {
+          // Stagger in the title, line, and subtitle
+          gsap.from([titleRef.current, lineRef.current, subtitleRef.current], {
+            opacity: 0,
+            y: 20,
+            duration: 0.6,
+            stagger: 0.1,
+            ease: 'power2.out',
+            // Play and reverse to keep the "life feeling"
+            scrollTrigger: { trigger: titleRef.current, start: 'top 88%', end: 'top 20%', toggleActions: 'play none none reverse' },
+          });
+        });
+      } catch (e) {
+        // silently fallback
+        if (titleRef.current) titleRef.current.style.opacity = '1';
+        if (lineRef.current) lineRef.current.style.opacity = '1';
+        if (subtitleRef.current) subtitleRef.current.style.opacity = '1';
+      }
     });
 
-    return () => ctx.revert();
+    return () => {
+      cancelAnimationFrame(frame);
+      if (ctx) ctx.revert();
+    };
   }, []);
 
   // Text color: dark sections always have light text; light sections always have dark text

@@ -8,6 +8,7 @@ const ProjectDetails = React.lazy(() => import('./pages/ProjectDetails'));
 const ProjectsPage = React.lazy(() => import('./pages/ProjectsPage'));
 const AboutPage = React.lazy(() => import('./pages/AboutPage'));
 const ServicesPage = React.lazy(() => import('./pages/ServicesPage'));
+const ContactPage = React.lazy(() => import('./pages/ContactPage'));
 
 import { useLenis } from './hooks/useLenis';
 
@@ -20,7 +21,7 @@ const ScrollToTop = () => {
   return null;
 };
 
-import Navbar from './components/Navbar';
+const LazyNavbar = React.lazy(() => import('./components/Navbar'));
 
 
 
@@ -83,7 +84,7 @@ function App() {
       {loading && <Loader onComplete={() => setLoading(false)} />}
       
       <div className={`bg-canvas-dark min-h-screen text-canvas-light selection:bg-electric/90 selection:text-white transition-colors duration-500 ${loading ? 'h-screen overflow-hidden' : ''}`}>
-        <Navbar />
+        <React.Suspense fallback={<></>}><LazyNavbar /></React.Suspense>
         <React.Suspense fallback={<div className="min-h-screen flex items-center justify-center text-canvas-dark/40 font-mono text-sm animate-pulse">Loading Route...</div>}>
           <main id="main-content">
             <Routes>
@@ -92,6 +93,7 @@ function App() {
               <Route path="/services" element={<ServicesPage />} />
               <Route path="/projects" element={<ProjectsPage />} />
               <Route path="/projects/:id" element={<ProjectDetails />} />
+              <Route path="/contact" element={<ContactPage />} />
             </Routes>
           </main>
         </React.Suspense>

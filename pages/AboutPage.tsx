@@ -1,17 +1,13 @@
 import React, { useEffect, useRef } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Footer from "../components/Footer";
 import {
   PERSONAL_INFO,
   TRAINING,
   SKILL_CATEGORIES,
   EDUCATION,
 } from "../constants";
-import { ArrowRight, ExternalLink } from "lucide-react";
-
-gsap.registerPlugin(ScrollTrigger);
+import { ExternalLink } from "lucide-react";
 
 // Custom hook for animated counter
 const useCounter = (end: number, duration: number = 2) => {
@@ -19,31 +15,47 @@ const useCounter = (end: number, duration: number = 2) => {
 
   useEffect(() => {
     const node = nodeRef.current;
-    if (!node) return;
+    let isMounted = true;
+    let ctx: any;
+    let timeoutId = window.setTimeout(() => {
+      if (!isMounted) return;
+      Promise.all([import("gsap"), import("gsap/ScrollTrigger")]).then(
+        ([gsapModule, scrollTriggerModule]) => {
+          if (!isMounted) return;
+        const gsap = gsapModule.default;
+        const ScrollTrigger = scrollTriggerModule.ScrollTrigger;
+        gsap.registerPlugin(ScrollTrigger);
 
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        node,
-        { innerHTML: 0 },
-        {
-          innerHTML: end,
-          duration,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: node,
-            start: "top 90%",
-          },
-          snap: { innerHTML: 1 },
-          onUpdate: function () {
-            node.innerHTML = Math.round(
-              Number(this.targets()[0].innerHTML),
-            ).toString();
-          },
+        ctx = gsap.context(() => {
+          gsap.fromTo(
+            node,
+            { innerHTML: 0 },
+            {
+              innerHTML: end,
+              duration,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: node,
+                start: "top 90%",
+              },
+              snap: { innerHTML: 1 },
+              onUpdate: function () {
+                node.innerHTML = Math.round(
+                  Number(this.targets()[0].innerHTML),
+                ).toString();
+              },
+            },
+          );
+        }, node);
         },
       );
-    }, node);
+    }, 150);
 
-    return () => ctx.revert();
+    return () => {
+      isMounted = false;
+      clearTimeout(timeoutId);
+      if (ctx) ctx.revert();
+    };
   }, [end, duration]);
 
   return nodeRef;
@@ -60,27 +72,47 @@ const AboutPage: React.FC = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    const ctx = gsap.context(() => {
-      // Masthead Animation
-      gsap.from(".masthead-letter", {
-        y: 100,
-        opacity: 0,
-        stagger: 0.1,
-        duration: 1,
-        ease: "back.out(1.7)",
-        delay: 0.2,
-      });
+    let isMounted = true;
+    let ctx: any;
+    let timeoutId = window.setTimeout(() => {
+      if (!isMounted) return;
+      import("gsap").then(({ default: gsap }) => {
+        if (!isMounted) return;
+      ctx = gsap.context(() => {
+        // Masthead Animation
+        gsap.from(".masthead-letter", {
+          y: 100,
+          opacity: 0,
+          stagger: 0.1,
+          duration: 1,
+          ease: "back.out(1.7)",
+          delay: 0.2,
+        });
 
-      // (Horizontal scroll removed per user request)
-    }, containerRef);
+        gsap.from(".masthead-tagline", {
+          y: 20,
+          opacity: 0,
+          duration: 0.8,
+          delay: 0.5,
+          ease: "power3.out",
+        });
 
-    return () => ctx.revert();
+        // (Horizontal scroll removed per user request)
+      }, containerRef);
+    });
+    }, 150);
+
+    return () => {
+      isMounted = false;
+      clearTimeout(timeoutId);
+      if (ctx) ctx.revert();
+    };
   }, []);
 
   return (
     <div
       ref={containerRef}
-      className="bg-canvas-dark text-canvas-light min-h-screen font-sans overflow-x-hidden selection:bg-electric selection:text-canvas-dark pt-[10vh]"
+      className="bg-canvas-dark text-canvas-light min-h-screen font-sans overflow-x-hidden selection:bg-electric selection:text-canvas-dark"
     >
       <Helmet>
         <title>About | {PERSONAL_INFO.name}</title>
@@ -94,39 +126,50 @@ const AboutPage: React.FC = () => {
       </Helmet>
 
       {/* 1. Masthead Hero */}
-      <section 
-        className="px-[5vw] max-w-screen-2xl mx-auto flex flex-col items-center justify-center pt-8 pb-4 md:py-0 md:min-h-[40vh] relative z-10 overflow-hidden"
+      <section
+        className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24 flex flex-col items-center justify-center pt-32 md:pt-40 pb-8 md:pb-12 relative z-10 overflow-hidden"
         aria-label="About Masthead"
       >
         <h1 className="sr-only">About Abdallah Wageeh (Zack River)</h1>
 
         <div
           aria-hidden="true"
-          className="flex items-center justify-center font-black uppercase text-[18vw] leading-none tracking-tighter w-full overflow-visible py-4"
+          className="flex items-center justify-center font-black uppercase leading-none tracking-tighter w-full overflow-visible py-4"
+          style={{ fontSize: "clamp(3rem, 12vw, 10rem)" }}
         >
-          <span className="masthead-letter">A</span>
-          <span className="masthead-letter">B</span>
-          <span className="masthead-letter relative">
+          <span className="masthead-letter inline-block">A</span>
+          <span className="masthead-letter inline-block">B</span>
+          <span className="masthead-letter inline-block relative">
             <span className="relative z-10 text-electric drop-shadow-[0_0_30px_rgba(180,255,0,0.8)]">
               O
             </span>
           </span>
-          <span className="masthead-letter">U</span>
-          <span className="masthead-letter">T</span>
+          <span className="masthead-letter inline-block">U</span>
+          <span className="masthead-letter inline-block">T</span>
         </div>
 
-        <div className="w-full h-px bg-canvas-light/20 mt-2 md:mt-8" role="separator"></div>
+        <p className="masthead-tagline text-xs md:text-sm font-mono uppercase tracking-[0.25em] text-canvas-light/60 mt-2 text-center">
+          The person behind the code.
+        </p>
+
+        <div
+          className="w-full h-px bg-canvas-light/10 mt-6 md:mt-10"
+          role="separator"
+        ></div>
       </section>
 
       {/* 2. Photo + Identity Card */}
-      <section 
+      <section
         className="px-[5vw] max-w-screen-2xl mx-auto pt-6 pb-16 md:py-24"
         aria-label="Identity and Links"
       >
         <div className="flex flex-col lg:grid lg:grid-cols-12 items-center text-center lg:text-left gap-12 md:gap-16 lg:gap-20 max-w-4xl lg:max-w-none mx-auto">
           <div className="relative group perspective-1000 w-full max-w-xs md:max-w-sm lg:max-w-md lg:col-span-5 mx-auto">
             <div className="relative w-full aspect-4/5 transform md:rotate-y-[-5deg] md:-rotate-z-2 transition-all duration-700 group-hover:rotate-0 group-hover:rotate-y-0">
-              <div aria-hidden="true" className="absolute inset-0 bg-electric/20 rounded-xl translate-x-4 translate-y-4 blur-xl transition-all duration-700 group-hover:translate-x-2 group-hover:translate-y-2 group-hover:blur-md"></div>
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 bg-electric/20 rounded-xl translate-x-4 translate-y-4 blur-xl transition-all duration-700 group-hover:translate-x-2 group-hover:translate-y-2 group-hover:blur-md"
+              ></div>
 
               <div className="absolute inset-0 border border-canvas-light/10 bg-canvas-dark rounded-xl overflow-hidden z-10">
                 <img
@@ -138,8 +181,14 @@ const AboutPage: React.FC = () => {
               </div>
 
               {/* Lime Accent Corner */}
-              <div aria-hidden="true" className="absolute -top-2 -left-2 w-12 h-12 md:w-16 md:h-16 border-t-4 border-l-4 border-electric z-20 rounded-tl-lg transition-transform duration-700 md:group-hover:-translate-x-2 md:group-hover:-translate-y-2"></div>
-              <div aria-hidden="true" className="absolute -bottom-2 -right-2 w-12 h-12 md:w-16 md:h-16 border-b-4 border-r-4 border-electric z-20 rounded-br-lg transition-transform duration-700 md:group-hover:translate-x-2 md:group-hover:translate-y-2"></div>
+              <div
+                aria-hidden="true"
+                className="absolute -top-2 -left-2 w-12 h-12 md:w-16 md:h-16 border-t-4 border-l-4 border-electric z-20 rounded-tl-lg transition-transform duration-700 md:group-hover:-translate-x-2 md:group-hover:-translate-y-2"
+              ></div>
+              <div
+                aria-hidden="true"
+                className="absolute -bottom-2 -right-2 w-12 h-12 md:w-16 md:h-16 border-b-4 border-r-4 border-electric z-20 rounded-br-lg transition-transform duration-700 md:group-hover:translate-x-2 md:group-hover:translate-y-2"
+              ></div>
             </div>
           </div>
 
@@ -166,7 +215,10 @@ const AboutPage: React.FC = () => {
               >
                 {PERSONAL_INFO.email}
               </a>
-              <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-electric hidden md:block"></span>
+              <span
+                aria-hidden="true"
+                className="w-1.5 h-1.5 rounded-full bg-electric hidden md:block"
+              ></span>
               <a
                 href={`https://${PERSONAL_INFO.linkedin}`}
                 target="_blank"
@@ -175,7 +227,10 @@ const AboutPage: React.FC = () => {
               >
                 LinkedIn
               </a>
-              <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-electric hidden md:block"></span>
+              <span
+                aria-hidden="true"
+                className="w-1.5 h-1.5 rounded-full bg-electric hidden md:block"
+              ></span>
               <a
                 href={`https://${PERSONAL_INFO.github}`}
                 target="_blank"
@@ -184,7 +239,10 @@ const AboutPage: React.FC = () => {
               >
                 GitHub
               </a>
-              <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-electric hidden md:block"></span>
+              <span
+                aria-hidden="true"
+                className="w-1.5 h-1.5 rounded-full bg-electric hidden md:block"
+              ></span>
               <a
                 href={PERSONAL_INFO.resume}
                 target="_blank"
@@ -216,7 +274,10 @@ const AboutPage: React.FC = () => {
                 key={i}
                 className="flex flex-col group w-full border-l border-canvas-light/10 pl-6 md:pl-8 relative transition-colors duration-300 hover:border-electric"
               >
-                <div aria-hidden="true" className="absolute top-0 -left-1.5 w-2.5 h-2.5 rounded-full bg-canvas-light/20 transition-colors duration-300 group-hover:bg-electric shadow-[0_0_10px_rgba(180,255,0,0)] group-hover:shadow-[0_0_15px_rgba(180,255,0,0.5)]"></div>
+                <div
+                  aria-hidden="true"
+                  className="absolute top-0 -left-1.5 w-2.5 h-2.5 rounded-full bg-canvas-light/20 transition-colors duration-300 group-hover:bg-electric shadow-[0_0_10px_rgba(180,255,0,0)] group-hover:shadow-[0_0_15px_rgba(180,255,0,0.5)]"
+                ></div>
 
                 <div className="text-xs font-mono text-electric mb-4 tracking-widest uppercase">
                   {item.period}
@@ -249,7 +310,8 @@ const AboutPage: React.FC = () => {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-canvas-light/75 hover:text-electric transition-colors"
                     >
-                      View Certificate <ExternalLink size={14} aria-hidden="true" />
+                      View Certificate{" "}
+                      <ExternalLink size={14} aria-hidden="true" />
                     </a>
                   </div>
                 )}
@@ -260,7 +322,7 @@ const AboutPage: React.FC = () => {
       </section>
 
       {/* 4. Education & 5. Stats */}
-      <section 
+      <section
         className="px-[5vw] max-w-screen-2xl mx-auto py-16 md:py-24"
         aria-label="Education and Statistics"
       >
@@ -326,7 +388,8 @@ const AboutPage: React.FC = () => {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-canvas-light/75 hover:text-electric transition-colors mt-2 sm:mt-0 sm:ml-auto"
                     >
-                      View Certificate <ExternalLink size={14} aria-hidden="true" />
+                      View Certificate{" "}
+                      <ExternalLink size={14} aria-hidden="true" />
                     </a>
                   )}
                 </div>
@@ -382,7 +445,7 @@ const AboutPage: React.FC = () => {
       </section>
 
       {/* 6. Skills Grid */}
-      <section 
+      <section
         className="px-[5vw] max-w-screen-2xl mx-auto py-24 md:py-32 border-t border-canvas-light/10"
         aria-label="Technical Skills"
       >
@@ -425,48 +488,7 @@ const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 7. CTA Strip */}
-      <section 
-        className="mt-10 md:mt-20 bg-electric text-canvas-dark py-20 md:py-32 px-[5vw] relative overflow-hidden group"
-        aria-label="Call to action"
-      >
-        <div className="max-w-screen-2xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12 relative z-10">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight max-w-2xl leading-[1.1] text-center lg:text-left">
-            Ready to build something{" "}
-            <span className="text-canvas-light opacity-60 lg:opacity-50 lg:group-hover:opacity-100 transition-opacity duration-500">
-              remarkable
-            </span>{" "}
-            together?
-          </h2>
-
-          <div className="flex flex-col sm:flex-row gap-4 md:gap-6 shrink-0 w-full sm:w-auto">
-            <Link
-              to="/projects"
-              className="inline-flex items-center justify-center gap-3 bg-canvas-dark text-canvas-light font-bold uppercase tracking-[0.15em] text-sm px-6 py-4 md:px-8 md:py-5 rounded-full hover:bg-canvas-light hover:text-canvas-dark hover:shadow-lg transition-all duration-300"
-            >
-              View Works <ArrowRight size={18} aria-hidden="true" />
-            </Link>
-            <a
-              href={`mailto:${PERSONAL_INFO.email}`}
-              aria-label={`Email me at ${PERSONAL_INFO.email}`}
-              className="inline-flex items-center justify-center gap-3 border-2 border-canvas-dark text-canvas-dark font-bold uppercase tracking-[0.15em] text-sm px-6 py-4 md:px-8 md:py-5 rounded-full hover:bg-canvas-dark hover:text-electric transition-colors duration-300"
-            >
-              Contact Me <ArrowRight size={18} aria-hidden="true" />
-            </a>
-          </div>
-        </div>
-
-        {/* Subtle background texture for the CTA */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 opacity-10 pointer-events-none"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at center, #0d0e0d 1px, transparent 1px)",
-            backgroundSize: "24px 24px",
-          }}
-        ></div>
-      </section>
+      <Footer />
     </div>
   );
 };

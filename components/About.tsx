@@ -12,10 +12,6 @@ import {
   User,
 } from "lucide-react";
 import GSAPReveal from "./GSAPReveal";
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const About: React.FC = () => {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
@@ -41,23 +37,35 @@ const About: React.FC = () => {
     ).matches;
     if (isMobile || prefersReducedMotion) return;
 
-    const ctx = gsap.context(() => {
-      // Photo parallax — moves at 60% scroll speed
-      if (photoRef.current) {
-        gsap.to(photoRef.current, {
-          y: -50,
-          ease: "none",
-          scrollTrigger: {
-            trigger: photoRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
-        });
-      }
+    let isMounted = true;
+    let ctx: any;
 
-      // Timeline: line draws down, then items slide in
-      if (timelineRef.current) {
+    Promise.all([
+      import('gsap'),
+      import('gsap/ScrollTrigger')
+    ]).then(([gsapModule, scrollTriggerModule]) => {
+      if (!isMounted) return;
+      const gsap = gsapModule.default;
+      const ScrollTrigger = scrollTriggerModule.ScrollTrigger;
+      gsap.registerPlugin(ScrollTrigger);
+
+      ctx = gsap.context(() => {
+        // Photo parallax — moves at 60% scroll speed
+        if (photoRef.current) {
+          gsap.to(photoRef.current, {
+            y: -50,
+            ease: "none",
+            scrollTrigger: {
+              trigger: photoRef.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          });
+        }
+
+        // Timeline: line draws down, then items slide in
+        if (timelineRef.current) {
         const items = timelineRef.current.querySelectorAll(".timeline-item");
 
         // Draw the border-left line from top to bottom
@@ -90,9 +98,13 @@ const About: React.FC = () => {
           },
         });
       }
+      });
     });
 
-    return () => ctx.revert();
+    return () => {
+      isMounted = false;
+      if (ctx) ctx.revert();
+    };
   }, []);
 
   return (
@@ -232,6 +244,7 @@ const About: React.FC = () => {
                                 href={job.certificate}
                                 target="_blank"
                                 rel="noopener noreferrer"
+                                aria-label={`View Certificate for ${job.role} at ${job.company}`}
                                 onClick={(e) => e.stopPropagation()}
                                 className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-electric hover:text-canvas-dark bg-transparent hover:bg-electric px-3 py-1 rounded-full transition-all border border-electric/30"
                               >
@@ -314,6 +327,7 @@ const About: React.FC = () => {
                               href={job.certificate}
                               target="_blank"
                               rel="noopener noreferrer"
+                              aria-label={`View Certificate for ${job.role} at ${job.company}`}
                               className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-electric hover:text-canvas-dark bg-transparent hover:bg-electric px-3 py-1 rounded-full transition-all border border-electric/30"
                             >
                               <ExternalLink size={12} /> Certificate

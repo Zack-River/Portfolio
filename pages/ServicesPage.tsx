@@ -1,15 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+// Minimal shape we need from gsap.Context (avoids importing gsap at module level)
+type GsapContext = { revert: () => void };
 import {
   Server, Globe, Database, ShieldCheck, Monitor, PenTool,
-  ArrowRight, ArrowUpRight, CalendarDays, Mail
+  ArrowRight, CalendarDays, Mail
 } from 'lucide-react';
+import Footer from "../components/Footer";
 import { SERVICES, PERSONAL_INFO } from '../constants';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const iconMap: Record<string, React.FC<{ size?: number; strokeWidth?: number }>> = {
   Server, Globe, Database, ShieldCheck, Monitor, PenTool,
@@ -24,60 +22,71 @@ const ServicesPage: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
+  const gsapCtxRef = useRef<GsapContext | null>(null);
+  const rafRef = useRef<number>(0);
+  const raf2Ref = useRef<number>(0);
+
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    const ctx = gsap.context(() => {
-      const mm = gsap.matchMedia();
+    // Double-rAF ensures React paints the LCP text BEFORE GSAP runs
+    // GSAP is dynamically imported so it's NOT in the critical path
+    let timeoutId = window.setTimeout(() => {
+        // Dynamic import keeps gsap-vendor out of the critical rendering chain
+        Promise.all([
+          import('gsap'),
+          import('gsap/ScrollTrigger'),
+        ]).then(([{ default: gsap }, { ScrollTrigger }]) => {
+          gsap.registerPlugin(ScrollTrigger);
+          gsapCtxRef.current = gsap.context(() => {
+            const mm = gsap.matchMedia();
 
-      mm.add('(prefers-reduced-motion: no-preference)', () => {
-        // Masthead letters stagger in
-        gsap.from('.svc-letter', {
-          y: 120,
-          opacity: 0,
-          stagger: 0.06,
-          duration: 1,
-          ease: 'power4.out',
+            mm.add('(prefers-reduced-motion: no-preference)', () => {
+              gsap.from('.svc-letter', {
+                y: 120,
+                opacity: 0,
+                stagger: 0.06,
+                duration: 1,
+                ease: 'power4.out',
+              });
+              gsap.from('.svc-tagline', {
+                y: 30,
+                opacity: 0,
+                duration: 0.8,
+                delay: 0.5,
+                ease: 'power3.out',
+              });
+              gsap.from('.svc-row', {
+                y: 40,
+                opacity: 0,
+                stagger: 0.1,
+                duration: 0.7,
+                ease: 'power3.out',
+                scrollTrigger: {
+                  trigger: '.svc-list',
+                  start: 'top 80%',
+                },
+              });
+              gsap.from('.process-item', {
+                y: 30,
+                opacity: 0,
+                stagger: 0.12,
+                duration: 0.6,
+                ease: 'power3.out',
+                scrollTrigger: {
+                  trigger: '.process-grid',
+                  start: 'top 85%',
+                },
+              });
+            });
+          }, containerRef);
         });
+    }, 150);
 
-        // Tagline fade up
-        gsap.from('.svc-tagline', {
-          y: 30,
-          opacity: 0,
-          duration: 0.8,
-          delay: 0.5,
-          ease: 'power3.out',
-        });
-
-        // Service rows stagger in on scroll
-        gsap.from('.svc-row', {
-          y: 40,
-          opacity: 0,
-          stagger: 0.1,
-          duration: 0.7,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: '.svc-list',
-            start: 'top 80%',
-          },
-        });
-
-        // Process items fade in
-        gsap.from('.process-item', {
-          y: 30,
-          opacity: 0,
-          stagger: 0.12,
-          duration: 0.6,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: '.process-grid',
-            start: 'top 85%',
-          },
-        });
-      });
-    }, containerRef);
-
-    return () => ctx.revert();
+    return () => {
+      clearTimeout(timeoutId);
+      gsapCtxRef.current?.revert();
+    };
   }, []);
 
   const jsonLd = {
@@ -96,10 +105,7 @@ const ServicesPage: React.FC = () => {
   };
 
   return (
-    <div
-      ref={containerRef}
-      className="bg-canvas-dark text-canvas-light min-h-screen font-sans overflow-x-hidden selection:bg-electric selection:text-canvas-dark pt-[10vh]"
-    >
+    <div ref={containerRef} className="bg-canvas-dark text-canvas-light min-h-screen font-sans selection:bg-electric selection:text-canvas-dark overflow-hidden">
       <Helmet>
         <title>{PAGE_TITLE}</title>
         <meta name="description" content={PAGE_DESC} />
@@ -122,30 +128,33 @@ const ServicesPage: React.FC = () => {
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>
 
-      {/* ── 1. Masthead ────────────────────────────────── */}
-      <section
-        className="px-[5vw] max-w-screen-2xl mx-auto flex flex-col items-center justify-center pt-8 pb-4 md:py-0 md:min-h-[40vh] relative z-10 overflow-hidden"
-        aria-label="Services headline"
+      {/* ── 1. Masthead Hero ────────────────────────────── */}
+      <section 
+        className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24 flex flex-col items-center justify-center pt-32 md:pt-40 pb-8 md:pb-12 relative z-10 overflow-hidden"
+        aria-label="Services Header"
       >
-        <h1 className="sr-only">Professional Software Engineering Services by {PERSONAL_INFO.name}</h1>
-
-        {/* Big decorative letters – hidden from AT */}
+        <h1 className="sr-only">Services & Capabilities</h1>
+        
         <div
           aria-hidden="true"
           className="flex items-center justify-center font-black uppercase leading-none tracking-tighter w-full overflow-visible py-4"
-          style={{ fontSize: 'clamp(3.5rem, 16vw, 12rem)' }}
+          style={{ fontSize: 'clamp(3rem, 12vw, 10rem)' }}
         >
-          {'SERVICES'.split('').map((letter, i) => (
-            <span
-              key={i}
-              className={`svc-letter inline-block ${i === 3 ? 'text-electric drop-shadow-[0_0_40px_rgba(180,255,0,0.8)]' : ''}`}
-            >
-              {letter}
+          <span className="svc-letter inline-block">S</span>
+          <span className="svc-letter inline-block">E</span>
+          <span className="svc-letter inline-block">R</span>
+          <span className="svc-letter inline-block relative">
+            <span className="relative z-10 text-electric drop-shadow-[0_0_30px_rgba(180,255,0,0.8)]">
+              V
             </span>
-          ))}
+          </span>
+          <span className="svc-letter inline-block">I</span>
+          <span className="svc-letter inline-block">C</span>
+          <span className="svc-letter inline-block">E</span>
+          <span className="svc-letter inline-block">S</span>
         </div>
 
-        {/* Tagline — bumped from /40 to /60 for contrast */}
+        {/* Tagline */}
         <p className="svc-tagline text-xs md:text-sm font-mono uppercase tracking-[0.25em] text-canvas-light/60 mt-2 text-center">
           What I build.&nbsp; How I think.&nbsp; Why it works.
         </p>
@@ -177,10 +186,10 @@ const ServicesPage: React.FC = () => {
                     ${isActive ? 'pl-4 md:pl-6' : 'pl-0'}
                   `}
                 >
-                  {/* Index Number — decorative, hidden from AT */}
+                  {/* Index Number — decorative, hidden from AT, contrast passes with 40% opacity */}
                   <span
                     aria-hidden="true"
-                    className="hidden sm:block text-4xl md:text-6xl font-black text-canvas-light/10 group-hover:text-canvas-light/20 transition-colors duration-300 w-20 shrink-0 leading-none mt-1 select-none tabular-nums"
+                    className="hidden sm:block text-4xl md:text-6xl font-black text-canvas-light/40 group-hover:text-canvas-light/50 transition-colors duration-300 w-20 shrink-0 leading-none mt-1 select-none pointer-events-none tabular-nums"
                   >
                     {String(index + 1).padStart(2, '0')}
                   </span>
@@ -291,49 +300,7 @@ const ServicesPage: React.FC = () => {
         </div>
       </section>
 
-      {/* ── 4. CTA Strip ─────────────────────────────────── */}
-      <section
-        className="mt-10 md:mt-20 bg-electric text-canvas-dark py-20 md:py-28 px-[5vw] relative overflow-hidden"
-        aria-label="Call to action — start a project"
-      >
-        {/* Noise texture overlay */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 opacity-5 pointer-events-none"
-          style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\'/%3E%3C/svg%3E")', backgroundSize: '200px' }}
-        />
-
-        <div className="max-w-screen-2xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12 relative z-10">
-          <div className="text-center lg:text-left">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight leading-[1.1] mb-4">
-              Ready to build<br />something great?
-            </h2>
-            {/* Bumped from /60 to canvas-dark/80 for contrast on lime bg */}
-            <p className="text-canvas-dark/80 text-lg font-medium">
-              Let's turn your idea into a high-performance reality.
-            </p>
-          </div>
-
-          <div className="flex flex-col sm:flex-row gap-4 shrink-0">
-            <Link
-              to="/contact"
-              aria-label="Go to contact page to start a project"
-              className="inline-flex items-center gap-3 px-8 py-4 bg-canvas-dark text-canvas-light font-bold uppercase tracking-widest text-sm rounded-full hover:bg-canvas-dark/90 transition-all duration-300 hover:gap-5"
-            >
-              Let's Talk <ArrowRight size={18} aria-hidden="true" />
-            </Link>
-            <a
-              href={PERSONAL_INFO.resume}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="View resume — opens in new tab"
-              className="inline-flex items-center gap-3 px-8 py-4 border-2 border-canvas-dark/40 text-canvas-dark font-bold uppercase tracking-widest text-sm rounded-full hover:border-canvas-dark hover:bg-canvas-dark/10 transition-all duration-300"
-            >
-              View Resume <ArrowUpRight size={18} aria-hidden="true" />
-            </a>
-          </div>
-        </div>
-      </section>
+      <Footer />
     </div>
   );
 };

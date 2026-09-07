@@ -34,6 +34,7 @@ export interface Project {
   link?: string;
   repo?: string;
   image?: string;
+  thumbImage?: string;
   gallery?: string[];
   schemaImage?: string;
   useCaseImage?: string;

@@ -47,7 +47,7 @@ const Skills: React.FC = () => {
   return (
     <section id="skills" className="py-24 md:py-32 bg-canvas-dark dark:bg-canvas-dark text-canvas-light relative overflow-hidden">
       {/* Decorative Backgrounds */}
-      <div className="absolute top-1/2 right-0 md:right-1/4 -translate-y-1/2 w-[80%] md:w-[40%] h-[80%] md:h-[60%] bg-electric/25 rounded-full blur-[140px] pointer-events-none z-0"></div>
+      <div className="absolute top-1/2 right-0 md:right-1/4 -translate-y-1/2 w-[80%] md:w-[40%] h-[80%] md:h-[60%] bg-electric/25 rounded-full blur-[140px] pointer-events-none z-0 animate-pulse"></div>
       <StarsBackground colorClass="bg-electric" count={20} />
       <FloatingPolymers />
 

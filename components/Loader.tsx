@@ -1,5 +1,4 @@
 import React, { useRef, useEffect, useState } from "react";
-import gsap from "gsap";
 
 interface LoaderProps {
   onComplete: () => void;
@@ -20,7 +19,7 @@ const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
   const leftLineRef = useRef<HTMLDivElement>(null);
   const rightLineRef = useRef<HTMLDivElement>(null);
   const topTextRef = useRef<HTMLDivElement>(null);
-  const [progress, setProgress] = useState(0);
+  const progressTextRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     let dismissed = false;
@@ -29,34 +28,38 @@ const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
     let currentTarget = 0;
     let readyToWipe = false;
 
-    let ctx: gsap.Context;
+    let ctx: any;
 
-    // We will initialize GSAP context immediately to ensure HMR cleanup
-    ctx = gsap.context(() => {
-      // 1. Initial logo entrance
-      gsap.from(logoRef.current, {
-        scale: 0.8,
-        opacity: 0,
-        duration: 1.2,
-        ease: "power3.out",
-      });
+    // We will initialize GSAP context dynamically
+    import('gsap').then(({ default: gsap }) => {
+      ctx = gsap.context(() => {
+        // 1. Initial logo entrance
+        gsap.fromTo(logoRef.current, {
+          scale: 0.8,
+          opacity: 0,
+        }, {
+          scale: 1,
+          opacity: 1,
+          duration: 1.2,
+          ease: "power3.out",
+        });
 
-      // 2. Continuous pulsing background for the loader
-      gsap.to(pulseBgRef.current, {
-        scale: 1.2,
-        opacity: 0.8,
-        duration: 1.2,
-        yoyo: true,
-        repeat: -1,
-        ease: "sine.inOut",
-      });
+        // 2. Continuous pulsing background for the loader
+        gsap.to(pulseBgRef.current, {
+          scale: 1.2,
+          opacity: 0.8,
+          duration: 1.2,
+          yoyo: true,
+          repeat: -1,
+          ease: "sine.inOut",
+        });
 
-      const triggerDismiss = () => {
-        if (dismissed) return;
-        dismissed = true;
-        window.dispatchEvent(new Event("loaderDismissing"));
+        const triggerDismiss = () => {
+          if (dismissed) return;
+          dismissed = true;
+          window.dispatchEvent(new Event("loaderDismissing"));
 
-        const tl = gsap.timeline({ onComplete });
+          const tl = gsap.timeline({ onComplete });
 
         // Initialize the two vertical lines at the exact center
         gsap.set(leftLineRef.current, { left: "50%", opacity: 0.8 });
@@ -140,7 +143,7 @@ const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
     }, containerRef);
 
     const progressProxy = { val: 0 };
-    let progressTween: gsap.core.Tween;
+    let progressTween: any;
 
     const updateProgress = () => {
       completedTasks++;
@@ -153,7 +156,9 @@ const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
         duration: Math.max(0.8, currentTarget === 100 ? 0.8 : 1.5),
         ease: "power2.out",
         onUpdate: () => {
-          setProgress(Math.floor(progressProxy.val));
+          if (progressTextRef.current) {
+            progressTextRef.current.innerText = `${Math.floor(progressProxy.val)}%`;
+          }
         },
         onComplete: () => {
           if ((window as any)._loaderCheckReady)
@@ -185,8 +190,10 @@ const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
       img.src = src;
     });
 
+    }); // Close import('gsap').then
+
     return () => {
-      ctx.revert();
+      if (ctx) ctx.revert();
       delete (window as any)._loaderCheckReady;
     };
   }, [onComplete]);
@@ -273,8 +280,8 @@ const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
             <span>
               Loading<span className="animate-pulse">...</span>
             </span>
-            <span className="text-electric font-bold w-12 text-right tracking-widest">
-              {progress}%
+            <span ref={progressTextRef} className="text-electric font-bold w-12 text-right tracking-widest">
+              0%
             </span>
           </div>
         </div>

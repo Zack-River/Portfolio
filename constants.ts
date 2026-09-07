@@ -44,6 +44,7 @@ export const PROJECTS: Project[] = [
       "4K Cross-resolution testing",
     ],
     image: "/projects/beeplayer/Cover.webp",
+    thumbImage: "/projects/thumbnails/beeplayer-Cover-thumb.webp",
     gallery: [
       "/projects/beeplayer/gallery/bug-1.webp",
       "/projects/beeplayer/gallery/bug-2.webp",
@@ -196,6 +197,7 @@ export const PROJECTS: Project[] = [
       "Optimized compound/text indexing",
     ],
     image: "/projects/streamflow/Cover.webp",
+    thumbImage: "/projects/thumbnails/streamflow-Cover-thumb.webp",
     gallery: [
       "/projects/streamflow/01-Home-Logged-In-Hero.webp",
       "/projects/streamflow/02-Home-Landing.webp",
@@ -249,6 +251,7 @@ export const PROJECTS: Project[] = [
       "Gamified learning journey",
     ],
     image: "/projects/QarbalaCover.webp",
+    thumbImage: "/projects/thumbnails/QarbalaCover-thumb.webp",
     gallery: [
       "/projects/karbala/01-Home-Hero.webp",
       "/projects/karbala/02-Home-About.webp",
@@ -303,6 +306,7 @@ export const PROJECTS: Project[] = [
       "Interactive gamification engine",
     ],
     image: "/projects/Smartq.webp",
+    thumbImage: "/projects/thumbnails/Smartq-thumb.webp",
     gallery: [
       "/projects/smartq/01-Landing-Hero-Dark.webp",
       "/projects/smartq/02-Landing-Hero-Light.webp",
@@ -356,6 +360,7 @@ export const PROJECTS: Project[] = [
       "Future-ready architecture",
     ],
     image: "/projects/sara-ragab/COVER.webp",
+    thumbImage: "/projects/thumbnails/sara-ragab-COVER-thumb.webp",
     gallery: [
       "/projects/sara-ragab/01-Home.webp",
       "/projects/sara-ragab/02-For-Who.webp",
@@ -403,6 +408,7 @@ export const PROJECTS: Project[] = [
       "Responsive global audience reach",
     ],
     image: "/projects/Mostafa-Nawareg.webp",
+    thumbImage: "/projects/thumbnails/Mostafa-Nawareg-thumb.webp",
     gallery: [
       "/projects/mostafa-nawareg/01-Home-Hero.webp",
       "/projects/mostafa-nawareg/02-Home-Packs.webp",
@@ -454,6 +460,7 @@ export const PROJECTS: Project[] = [
       "Privacy-first design",
     ],
     image: "/projects/Ding.webp",
+    thumbImage: "/projects/thumbnails/Ding-thumb.webp",
     gallery: [
       "/projects/ding/01-Landing-Page.webp",
       "/projects/ding/02-Login-Screen.webp",
@@ -504,6 +511,7 @@ export const PROJECTS: Project[] = [
       "Atomic transaction safety",
     ],
     image: "/projects/pos/Cover.webp",
+    thumbImage: "/projects/thumbnails/pos-Cover-thumb.webp",
     schemaImage: "/projects/pos/Schema.webp",
     useCaseImage: "/projects/pos/UseCase.webp",
     gallery: [
@@ -547,6 +555,7 @@ export const PROJECTS: Project[] = [
       "Optimized booking conversions",
     ],
     image: "/projects/luxe-dental.webp",
+    thumbImage: "/projects/thumbnails/luxe-dental-thumb.webp",
     gallery: [
       "/projects/luxe-dental/01-Home-Hero-Light-Ar.webp",
       "/projects/luxe-dental/01-Home-Hero-Light-En.webp",
@@ -600,6 +609,7 @@ export const PROJECTS: Project[] = [
       "High-end visual branding",
     ],
     image: "/projects/Hotel-Pro.webp",
+    thumbImage: "/projects/thumbnails/Hotel-Pro-thumb.webp",
     gallery: [
       "/projects/hotel-pro/01-Home-Hero.webp",
       "/projects/hotel-pro/02-Home-Stats.webp",
@@ -642,6 +652,7 @@ export const PROJECTS: Project[] = [
       "High-performance rendering",
     ],
     image: "/projects/Khaled-Nasser-Portfolio.webp",
+    thumbImage: "/projects/thumbnails/Khaled-Nasser-Portfolio-thumb.webp",
     gallery: [
       "/projects/khaled-nasser/01-Home-Hero-Blue.webp",
       "/projects/khaled-nasser/02-Home-Hero-Colors.webp",
@@ -684,6 +695,7 @@ export const PROJECTS: Project[] = [
       "Smooth layout transitions",
     ],
     image: "/projects/Ahmed-Hakim-Portfolio.webp",
+    thumbImage: "/projects/thumbnails/Ahmed-Hakim-Portfolio-thumb.webp",
     gallery: [
       "/projects/ahmed-hakim/01-Home-Hero.webp",
       "/projects/ahmed-hakim/02-Home-Stats-and-logo-slider.webp",

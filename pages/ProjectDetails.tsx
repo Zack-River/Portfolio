@@ -2,7 +2,9 @@ import React, { useEffect, useRef, useState, useCallback } from "react";
 import { Helmet } from "react-helmet-async";
 import { useParams, Link } from "react-router-dom";
 import {
-  motion,
+  m,
+  LazyMotion,
+  domAnimation,
   useScroll,
   useTransform,
   AnimatePresence,
@@ -55,7 +57,7 @@ const UseCaseCarousel: React.FC<{ useCases: UseCase[]; title: string }> = ({
     <div className="w-full">
       <div className="relative w-full aspect-square md:aspect-video lg:aspect-21/9 bg-[radial-gradient(circle_at_center,#252925_0%,#1a1c1a_100%)] rounded-2xl overflow-hidden ring-1 ring-white/10 shadow-xl flex items-center justify-center p-6 md:p-16">
         <AnimatePresence custom={direction} initial={false} mode="wait">
-          <motion.div
+          <m.div
             key={current}
             custom={direction}
             variants={variants}
@@ -97,7 +99,7 @@ const UseCaseCarousel: React.FC<{ useCases: UseCase[]; title: string }> = ({
                 </div>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         </AnimatePresence>
 
         {/* Gradient vignette on sides */}
@@ -108,14 +110,14 @@ const UseCaseCarousel: React.FC<{ useCases: UseCase[]; title: string }> = ({
             <button
               onClick={prev}
               aria-label="Previous use case"
-              className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-white/50 dark:bg-white/10 backdrop-blur-md border border-black/10 dark:border-white/10 rounded-full text-black/50 dark:text-white/50 hover:text-black hover:dark:text-white hover:bg-white/80 hover:dark:bg-white/20 hover:border-black/20 hover:dark:border-white/20 transition-all duration-200 shadow-sm"
+              className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center bg-white/50 dark:bg-white/10 backdrop-blur-md border border-black/10 dark:border-white/10 rounded-full text-black/60 dark:text-white/60 hover:text-black hover:dark:text-white hover:bg-white/80 hover:dark:bg-white/20 hover:border-black/20 hover:dark:border-white/20 transition-all duration-200 shadow-sm"
             >
               <ChevronLeft size={20} />
             </button>
             <button
               onClick={next}
               aria-label="Next use case"
-              className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-white/50 dark:bg-white/10 backdrop-blur-md border border-black/10 dark:border-white/10 rounded-full text-black/50 dark:text-white/50 hover:text-black hover:dark:text-white hover:bg-white/80 hover:dark:bg-white/20 hover:border-black/20 hover:dark:border-white/20 transition-all duration-200 shadow-sm"
+              className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center bg-white/50 dark:bg-white/10 backdrop-blur-md border border-black/10 dark:border-white/10 rounded-full text-black/60 dark:text-white/60 hover:text-black hover:dark:text-white hover:bg-white/80 hover:dark:bg-white/20 hover:border-black/20 hover:dark:border-white/20 transition-all duration-200 shadow-sm"
             >
               <ChevronRight size={20} />
             </button>
@@ -129,12 +131,16 @@ const UseCaseCarousel: React.FC<{ useCases: UseCase[]; title: string }> = ({
                 key={i}
                 onClick={() => goTo(i)}
                 aria-label={`Go to use case ${i + 1}`}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  i === current
-                    ? "bg-electric w-6"
-                    : "bg-black/20 dark:bg-white/20 hover:bg-black/40 hover:dark:bg-white/40"
-                }`}
-              />
+                className="p-2 relative flex items-center justify-center"
+              >
+                <div
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    i === current
+                      ? "bg-electric w-6"
+                      : "w-2 bg-black/20 dark:bg-white/20 hover:bg-black/40 hover:dark:bg-white/40"
+                  }`}
+                />
+              </button>
             ))}
           </div>
         )}
@@ -202,7 +208,7 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({
       {/* Fullscreen Modal */}
       <AnimatePresence>
         {isModalOpen && (
-          <motion.div
+          <m.div
             className="fixed inset-0 z-100 flex items-center justify-center bg-[#0D0F0E]/98 p-4 md:p-8"
             initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
             animate={{ opacity: 1, backdropFilter: "blur(8px)" }}
@@ -221,7 +227,7 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({
               onClick={(e) => e.stopPropagation()}
             >
               <AnimatePresence custom={direction} initial={false}>
-                <motion.img
+                <m.img
                   key={current}
                   custom={direction}
                   variants={variants}
@@ -242,7 +248,7 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({
                       e.stopPropagation();
                       prev();
                     }}
-                    className="absolute left-2 md:-left-16 top-1/2 -translate-y-1/2 z-110 p-3 bg-black/50 dark:bg-white/10 hover:bg-black/80 hover:dark:bg-white/20 rounded-full text-white transition-colors border border-white/10"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center bg-black/50 dark:bg-white/10 hover:bg-black/80 hover:dark:bg-white/20 rounded-full text-white transition-colors backdrop-blur-sm border border-white/10"
                   >
                     <ChevronLeft size={24} />
                   </button>
@@ -251,14 +257,14 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({
                       e.stopPropagation();
                       next();
                     }}
-                    className="absolute right-2 md:-right-16 top-1/2 -translate-y-1/2 z-110 p-3 bg-black/50 dark:bg-white/10 hover:bg-black/80 hover:dark:bg-white/20 rounded-full text-white transition-colors border border-white/10"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center bg-black/50 dark:bg-white/10 hover:bg-black/80 hover:dark:bg-white/20 rounded-full text-white transition-colors backdrop-blur-sm border border-white/10"
                   >
                     <ChevronRight size={24} />
                   </button>
                 </>
               )}
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
 
@@ -268,7 +274,7 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({
         onClick={() => setIsModalOpen(true)}
       >
         <AnimatePresence custom={direction} initial={false}>
-          <motion.img
+          <m.img
             key={current}
             custom={direction}
             variants={variants}
@@ -294,7 +300,7 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({
                 prev();
               }}
               aria-label="Previous image"
-              className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-white/15 backdrop-blur-sm border border-white/20 rounded-full text-white hover:bg-white/30 hover:scale-110 transition-all duration-200"
+              className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center bg-white/15 backdrop-blur-sm border border-white/20 rounded-full text-white hover:bg-white/30 hover:scale-110 transition-all duration-200"
             >
               <ChevronLeft size={20} />
             </button>
@@ -304,7 +310,7 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({
                 next();
               }}
               aria-label="Next image"
-              className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-white/15 backdrop-blur-sm border border-white/20 rounded-full text-white hover:bg-white/30 hover:scale-110 transition-all duration-200"
+              className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center bg-white/15 backdrop-blur-sm border border-white/20 rounded-full text-white hover:bg-white/30 hover:scale-110 transition-all duration-200"
             >
               <ChevronRight size={20} />
             </button>
@@ -319,12 +325,16 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({
                 key={i}
                 onClick={() => goTo(i)}
                 aria-label={`Go to image ${i + 1}`}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  i === current
-                    ? "bg-electric w-6"
-                    : "bg-white/40 hover:bg-white/70"
-                }`}
-              />
+                className="p-2 relative flex items-center justify-center"
+              >
+                <div
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    i === current
+                      ? "bg-electric w-6"
+                      : "w-2 bg-white/40 hover:bg-white/70"
+                  }`}
+                />
+              </button>
             ))}
           </div>
         )}
@@ -344,7 +354,7 @@ const Carousel: React.FC<{ images: string[]; title: string }> = ({
               }`}
             >
               <img
-                src={img}
+                src={img.replace('.webp', '-thumb.webp')}
                 alt={`thumb ${i + 1}`}
                 loading="lazy"
                 decoding="async"
@@ -436,556 +446,561 @@ const ProjectDetails: React.FC = () => {
         : [];
 
   return (
-    <div className="bg-canvas-light dark:bg-canvas-dark text-canvas-dark dark:text-canvas-light min-h-screen font-sans overflow-x-hidden">
-      <Helmet>
-        <title>{project.title} | Abdallah Wageeh (Zack River)</title>
-        <meta
-          name="description"
-          content={
-            project.subtitle ||
-            `Case study for ${project.title}, a project by Abdallah Wageeh.`
-          }
-        />
-        <link
-          rel="canonical"
-          href={`https://www.zackriver.com/projects/${project.id}`}
-        />
-        <meta property="og:title" content={`${project.title} | Abdallah Wageeh (Zack River)`} />
-        <meta
-          property="og:description"
-          content={
-            project.subtitle ||
-            `Case study for ${project.title}, a project by Abdallah Wageeh.`
-          }
-        />
-        <meta property="og:url" content={`https://www.zackriver.com/projects/${project.id}`} />
-        <meta property="og:type" content="article" />
-        {project.image && <meta property="og:image" content={`https://www.zackriver.com${project.image}`} />}
-      </Helmet>
+    <LazyMotion features={domAnimation}>
+      <div className="bg-canvas-light dark:bg-canvas-dark text-canvas-dark dark:text-canvas-light min-h-screen font-sans overflow-x-hidden">
+        <Helmet>
+          <title>{project.title} | Abdallah Wageeh (Zack River)</title>
+          <meta
+            name="description"
+            content={
+              project.subtitle ||
+              `Case study for ${project.title}, a project by Abdallah Wageeh.`
+            }
+          />
+          <link
+            rel="canonical"
+            href={`https://www.zackriver.com/projects/${project.id}`}
+          />
+          <meta property="og:title" content={`${project.title} | Abdallah Wageeh (Zack River)`} />
+          <meta
+            property="og:description"
+            content={
+              project.subtitle ||
+              `Case study for ${project.title}, a project by Abdallah Wageeh.`
+            }
+          />
+          <meta property="og:url" content={`https://www.zackriver.com/projects/${project.id}`} />
+          <meta property="og:type" content="article" />
+          {project.image && <meta property="og:image" content={`https://www.zackriver.com${project.image}`} />}
+        </Helmet>
 
-      {/* ── STICKY TOP NAV BAR ── */}
-      <motion.nav
-        initial={{ y: -80 }}
-        animate={{ y: stickyVisible ? 0 : -80 }}
-        transition={{ duration: 0.35, ease: "easeInOut" }}
-        className="fixed top-0 left-0 right-0 z-50 bg-canvas-light dark:bg-canvas-dark/80 backdrop-blur-xl border-b border-canvas-dark/10 dark:border-white/10 flex items-center justify-between px-6 md:px-12 h-16"
-      >
-        <Link
-          to="/projects"
-          className="flex items-center gap-2 text-canvas-dark/60 dark:text-canvas-light/60 hover:text-canvas-dark dark:hover:text-canvas-light text-sm font-medium transition-colors"
+        {/* ── STICKY TOP NAV BAR ── */}
+        <m.nav
+          initial={{ y: -80 }}
+          animate={{ y: stickyVisible ? 0 : -80 }}
+          transition={{ duration: 0.35, ease: "easeInOut" }}
+          className="fixed top-0 left-0 right-0 z-50 bg-canvas-light dark:bg-canvas-dark/80 backdrop-blur-xl border-b border-canvas-dark/10 dark:border-white/10 flex items-center justify-between px-6 md:px-12 h-16"
         >
-          <ArrowLeft size={16} />
-          Back to Projects
-        </Link>
+          <Link
+            to="/projects"
+            className="flex items-center gap-2 text-canvas-dark/60 dark:text-canvas-light/60 hover:text-canvas-dark dark:hover:text-canvas-light text-sm font-medium transition-colors"
+          >
+            <ArrowLeft size={16} />
+            Back to Projects
+          </Link>
 
-        <div className="flex items-center gap-4">
-          <div className="font-display font-medium text-canvas-dark dark:text-canvas-light hidden md:block">
-            {project.title}
+          <div className="flex items-center gap-4">
+            <div className="font-display font-medium text-canvas-dark dark:text-canvas-light hidden md:block">
+              {project.title}
+            </div>
+
+            {project.link && (
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm font-medium bg-white/5 border border-electric text-electric px-4 py-1.5 rounded-full hover:bg-electric/10 hover:shadow-[0_0_15px_rgba(180,255,0,0.2)] transition-all"
+              >
+                <ExternalLink size={14} />
+                <span className="hidden md:inline">
+                  {SITE_CONTENT.projectDetails.liveDemo}
+                </span>
+              </a>
+            )}
           </div>
+        </m.nav>
 
-          {project.link && (
-            <a
-              href={project.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-sm font-medium bg-white/5 border border-electric text-electric px-4 py-1.5 rounded-full hover:bg-electric/10 hover:shadow-[0_0_15px_rgba(180,255,0,0.2)] transition-all"
-            >
-              <ExternalLink size={14} />
-              <span className="hidden md:inline">
-                {SITE_CONTENT.projectDetails.liveDemo}
-              </span>
-            </a>
-          )}
-        </div>
-      </motion.nav>
-
-      {/* ── IMMERSIVE HERO ── */}
-      <section
-        ref={heroRef}
-        className="relative h-[90vh] min-h-137.5 flex items-end overflow-hidden group cursor-default"
-        onMouseEnter={() => setIsHeroHovered(true)}
-        onMouseLeave={() => setIsHeroHovered(false)}
-      >
-        <motion.div
-          style={{ y: heroY }}
-          className="absolute inset-0 w-full h-full"
+        {/* ── IMMERSIVE HERO ── */}
+        <section
+          ref={heroRef}
+          className="relative h-[90vh] min-h-137.5 flex items-end overflow-hidden group cursor-default"
+          onMouseEnter={() => setIsHeroHovered(true)}
+          onMouseLeave={() => setIsHeroHovered(false)}
         >
-          {project.image ? (
-            <img
-              src={project.image}
-              alt={project.title}
-              loading="eager"
-              decoding="async"
-              className="w-full h-full object-cover object-top"
-            />
-          ) : (
-            <div className="w-full h-full bg-canvas-dark" />
-          )}
-        </motion.div>
-
-        {/* Base dark layer for overall dimming */}
-        <div className="absolute inset-0 bg-canvas-dark/60" />
-
-        {/* Dynamic gradient */}
-        <motion.div
-          className="absolute inset-0 bg-linear-to-t from-canvas-dark via-canvas-dark/40 to-transparent z-10 pointer-events-none"
-          style={{ opacity: overlayOpacity }}
-        />
-        <div
-          className="absolute inset-0 pointer-events-none opacity-[0.04]"
-          style={{
-            backgroundImage:
-              "linear-gradient(to right, #C7F000 1px, transparent 1px), linear-gradient(to bottom, #C7F000 1px, transparent 1px)",
-            backgroundSize: "40px 40px",
-          }}
-        />
-
-        <Link
-          to="/projects"
-          className="absolute top-6 left-6 flex items-center gap-2 text-white/80 hover:text-white text-sm font-medium bg-white/10 backdrop-blur-sm border border-white/10 px-4 py-2 rounded-full transition-colors z-10"
-        >
-          <ArrowLeft size={14} /> Back
-        </Link>
-
-        <AnimatePresence>
-          {(isHeroHovered || isMobile) && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 10 }}
-              transition={{ duration: 0.3 }}
-              className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24 pb-16 md:pb-24"
-            >
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="font-mono text-electric text-xs tracking-[0.3em] uppercase mb-4"
-              >
-                Case Study /{" "}
-                {String(PROJECTS.findIndex((p) => p.id === id) + 1).padStart(
-                  2,
-                  "0",
-                )}
-              </motion.p>
-
-              <motion.h1
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.2, ease: "circOut" }}
-                className="text-[clamp(3rem,10vw,8rem)] font-display font-bold text-white leading-none tracking-[-0.03em] mb-4"
-              >
-                {project.title}
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className="text-white/60 font-mono text-sm md:text-base max-w-2xl"
-              >
-                {project.subtitle}
-              </motion.p>
-
-              {/* Hero action buttons */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.55 }}
-                className="mt-8 flex flex-wrap gap-3"
-              >
-                {project.link && (
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-5 py-2.5 bg-white/5 border border-electric text-electric rounded-full text-sm font-medium hover:bg-electric/10 hover:shadow-[0_0_15px_rgba(180,255,0,0.2)] transition-all"
-                  >
-                    <ExternalLink size={16} /> Live Demo
-                  </a>
-                )}
-              </motion.div>
-
-              <motion.div
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ duration: 0.8, delay: 0.7, ease: "circOut" }}
-                className="mt-8 h-0.5 w-24 bg-electric origin-left"
+          <m.div
+            style={{ y: heroY }}
+            className="absolute inset-0 w-full h-full"
+          >
+            {project.image ? (
+              <img
+                src={project.image}
+                srcSet={`${project.image.replace('.webp', '-md.webp')} 1080w, ${project.image} 1920w`}
+                sizes="(max-width: 1080px) 100vw, 1920px"
+                alt={project.title}
+                fetchPriority="high"
+                loading="eager"
+                decoding="async"
+                className="w-full h-full object-cover object-top"
               />
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </section>
+            ) : (
+              <div className="w-full h-full bg-canvas-dark" />
+            )}
+          </m.div>
 
-      {/* ── CONTENT BODY ── */}
-      <div className="relative bg-canvas-light dark:bg-canvas-dark">
-        {/* ── EXECUTIVE OVERVIEW STRIP ── */}
-        <section className="border-b border-canvas-dark/10 dark:border-white/10 bg-canvas-dark text-white">
-          <div className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24 py-10 grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-0 md:divide-x divide-white/10">
-            <div className="sm:pr-8">
-              <p className="font-mono text-xs text-white/40 uppercase tracking-widest mb-2">
-                Role
-              </p>
-              <p className="text-white font-medium">
-                Backend / Full-Stack Engineer
-              </p>
-            </div>
-            <div className="sm:px-8">
-              <p className="font-mono text-xs text-white/40 uppercase tracking-widest mb-2">
-                Context
-              </p>
-              <p className="text-white font-medium">
-                Personal Project · Solo Architecture
-              </p>
-            </div>
-            <div className="sm:pl-8">
-              <p className="font-mono text-xs text-white/40 uppercase tracking-widest mb-2">
-                Core Stack
-              </p>
-              <p className="text-white font-medium">
-                {project.tags.slice(0, 4).join(", ")}
-              </p>
-            </div>
-          </div>
-        </section>
+          {/* Base dark layer for overall dimming */}
+          <div className="absolute inset-0 bg-canvas-dark/60" />
 
-        <div className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
-          {/* ── ENGINEERING IMPACT ── */}
-          <section className="py-16 md:py-24 border-b border-canvas-dark/10 dark:border-white/10">
-            <div className="flex items-center gap-3 mb-10">
-              <Activity size={18} className="text-electric" />
-              <p className="font-mono text-xs text-canvas-dark/50 dark:text-canvas-light/50 uppercase tracking-[0.25em]">
-                Engineering Impact
-              </p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {project.stats.map((stat, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="group relative card-base card-hover p-8 overflow-hidden"
+          {/* Dynamic gradient */}
+          <m.div
+            className="absolute inset-0 bg-linear-to-t from-canvas-dark via-canvas-dark/40 to-transparent z-10 pointer-events-none"
+            style={{ opacity: overlayOpacity }}
+          />
+          <div
+            className="absolute inset-0 pointer-events-none opacity-[0.04]"
+            style={{
+              backgroundImage:
+                "linear-gradient(to right, #C7F000 1px, transparent 1px), linear-gradient(to bottom, #C7F000 1px, transparent 1px)",
+              backgroundSize: "40px 40px",
+            }}
+          />
+
+          <Link
+            to="/projects"
+            className="absolute top-6 left-6 flex items-center gap-2 text-white/80 hover:text-white text-sm font-medium bg-white/10 backdrop-blur-sm border border-white/10 px-4 py-2 rounded-full transition-colors z-10"
+          >
+            <ArrowLeft size={14} /> Back
+          </Link>
+
+          <AnimatePresence>
+            {(isHeroHovered || isMobile) && (
+              <m.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                transition={{ duration: 0.3 }}
+                className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24 pb-16 md:pb-24"
+              >
+                <m.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  className="font-mono text-electric text-xs tracking-[0.3em] uppercase mb-4"
                 >
-                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-electric scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
-                  <span className="text-electric font-mono text-4xl font-bold leading-none">
-                    {i === 0 ? "∞" : i === 1 ? "~35%" : "~50%"}
-                  </span>
-                  <p className="mt-4 text-canvas-dark/80 dark:text-canvas-light/80 text-sm leading-relaxed">
-                    {stat}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-          </section>
+                  Case Study /{" "}
+                  {String(PROJECTS.findIndex((p) => p.id === id) + 1).padStart(
+                    2,
+                    "0",
+                  )}
+                </m.p>
 
-          {/* ── PROJECT CASE STUDY ── */}
-          <article className="py-16 md:py-24 border-b border-canvas-dark/10 dark:border-white/10 flex flex-col gap-16 md:gap-24">
-            
-            {/* Overview */}
-            <section className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 md:gap-24">
-              <div className="md:sticky md:top-24 md:self-start">
-                <p className="font-mono text-xs text-canvas-dark/40 dark:text-canvas-light/40 uppercase tracking-[0.25em] mb-3">
-                  Summary
-                </p>
-                <h2 className="font-display text-3xl md:text-4xl font-bold text-canvas-dark dark:text-canvas-light leading-tight">
-                  Overview
-                </h2>
-                <div className="mt-4 h-0.5 w-12 bg-electric" />
-              </div>
-              <div>
-                <p className="text-lg text-canvas-dark/80 dark:text-canvas-light/80 font-light leading-relaxed mb-8 first-letter:text-5xl first-letter:font-display first-letter:mr-2 first-letter:float-left first-letter:text-electric first-letter:font-bold">
-                  {project.content?.overview || project.description}
-                </p>
+                <m.h1
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, delay: 0.2, ease: "circOut" }}
+                  className="text-[clamp(3rem,10vw,8rem)] font-display font-bold text-white leading-none tracking-[-0.03em] mb-4"
+                >
+                  {project.title}
+                </m.h1>
 
-                {/* CTA Links — GitHub + Demo side by side */}
-                <div className="mt-10 flex flex-col sm:flex-row gap-4">
-                  {project.link && project.link !== "#" && (
+                <m.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                  className="text-white/60 font-mono text-sm md:text-base max-w-2xl"
+                >
+                  {project.subtitle}
+                </m.p>
+
+                {/* Hero action buttons */}
+                <m.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.55 }}
+                  className="mt-8 flex flex-wrap gap-3"
+                >
+                  {project.link && (
                     <a
                       href={project.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-primary"
+                      className="flex items-center gap-2 px-5 py-2.5 bg-white/5 border border-electric text-electric rounded-full text-sm font-medium hover:bg-electric/10 hover:shadow-[0_0_15px_rgba(180,255,0,0.2)] transition-all"
                     >
-                      <ExternalLink size={18} /> Live Demo
+                      <ExternalLink size={16} /> Live Demo
                     </a>
                   )}
-                  {project.repo && (
-                    <a
-                      href={project.repo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-secondary flex items-center justify-center gap-2"
-                    >
-                      <Github size={18} /> Repository
-                    </a>
-                  )}
-                </div>
+                </m.div>
+
+                <m.div
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 0.8, delay: 0.7, ease: "circOut" }}
+                  className="mt-8 h-0.5 w-24 bg-electric origin-left"
+                />
+              </m.div>
+            )}
+          </AnimatePresence>
+        </section>
+
+        {/* ── CONTENT BODY ── */}
+        <div className="relative bg-canvas-light dark:bg-canvas-dark">
+          {/* ── EXECUTIVE OVERVIEW STRIP ── */}
+          <section className="border-b border-canvas-dark/10 dark:border-white/10 bg-canvas-dark text-white">
+            <div className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24 py-10 grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-0 md:divide-x divide-white/10">
+              <div className="sm:pr-8">
+                <p className="font-mono text-xs text-white/60 uppercase tracking-widest mb-2">
+                  Role
+                </p>
+                <p className="text-white font-medium">
+                  Backend / Full-Stack Engineer
+                </p>
+              </div>
+              <div className="sm:px-8">
+                <p className="font-mono text-xs text-white/60 uppercase tracking-widest mb-2">
+                  Context
+                </p>
+                <p className="text-white font-medium">
+                  Personal Project · Solo Architecture
+                </p>
+              </div>
+              <div className="sm:pl-8">
+                <p className="font-mono text-xs text-white/60 uppercase tracking-widest mb-2">
+                  Core Stack
+                </p>
+                <p className="text-white font-medium">
+                  {project.tags.slice(0, 4).join(", ")}
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <div className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
+            {/* ── ENGINEERING IMPACT ── */}
+            <section className="py-16 md:py-24 border-b border-canvas-dark/10 dark:border-white/10">
+              <div className="flex items-center gap-3 mb-10">
+                <Activity size={18} className="text-electric" />
+                <p className="font-mono text-xs text-canvas-dark/60 dark:text-canvas-light/60 uppercase tracking-[0.25em]">
+                  Engineering Impact
+                </p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {project.stats.map((stat, i) => (
+                  <m.div
+                    key={i}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: i * 0.1 }}
+                    className="group relative card-base card-hover p-8 overflow-hidden"
+                  >
+                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-electric scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                    <span className="text-electric font-mono text-4xl font-bold leading-none">
+                      {i === 0 ? "∞" : i === 1 ? "~35%" : "~50%"}
+                    </span>
+                    <p className="mt-4 text-canvas-dark/80 dark:text-canvas-light/80 text-sm leading-relaxed">
+                      {stat}
+                    </p>
+                  </m.div>
+                ))}
               </div>
             </section>
 
-            {/* My Role */}
-            {project.content?.role && (
+            {/* ── PROJECT CASE STUDY ── */}
+            <article className="py-16 md:py-24 border-b border-canvas-dark/10 dark:border-white/10 flex flex-col gap-16 md:gap-24">
+              
+              {/* Overview */}
               <section className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 md:gap-24">
                 <div className="md:sticky md:top-24 md:self-start">
+                  <p className="font-mono text-xs text-canvas-dark/60 dark:text-canvas-light/60 uppercase tracking-[0.25em] mb-3">
+                    Summary
+                  </p>
                   <h2 className="font-display text-3xl md:text-4xl font-bold text-canvas-dark dark:text-canvas-light leading-tight">
-                    My Role
+                    Overview
                   </h2>
                   <div className="mt-4 h-0.5 w-12 bg-electric" />
                 </div>
                 <div>
-                  <p className="text-canvas-dark/80 dark:text-canvas-light/80 leading-relaxed whitespace-pre-wrap">
-                    {project.content.role}
+                  <p className="text-lg text-canvas-dark/80 dark:text-canvas-light/80 font-light leading-relaxed mb-8 first-letter:text-5xl first-letter:font-display first-letter:mr-2 first-letter:float-left first-letter:text-electric first-letter:font-bold">
+                    {project.content?.overview || project.description}
+                  </p>
+
+                  {/* CTA Links — GitHub + Demo side by side */}
+                  <div className="mt-10 flex flex-col sm:flex-row gap-4">
+                    {project.link && project.link !== "#" && (
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-primary"
+                      >
+                        <ExternalLink size={18} /> Live Demo
+                      </a>
+                    )}
+                    {project.repo && (
+                      <a
+                        href={project.repo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-secondary flex items-center justify-center gap-2"
+                      >
+                        <Github size={18} /> Repository
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </section>
+
+              {/* My Role */}
+              {project.content?.role && (
+                <section className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 md:gap-24">
+                  <div className="md:sticky md:top-24 md:self-start">
+                    <h2 className="font-display text-3xl md:text-4xl font-bold text-canvas-dark dark:text-canvas-light leading-tight">
+                      My Role
+                    </h2>
+                    <div className="mt-4 h-0.5 w-12 bg-electric" />
+                  </div>
+                  <div>
+                    <p className="text-canvas-dark/80 dark:text-canvas-light/80 leading-relaxed whitespace-pre-wrap">
+                      {project.content.role}
+                    </p>
+                  </div>
+                </section>
+              )}
+
+              {/* Architecture */}
+              {project.content?.architecture && (
+                <section className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 md:gap-24">
+                  <div className="md:sticky md:top-24 md:self-start">
+                    <h2 className="font-display text-3xl md:text-4xl font-bold text-canvas-dark dark:text-canvas-light leading-tight">
+                      Architecture
+                    </h2>
+                    <div className="mt-4 h-0.5 w-12 bg-electric" />
+                  </div>
+                  <div>
+                    <p className="text-canvas-dark/80 dark:text-canvas-light/80 leading-relaxed whitespace-pre-wrap">
+                      {project.content.architecture}
+                    </p>
+                  </div>
+                </section>
+              )}
+
+              {/* Key Technical Work */}
+              {project.content?.technicalWork && project.content.technicalWork.length > 0 && (
+                <section className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 md:gap-24">
+                  <div className="md:sticky md:top-24 md:self-start">
+                    <h2 className="font-display text-3xl md:text-4xl font-bold text-canvas-dark dark:text-canvas-light leading-tight">
+                      Key Technical Work
+                    </h2>
+                    <div className="mt-4 h-0.5 w-12 bg-electric" />
+                  </div>
+                  <div>
+                    <ul className="list-disc list-inside space-y-3 text-canvas-dark/80 dark:text-canvas-light/80 leading-relaxed">
+                      {project.content.technicalWork.map((item, idx) => (
+                        <li key={idx}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </section>
+              )}
+
+              {/* Challenges & Solutions */}
+              {(project.content?.challenges || project.content?.solutions) && (
+                <section className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 md:gap-24">
+                  <div className="md:sticky md:top-24 md:self-start">
+                    <h2 className="font-display text-3xl md:text-4xl font-bold text-canvas-dark dark:text-canvas-light leading-tight">
+                      Challenges & Solutions
+                    </h2>
+                    <div className="mt-4 h-0.5 w-12 bg-electric" />
+                  </div>
+                  <div className="space-y-8">
+                    {project.content?.challenges && (
+                      <div>
+                        <h3 className="font-mono text-sm text-electric uppercase tracking-widest mb-3">The Challenge</h3>
+                        <p className="text-canvas-dark/80 dark:text-canvas-light/80 leading-relaxed whitespace-pre-wrap">
+                          {project.content.challenges}
+                        </p>
+                      </div>
+                    )}
+                    {project.content?.solutions && (
+                      <div>
+                        <h3 className="font-mono text-sm text-electric uppercase tracking-widest mb-3">The Solution</h3>
+                        <p className="text-canvas-dark/80 dark:text-canvas-light/80 leading-relaxed whitespace-pre-wrap">
+                          {project.content.solutions}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </section>
+              )}
+
+              {/* Outcome */}
+              {project.content?.outcome && (
+                <section className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 md:gap-24">
+                  <div className="md:sticky md:top-24 md:self-start">
+                    <h2 className="font-display text-3xl md:text-4xl font-bold text-canvas-dark dark:text-canvas-light leading-tight">
+                      Outcome
+                    </h2>
+                    <div className="mt-4 h-0.5 w-12 bg-electric" />
+                  </div>
+                  <div>
+                    <p className="text-canvas-dark/80 dark:text-canvas-light/80 leading-relaxed whitespace-pre-wrap">
+                      {project.content.outcome}
+                    </p>
+                  </div>
+                </section>
+              )}
+
+            </article>
+
+
+            {/* ── ARCHITECTURE & USE CASE ── */}
+            {(project.schemaImage || project.useCaseImage) && (
+              <section className="py-16 md:py-24 border-b border-canvas-dark/10 dark:border-white/10">
+                <div className="flex items-center gap-3 mb-10">
+                  <Layers size={18} className="text-electric" />
+                  <p className="font-mono text-xs text-canvas-dark/60 dark:text-canvas-light/60 uppercase tracking-[0.25em]">
+                    Architecture & Use Cases
                   </p>
                 </div>
-              </section>
-            )}
-
-            {/* Architecture */}
-            {project.content?.architecture && (
-              <section className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 md:gap-24">
-                <div className="md:sticky md:top-24 md:self-start">
-                  <h2 className="font-display text-3xl md:text-4xl font-bold text-canvas-dark dark:text-canvas-light leading-tight">
-                    Architecture
-                  </h2>
-                  <div className="mt-4 h-0.5 w-12 bg-electric" />
-                </div>
-                <div>
-                  <p className="text-canvas-dark/80 dark:text-canvas-light/80 leading-relaxed whitespace-pre-wrap">
-                    {project.content.architecture}
-                  </p>
-                </div>
-              </section>
-            )}
-
-            {/* Key Technical Work */}
-            {project.content?.technicalWork && project.content.technicalWork.length > 0 && (
-              <section className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 md:gap-24">
-                <div className="md:sticky md:top-24 md:self-start">
-                  <h2 className="font-display text-3xl md:text-4xl font-bold text-canvas-dark dark:text-canvas-light leading-tight">
-                    Key Technical Work
-                  </h2>
-                  <div className="mt-4 h-0.5 w-12 bg-electric" />
-                </div>
-                <div>
-                  <ul className="list-disc list-inside space-y-3 text-canvas-dark/80 dark:text-canvas-light/80 leading-relaxed">
-                    {project.content.technicalWork.map((item, idx) => (
-                      <li key={idx}>{item}</li>
-                    ))}
-                  </ul>
-                </div>
-              </section>
-            )}
-
-            {/* Challenges & Solutions */}
-            {(project.content?.challenges || project.content?.solutions) && (
-              <section className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 md:gap-24">
-                <div className="md:sticky md:top-24 md:self-start">
-                  <h2 className="font-display text-3xl md:text-4xl font-bold text-canvas-dark dark:text-canvas-light leading-tight">
-                    Challenges & Solutions
-                  </h2>
-                  <div className="mt-4 h-0.5 w-12 bg-electric" />
-                </div>
-                <div className="space-y-8">
-                  {project.content?.challenges && (
-                    <div>
-                      <h3 className="font-mono text-sm text-electric uppercase tracking-widest mb-3">The Challenge</h3>
-                      <p className="text-canvas-dark/80 dark:text-canvas-light/80 leading-relaxed whitespace-pre-wrap">
-                        {project.content.challenges}
-                      </p>
+                <div className="grid grid-cols-1 gap-16">
+                  {project.schemaImage && (
+                    <div className="flex flex-col gap-6">
+                      <h3 className="font-display text-2xl font-bold text-canvas-dark dark:text-canvas-light">
+                        Database Schema
+                      </h3>
+                      <div className="w-full bg-white rounded-xl overflow-hidden ring-1 ring-canvas-dark/10 shadow-xl p-2 md:p-6 flex items-center justify-center">
+                        <img
+                          src={project.schemaImage}
+                          alt="Database Schema"
+                          loading="lazy"
+                          decoding="async"
+                          className="max-w-full h-auto rounded shadow-sm"
+                        />
+                      </div>
                     </div>
                   )}
-                  {project.content?.solutions && (
-                    <div>
-                      <h3 className="font-mono text-sm text-electric uppercase tracking-widest mb-3">The Solution</h3>
-                      <p className="text-canvas-dark/80 dark:text-canvas-light/80 leading-relaxed whitespace-pre-wrap">
-                        {project.content.solutions}
-                      </p>
+                  {project.useCaseImage && (
+                    <div className="flex flex-col gap-6">
+                      <h3 className="font-display text-2xl font-bold text-canvas-dark dark:text-canvas-light">
+                        Use Case Diagram
+                      </h3>
+                      <div className="w-full bg-white rounded-xl overflow-hidden ring-1 ring-canvas-dark/10 shadow-xl p-2 md:p-6 flex items-center justify-center">
+                        <img
+                          src={project.useCaseImage}
+                          alt="Use Case Diagram"
+                          loading="lazy"
+                          decoding="async"
+                          className="max-w-full h-auto rounded shadow-sm"
+                        />
+                      </div>
                     </div>
                   )}
                 </div>
               </section>
             )}
 
-            {/* Outcome */}
-            {project.content?.outcome && (
-              <section className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 md:gap-24">
-                <div className="md:sticky md:top-24 md:self-start">
-                  <h2 className="font-display text-3xl md:text-4xl font-bold text-canvas-dark dark:text-canvas-light leading-tight">
-                    Outcome
-                  </h2>
-                  <div className="mt-4 h-0.5 w-12 bg-electric" />
-                </div>
-                <div>
-                  <p className="text-canvas-dark/80 dark:text-canvas-light/80 leading-relaxed whitespace-pre-wrap">
-                    {project.content.outcome}
+            {/* ── USE CASES CAROUSEL ── */}
+            {project.useCases && project.useCases.length > 0 && (
+              <section className="py-16 md:py-24 border-b border-canvas-dark/10 dark:border-white/10">
+                <div className="flex items-center gap-3 mb-10">
+                  <LayoutGrid size={18} className="text-electric" />
+                  <p className="font-mono text-xs text-canvas-dark/60 dark:text-canvas-light/60 uppercase tracking-[0.25em]">
+                    Use Cases
                   </p>
+                  <span className="ml-auto font-mono text-xs text-canvas-dark/60 dark:text-canvas-light/60">
+                    {project.useCases.length}{" "}
+                    {project.useCases.length === 1 ? "case" : "cases"}
+                  </span>
                 </div>
+                <UseCaseCarousel
+                  useCases={project.useCases}
+                  title={`${project.title} Use Cases`}
+                />
+                <p className="mt-4 text-center text-canvas-dark/60 dark:text-canvas-light/60 font-mono text-xs">
+                  Use the arrows or dots to navigate
+                </p>
               </section>
             )}
 
-          </article>
+            {/* ── GALLERY CAROUSEL ── */}
+            {gallery.length > 0 && (
+              <section className="py-16 md:py-24 border-b border-canvas-dark/10 dark:border-white/10">
+                <div className="flex items-center gap-3 mb-10">
+                  <LayoutGrid size={18} className="text-electric" />
+                  <p className="font-mono text-xs text-canvas-dark/60 dark:text-canvas-light/60 uppercase tracking-[0.25em]">
+                    Project Gallery
+                  </p>
+                  <span className="ml-auto font-mono text-xs text-canvas-dark/60 dark:text-canvas-light/60">
+                    {gallery.length}{" "}
+                    {gallery.length === 1 ? "screenshot" : "screenshots"}
+                  </span>
+                </div>
+                <Carousel images={gallery} title={project.title} />
+                <p className="mt-4 text-center text-canvas-dark/60 dark:text-canvas-light/60 font-mono text-xs">
+                  Use the arrows or dots to navigate · Add more images via{" "}
+                  <code className="text-electric">gallery[]</code> in constants.ts
+                </p>
+              </section>
+            )}
 
-
-          {/* ── ARCHITECTURE & USE CASE ── */}
-          {(project.schemaImage || project.useCaseImage) && (
+            {/* ── TECH STACK ── */}
             <section className="py-16 md:py-24 border-b border-canvas-dark/10 dark:border-white/10">
               <div className="flex items-center gap-3 mb-10">
                 <Layers size={18} className="text-electric" />
-                <p className="font-mono text-xs text-canvas-dark/50 dark:text-canvas-light/50 uppercase tracking-[0.25em]">
-                  Architecture & Use Cases
+                <p className="font-mono text-xs text-canvas-dark/60 dark:text-canvas-light/60 uppercase tracking-[0.25em]">
+                  Technology Stack
                 </p>
               </div>
-              <div className="grid grid-cols-1 gap-16">
-                {project.schemaImage && (
-                  <div className="flex flex-col gap-6">
-                    <h3 className="font-display text-2xl font-bold text-canvas-dark dark:text-canvas-light">
-                      Database Schema
-                    </h3>
-                    <div className="w-full bg-white rounded-xl overflow-hidden ring-1 ring-canvas-dark/10 shadow-xl p-2 md:p-6 flex items-center justify-center">
-                      <img
-                        src={project.schemaImage}
-                        alt="Database Schema"
-                        loading="lazy"
-                        decoding="async"
-                        className="max-w-full h-auto rounded shadow-sm"
-                      />
+              <div className="flex flex-wrap gap-3">
+                {project.tags.map((tag, i) => (
+                  <m.span
+                    key={i}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: i * 0.05 }}
+                    className="px-5 py-2.5 bg-white dark:bg-canvas-dark ring-1 ring-canvas-dark/10 dark:ring-white/10 shadow-sm rounded-xl font-mono text-sm text-canvas-dark/80 dark:text-canvas-light/80 hover:ring-electric hover:text-electric hover:bg-electric/5 transition-all duration-200 cursor-default"
+                  >
+                    {tag}
+                  </m.span>
+                ))}
+              </div>
+            </section>
+
+            <section className="py-16 md:py-24 flex flex-col md:flex-row items-center justify-between gap-8">
+              <Link
+                to="/"
+                className="flex items-center gap-3 text-canvas-dark/60 dark:text-canvas-light/60 hover:text-canvas-dark hover:dark:text-canvas-light transition-colors font-medium group"
+              >
+                <ArrowLeft
+                  size={18}
+                  className="group-hover:-translate-x-1 transition-transform"
+                />
+                Back to Home
+              </Link>
+
+              {(() => {
+                const currentIdx = PROJECTS.findIndex((p) => p.id === id);
+                const next = PROJECTS[(currentIdx + 1) % PROJECTS.length];
+                return (
+                  <Link
+                    to={`/projects/${next.id}`}
+                    className="group flex items-center gap-4 card-base card-hover px-6 py-4"
+                  >
+                    <div>
+                      <p className="font-mono text-xs text-canvas-dark/60 dark:text-canvas-light/60 uppercase tracking-widest mb-1">
+                        Next Project
+                      </p>
+                      <p className="font-display font-bold text-canvas-dark dark:text-canvas-light text-lg">
+                        {next.title}
+                      </p>
+                      <p className="text-electric font-mono text-xs">
+                        {next.subtitle}
+                      </p>
                     </div>
-                  </div>
-                )}
-                {project.useCaseImage && (
-                  <div className="flex flex-col gap-6">
-                    <h3 className="font-display text-2xl font-bold text-canvas-dark dark:text-canvas-light">
-                      Use Case Diagram
-                    </h3>
-                    <div className="w-full bg-white rounded-xl overflow-hidden ring-1 ring-canvas-dark/10 shadow-xl p-2 md:p-6 flex items-center justify-center">
-                      <img
-                        src={project.useCaseImage}
-                        alt="Use Case Diagram"
-                        loading="lazy"
-                        decoding="async"
-                        className="max-w-full h-auto rounded shadow-sm"
-                      />
-                    </div>
-                  </div>
-                )}
-              </div>
+                    <ChevronRight
+                      size={24}
+                      className="text-canvas-dark/60 dark:text-canvas-light/60 group-hover:text-electric group-hover:translate-x-1 transition-all"
+                    />
+                  </Link>
+                );
+              })()}
             </section>
-          )}
-
-          {/* ── USE CASES CAROUSEL ── */}
-          {project.useCases && project.useCases.length > 0 && (
-            <section className="py-16 md:py-24 border-b border-canvas-dark/10 dark:border-white/10">
-              <div className="flex items-center gap-3 mb-10">
-                <LayoutGrid size={18} className="text-electric" />
-                <p className="font-mono text-xs text-canvas-dark/50 dark:text-canvas-light/50 uppercase tracking-[0.25em]">
-                  Use Cases
-                </p>
-                <span className="ml-auto font-mono text-xs text-canvas-dark/60 dark:text-canvas-light/60">
-                  {project.useCases.length}{" "}
-                  {project.useCases.length === 1 ? "case" : "cases"}
-                </span>
-              </div>
-              <UseCaseCarousel
-                useCases={project.useCases}
-                title={`${project.title} Use Cases`}
-              />
-              <p className="mt-4 text-center text-canvas-dark/40 dark:text-canvas-light/40 font-mono text-xs">
-                Use the arrows or dots to navigate
-              </p>
-            </section>
-          )}
-
-          {/* ── GALLERY CAROUSEL ── */}
-          {gallery.length > 0 && (
-            <section className="py-16 md:py-24 border-b border-canvas-dark/10 dark:border-white/10">
-              <div className="flex items-center gap-3 mb-10">
-                <LayoutGrid size={18} className="text-electric" />
-                <p className="font-mono text-xs text-canvas-dark/50 dark:text-canvas-light/50 uppercase tracking-[0.25em]">
-                  Project Gallery
-                </p>
-                <span className="ml-auto font-mono text-xs text-canvas-dark/60 dark:text-canvas-light/60">
-                  {gallery.length}{" "}
-                  {gallery.length === 1 ? "screenshot" : "screenshots"}
-                </span>
-              </div>
-              <Carousel images={gallery} title={project.title} />
-              <p className="mt-4 text-center text-canvas-dark/40 dark:text-canvas-light/40 font-mono text-xs">
-                Use the arrows or dots to navigate · Add more images via{" "}
-                <code className="text-electric">gallery[]</code> in constants.ts
-              </p>
-            </section>
-          )}
-
-          {/* ── TECH STACK ── */}
-          <section className="py-16 md:py-24 border-b border-canvas-dark/10 dark:border-white/10">
-            <div className="flex items-center gap-3 mb-10">
-              <Layers size={18} className="text-electric" />
-              <p className="font-mono text-xs text-canvas-dark/50 dark:text-canvas-light/50 uppercase tracking-[0.25em]">
-                Technology Stack
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              {project.tags.map((tag, i) => (
-                <motion.span
-                  key={i}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: i * 0.05 }}
-                  className="px-5 py-2.5 bg-white dark:bg-canvas-dark ring-1 ring-canvas-dark/10 dark:ring-white/10 shadow-sm rounded-xl font-mono text-sm text-canvas-dark/80 dark:text-canvas-light/80 hover:ring-electric hover:text-electric hover:bg-electric/5 transition-all duration-200 cursor-default"
-                >
-                  {tag}
-                </motion.span>
-              ))}
-            </div>
-          </section>
-
-          <section className="py-16 md:py-24 flex flex-col md:flex-row items-center justify-between gap-8">
-            <Link
-              to="/"
-              className="flex items-center gap-3 text-canvas-dark/60 dark:text-canvas-light/60 hover:text-canvas-dark hover:dark:text-canvas-light transition-colors font-medium group"
-            >
-              <ArrowLeft
-                size={18}
-                className="group-hover:-translate-x-1 transition-transform"
-              />
-              Back to Home
-            </Link>
-
-            {(() => {
-              const currentIdx = PROJECTS.findIndex((p) => p.id === id);
-              const next = PROJECTS[(currentIdx + 1) % PROJECTS.length];
-              return (
-                <Link
-                  to={`/projects/${next.id}`}
-                  className="group flex items-center gap-4 card-base card-hover px-6 py-4"
-                >
-                  <div>
-                    <p className="font-mono text-xs text-canvas-dark/40 dark:text-canvas-light/40 uppercase tracking-widest mb-1">
-                      Next Project
-                    </p>
-                    <p className="font-display font-bold text-canvas-dark dark:text-canvas-light text-lg">
-                      {next.title}
-                    </p>
-                    <p className="text-electric font-mono text-xs">
-                      {next.subtitle}
-                    </p>
-                  </div>
-                  <ChevronRight
-                    size={24}
-                    className="text-canvas-dark/50 dark:text-canvas-light/50 group-hover:text-electric group-hover:translate-x-1 transition-all"
-                  />
-                </Link>
-              );
-            })()}
-          </section>
+          </div>
         </div>
-      </div>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </LazyMotion>
   );
 };
 

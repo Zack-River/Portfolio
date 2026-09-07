@@ -5,6 +5,23 @@ import GSAPReveal from './GSAPReveal';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 
+const ProjectImage = ({ project, index }: { project: any, index: number }) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+  return (
+    <>
+      {!isLoaded && <div className="absolute inset-0 bg-canvas-dark/20 animate-pulse" />}
+      <img
+        src={project.thumbImage || project.image}
+        alt={project.title}
+        loading={index < 2 ? undefined : "lazy"}
+        decoding="async"
+        className={`absolute inset-0 w-full h-full object-cover object-top transition-all duration-700 will-change-transform group-hover:scale-105 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+        onLoad={() => setIsLoaded(true)}
+      />
+    </>
+  );
+};
+
 const Projects: React.FC = () => {
   const gridRef = useRef<HTMLDivElement>(null);
 
@@ -77,14 +94,8 @@ const Projects: React.FC = () => {
                   {/* Window Body */}
                   <div className="relative h-60 overflow-hidden group">
                     <div className="absolute inset-0 bg-canvas-dark/20 group-hover:bg-transparent transition-colors duration-500 z-10 pointer-events-none" />
-                    {project!.image ? (
-                      <img
-                        src={project!.image}
-                        alt={project!.title}
-                        loading="lazy"
-                        decoding="async"
-                        className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 will-change-transform group-hover:scale-105"
-                      />
+                    {project!.thumbImage || project!.image ? (
+                      <ProjectImage project={project} index={idx} />
                     ) : (
                       <div className="absolute inset-0 p-8 font-mono text-xs text-canvas-dark/30 overflow-hidden leading-tight select-none">
                         {Array.from({ length: 30 }).map((_, i) => (

@@ -18,6 +18,7 @@ function generateHtml(baseHtml: string, metadata: {
   url: string;
   image?: string;
   type?: string;
+  customHeadTags?: string;
 }) {
   let html = baseHtml;
 
@@ -43,6 +44,10 @@ function generateHtml(baseHtml: string, metadata: {
     html = html.replace(/<meta\s+property="og:image"\s+content="[^"]*"\s*\/?>/i, `<meta property="og:image" content="https://www.zackriver.com${metadata.image}" />`);
   }
 
+  if (metadata.customHeadTags) {
+    html = html.replace('</head>', `${metadata.customHeadTags}\n  </head>`);
+  }
+
   return html;
 }
 
@@ -53,23 +58,45 @@ function buildStaticPages() {
     process.exit(1);
   }
 
-  const baseHtml = fs.readFileSync(indexPath, 'utf-8');
-
+  let baseHtml = fs.readFileSync(indexPath, 'utf-8');
+  // Inline CSS to prevent render-blocking
+  const assetsDir = path.join(DIST_DIR, 'assets');
+  if (fs.existsSync(assetsDir)) {
+    const cssFiles = fs.readdirSync(assetsDir).filter(file => file.endsWith('.css'));
+    if (cssFiles.length > 0) {
+      const mainCssFile = cssFiles[0];
+      const cssContent = fs.readFileSync(path.join(assetsDir, mainCssFile), 'utf-8');
+      
+      // Replace the link tag with the inline style tag
+      const cssLinkRegex = new RegExp(`<link[^>]*href="/assets/${mainCssFile}"[^>]*>`, 'i');
+      baseHtml = baseHtml.replace(cssLinkRegex, `<style>${cssContent}</style>`);
+      
+      // Also write back to index.html to ensure the root route is inlined too
+      fs.writeFileSync(indexPath, baseHtml);
+      console.log(`Inlined ${mainCssFile} into index.html`);
+    }
+  }
   // Basic Routes
   const basicRoutes = [
     { path: 'about', title: `About | ${PERSONAL_INFO.name} (${PERSONAL_INFO.website.split('.')[0]})` },
     { path: 'services', title: `Services | ${PERSONAL_INFO.name}` },
     { path: 'projects', title: `Projects | ${PERSONAL_INFO.name}` },
+    { path: 'contact', title: `Contact | ${PERSONAL_INFO.name}` },
   ];
 
   basicRoutes.forEach(route => {
     const routeDir = path.join(DIST_DIR, route.path);
     ensureDir(routeDir);
+    const customHeadTags = route.path === 'projects' 
+      ? `<link rel="preload" as="image" href="${PROJECTS[0].thumbImage || PROJECTS[0].image}" fetchPriority="high" />`
+      : undefined;
+
     const html = generateHtml(baseHtml, {
       title: route.title,
       description: PERSONAL_INFO.bio,
       url: `https://www.zackriver.com/${route.path}`,
-      type: 'website'
+      type: 'website',
+      customHeadTags
     });
     fs.writeFileSync(path.join(routeDir, 'index.html'), html);
     console.log(`Generated HTML for /${route.path}`);
