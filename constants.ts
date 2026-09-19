@@ -32,6 +32,37 @@ export const PERSONAL_INFO = {
 
 export const PROJECTS: Project[] = [
   {
+    id: "abjad",
+    title: "Abjad",
+    subtitle: "Arabic Calligraphy Learning & Export Studio",
+    description:
+      "An engineering-led desktop studio that turns shaped Arabic text into replayable stroke lessons without losing the real TrueType outline.",
+    tags: ["Electron", "React", "HarfBuzz", "SVG", "FFmpeg"],
+    stats: [
+      "Shaped Arabic glyph pipeline",
+      "Prepared rendering architecture",
+      "SVG, HTML, PNG, GIF & MP4 export",
+    ],
+    image: "/projects/abjad/Cover.png",
+    thumbImage: "/projects/abjad/Cover.png",
+    content: {
+      overview:
+        "An engineering case study about separating Arabic shaping, educational stroke paths, outline rendering, animation, and deterministic export behind one canonical pipeline.",
+      role:
+        "Product Engineering · Desktop Architecture · Arabic Rendering · Animation & Export Pipeline",
+      stack: {
+        frontend: ["React"],
+        other: ["Electron", "HarfBuzz WASM", "SVG", "Canvas", "FFmpeg"],
+      },
+      technicalWork: [
+        "Canonical shaped-glyph to renderer pipeline",
+        "Standalone evaluation workflow for approved stroke data",
+        "Prepared scenes and deterministic media export",
+      ],
+    },
+    featured: true,
+  },
+  {
     id: "beeplayer-qa",
     title: "BeePlayer Smart TV",
     subtitle: "End-to-End QA Testing & Certification (Samsung Tizen)",
@@ -190,7 +221,6 @@ export const PROJECTS: Project[] = [
       "A production-inspired MERN audio streaming platform designed to deliver a Spotify-like experience for listeners while providing artists and administrators with powerful content management tools.",
     tags: ["React", "Node.js", "Express", "MongoDB", "Cloudinary", "JWT"],
     repo: "https://github.com/Zack-River/Stream_Flow",
-    link: "https://streamflow-online.vercel.app/",
     stats: [
       "74 REST APIs & 4-Level RBAC",
       "34 Req/sec under load testing",

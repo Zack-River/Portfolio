@@ -123,6 +123,34 @@ function buildStaticPages() {
 
     fs.writeFileSync(path.join(projectDir, 'index.html'), html);
     console.log(`Generated HTML for /projects/${project.id}`);
+
+    if (project.id === 'abjad') {
+      const arabicProjectDir = path.join(projectDir, 'ar');
+      ensureDir(arabicProjectDir);
+      const arabicHtml = generateHtml(baseHtml, {
+        title: `أبجد | ${PERSONAL_INFO.name}`,
+        description: 'حكاية هندسية عن تحويل النص العربي المشكّل إلى درس رسم قابل للإعادة، مع الحفاظ على TrueType outline وتصدير deterministic.',
+        url: 'https://www.zackriver.com/projects/abjad/ar',
+        image: project.image,
+        type: 'article'
+      });
+      fs.writeFileSync(path.join(arabicProjectDir, 'index.html'), arabicHtml);
+      console.log('Generated HTML for /projects/abjad/ar');
+    }
+
+    if (project.id === 'streamflow') {
+      const arabicProjectDir = path.join(projectDir, 'ar');
+      ensureDir(arabicProjectDir);
+      const arabicHtml = generateHtml(baseHtml, {
+        title: `Streamflow | ${PERSONAL_INFO.name}`,
+        description: 'دراسة حالة موثقة عن انتقال Streamflow من نموذج بث موسيقي إلى منصة متكاملة للهوية والوسائط والتشغيل والبحث والإشراف.',
+        url: 'https://www.zackriver.com/projects/streamflow/ar',
+        image: project.image,
+        type: 'article'
+      });
+      fs.writeFileSync(path.join(arabicProjectDir, 'index.html'), arabicHtml);
+      console.log('Generated HTML for /projects/streamflow/ar');
+    }
   });
   
   console.log("Static HTML generation complete!");

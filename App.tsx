@@ -5,6 +5,14 @@ import Home from './pages/Home';
 
 // Lazy load heavy routes to reduce initial bundle size
 const ProjectDetails = React.lazy(() => import('./pages/ProjectDetails'));
+const AbjadCaseStudy = React.lazy(() => import('./pages/AbjadCaseStudy'));
+const AbjadCaseStudyAr = React.lazy(() => import('./pages/AbjadCaseStudyAr'));
+const StreamflowCaseStudy = React.lazy(() => import('./pages/StreamflowCaseStudy'));
+const StreamflowCaseStudyAr = React.lazy(() => import('./pages/StreamflowCaseStudyAr'));
+const KarbalaCaseStudy = React.lazy(() => import('./pages/KarbalaCaseStudy'));
+const KarbalaCaseStudyAr = React.lazy(() => import('./pages/KarbalaCaseStudyAr'));
+const SmartQCaseStudy = React.lazy(() => import('./pages/SmartQCaseStudy'));
+const SmartQCaseStudyAr = React.lazy(() => import('./pages/SmartQCaseStudyAr'));
 const ProjectsPage = React.lazy(() => import('./pages/ProjectsPage'));
 const AboutPage = React.lazy(() => import('./pages/AboutPage'));
 const ServicesPage = React.lazy(() => import('./pages/ServicesPage'));
@@ -92,6 +100,14 @@ function App() {
               <Route path="/about" element={<AboutPage />} />
               <Route path="/services" element={<ServicesPage />} />
               <Route path="/projects" element={<ProjectsPage />} />
+              <Route path="/projects/abjad" element={<AbjadCaseStudy />} />
+              <Route path="/projects/abjad/ar" element={<AbjadCaseStudyAr />} />
+              <Route path="/projects/streamflow" element={<StreamflowCaseStudy />} />
+              <Route path="/projects/streamflow/ar" element={<StreamflowCaseStudyAr />} />
+              <Route path="/projects/karbala" element={<KarbalaCaseStudy />} />
+              <Route path="/projects/karbala/ar" element={<KarbalaCaseStudyAr />} />
+              <Route path="/projects/smartq" element={<SmartQCaseStudy />} />
+              <Route path="/projects/smartq/ar" element={<SmartQCaseStudyAr />} />
               <Route path="/projects/:id" element={<ProjectDetails />} />
               <Route path="/contact" element={<ContactPage />} />
             </Routes>

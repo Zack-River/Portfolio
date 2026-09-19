@@ -47,7 +47,7 @@ const getProjectCategories = (id: string): string[] => {
     "karbala",
   ];
   const backend = ["ding", "smartq", "karbala", "mostafa-nawareg"];
-  const desktopApps = ["omnipos"];
+  const desktopApps = ["omnipos", "abjad"];
   const qa = ["beeplayer-qa"];
 
   if (landingPages.includes(id)) cats.push("Landing Pages");
@@ -63,8 +63,34 @@ const getProjectCategories = (id: string): string[] => {
   return cats;
 };
 
+const PROJECT_BENTO_LAYOUTS: Record<string, string> = {
+  // Featured work anchors the larger blocks in the full archive.
+  abjad:
+    "md:col-span-2 md:row-span-2 lg:col-span-2 lg:row-span-2",
+  "beeplayer-qa":
+    "md:col-span-2 md:row-span-2 lg:col-span-2 lg:row-span-2",
+  ding: "md:col-span-2 md:row-span-2 lg:col-span-2 lg:row-span-2",
+
+  // Wide cards create breathing room between the larger feature blocks.
+  streamflow: "md:col-span-2 lg:col-span-2",
+  omnipos: "md:col-span-2 lg:col-span-2",
+
+  // Square cards pair naturally at the tablet breakpoint.
+  karbala: "md:col-span-1 lg:col-span-1",
+  smartq: "md:col-span-1 lg:col-span-1",
+  "dr-sara-ragab": "md:col-span-1 lg:col-span-1",
+  "mostafa-nawareg": "md:col-span-1 lg:col-span-1",
+  "hotel-pro": "md:col-span-1 lg:col-span-1",
+  "khaled-nasser": "md:col-span-1 lg:col-span-1",
+
+  // Showcase cards finish the collection with wider editorial compositions.
+  "luxe-dental": "md:col-span-2 lg:col-span-3",
+  "ahmed-hakim": "md:col-span-2 lg:col-span-3",
+};
+
 const ProjectsPage: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState("All");
+  const baseBentoClasses = "col-span-1 row-span-1";
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -212,51 +238,11 @@ const ProjectsPage: React.FC = () => {
         {/* Bento Box Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 auto-rows-[250px] md:auto-rows-[300px]">
           {filteredProjects.map((project, index) => {
-            // Dynamic Bento layout matched exactly to the CMS design
-            let bentoClasses = "col-span-1 row-span-1";
-
-            if (activeFilter === "All") {
-              switch (project.id) {
-                case "beeplayer-qa":
-                case "ding":
-                  // Large 2x2 blocks on both tablet and desktop
-                  bentoClasses =
-                    "md:col-span-2 md:row-span-2 lg:col-span-2 lg:row-span-2";
-                  break;
-                case "streamflow":
-                case "omnipos":
-                  // Wide blocks
-                  bentoClasses =
-                    "md:col-span-2 md:row-span-1 lg:col-span-2 lg:row-span-1";
-                  break;
-                case "karbala":
-                case "smartq":
-                case "dr-sara-ragab":
-                case "mostafa-nawareg":
-                  // Square blocks. On tablet (2-col), they neatly sit side-by-side as 1x1
-                  bentoClasses =
-                    "col-span-1 row-span-1 md:col-span-1 lg:col-span-1";
-                  break;
-                case "luxe-dental":
-                  // 3:1 layout (3 cols)
-                  bentoClasses = "md:col-span-2 lg:col-span-3 lg:row-span-1";
-                  break;
-                case "hotel-pro":
-                  // 3:1 layout (1 col)
-                  bentoClasses =
-                    "col-span-1 row-span-1 md:col-span-2 lg:col-span-1";
-                  break;
-                case "khaled-nasser":
-                  // 1:3 layout (1 col)
-                  bentoClasses =
-                    "col-span-1 row-span-1 md:col-span-2 lg:col-span-1";
-                  break;
-                case "ahmed-hakim":
-                  // 1:3 layout (3 cols)
-                  bentoClasses = "md:col-span-2 lg:col-span-3 lg:row-span-1";
-                  break;
-              }
-            }
+            // Filtered views stay compact; the full archive uses the shared bento rhythm.
+            const bentoClasses =
+              activeFilter === "All"
+                ? `${baseBentoClasses} ${PROJECT_BENTO_LAYOUTS[project.id] || ""}`
+                : baseBentoClasses;
 
             return (
               <m.div

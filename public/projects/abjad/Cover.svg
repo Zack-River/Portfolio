@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Abjad case study placeholder cover</title>
+  <desc id="desc">A named placeholder for the Abjad Arabic calligraphy learning case study.</desc>
+  <rect width="1200" height="720" fill="#0d0f0e"/>
+  <g stroke="#c7f000" stroke-opacity=".14">
+    <path d="M0 60H1200M0 120H1200M0 180H1200M0 240H1200M0 300H1200M0 360H1200M0 420H1200M0 480H1200M0 540H1200M0 600H1200M0 660H1200"/>
+    <path d="M60 0V720M120 0V720M180 0V720M240 0V720M300 0V720M360 0V720M420 0V720M480 0V720M540 0V720M600 0V720M660 0V720M720 0V720M780 0V720M840 0V720M900 0V720M960 0V720M1020 0V720M1080 0V720M1140 0V720"/>
+  </g>
+  <text x="600" y="325" text-anchor="middle" fill="#c7f000" font-size="176" font-family="serif">أبجد</text>
+  <text x="600" y="430" text-anchor="middle" fill="#f2f1eb" font-size="50" font-family="Arial, sans-serif" letter-spacing="8">ABJAD</text>
+  <text x="600" y="485" text-anchor="middle" fill="#f2f1eb" fill-opacity=".55" font-size="20" font-family="monospace">[ IMAGE PLACEHOLDER — STUDIO HERO ]</text>
+</svg>
