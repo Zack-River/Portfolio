@@ -1,0 +1,206 @@
+{
+  "project": {
+    "id": "streamflow",
+    "title": "Streamflow",
+    "label": "Case Study / Music Streaming Platform",
+    "language": "en",
+    "direction": "ltr",
+    "subtitle": "A music platform that had to make identity, media, playback, and moderation feel like one continuous product.",
+    "metaDescription": "An evidence-led Streamflow case study tracing the product from its first upload-and-listen prototype through auth, persistent playback, queues, search, moderation, responsive UI, and the remaining audio-quality gap.",
+    "role": ["Full-stack product engineering", "Frontend playback and state architecture", "Backend APIs, authentication, and media workflows"],
+    "coreStack": ["React", "Vite", "Tailwind CSS", "Node.js", "Express", "MongoDB / Mongoose", "Cloudinary", "JWT / HTTP-only cookies"],
+    "heroImage": "/projects/streamflow/Cover.webp",
+    "heroImageAlt": "Streamflow music platform cover",
+    "ui": {
+      "backToProjects": "Back to Projects",
+      "back": "Back",
+      "languageStatus": "Language",
+      "switchLanguage": "العربية",
+      "caseStudy": "Case Study",
+      "heroEyebrow": "Case Study / Music Streaming Platform",
+      "roleLabel": "My role",
+      "contextLabel": "Context",
+      "contextValue": "Full-stack portfolio product documented through source, commits, and UI evidence",
+      "stackLabel": "Core stack"
+    }
+  },
+  "sections": [
+    {
+      "id": "01",
+      "eyebrow": "01 / The hook",
+      "title": "The idea looked like a player",
+      "paragraphs": [
+        "The first version of Streamflow was easy to explain: let a user register, upload a song, listen to it, and keep the last position. The earliest commit already contains the beginnings of that promise—login, upload, listening, navigation, and local persistence for the last second of playback.",
+        "Then the product met real use. A song is not just a file on a page. It belongs to someone, travels through a queue, appears in a playlist, needs a cover, may require moderation, and should still make sense after a refresh or a new device."
+      ],
+      "sourceRefs": ["git:550244d", "Stream_Flow/README.md"],
+      "primaryImage": "/projects/streamflow/01-Home-Logged-In-Hero.webp",
+      "imageAlt": "Logged-in Streamflow home view with search, categories, now playing panel, and persistent player",
+      "visualNote": "Use the real home screen as the opening scene: it makes the promise visible before the infrastructure appears."
+    },
+    {
+      "id": "02",
+      "eyebrow": "02 / The goal",
+      "title": "The experience had to connect the whole loop",
+      "paragraphs": [
+        "The goal was not a collection of music screens. It was a continuous journey: discover a track, authenticate when the action needs an account, upload and describe media as an artist, play it without losing control, save it to favorites or a playlist, and let an administrator review the platform when the workflow requires it.",
+        "That meant the listener, artist, and administrator views had to share the same media model and the same identity rules. The interface could change by role, but the product could not feel like three unrelated applications."
+      ],
+      "flow": ["Discover → search, categories, artists, albums", "Listen → play, seek, volume, queue, shuffle, repeat", "Keep → favorites, playlists, last-playback position", "Create → upload tracks, covers, albums, and profile details", "Govern → approvals, moderation, user and audio management"],
+      "sourceRefs": ["Stream_Flow/changes.md", "Stream_Flow/TODO_BACKLOG.md", "Portfolio catalog constants.ts"],
+      "primaryImage": "/projects/streamflow/02-Home-Landing.webp",
+      "imageAlt": "Streamflow public landing page with start listening call to action",
+      "visualNote": "The landing view is the primary visual; supporting role screens belong in the gallery rather than interrupting the opening rhythm."
+    },
+    {
+      "id": "03",
+      "eyebrow": "03 / The first reality check",
+      "title": "Playback was a distributed state problem",
+      "paragraphs": [
+        "The browser owns a live HTML5 Audio element: current time, buffering, loaded metadata, seeking, ended events, and the next play action. The backend owns durable facts: the user, the uploaded media, visibility, approval status, favorites, playlists, and the last playback position.",
+        "The storage boundary added another reality check. The current documentation describes Cloudinary as the destination for profiles, audio, and covers, while the code still keeps a legacy local-file fallback and stream path. That is not a detail to hide; it is part of the system the case study has to explain."
+      ],
+      "evidence": ["MusicContext and audio hooks coordinate currentSong, isPlaying, queue, history, repeat, and native audio events.", "PUT /api/users/playback-state persists songId and currentTime for cross-device continuation.", "The current audio controller redirects external media URLs and retains legacy local streaming logic.", "Full API Reference marks older multer/sharp/local-fs passages as historical after the Cloudinary migration."],
+      "sourceRefs": ["git:3a43ff8", "Stream_Flow/changes.md", "Stream_Flow/server/_docs/FULL_API_REFERENCE.md", "Stream_Flow/server/controllers/audio.Controller.js"],
+      "primaryImage": "/projects/streamflow/streamflow-current-home.png",
+      "imageAlt": "Current Streamflow home with discovery shelves and persistent audio player",
+      "visualNote": "Use the current deployment capture as the visible anchor for the playback state discussion; the state-boundary explanation remains in the copy."
+    },
+    {
+      "id": "04",
+      "eyebrow": "04 / The original plan",
+      "title": "Build the product in layers, then make the layers agree",
+      "paragraphs": [
+        "The architecture started with a familiar full-stack split: a React/Vite client for the experience, an Express API for business rules, MongoDB/Mongoose for users and media metadata, and route middleware for authentication, roles, validation, and uploads.",
+        "On the client, API utilities abstracted requests while AuthContext and MusicContext gave the application shared boundaries for identity and playback. On the server, controllers and models kept upload, search, playlist, profile, and admin behavior behind explicit endpoints. The plan was credible—but only if the boundaries agreed on the same song, user, and session."
+      ],
+      "flow": ["React/Vite UI → AuthContext + MusicContext + audio hooks", "Axios utilities → normalized song, playlist, profile, and auth data", "Express routes → controllers, validation, auth, and role guards", "MongoDB/Mongoose → durable users, media metadata, playlists, and playback state", "Cloudinary + safe local fallback → media assets and stream URLs"],
+      "sourceRefs": ["Stream_Flow/README.md", "Stream_Flow/client/README.md", "Stream_Flow/server/streamflow_readme.md", "Stream_Flow/server/_docs/FULL_API_REFERENCE.md"],
+      "primaryImage": "/projects/streamflow/04-Artist-Uploads.webp",
+      "imageAlt": "Artist uploads page showing the content-management side of Streamflow",
+      "visualNote": "Pair the real upload surface with a small architecture diagram; the screenshot shows why the API and media layers exist."
+    },
+    {
+      "id": "05",
+      "eyebrow": "05 / When things started breaking",
+      "title": "The bugs arrived as a chain, not a single incident",
+      "paragraphs": [
+        "Once the product carried real state, the failures became connected. Playback could restart when an unrelated control changed. A queue could stop at the end of a track. Shuffle and repeat needed explicit modes. The mobile player could fight the page layout. Search could not keep scaling if the browser had to fetch and filter the entire catalog.",
+        "The content workflows exposed a second family of failures: a playlist could prefer stale localStorage over a freshly fetched Cloudinary cover, an upload fallback could delete the only local copy when Cloudinary failed, and role-specific routes could disagree about who was allowed to enter. Each issue looked local until it crossed a boundary."
+      ],
+      "evidence": ["Queue, skip, history, shuffle, and repeat changes are recorded across the September 2025 player commits.", "The change log documents mobile layout fixes, stale playlist hydration, Cloudinary fallback, and admin-route conflicts.", "The backlog records the move from client-side filtering of 10,000+ songs to debounced server-side search."],
+      "sourceRefs": ["git:d909342", "git:31521a0", "git:3a43ff8", "git:7a3c15b", "git:a89c32c", "Stream_Flow/changes.md", "Stream_Flow/TODO_BACKLOG.md"],
+      "primaryImage": "/projects/streamflow/streamflow-current-playlist.png",
+      "imageAlt": "Current Streamflow playlist view with songs, metadata, and persistent player",
+      "visualNote": "This current deployment capture gives the failure chain a concrete playlist surface; it is not presented as a literal bug screenshot."
+    },
+    {
+      "id": "06",
+      "eyebrow": "06 / Failed experiments",
+      "title": "The reasonable fixes that exposed the real lesson",
+      "paragraphs": ["The useful part of the history is not that every first attempt worked. It shows why an idea seemed sensible, where it broke, and which boundary became clearer afterward."],
+      "experiments": [
+        {"problem": "Changing volume could restart the current song.", "idea": "Keep volume inside the same audio effects so the native element always receives the latest value.", "whyItSeemedReasonable": "The audio element and React volume state should stay synchronized.", "whatFailed": "The effect dependency made an unrelated control change re-run song-loading logic.", "whatWeLearned": "Separate media identity/loading effects from live controls; apply volume directly without reloading the source.", "sourceRefs": ["git:b5431f5"]},
+        {"problem": "Authentication was moving between client-token assumptions and refresh behavior.", "idea": "Ship a direct JWT integration, then debug refresh behavior through the client.", "whyItSeemedReasonable": "JWT is a familiar API boundary and the frontend already needed authenticated requests.", "whatFailed": "The history contains the JWT integration, debug/revert commits, and then a deliberate move to comprehensive cookie-based authentication.", "whatWeLearned": "The important decision was a stable session boundary: HTTP-only cookies, AuthContext initialization, logout events, and protected routes must agree.", "sourceRefs": ["git:0a6053e", "git:fa3ea30", "git:e09e2e2", "git:c9c1f0e"]},
+        {"problem": "Search became expensive as the catalog grew.", "idea": "Fetch a large song collection and filter it in the browser.", "whyItSeemedReasonable": "Client filtering is quick to prototype and keeps the first search API small.", "whatFailed": "The backlog explicitly calls out the 10,000+ song case and the need to move filtering to a debounced server endpoint.", "whatWeLearned": "Search belongs near the data: paginate, filter, and return audio, playlists, artist accounts, and albums as one server contract.", "sourceRefs": ["git:6457f86", "Stream_Flow/TODO_BACKLOG.md", "Stream_Flow/server/_docs/FULL_API_REFERENCE.md"]},
+        {"problem": "Media could be lost when Cloudinary was unavailable.", "idea": "Treat the upload as complete and clean up the temporary local file immediately.", "whyItSeemedReasonable": "Successful offload should leave one canonical remote URL and no temporary artifact.", "whatFailed": "The change log records that local backups were deleted even when Cloudinary failed, leaving fallback URLs broken with 404s.", "whatWeLearned": "Cleanup is conditional: delete local media only after a confirmed remote upload; preserve the fallback otherwise.", "sourceRefs": ["git:6457f86", "Stream_Flow/changes.md", "Stream_Flow/server/utils/cloudinary.js"]},
+        {"problem": "A playlist could render stale localStorage data instead of the current backend object.", "idea": "Use the cached context object as the fastest source for the page.", "whyItSeemedReasonable": "The cache avoids a loading state and had worked before remote media URLs changed.", "whatFailed": "The cache could hide the newer Cloudinary cover and metadata returned by the server.", "whatWeLearned": "Fresh fetched data wins when it exists; cached context is a fallback, not a competing truth.", "sourceRefs": ["git:6457f86", "Stream_Flow/changes.md"]}
+      ],
+      "primaryImage": "/projects/streamflow/streamflow-current-admin.png",
+      "imageAlt": "Current Streamflow admin dashboard with overview metrics and moderation navigation",
+      "visualNote": "Use the current admin surface as the product context for role and governance boundaries; the actual failed sequences remain evidence in the commit timeline, not fabricated screenshots."
+    },
+    {
+      "id": "07",
+      "eyebrow": "07 / The turning point",
+      "title": "The problem was not one audio bug",
+      "paragraphs": [
+        "The turning point was recognizing that Streamflow had several interpretations of the same truth: the player knew one current song, localStorage could remember another playlist snapshot, the API owned the durable state, and Cloudinary or the local filesystem could provide different media URLs.",
+        "Once that pattern was visible, each fix stopped being a patch to a screen. It became a decision about which layer is allowed to decide."
+      ],
+      "sourceRefs": ["Stream_Flow/changes.md", "Stream_Flow/server/_docs/FULL_API_REFERENCE.md", "git:3a43ff8", "git:6457f86"],
+      "primaryImage": "/projects/streamflow/streamflow-architecture-before.png",
+      "imageAlt": "Fragmented state paths between the player, local cache, API and database, and media storage",
+      "visualNote": "Keep this beat visually sparse: one fragmentation diagram, one paragraph, then move immediately into the new boundaries."
+    },
+    {
+      "id": "08",
+      "eyebrow": "08 / One source of truth",
+      "title": "Rebuild the boundaries instead of chasing symptoms",
+      "paragraphs": [
+        "The response was a set of explicit ownership rules. AuthContext owns the session visible to the client; HTTP-only cookies and protected routes own access; MusicContext and audio hooks coordinate the live player; API utilities normalize server responses; the backend owns permissions, visibility, approval, and durable playback; Cloudinary owns current remote media while the local file survives a failed offload.",
+        "That is the architectural shift: not one giant state store, but one clear source for each kind of truth, with deliberate synchronization between them."
+      ],
+      "flow": ["Session → cookie-backed auth + AuthContext + ProtectedRoute/AdminRoute", "Playback → MusicContext + audio hooks + explicit queue/repeat modes", "Data → API utilities + fresh backend response before cached context", "Media → Cloudinary URL when confirmed; local fallback preserved on failure", "Governance → role checks, approval status, ownership, validation, and admin routes"],
+      "sourceRefs": ["git:c9c1f0e", "git:3a43ff8", "git:6457f86", "Stream_Flow/server/controllers/audio.Controller.js", "Stream_Flow/server/utils/cloudinary.js"],
+      "primaryImage": "/projects/streamflow/streamflow-architecture-before-after.png",
+      "imageAlt": "Before-and-after architecture showing clear ownership for session, playback, data, media, and governance",
+      "visualNote": "The diagram is schematic, not a literal implementation map: it illustrates the ownership model and its deliberate synchronization paths."
+    },
+    {
+      "id": "09",
+      "eyebrow": "09 / Performance as a product problem",
+      "title": "Move the expensive work to the boundary that can handle it",
+      "paragraphs": [
+        "The search story is the clearest example. Instead of pulling a potentially huge catalog into the browser, the product moved filtering and pagination to GET /audios/search, added debounced input, and returned audio, public playlists, artist accounts, and albums through one contract.",
+        "The source also records manual Vite chunk splitting and a catalog benchmark of 34 requests per second under load testing. That number is evidence from the documented test context—not a promise for every deployment, dataset, or network."
+      ],
+      "evidence": ["Server-side search is marked Completed in TODO_BACKLOG.md.", "The backlog scopes the old client approach to 10,000+ songs.", "Portfolio catalog metrics record 34 Req/sec under load testing and optimized compound/text indexing.", "changes.md records manual chunk splitting to address Vite's large bundle warning."],
+      "sourceRefs": ["Stream_Flow/TODO_BACKLOG.md", "Stream_Flow/changes.md", "Stream_Flow/server/_docs/FULL_API_REFERENCE.md", "Portfolio catalog constants.ts"],
+      "primaryImage": "/projects/streamflow/09-Search.webp",
+      "imageAlt": "Streamflow global search interface",
+      "visualNote": "Make the decision the hero of this section; use the 34 req/sec figure only as scoped supporting evidence."
+    },
+    {
+      "id": "10",
+      "eyebrow": "10 / The product that emerged",
+      "title": "The platform became coherent across roles",
+      "paragraphs": [
+        "By the later milestones, Streamflow reads as a platform rather than a player demo: a listener can discover and keep music, an artist can manage uploads and albums, and an administrator can review users, audio, and moderation states without leaving the product language behind.",
+        "The feature list is intentionally compact here. What matters is that the same decisions—session ownership, media URLs, queue behavior, fresh data, and protected routes—now connect the surfaces shown in the UI."
+      ],
+      "chips": ["Listener home + categories", "Global search", "Persistent audio player", "Queue / shuffle / repeat", "Favorites + playlists", "Artist profile + uploads", "Albums", "Admin + moderation", "Responsive light / dark UI", "Password recovery"],
+      "sourceRefs": ["git:6457f86", "git:3a43ff8", "git:7a3c15b", "Stream_Flow/changes.md", "Stream_Flow/TODO_BACKLOG.md"],
+      "primaryImage": "/projects/streamflow/11-Admin-Dashboard.webp",
+      "imageAlt": "Streamflow admin dashboard with platform overview and persistent audio player",
+      "visualNote": "Use one strong final surface in the main story. Put artist, playlist, mobile, and moderation screenshots in the gallery."
+    },
+    {
+      "id": "11",
+      "eyebrow": "11 / The result",
+      "title": "From streaming demo to product boundary",
+      "paragraphs": [
+        "Streamflow grew into a full-stack music product with explicit boundaries for identity, media, playback, search, playlists, and moderation. The value is not one isolated feature; it is the fact that a listener action can travel through the system and return with the right user, song, permission, and state.",
+        "The result is still honest about its edges. The audio-quality controls exist in the settings UI, but the backlog says true multi-bitrate transcoding and bitrate-aware delivery remain to be implemented. The storage and API docs also contain historical local-file passages alongside the current Cloudinary architecture, so visual and source evaluation remains part of maintaining quality."
+      ],
+      "evidence": ["Current source includes Cloudinary upload helpers, migration tooling, and external URL redirect handling.", "The backlog marks audio quality as a settings placeholder rather than a completed transcoding pipeline.", "The full API reference explicitly labels older local multer/sharp/fs passages as historical context."],
+      "sourceRefs": ["Stream_Flow/TODO_BACKLOG.md", "Stream_Flow/server/_docs/FULL_API_REFERENCE.md", "Stream_Flow/server/utils/cloudinary.js", "Stream_Flow/server/migrateToCloudinary.js"],
+      "primaryImage": "/projects/streamflow/16-Mobile-Dark.webp",
+      "imageAlt": "Streamflow mobile dark-mode experience with compact player controls",
+      "visualNote": "End on the product surviving a different viewport, then state the open boundary instead of claiming total completion."
+    }
+  ],
+  "gallery": {
+    "eyebrow": "Gallery / selected views",
+    "title": "The system, seen from different roles",
+    "description": "Supporting screens reinforce the journey: discovery, creation, curation, governance, and responsive playback.",
+    "items": [
+      {"src": "/projects/streamflow/03-Artist-Dashboard.webp", "alt": "Streamflow artist dashboard", "caption": "Artist workspace / content ownership"},
+      {"src": "/projects/streamflow/05-Song-Upload.webp", "alt": "Streamflow song upload form", "caption": "Upload / metadata and media entry"},
+      {"src": "/projects/streamflow/07-Playlist-Creation.webp", "alt": "Streamflow playlist creation flow", "caption": "Curation / playlist creation"},
+      {"src": "/projects/streamflow/08-Playlist-View.webp", "alt": "Streamflow playlist view", "caption": "Playback / playlist context"},
+      {"src": "/projects/streamflow/10-Artist-Profile.webp", "alt": "Streamflow artist profile", "caption": "Identity / public artist surface"},
+      {"src": "/projects/streamflow/14-Pending-Songs.webp", "alt": "Streamflow pending songs moderation view", "caption": "Governance / moderation queue"},
+      {"src": "/projects/streamflow/17-Mobile-Light.webp", "alt": "Streamflow mobile light-mode experience", "caption": "Responsive / alternate theme"}
+    ]
+  },
+  "cta": {"eyebrow": "Next", "title": "Explore the next system behind the interface.", "label": "Explore more projects", "href": "/projects"},
+  "editorialGuardrails": [
+    "This bundle uses full Git history through 2026-07-08 plus the current tracked source; the uncommitted navbar changes are excluded from the case study.",
+    "The implementation role is inferred from authored client/server milestones and should be relabeled if the portfolio needs a narrower ownership statement.",
+    "The 34 requests-per-second figure is a scoped catalog metric from the documented load-test context, not a universal performance guarantee.",
+    "Current source and documentation describe Cloudinary as the active media destination while retaining legacy local fallback logic; keep that distinction visible.",
+    "Do not describe audio-quality selection as completed transcoding. The backlog marks multi-bitrate generation and bitrate-aware delivery as open work.",
+    "Do not present a screenshot as proof of a bug unless the screenshot captures that bug; use the labeled diagram placeholders for reconstructed architecture visuals."
+  ]
+}

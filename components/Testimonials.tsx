@@ -8,8 +8,8 @@ import FloatingPolymers from "./FloatingPolymers";
 
 interface Testimonial {
   name: string;
-  rating: number;
-  text: string;
+  rating?: number;
+  text?: string;
   image: string;
   link?: string;
   voiceNote?: string;
@@ -148,17 +148,25 @@ const TestimonialCard: React.FC<{ testo: Testimonial }> = ({ testo }) => (
             </span>
           )}
         </h3>
-        <div className="flex gap-1 mt-1">
-          {[...Array(testo.rating)].map((_, i) => (
-            <Star key={i} size={14} className="fill-[#F9A825] text-[#F9A825]" />
-          ))}
-        </div>
+        {testo.rating ? (
+          <div className="flex gap-1 mt-1" aria-label={`${testo.rating} out of 5 stars`}>
+            {[...Array(testo.rating)].map((_, i) => (
+              <Star key={i} size={14} className="fill-[#F9A825] text-[#F9A825]" />
+            ))}
+          </div>
+        ) : null}
       </div>
     </div>
 
-    <p className="text-white/70 text-sm leading-relaxed grow relative z-0 font-sans pointer-events-none">
-      "{testo.text}"
-    </p>
+    {testo.text ? (
+      <p className="text-white/70 text-sm leading-relaxed grow relative z-0 font-sans pointer-events-none">
+        "{testo.text}"
+      </p>
+    ) : (
+      <p className="text-white/50 text-sm leading-relaxed grow relative z-0 font-sans pointer-events-none">
+        Audio testimonial available below.
+      </p>
+    )}
 
     {testo.voiceNote && (
       <div className="relative z-20">

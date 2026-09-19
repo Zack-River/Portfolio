@@ -1,5 +1,5 @@
-import englishContent from "../portfolio-documentation/projects/karbala/KARBALA_CASE_STUDY_CONTENT.json";
-import arabicContent from "../portfolio-documentation/projects/karbala/KARBALA_CASE_STUDY_CONTENT_AR.json";
+import englishContent from "./content/karbala/content.en.json";
+import arabicContent from "./content/karbala/content.ar.json";
 import type { CaseStudyContent, CaseStudyPresentation } from "../components/case-study/types";
 
 export type KarbalaLocale = "en" | "ar";

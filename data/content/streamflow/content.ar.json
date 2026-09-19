@@ -1,0 +1,206 @@
+{
+  "project": {
+    "id": "streamflow",
+    "title": "Streamflow",
+    "label": "دراسة حالة / منصة بث موسيقي",
+    "language": "ar",
+    "direction": "rtl",
+    "subtitle": "منصة موسيقية احتاجت إلى جعل الهوية والوسائط والتشغيل والإشراف تبدو كتجربة واحدة متصلة.",
+    "metaDescription": "دراسة حالة موثقة لمشروع Streamflow، تتتبع انتقاله من نموذج أولي للرفع والاستماع إلى نظام يشمل المصادقة، واستمرار التشغيل، وقوائم الانتظار، والبحث، والإشراف، والتصميم المتجاوب، مع توضيح الفجوة المتبقية في جودة الصوت.",
+    "role": ["هندسة منتج Full-stack", "معمارية التشغيل وإدارة الحالة في الواجهة", "واجهات الخادم والمصادقة وتدفقات الوسائط"],
+    "coreStack": ["React", "Vite", "Tailwind CSS", "Node.js", "Express", "MongoDB / Mongoose", "Cloudinary", "JWT / HTTP-only cookies"],
+    "heroImage": "/projects/streamflow/Cover.webp",
+    "heroImageAlt": "الغلاف البصري لمنصة Streamflow الموسيقية",
+    "ui": {
+      "backToProjects": "العودة إلى المشاريع",
+      "back": "رجوع",
+      "languageStatus": "اللغة",
+      "switchLanguage": "English",
+      "caseStudy": "دراسة حالة",
+      "heroEyebrow": "دراسة حالة / منصة بث موسيقي",
+      "roleLabel": "دوري في المشروع",
+      "contextLabel": "السياق",
+      "contextValue": "منتج Full-stack موثق من المصدر، وتاريخ Git، وأدلة الواجهة",
+      "stackLabel": "التقنيات الأساسية"
+    }
+  },
+  "sections": [
+    {
+      "id": "01",
+      "eyebrow": "01 / البداية",
+      "title": "الفكرة بدت كأنها مشغل موسيقى",
+      "paragraphs": [
+        "كان من السهل شرح النسخة الأولى من Streamflow: يسجل المستخدم، يرفع أغنية، يستمع إليها، ويحتفظ بآخر موضع وصل إليه. وأول commit في المشروع يحتوي بالفعل على بدايات هذا الوعد: تسجيل الدخول، والرفع، والاستماع، والتنقل، وحفظ آخر ثانية من التشغيل محليًا.",
+        "لكن الاستخدام الحقيقي غيّر حجم الفكرة. فالأغنية ليست ملفًا على صفحة فقط؛ إنها تنتمي إلى شخص، وتدخل في قائمة تشغيل، وتظهر داخل Playlist، وتحتاج إلى غلاف، وقد تمر على المراجعة، ويجب أن تظل مفهومة بعد التحديث أو من جهاز آخر."
+      ],
+      "sourceRefs": ["git:550244d", "Stream_Flow/README.md"],
+      "primaryImage": "/projects/streamflow/01-Home-Logged-In-Hero.webp",
+      "imageAlt": "الصفحة الرئيسية بعد تسجيل الدخول، مع البحث والتصنيفات ولوحة التشغيل والمشغل الثابت",
+      "visualNote": "استخدم الصفحة الحقيقية كمشهد افتتاحي؛ فهي تجعل الوعد واضحًا قبل الدخول في البنية التحتية."
+    },
+    {
+      "id": "02",
+      "eyebrow": "02 / الهدف",
+      "title": "كان المطلوب ربط الدورة كاملة",
+      "paragraphs": [
+        "لم يكن الهدف مجموعة من شاشات الموسيقى المنفصلة، بل رحلة متصلة: يكتشف المستخدم أغنية، ويسجل الدخول عند الحاجة، ويرفع الفنان الوسائط ويصفها، ثم يشغلها دون أن يفقد التحكم، ويحفظها في المفضلة أو Playlist، بينما يستطيع المسؤول مراجعة محتوى المنصة عندما يتطلب التدفق ذلك.",
+        "لذلك كان على واجهات المستمع والفنان والمسؤول أن تشترك في نموذج الوسائط نفسه وقواعد الهوية نفسها. يمكن أن تختلف الواجهة حسب الدور، لكن لا ينبغي أن يشعر المستخدم بأنه انتقل إلى ثلاثة تطبيقات لا علاقة بينها."
+      ],
+      "flow": ["اكتشاف → بحث وتصنيفات وفنانون وألبومات", "استماع → تشغيل وتقديم وصوت وقائمة انتظار وShuffle وRepeat", "احتفاظ → مفضلة وPlaylists وآخر موضع تشغيل", "إنشاء → رفع الأغاني والأغلفة والألبومات وبيانات الملف الشخصي", "إدارة → اعتماد المحتوى والإشراف وإدارة المستخدمين والأغاني"],
+      "sourceRefs": ["Stream_Flow/changes.md", "Stream_Flow/TODO_BACKLOG.md", "Portfolio catalog constants.ts"],
+      "primaryImage": "/projects/streamflow/02-Home-Landing.webp",
+      "imageAlt": "الصفحة التعريفية العامة في Streamflow مع زر بدء الاستماع",
+      "visualNote": "اجعل هذه اللقطة هي الصورة الأساسية، واترك شاشات الأدوار المختلفة للمعرض حتى لا ينكسر إيقاع البداية."
+    },
+    {
+      "id": "03",
+      "eyebrow": "03 / أول اختبار للواقع",
+      "title": "التشغيل كان مشكلة حالة موزعة",
+      "paragraphs": [
+        "يمتلك المتصفح عنصر HTML5 Audio الحي: الوقت الحالي، والتحميل، والـ metadata، والبحث داخل المقطع، وأحداث انتهاء التشغيل، والقرار التالي للتشغيل. أما الخادم فيمتلك الحقائق الدائمة: المستخدم، والوسائط المرفوعة، ودرجة الظهور، وحالة الاعتماد، والمفضلة، وقوائم التشغيل، وآخر موضع تشغيل.",
+        "ثم أضافت طبقة التخزين اختبارًا آخر. فالتوثيق الحالي يصف Cloudinary باعتباره الوجهة للصور الشخصية والصوت والأغلفة، بينما يحتفظ الكود بمسار قديم للملفات المحلية كحل بديل. هذه ليست تفصيلة يجب إخفاؤها؛ إنها جزء من النظام الذي يجب أن تشرحه دراسة الحالة بوضوح."
+      ],
+      "evidence": ["يتولى MusicContext وaudio hooks تنسيق currentSong وisPlaying وqueue وhistory وrepeat وأحداث عنصر الصوت.", "يحفظ PUT /api/users/playback-state قيمة songId وcurrentTime لاستمرار التشغيل عبر الأجهزة.", "يعيد audio controller توجيه روابط الوسائط الخارجية، مع الاحتفاظ بمنطق التشغيل المحلي القديم.", "يضع Full API Reference المقاطع القديمة الخاصة بـ multer وsharp وfs في سياق تاريخي بعد الانتقال إلى Cloudinary."],
+      "sourceRefs": ["git:3a43ff8", "Stream_Flow/changes.md", "Stream_Flow/server/_docs/FULL_API_REFERENCE.md", "Stream_Flow/server/controllers/audio.Controller.js"],
+      "primaryImage": "/projects/streamflow/streamflow-current-home.png",
+      "imageAlt": "الواجهة الحالية لـ Streamflow مع الاكتشاف ومشغل الصوت المستمر",
+      "visualNote": "استخدم لقطة النشر الحالية كمرساة بصرية لشرح حالة التشغيل؛ أما حدود الحالة نفسها فتظل موضحة في النص."
+    },
+    {
+      "id": "04",
+      "eyebrow": "04 / الخطة الأولى",
+      "title": "نبني الطبقات أولًا، ثم نجعلها تتفق",
+      "paragraphs": [
+        "بدأت المعمارية بتقسيم Full-stack مألوف: عميل React/Vite للتجربة، وExpress API لقواعد العمل، وMongoDB/Mongoose للمستخدمين وبيانات الوسائط، وmiddleware للمصادقة والأدوار والتحقق والرفع.",
+        "في الواجهة، عزلت API utilities طلبات الخادم، بينما منحت AuthContext وMusicContext التطبيق حدودًا مشتركة للهوية والتشغيل. وفي الخادم، أبقت controllers وmodels سلوك الرفع والبحث والـ Playlists والملفات الشخصية ولوحة المسؤول خلف endpoints واضحة. كانت الخطة منطقية، بشرط أن تتفق كل طبقة على الأغنية والمستخدم والجلسة نفسها."
+      ],
+      "flow": ["واجهة React/Vite → AuthContext وMusicContext وaudio hooks", "Axios utilities → توحيد بيانات الأغاني وPlaylists والملفات الشخصية والمصادقة", "Express routes → controllers والتحقق والمصادقة وحماية الأدوار", "MongoDB/Mongoose → المستخدمون وبيانات الوسائط وPlaylists وحالة التشغيل", "Cloudinary مع fallback محلي آمن → أصول الوسائط وروابط التشغيل"],
+      "sourceRefs": ["Stream_Flow/README.md", "Stream_Flow/client/README.md", "Stream_Flow/server/streamflow_readme.md", "Stream_Flow/server/_docs/FULL_API_REFERENCE.md"],
+      "primaryImage": "/projects/streamflow/04-Artist-Uploads.webp",
+      "imageAlt": "صفحة رفع المحتوى للفنان في Streamflow",
+      "visualNote": "اربط Screenshot الرفع بمخطط معماري صغير؛ فاللقطة تشرح لماذا نحتاج طبقات الـ API والوسائط."
+    },
+    {
+      "id": "05",
+      "eyebrow": "05 / عندما بدأت الأشياء في الانكسار",
+      "title": "الأعطال ظهرت كسلسلة، لا كحادث منفرد",
+      "paragraphs": [
+        "عندما حمل المنتج حالات حقيقية، أصبحت الأعطال متصلة. كان التشغيل قد يعيد بدء الأغنية عند تغيير تحكم لا علاقة له بالمصدر. وقد تتوقف القائمة عند نهاية المقطع. واحتاج Shuffle وRepeat إلى أوضاع واضحة. كما كان على المشغل في الهاتف أن يتعايش مع تخطيط الصفحة. أما البحث، فلم يعد قابلًا للتوسع إذا اضطر المتصفح إلى جلب الكتالوج كاملًا ثم تصفيته.",
+        "وكشفت تدفقات المحتوى عن عائلة ثانية من المشاكل: قد تفضّل صفحة Playlist نسخة قديمة من localStorage على الكائن الذي جلبه الخادم بغلاف Cloudinary الأحدث، وقد يحذف fallback الخاص بالرفع النسخة المحلية الوحيدة عند فشل Cloudinary، وقد تختلف صلاحيات الدخول بين المسارات حسب الدور. بدت كل مشكلة محلية، إلى أن عبرت حدود طبقة أخرى."
+      ],
+      "evidence": ["تسجل commits سبتمبر 2025 تغييرات قائمة الانتظار والتخطي والتاريخ وShuffle وRepeat.", "يوثق changes.md إصلاحات تخطيط الهاتف، وترطيب Playlist، وfallback الخاص بـ Cloudinary، وتعارضات مسارات المسؤول.", "يسجل backlog الانتقال من تصفية 10,000+ أغنية في المتصفح إلى بحث server-side مع debounce."],
+      "sourceRefs": ["git:d909342", "git:31521a0", "git:3a43ff8", "git:7a3c15b", "git:a89c32c", "Stream_Flow/changes.md", "Stream_Flow/TODO_BACKLOG.md"],
+      "primaryImage": "/projects/streamflow/streamflow-current-playlist.png",
+      "imageAlt": "صفحة قائمة تشغيل حالية في Streamflow مع الأغاني والبيانات والمشغل المستمر",
+      "visualNote": "تمنح هذه اللقطة الحالية سلسلة الأعطال سياقًا ملموسًا لصفحة قائمة التشغيل؛ ولا نقدمها كصورة حرفية للعطل."
+    },
+    {
+      "id": "06",
+      "eyebrow": "06 / التجارب التي فشلت",
+      "title": "الحلول المنطقية كشفت الدرس الحقيقي",
+      "paragraphs": ["القيمة في التاريخ ليست أن كل محاولة أولى نجحت، بل أن نعرف لماذا بدت الفكرة مناسبة، وأين انكسرت، وأي حد معماري أصبح أوضح بعدها."],
+      "experiments": [
+        {"problem": "كان تغيير مستوى الصوت يعيد تشغيل الأغنية الحالية.", "idea": "إبقاء volume داخل effects نفسها حتى يصل آخر تعديل إلى عنصر الصوت دائمًا.", "whyItSeemedReasonable": "كان من المنطقي إبقاء عنصر الصوت وحالة React متزامنين.", "whatFailed": "جعل dependency غير المرتبطة بتغيير الأغنية منطق تحميل المصدر يُعاد تشغيله عند تغيير تحكم فقط.", "whatWeLearned": "افصل بين effects الخاصة بهوية المصدر وتحميله وبين أدوات التحكم الحية؛ طبّق volume مباشرة دون إعادة تحميل الأغنية.", "sourceRefs": ["git:b5431f5"]},
+        {"problem": "كانت المصادقة تتحرك بين افتراضات token داخل العميل وسلوك refresh.", "idea": "إطلاق دمج JWT مباشر ثم معالجة refresh من داخل الواجهة.", "whyItSeemedReasonable": "JWT حد مألوف للـ API، والواجهة تحتاج طلبات مصادق عليها.", "whatFailed": "يحتوي التاريخ على دمج JWT ثم commits للـ debug والـ revert، قبل الانتقال المتعمد إلى مصادقة شاملة بالـ cookies.", "whatWeLearned": "القرار الأهم هو حد جلسة ثابت: HTTP-only cookies وتهيئة AuthContext وأحداث logout والمسارات المحمية يجب أن تتفق.", "sourceRefs": ["git:0a6053e", "git:fa3ea30", "git:e09e2e2", "git:c9c1f0e"]},
+        {"problem": "أصبح البحث مكلفًا مع نمو الكتالوج.", "idea": "جلب عدد كبير من الأغاني وتصفيتها داخل المتصفح.", "whyItSeemedReasonable": "التصفية في العميل سريعة في النموذج الأولي وتقلل حجم API الأول.", "whatFailed": "يسجل backlog حالة 10,000+ أغنية والحاجة إلى نقل التصفية إلى endpoint على الخادم مع debounce.", "whatWeLearned": "مكان البحث الطبيعي قريب من البيانات: pagination وfiltering وإرجاع الأغاني والـ Playlists والفنانين والألبومات عبر contract واحد.", "sourceRefs": ["git:6457f86", "Stream_Flow/TODO_BACKLOG.md", "Stream_Flow/server/_docs/FULL_API_REFERENCE.md"]},
+        {"problem": "كان من الممكن فقدان الوسائط عند تعذر Cloudinary.", "idea": "اعتبار الرفع مكتملًا وحذف الملف المحلي المؤقت فورًا.", "whyItSeemedReasonable": "بعد نجاح النقل، يبدو أن الرابط البعيد هو النسخة canonical ولا حاجة للأثر المؤقت.", "whatFailed": "يوثق changes.md أن النسخ المحلية حُذفت حتى عند فشل Cloudinary، فأصبحت روابط fallback تؤدي إلى 404.", "whatWeLearned": "الحذف مشروط: لا تحذف الملف المحلي إلا بعد تأكيد الرفع البعيد، وإلا احتفظ بالنسخة البديلة.", "sourceRefs": ["git:6457f86", "Stream_Flow/changes.md", "Stream_Flow/server/utils/cloudinary.js"]},
+        {"problem": "كان من الممكن أن تعرض Playlist نسخة localStorage قديمة بدل الكائن الأحدث من الخادم.", "idea": "استخدام كائن الـ context المخزن كمصدر أسرع للصفحة.", "whyItSeemedReasonable": "الـ cache يتجنب loading state، وكان يعمل قبل تغير روابط الوسائط البعيدة.", "whatFailed": "كان يمكن للنسخة المخزنة أن تخفي غلاف Cloudinary والـ metadata الأحدث التي أعادها الخادم.", "whatWeLearned": "البيانات التي جُلبت حديثًا لها الأولوية؛ أما الـ cache فهو fallback وليس حقيقة منافسة.", "sourceRefs": ["git:6457f86", "Stream_Flow/changes.md"]}
+      ],
+      "primaryImage": "/projects/streamflow/streamflow-current-admin.png",
+      "imageAlt": "لوحة تحكم Streamflow الحالية مع مؤشرات النظرة العامة وتنقل الإدارة والمراجعة",
+      "visualNote": "استخدم سطح الإدارة الحالي كسياق بصري لحدود الصلاحيات والحوكمة؛ أما تسلسلات الفشل الفعلية فموثقة في Git وليست في لقطات مختلقة."
+    },
+    {
+      "id": "07",
+      "eyebrow": "07 / نقطة التحول",
+      "title": "المشكلة لم تكن عطلًا واحدًا في الصوت",
+      "paragraphs": [
+        "كانت نقطة التحول هي إدراك أن Streamflow يملك أكثر من تفسير للحقيقة نفسها: المشغل يعرف أغنية حالية، وlocalStorage قد يحتفظ بلقطة Playlist مختلفة، والـ API يملك الحالة الدائمة، بينما قد تأتي الوسائط من Cloudinary أو من نظام الملفات المحلي.",
+        "بعد رؤية هذا النمط، لم يعد كل إصلاح patch لشاشة منفردة، بل أصبح قرارًا حول الطبقة التي يحق لها أن تحدد الحقيقة."
+      ],
+      "sourceRefs": ["Stream_Flow/changes.md", "Stream_Flow/server/_docs/FULL_API_REFERENCE.md", "git:3a43ff8", "git:6457f86"],
+      "primaryImage": "/projects/streamflow/streamflow-architecture-before.png",
+      "imageAlt": "مسارات حالة متشتتة بين المشغل والـ cache والـ API وقاعدة البيانات وتخزين الوسائط",
+      "visualNote": "هذه اللحظة يجب أن تكون خفيفة بصريًا: مخطط تشتت واحد، وفقرة واحدة، ثم الانتقال فورًا إلى الحدود الجديدة."
+    },
+    {
+      "id": "08",
+      "eyebrow": "08 / مصدر واحد للحقيقة",
+      "title": "إعادة بناء الحدود بدل مطاردة الأعراض",
+      "paragraphs": [
+        "جاء الحل على شكل قواعد ملكية واضحة. AuthContext يملك الجلسة التي تراها الواجهة؛ والـ HTTP-only cookies والمسارات المحمية تملك قرار الوصول؛ وMusicContext وaudio hooks ينسقان المشغل الحي؛ وAPI utilities توحّد استجابات الخادم؛ بينما يملك الخادم الصلاحيات والظهور والاعتماد وحالة التشغيل الدائمة. أما Cloudinary فيملك الوسائط البعيدة الحالية، مع بقاء الملف المحلي إذا فشل النقل.",
+        "هذا هو التحول المعماري: ليس مخزن حالة ضخمًا واحدًا، بل مصدر واضح لكل نوع من الحقيقة، مع مزامنة مقصودة بين المصادر."
+      ],
+      "flow": ["الجلسة → cookies مع AuthContext وProtectedRoute وAdminRoute", "التشغيل → MusicContext وaudio hooks وأوضاع queue وrepeat واضحة", "البيانات → API utilities مع أولوية الاستجابة الحديثة على الـ cache", "الوسائط → رابط Cloudinary بعد التأكيد، والاحتفاظ بالـ fallback المحلي عند الفشل", "الحوكمة → فحص الأدوار وحالة الاعتماد والملكية والتحقق ومسارات المسؤول"],
+      "sourceRefs": ["git:c9c1f0e", "git:3a43ff8", "git:6457f86", "Stream_Flow/server/controllers/audio.Controller.js", "Stream_Flow/server/utils/cloudinary.js"],
+      "primaryImage": "/projects/streamflow/streamflow-architecture-before-after.png",
+      "imageAlt": "معمارية قبل وبعد توضح ملكية الجلسة والتشغيل والبيانات والوسائط والحوكمة",
+      "visualNote": "المخطط تخطيطي لا يمثل تنفيذًا حرفيًا؛ يوضح نموذج الملكية ومسارات المزامنة المقصودة."
+    },
+    {
+      "id": "09",
+      "eyebrow": "09 / الأداء كجزء من المنتج",
+      "title": "ننقل العمل المكلف إلى الحد القادر على تحمله",
+      "paragraphs": [
+        "قصة البحث هي أوضح مثال. بدل سحب كتالوج ضخم إلى المتصفح، انتقلت التصفية والـ pagination إلى GET /audios/search، وأضيف debounce للكتابة، وأصبح contract واحد يعيد الأغاني والـ Playlists العامة وحسابات الفنانين والألبومات.",
+        "يسجل المصدر أيضًا manual chunk splitting في Vite، كما يسجل كتالوج البورتفوليو benchmark قدره 34 طلبًا في الثانية تحت اختبار تحميل. هذا الرقم دليل على سياق اختبار موثق، وليس وعدًا لكل deployment أو dataset أو شبكة."
+      ],
+      "evidence": ["يضع TODO_BACKLOG.md البحث server-side ضمن الميزات المكتملة.", "يحدد backlog الحالة القديمة بتصفية 10,000+ أغنية في العميل.", "يسجل كتالوج البورتفوليو 34 Req/sec تحت اختبار تحميل وoptimized compound/text indexing.", "يوثق changes.md تقسيم chunks يدويًا لمعالجة تحذير حجم bundle في Vite."],
+      "sourceRefs": ["Stream_Flow/TODO_BACKLOG.md", "Stream_Flow/changes.md", "Stream_Flow/server/_docs/FULL_API_REFERENCE.md", "Portfolio catalog constants.ts"],
+      "primaryImage": "/projects/streamflow/09-Search.webp",
+      "imageAlt": "واجهة البحث العام في Streamflow",
+      "visualNote": "اجعل القرار المعماري هو محور القسم، والرقم 34 Req/sec دليلًا داعمًا داخل نطاقه فقط."
+    },
+    {
+      "id": "10",
+      "eyebrow": "10 / المنتج الذي ظهر",
+      "title": "أصبحت المنصة متماسكة عبر الأدوار",
+      "paragraphs": [
+        "في المراحل المتأخرة، بدأ Streamflow يبدو كمنصة لا كمجرد player demo: يستطيع المستمع اكتشاف الموسيقى والاحتفاظ بها، ويستطيع الفنان إدارة الرفع والألبومات، ويستطيع المسؤول مراجعة المستخدمين والأغاني وحالات الإشراف دون أن يخرج من لغة المنتج.",
+        "قائمة الخصائص هنا مختصرة عمدًا. الأهم أن القرارات السابقة—ملكية الجلسة وروابط الوسائط وسلوك queue والبيانات الحديثة والمسارات المحمية—أصبحت تصل بين هذه الشاشات بدل أن تكون خصائص منفصلة."
+      ],
+      "chips": ["Home وتصنيفات للمستمع", "Global search", "مشغل صوت ثابت", "Queue / shuffle / repeat", "Favorites + playlists", "ملف الفنان والرفع", "Albums", "Admin + moderation", "واجهة متجاوبة Light / Dark", "استعادة كلمة المرور"],
+      "sourceRefs": ["git:6457f86", "git:3a43ff8", "git:7a3c15b", "Stream_Flow/changes.md", "Stream_Flow/TODO_BACKLOG.md"],
+      "primaryImage": "/projects/streamflow/11-Admin-Dashboard.webp",
+      "imageAlt": "لوحة مسؤول Streamflow مع ملخص المنصة والمشغل الثابت",
+      "visualNote": "استخدم سطحًا نهائيًا واحدًا قويًا في القصة الأساسية، وضع بقية لقطات الفنان وPlaylist والهاتف والإشراف في المعرض."
+    },
+    {
+      "id": "11",
+      "eyebrow": "11 / النتيجة",
+      "title": "من تجربة بث إلى حدود منتج واضحة",
+      "paragraphs": [
+        "تحول Streamflow إلى منتج موسيقي Full-stack بحدود واضحة للهوية والوسائط والتشغيل والبحث وPlaylists والإشراف. القيمة ليست في خاصية منفردة، بل في أن فعل المستمع يستطيع عبور النظام والعودة بالمستخدم والأغنية والصلاحية والحالة الصحيحة.",
+        "والنتيجة لا تدّعي اكتمالًا مطلقًا. فاختيارات جودة الصوت موجودة في Settings، لكن backlog يوضح أن transcoding الحقيقي متعدد الـ bitrates والتوصيل حسب الجودة ما زالا مفتوحين. كما يحتوي توثيق التخزين والـ API على مقاطع تاريخية خاصة بالملفات المحلية بجانب معمارية Cloudinary الحالية؛ لذلك يظل التقييم البصري ومراجعة المصدر جزءًا من الحفاظ على الجودة."
+      ],
+      "evidence": ["يحتوي المصدر الحالي على Cloudinary helpers وأداة migration والتعامل مع روابط الوسائط الخارجية.", "يضع backlog جودة الصوت في خانة placeholder للواجهة، لا pipeline مكتملًا للـ transcoding.", "يضع Full API Reference المقاطع القديمة الخاصة بـ multer وsharp وfs في سياق تاريخي صريح."],
+      "sourceRefs": ["Stream_Flow/TODO_BACKLOG.md", "Stream_Flow/server/_docs/FULL_API_REFERENCE.md", "Stream_Flow/server/utils/cloudinary.js", "Stream_Flow/server/migrateToCloudinary.js"],
+      "primaryImage": "/projects/streamflow/16-Mobile-Dark.webp",
+      "imageAlt": "تجربة Streamflow على الهاتف في الوضع الداكن مع مشغل مختصر",
+      "visualNote": "اختم بقدرة المنتج على العمل في viewport مختلف، ثم اذكر الحد المفتوح بدل ادعاء اكتمال شامل."
+    }
+  ],
+  "gallery": {
+    "eyebrow": "المعرض / لقطات مختارة",
+    "title": "النظام من وجهات نظر مختلفة",
+    "description": "لقطات داعمة للرحلة: الاكتشاف، والإنشاء، والتنظيم، والحوكمة، والتشغيل المتجاوب.",
+    "items": [
+      {"src": "/projects/streamflow/03-Artist-Dashboard.webp", "alt": "لوحة الفنان في Streamflow", "caption": "مساحة الفنان / ملكية المحتوى"},
+      {"src": "/projects/streamflow/05-Song-Upload.webp", "alt": "نموذج رفع أغنية في Streamflow", "caption": "الرفع / إدخال البيانات والوسائط"},
+      {"src": "/projects/streamflow/07-Playlist-Creation.webp", "alt": "تدفق إنشاء Playlist في Streamflow", "caption": "التنظيم / إنشاء Playlist"},
+      {"src": "/projects/streamflow/08-Playlist-View.webp", "alt": "صفحة Playlist في Streamflow", "caption": "التشغيل / سياق Playlist"},
+      {"src": "/projects/streamflow/10-Artist-Profile.webp", "alt": "ملف الفنان في Streamflow", "caption": "الهوية / واجهة الفنان العامة"},
+      {"src": "/projects/streamflow/14-Pending-Songs.webp", "alt": "قائمة الأغاني المعلقة للمراجعة في Streamflow", "caption": "الحوكمة / قائمة الإشراف"},
+      {"src": "/projects/streamflow/17-Mobile-Light.webp", "alt": "تجربة Streamflow على الهاتف في الوضع الفاتح", "caption": "التجاوب / الوضع البصري البديل"}
+    ]
+  },
+  "cta": {"eyebrow": "التالي", "title": "استكشف النظام التالي خلف الواجهة.", "label": "استكشف باقي المشاريع", "href": "/projects"},
+  "editorialGuardrails": [
+    "يعتمد هذا الملف على تاريخ Git الكامل حتى 2026-07-08 وعلى المصدر المتتبع حاليًا؛ تغييرات navbar غير المحفوظة مستبعدة من دراسة الحالة.",
+    "الدور مستنتج من milestones موثقة في client وserver، ويمكن تضييقه إذا احتاج البورتفوليو إلى وصف ملكية أكثر تحفظًا.",
+    "رقم 34 طلبًا في الثانية هو metric محدود بسياق اختبار التحميل الموثق، وليس ضمانًا عامًا للأداء.",
+    "المصدر والتوثيق الحاليان يصفان Cloudinary كوجهة الوسائط النشطة مع الاحتفاظ بـ fallback محلي قديم؛ يجب أن يظل هذا الفرق واضحًا.",
+    "لا تصف اختيار جودة الصوت بأنه transcoding مكتمل؛ فالـ backlog يضع توليد bitrates متعددة والتوصيل حسب الجودة ضمن العمل المفتوح.",
+    "لا تقدم Screenshot كدليل على bug ما لم تكن تلتقط العطل فعلًا؛ استخدم Placeholders المعنونة للمخططات التي تعيد بناء المعمارية."
+  ]
+}

@@ -1,0 +1,193 @@
+{
+  "project": {
+    "id": "smartq",
+    "title": "SmartQ",
+    "label": "Case Study / Gamified Quiz Platform",
+    "language": "en",
+    "direction": "ltr",
+    "subtitle": "A quiz product concept that makes the student loop visible while giving instructors a control surface for content and progress.",
+    "metaDescription": "The portfolio catalog describes SmartQ as an educational platform with interactive quizzes, student experiences, instructor management, and a gamification engine. The supplied local evidence is primarily the catalog and exported interface views.",
+    "role": [],
+    "coreStack": [
+      "React",
+      "Node.js",
+      "Express",
+      "Gamification"
+    ],
+    "heroImage": "/projects/Smartq.webp",
+    "heroImageAlt": "SmartQ project cover",
+    "ui": {
+      "backToProjects": "Back to Projects",
+      "back": "Back",
+      "languageStatus": "Language",
+      "switchLanguage": "العربية",
+      "caseStudy": "Case Study",
+      "heroEyebrow": "Case Study / Gamified Quiz Platform",
+      "roleLabel": "My role",
+      "contextLabel": "Context",
+      "contextValue": "Portfolio catalog project",
+      "stackLabel": "Core stack"
+    }
+  },
+  "sections": [
+    {
+      "id": "01",
+      "eyebrow": "01 / The hook",
+      "title": "The idea looked simple",
+      "paragraphs": [
+        "A quiz can score an answer and still fail to make learning feel active."
+      ],
+      "primaryImage": "SmartQ landing hero",
+      "imageAlt": "SmartQ landing hero presenting the interactive quiz platform for students and instructors",
+      "imageSubtitle": "Landing / the promise of a more active quiz experience"
+    },
+    {
+      "id": "02",
+      "eyebrow": "02 / The goal",
+      "title": "The experience the product needed",
+      "paragraphs": [
+        "SmartQ was positioned around an engaging student quiz journey alongside instructor tools for managing quizzes, users, categories, playlists, and settings."
+      ],
+      "primaryImage": "SmartQ student home",
+      "imageAlt": "SmartQ student home showing the learner dashboard and available progress paths",
+      "imageSubtitle": "Student home / the learner loop"
+    },
+    {
+      "id": "03",
+      "eyebrow": "03 / Reality check",
+      "title": "The constraint underneath",
+      "paragraphs": [
+        "The product has to balance game-like momentum with the clarity needed for answers, results, settings, and administration."
+      ],
+      "primaryImage": "SmartQ quiz menu",
+      "imageAlt": "SmartQ quiz menu showing the available learning and quiz choices",
+      "imageSubtitle": "Quiz menu / momentum with clear choices"
+    },
+    {
+      "id": "04",
+      "eyebrow": "04 / The original plan",
+      "title": "A credible first model",
+      "paragraphs": [
+        "The available catalog and screens point to separate student and admin surfaces, with a quiz game loop, answer state, result view, leaderboard, and content-management views."
+      ],
+      "primaryImage": "SmartQ active quiz game",
+      "imageAlt": "SmartQ active quiz game showing a question, answer choices, and the game flow",
+      "imageSubtitle": "Quiz game / the core interaction loop"
+    },
+    {
+      "id": "05",
+      "eyebrow": "05 / When things started breaking",
+      "title": "The friction of real use",
+      "paragraphs": [
+        "The supplied project folder does not include the implementation source or test logs, so runtime behavior and backend decisions cannot be promoted to verified claims."
+      ],
+      "primaryImage": "SmartQ answer state",
+      "imageAlt": "SmartQ answer state showing feedback after a learner responds to a question",
+      "imageSubtitle": "Answer state / feedback inside the loop"
+    },
+    {
+      "id": "06",
+      "eyebrow": "06 / Failed experiments",
+      "title": "The reasonable fixes that needed revision",
+      "paragraphs": [
+        "The supplied project folder does not include the implementation source or test logs, so runtime behavior and backend decisions cannot be promoted to verified claims."
+      ],
+      "primaryImage": "SmartQ quiz result",
+      "imageAlt": "SmartQ quiz result screen showing completion feedback and the learner outcome",
+      "imageSubtitle": "Quiz result / making progress visible"
+    },
+    {
+      "id": "07",
+      "eyebrow": "07 / The turning point",
+      "title": "The deeper system problem",
+      "paragraphs": [
+        "For this project, the honest turning point is the evidence boundary: screenshots can show the intended experience, not prove the full system behind it."
+      ],
+      "primaryImage": "SmartQ admin dashboard",
+      "imageAlt": "SmartQ admin dashboard showing the content-management side of the product",
+      "imageSubtitle": "Admin surface / where the evidence boundary becomes visible"
+    },
+    {
+      "id": "08",
+      "eyebrow": "08 / One source of truth",
+      "title": "Rebuilding the boundaries",
+      "paragraphs": [
+        "This bundle treats the role-based screen map and quiz flow as the primary evidence and leaves API, persistence, scoring, and accessibility behavior open until source material is available."
+      ],
+      "primaryImage": "SmartQ quiz management",
+      "imageAlt": "SmartQ quiz management screen showing the instructor or administrator control surface",
+      "imageSubtitle": "Quiz management / the documented control boundary"
+    },
+    {
+      "id": "09",
+      "eyebrow": "09 / Performance or reliability",
+      "title": "Product quality under real conditions",
+      "paragraphs": [
+        "No benchmark or runtime performance evidence was supplied."
+      ],
+      "primaryImage": "SmartQ student settings",
+      "imageAlt": "SmartQ student settings screen showing account and preference controls",
+      "imageSubtitle": "Settings / a visible surface without an invented benchmark"
+    },
+    {
+      "id": "10",
+      "eyebrow": "10 / The product",
+      "title": "What emerged",
+      "paragraphs": [
+        "The visual product surface includes landing, authentication, student home, quiz menu, quiz game, answers, results, leaderboard, and administrator screens."
+      ],
+      "primaryImage": "SmartQ dark admin dashboard",
+      "imageAlt": "SmartQ administrator dashboard shown in a dark visual theme",
+      "imageSubtitle": "Product surface / student and admin views in one system"
+    },
+    {
+      "id": "11",
+      "eyebrow": "11 / The result",
+      "title": "What changed and what remains open",
+      "paragraphs": [
+        "SmartQ has a clear visual case-study foundation. A production narrative should be updated when repository source, QA notes, or deployed behavior are available."
+      ],
+      "primaryImage": "SmartQ light landing view",
+      "imageAlt": "SmartQ light landing view showing the alternate presentation of the product entry point",
+      "imageSubtitle": "Landing variation / the visual result that is currently evidenced"
+    }
+  ],
+  "gallery": {
+    "eyebrow": "Gallery / selected views",
+    "title": "A few scenes from the journey",
+    "description": "Supporting visuals that reinforce the story without replacing evidence.",
+    "items": [
+      {
+        "src": "/projects/smartq/01-Landing-Hero-Dark.webp",
+        "alt": "SmartQ dark landing hero",
+        "caption": "Landing / the product promise"
+      },
+      {
+        "src": "/projects/smartq/10-Student-Quiz-Game.webp",
+        "alt": "SmartQ student quiz game",
+        "caption": "Interaction / the quiz loop"
+      },
+      {
+        "src": "/projects/smartq/08-Student-LeaderBoard.webp",
+        "alt": "SmartQ student leaderboard",
+        "caption": "Gamification / visible progress and comparison"
+      },
+      {
+        "src": "/projects/smartq/13-Admin-Dashboard-Home.webp",
+        "alt": "SmartQ admin dashboard",
+        "caption": "Administration / the content control surface"
+      }
+    ]
+  },
+  "cta": {
+    "eyebrow": "Next",
+    "title": "Should we solve the next problem?",
+    "label": "Explore more projects",
+    "href": "/projects"
+  },
+  "editorialGuardrails": [
+    "Source code, role implementation, data model, test evidence, exact ownership, and measured outcomes are not present in the supplied project directory.",
+    "Do not convert catalog descriptions into measured outcomes without a source.",
+    "Keep implementation role empty until a project source documents it."
+  ]
+}

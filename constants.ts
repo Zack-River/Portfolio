@@ -1003,6 +1003,11 @@ export const TESTIMONIALS: Testimonial[] = [
     voiceNote: "/audio/MostafaNawareg.mp3",
   },
   {
+    name: "Ahmed Sobhy",
+    image: "/clients/ahmed-sobhy.webp",
+    voiceNote: "/audio/ahmed-sobhy.mp3",
+  },
+  {
     name: "Jaffar S.",
     rating: 5,
     text: "Truly professional work! The site is fast and very elegant. Most importantly, he followed up with me step by step until everything was perfect.",

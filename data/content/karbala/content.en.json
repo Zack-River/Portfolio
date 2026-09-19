@@ -1,0 +1,157 @@
+{
+  "project": {
+    "id": "karbala",
+    "title": "Karbala Awareness Platform",
+    "label": "Case Study / Educational Platform",
+    "language": "en",
+    "direction": "ltr",
+    "subtitle": "An Arabic-first educational season that turns thirteen nights of content into a navigable, measurable learning experience.",
+    "metaDescription": "The Karbala source describes a Next.js platform with public content, timed quizzes, quiz analytics, visitor analytics, an admin dashboard, and a managed Supabase gallery.",
+    "role": [],
+    "coreStack": [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Supabase PostgreSQL",
+      "Supabase Auth",
+      "Supabase Storage"
+    ],
+    "heroImage": "/projects/QarbalaCover.webp",
+    "heroImageAlt": "Karbala Awareness Platform project cover",
+    "ui": {
+      "backToProjects": "Back to Projects",
+      "back": "Back",
+      "languageStatus": "Language",
+      "switchLanguage": "العربية",
+      "caseStudy": "Case Study",
+      "heroEyebrow": "Case Study / Educational Platform",
+      "roleLabel": "My role",
+      "contextLabel": "Context",
+      "contextValue": "Portfolio catalog project",
+      "stackLabel": "Core stack"
+    }
+  },
+  "sections": [
+    {
+      "id": "01",
+      "eyebrow": "01 / The hook",
+      "title": "The idea looked simple",
+      "paragraphs": [
+        "A content season can be published as a set of pages, but that does not make it feel like a journey."
+      ],
+      "primaryImage": "Opening scene that establishes the product tension"
+    },
+    {
+      "id": "02",
+      "eyebrow": "02 / The goal",
+      "title": "The experience the product needed",
+      "paragraphs": [
+        "The product goal was to let visitors browse the season, explore all nights, read content, access resources, listen to recordings, view cards, and participate in timed quizzes while administrators manage the material."
+      ],
+      "primaryImage": "Target user journey or primary product surface"
+    },
+    {
+      "id": "03",
+      "eyebrow": "03 / Reality check",
+      "title": "The constraint underneath",
+      "paragraphs": [
+        "Arabic-first, RTL-first, mobile-first content must remain readable while quiz timing, grading, media, and admin operations stay trustworthy."
+      ],
+      "primaryImage": "Domain constraint or edge-case visual"
+    },
+    {
+      "id": "04",
+      "eyebrow": "04 / The original plan",
+      "title": "A credible first model",
+      "paragraphs": [
+        "The project combines Next.js App Router routes, Supabase PostgreSQL/Auth/Storage, public content components, quiz state, analytics, and an admin surface for the season's data."
+      ],
+      "primaryImage": "First flow or architecture diagram"
+    },
+    {
+      "id": "05",
+      "eyebrow": "05 / When things started breaking",
+      "title": "The friction of real use",
+      "paragraphs": [
+        "The documented system has to protect quiz answers until submission, enforce schedule and late-submit rules, manage gallery storage, and recover once from stale deployment chunks."
+      ],
+      "primaryImage": "Broken state, issue capture, or boundary case"
+    },
+    {
+      "id": "06",
+      "eyebrow": "06 / Failed experiments",
+      "title": "The reasonable fixes that needed revision",
+      "paragraphs": [
+        "The documented system has to protect quiz answers until submission, enforce schedule and late-submit rules, manage gallery storage, and recover once from stale deployment chunks."
+      ],
+      "primaryImage": "Before/after experiment or regression"
+    },
+    {
+      "id": "07",
+      "eyebrow": "07 / The turning point",
+      "title": "The deeper system problem",
+      "paragraphs": [
+        "The platform became more than a content site when each public interaction needed a corresponding state, policy, or operational workflow."
+      ],
+      "primaryImage": "Fragmented responsibility visual"
+    },
+    {
+      "id": "08",
+      "eyebrow": "08 / One source of truth",
+      "title": "Rebuilding the boundaries",
+      "paragraphs": [
+        "The source separates public routes, admin routes, API routes, Supabase migrations and RLS, storage helpers, quiz components, and shared types so content operations do not leak into the learner experience."
+      ],
+      "primaryImage": "Canonical architecture or workflow"
+    },
+    {
+      "id": "09",
+      "eyebrow": "09 / Performance or reliability",
+      "title": "Product quality under real conditions",
+      "paragraphs": [
+        "The documented deployment process explicitly treats standalone static assets as part of runtime correctness; missing them can cause ChunkLoadError or 404s."
+      ],
+      "primaryImage": "Scoped benchmark, test evidence, or reliability check"
+    },
+    {
+      "id": "10",
+      "eyebrow": "10 / The product",
+      "title": "What emerged",
+      "paragraphs": [
+        "The result is a public season experience with nights, cards, resources, quizzes, gallery, and an admin dashboard for managing the same content."
+      ],
+      "primaryImage": "Final product surface"
+    },
+    {
+      "id": "11",
+      "eyebrow": "11 / The result",
+      "title": "What changed and what remains open",
+      "paragraphs": [
+        "Karbala is best presented as a structured educational product whose trust comes from content flow, quiz safeguards, analytics, and operational control—not only from its visual theme."
+      ],
+      "primaryImage": "Outcome or handoff evidence"
+    }
+  ],
+  "gallery": {
+    "eyebrow": "Gallery / selected views",
+    "title": "A few scenes from the journey",
+    "description": "Supporting visuals that reinforce the story without replacing evidence.",
+    "items": [
+      "Primary product view",
+      "Interaction detail",
+      "Constraint or issue view",
+      "Final result"
+    ]
+  },
+  "cta": {
+    "eyebrow": "Next",
+    "title": "Should we solve the next problem?",
+    "label": "Explore more projects",
+    "href": "/projects"
+  },
+  "editorialGuardrails": [
+    "The source describes implementation and deployment checks but does not provide a public learning-outcome benchmark. Avoid claiming retention or conversion improvements as measured results.",
+    "Do not convert catalog descriptions into measured outcomes without a source.",
+    "Keep implementation role empty until a project source documents it."
+  ]
+}

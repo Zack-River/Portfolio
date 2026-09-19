@@ -1,0 +1,239 @@
+{
+  "project": {
+    "id": "abjad",
+    "title": "Abjad",
+    "label": "Case Study / Desktop Product",
+    "language": "en",
+    "direction": "ltr",
+    "subtitle": "How a simple idea for teaching Arabic letterforms grew into a desktop system that keeps the hand’s motion and the real type outline in the same story.",
+    "metaDescription": "An engineering case study about turning shaped Arabic text into replayable stroke lessons without losing the authentic type outline or control over export.",
+    "role": [
+      "Product Engineering",
+      "Desktop Architecture",
+      "Arabic Rendering",
+      "Animation & Export Pipeline"
+    ],
+    "coreStack": [
+      "Electron",
+      "React",
+      "HarfBuzz WASM",
+      "SVG",
+      "Canvas",
+      "FFmpeg"
+    ],
+    "heroImage": "/projects/abjad/Cover.png",
+    "heroImageAlt": "Abjad project cover",
+    "ui": {
+      "backToProjects": "Back to Projects",
+      "back": "Back",
+      "languageStatus": "Language",
+      "switchLanguage": "العربية",
+      "caseStudy": "Case Study",
+      "heroEyebrow": "Case Study / Desktop Product",
+      "roleLabel": "My role",
+      "contextLabel": "Context",
+      "contextValue": "Personal Project · Desktop Product",
+      "stackLabel": "Core stack"
+    }
+  },
+  "sections": [
+    {
+      "id": "hook",
+      "eyebrow": "01 / The Hook",
+      "title": "The idea looked simple",
+      "paragraphs": [
+        "I started Abjad with a direct question: what if a student could watch an Arabic letter being written instead of only meeting it when it was finished?",
+        "At first, the answer sounded almost too easy: enter a word, show its real shape, and reveal the ink in an approved drawing order. Then I touched the first stroke and found the hard part. It was not moving a line. It was deciding what that line was allowed to reveal, and when."
+      ],
+      "primaryImage": "Abjad Studio — guided Arabic stroke drawing"
+    },
+    {
+      "id": "goal",
+      "eyebrow": "02 / The Goal",
+      "title": "The experience I wanted to reach",
+      "paragraphs": [
+        "Before I thought about renderers, I wanted the experience to be clear: real Arabic text in, correct shaping, a guided drawing that can pause and replay, full control over the timeline, and exports I can actually use."
+      ],
+      "flow": "Text → Shaping → Guided drawing → Playback control → Export",
+      "primaryImage": "desired learner journey — input text to animated Arabic calligraphy to export"
+    },
+    {
+      "id": "reality-check",
+      "eyebrow": "03 / Reality Check",
+      "title": "Arabic is not a row of independent letters",
+      "paragraphs": [
+        "Arabic is not a row of independent letters. A glyph changes with its position and its neighbors. Joining, initial, medial, and final forms, ligatures, dots, and marks all carry context—and some of them need to appear at a precise moment in the lesson.",
+        "That was where character-by-character logic stopped being a serious option. HarfBuzz became the first non-negotiable step: shape the text, resolve glyphs, clusters, ligatures, and mark positions, then build the drawing from what the font actually selected."
+      ],
+      "primaryImage": "Arabic contextual forms — isolated, initial, medial, and final glyph states"
+    },
+    {
+      "id": "original-plan",
+      "eyebrow": "04 / Original Plan",
+      "title": "The hand path is not the letter shape",
+      "flow": "Text → Shaping → Glyphs → Educational stroke paths → Mask → TrueType outline",
+      "paragraphs": [
+        "Once the text was shaped, the architecture looked simple on paper. But one distinction was easy to miss: the educational stroke path is not the final letter. It describes how the hand moves; the TrueType outline describes the ink the learner should see. The mask connects the two by revealing the authentic outline along the approved path."
+      ],
+      "primaryImage": "stroke path vs true font outline — median path over authentic glyph outline"
+    },
+    {
+      "id": "breaking",
+      "eyebrow": "05 / When Things Started Breaking",
+      "title": "Then the real words arrived",
+      "paragraphs": [
+        "The plan held together until real words arrived. An isolated glyph could look right; connect it to another, and the join could jump. A cursor could trace the median path perfectly while the mask revealed no ink at all.",
+        "Dots, marks, loops, tails, contextual forms, and long words kept adding pressure. A dot needed brush behavior and timing. A mark was not decoration above the letter; it was part of the timeline. I was no longer fixing one visual bug. I was asking several parts of the system to agree on the same truth."
+      ],
+      "primaryImage": "broken connection before fix — visible jump between connected Arabic glyphs"
+    },
+    {
+      "id": "failed-experiments",
+      "eyebrow": "06 / Failed Experiments",
+      "title": "The reasonable fixes that failed",
+      "intro": "For every experiment, I kept asking the same questions: what was the problem, why did the idea seem reasonable, what failed, and what did it teach me?",
+      "experiments": [
+        {
+          "title": "Whole-word masking",
+          "problem": "The joins exposed visible gaps.",
+          "idea": "So I tried masking the entire word at once.",
+          "whyItSeemedReasonable": "It sounded reasonable: one mask should hide the seams between glyphs.",
+          "whatFailed": "But glyph coverage weakened and shaping regressions appeared.",
+          "whatWeLearned": "The lesson was to return to per-glyph rendering and keep shaping authoritative."
+        },
+        {
+          "title": "Rounded ends",
+          "problem": "Some stroke terminals looked too harsh.",
+          "idea": "So I tried adding circles at the ends.",
+          "whyItSeemedReasonable": "Rounded caps could hide small gaps.",
+          "whatFailed": "But they broke the square-brush behavior and made the joins more obvious.",
+          "whatWeLearned": "The brush has to define the geometry, not the screenshot."
+        },
+        {
+          "title": "Cursor as proof",
+          "problem": "The cursor’s motion and the revealed ink did not always agree.",
+          "idea": "It was tempting to treat cursor progress as proof that the drawing was correct.",
+          "whyItSeemedReasonable": "After all, the cursor was already following the approved path.",
+          "whatFailed": "But a cursor can move while the mask never intersects the outline.",
+          "whatWeLearned": "Path progress and reveal state have to be evaluated separately."
+        },
+        {
+          "title": "SVG per frame",
+          "problem": "The frame loop was carrying too much work.",
+          "idea": "So I rebuilt the SVG for every frame.",
+          "whyItSeemedReasonable": "That was acceptable for small examples.",
+          "whatFailed": "But long words made the approach collapse under repeated parsing and DOM work.",
+          "whatWeLearned": "Prepare static geometry once and keep the frame loop small."
+        },
+        {
+          "title": "Browser recording",
+          "problem": "Playback had to become an export I could rely on.",
+          "idea": "So I recorded the browser while Studio played.",
+          "whyItSeemedReasonable": "It looked like the shortest path from a live demo to a video.",
+          "whatFailed": "But timing, unstable frames, WebM conversion, and cancellation were not deterministic enough.",
+          "whatWeLearned": "Export needs its own controlled pipeline."
+        }
+      ],
+      "primaryImage": "whole-word masking experiment and regression"
+    },
+    {
+      "id": "turning-point",
+      "eyebrow": "07 / The Turning Point",
+      "titleLines": [
+        "One letter was not the problem.",
+        "The system had more than one version of the truth."
+      ],
+      "paragraphs": [
+        "A fixture could pass while Studio showed something else. Evaluation could surface a path that never made it to export. Every patch only moved the mismatch around. The system needed a new definition of truth."
+      ],
+      "primaryImage": "architecture fragmentation — fixtures, Studio, Gallery, and export paths diverging"
+    },
+    {
+      "id": "source-of-truth",
+      "eyebrow": "08 / One Source of Truth",
+      "title": "Rebuilding the road around one truth",
+      "flow": "Input → HarfBuzz → Composer & normalization → Stroke registry & timeline → AnimationEngine → Prepared renderer → Studio & exports",
+      "paragraphs": [
+        "HarfBuzz owns glyph selection. A centralized stroke registry owns the approved motion. One renderer gives Studio, SVG, Canvas, and media exports the same result instead of letting each interpret it independently.",
+        "The Evaluation Editor stays separate from the learner-facing product. It is where paths and contextual states can be inspected, adjusted, and approved before the production app uses them."
+      ],
+      "primaryImage": "architecture before and after — one canonical pipeline"
+    },
+    {
+      "id": "performance",
+      "eyebrow": "09 / Performance as Product",
+      "title": "When performance became part of the lesson",
+      "paragraphs": [
+        "The problem was not just a few slow frames. The frame loop was doing work that should have happened once: reparsing paths, calculating bounds and tangents, and rebuilding SVG and DOM while the learner was trying to follow a stroke.",
+        "Moving that work into a preparation phase changed the experience. A word gets its prepared scene once; playback only changes the active mask and the cursor."
+      ],
+      "evidence": "In the documented benchmark for مستشفى, completed-frame generation moved from about 256.53ms to 2.22ms. That is evidence from one tested case, not a promise about every word or device.",
+      "primaryImage": "prepared renderer benchmark for مستشفى — work moved outside the frame loop"
+    },
+    {
+      "id": "export",
+      "eyebrow": "10 / Deterministic Export",
+      "title": "Export is not a Download button",
+      "paragraphs": [
+        "Browser recording looked convenient, but it made export depend on live timing. MediaRecorder meant waiting in real time, dealing with unstable frames, passing through WebM and a conversion step, and trying to cancel work that did not stop cleanly.",
+        "The final pipeline is controlled: Canvas renders the prepared scene, frames are sent as RGBA with backpressure to one FFmpeg process, and the final hold is added there instead of redrawing dozens of identical frames."
+      ],
+      "primaryImage": "deterministic export pipeline — Canvas to RGBA stream to FFmpeg"
+    },
+    {
+      "id": "product",
+      "eyebrow": "11 / The Product",
+      "title": "The product that emerged",
+      "paragraphs": [
+        "By then, Abjad no longer felt like a collection of renderer demos. Studio gives the learner a quiet ghost outline, animated ink, step-and-repeat control, and a timeline—all powered by the same prepared scene that feeds export."
+      ],
+      "chips": [
+        "Studio playback",
+        "Step & repeat",
+        "Ghost outline",
+        "SVG / HTML / PNG",
+        "GIF / MP4",
+        "Standalone evaluation editor"
+      ],
+      "primaryImage": "final Abjad Studio — timeline, ghost outline, and playback controls"
+    },
+    {
+      "id": "result",
+      "eyebrow": "12 / The Result",
+      "title": "From letter animation experiment to a real desktop system",
+      "paragraphs": [
+        "Abjad moved from an experiment in animating letters to a desktop system with clear boundaries. Arabic typography, educational stroke logic, the animation runtime, and the export pipeline each have a job; one source of truth keeps them aligned.",
+        "That does not mean visual review is finished. Contextual strokes, joins, and special cases still need to be checked in their real context. That is why the Evaluation Editor is not a workaround. It is part of the quality loop."
+      ],
+      "primaryImage": "final completed Arabic word — finished ink and export-ready result"
+    }
+  ],
+  "gallery": {
+    "eyebrow": "Gallery / selected views",
+    "title": "A few scenes from the journey",
+    "description": "A small set of views showing how the idea became something you can inspect, play, and export.",
+    "items": [
+      "final Studio playback",
+      "broken connection before fix",
+      "stroke path vs true font outline",
+      "Abjad Studio inspection view",
+      "prepared renderer benchmark",
+      "FFmpeg export flow"
+    ]
+  },
+  "cta": {
+    "eyebrow": "Next",
+    "title": "Should we solve the next problem?",
+    "label": "Explore more projects",
+    "href": "/projects",
+    "downloadLabel": "Download Abjad",
+    "downloadHref": "https://drive.google.com/file/d/1AiCE8B8kwt45Ru8jsd9WzCi3xev9Ou4_/view?usp=drive_link"
+  },
+  "editorialGuardrails": [
+    "Only mention performance numbers with the documented benchmark context.",
+    "Do not claim visual fidelity is complete for every contextual form or join.",
+    "Do not present skeletonization or Tegaki as an automatic replacement for approved educational paths.",
+    "Do not add claims, features, or responsibilities that are not documented in portfolio-documentation.",
+    "Keep the first image in each section as the primary visual; extra images are optional only when they add new evidence."
+  ]
+}

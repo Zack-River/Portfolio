@@ -61,7 +61,14 @@ export type CaseStudyContent = {
   };
   sections: CaseStudySection[];
   gallery: { eyebrow: string; title: string; description: string; items: CaseStudyGalleryItem[] };
-  cta: { eyebrow: string; title: string; label: string; href: string };
+  cta: {
+    eyebrow: string;
+    title: string;
+    label: string;
+    href: string;
+    downloadLabel?: string;
+    downloadHref?: string;
+  };
 };
 
 export type CaseStudyPresentation = {

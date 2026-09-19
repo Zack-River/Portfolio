@@ -1,5 +1,5 @@
-import englishContent from "../portfolio-documentation/projects/smartq/SMARTQ_CASE_STUDY_CONTENT.json";
-import arabicContent from "../portfolio-documentation/projects/smartq/SMARTQ_CASE_STUDY_CONTENT_AR.json";
+import englishContent from "./content/smartq/content.en.json";
+import arabicContent from "./content/smartq/content.ar.json";
 import type { CaseStudyContent, CaseStudyPresentation } from "../components/case-study/types";
 
 export type SmartQLocale = "en" | "ar";

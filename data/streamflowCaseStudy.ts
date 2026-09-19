@@ -1,5 +1,5 @@
-import englishContent from "../portfolio-documentation/projects/streamflow/STREAMFLOW_CASE_STUDY_CONTENT.json";
-import arabicContent from "../portfolio-documentation/projects/streamflow/STREAMFLOW_CASE_STUDY_CONTENT_AR.json";
+import englishContent from "./content/streamflow/content.en.json";
+import arabicContent from "./content/streamflow/content.ar.json";
 import type { CaseStudyContent, CaseStudyPresentation } from "../components/case-study/types";
 
 export type StreamflowLocale = "en" | "ar";

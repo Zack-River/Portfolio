@@ -1,0 +1,239 @@
+{
+  "project": {
+    "id": "abjad",
+    "title": "Abjad",
+    "label": "دراسة حالة / منتج مكتبي",
+    "language": "ar",
+    "direction": "rtl",
+    "subtitle": "إزاي فكرة بسيطة لتعليم رسم الحرف العربي بقت نظام مكتبي يحافظ على حركة الإيد وشكل الحرف الحقيقي في نفس الوقت؟",
+    "metaDescription": "حكاية هندسية عن تحويل نص عربي مُشكَّل إلى درس رسم قابل للإعادة، من غير ما نفقد شكل الحرف الحقيقي أو التحكم في التصدير.",
+    "role": [
+      "Product Engineering",
+      "Desktop Architecture",
+      "Arabic Rendering",
+      "Animation & Export Pipeline"
+    ],
+    "coreStack": [
+      "Electron",
+      "React",
+      "HarfBuzz WASM",
+      "SVG",
+      "Canvas",
+      "FFmpeg"
+    ],
+    "heroImage": "/projects/abjad/Cover.png",
+    "heroImageAlt": "غلاف مشروع أبجد",
+    "ui": {
+      "backToProjects": "العودة للمشاريع",
+      "back": "رجوع",
+      "languageStatus": "اللغة",
+      "switchLanguage": "English",
+      "caseStudy": "دراسة حالة",
+      "heroEyebrow": "دراسة حالة / منتج مكتبي",
+      "roleLabel": "دوري في المشروع",
+      "contextLabel": "السياق",
+      "contextValue": "مشروع شخصي · Desktop Product",
+      "stackLabel": "التقنيات الأساسية"
+    }
+  },
+  "sections": [
+    {
+      "id": "hook",
+      "eyebrow": "01 / بداية الحكاية",
+      "title": "الفكرة كانت باينة بسيطة",
+      "paragraphs": [
+        "بدأت Abjad بسؤال مباشر جدًا: إزاي الطالب يشوف الحرف العربي وهو بيتكتب، مش بس يشوف شكله بعد ما يخلص؟",
+        "في الأول الموضوع كان باين سهل: يدخل كلمة، يشوف شكلها الحقيقي، والحبر يظهر قدامه بترتيب رسم معتمد. لكن أول ما لمست أول stroke، اكتشفت إن التحدي مش في تحريك خط؛ التحدي في إن الخط ده يكشف إيه، وإمتى، وليه."
+      ],
+      "primaryImage": "واجهة Abjad Studio — رسم عربي مُوجَّه خطوة بخطوة"
+    },
+    {
+      "id": "goal",
+      "eyebrow": "02 / الهدف",
+      "title": "التجربة اللي كنت عايز أوصل لها",
+      "paragraphs": [
+        "قبل ما أفكر في أي renderer، كنت عايز التجربة تبقى واضحة: نص عربي حقيقي يدخل، shaping يطلع صح، رسم تعليمي يتوقف ويتعاد، تحكم كامل في الـ timeline، وexport أقدر أستخدمه فعلًا."
+      ],
+      "flow": "Text → Shaping → Guided drawing → Playback control → Export",
+      "primaryImage": "رحلة المتعلّم — من إدخال النص للرسم المتحرك ثم التصدير"
+    },
+    {
+      "id": "reality-check",
+      "eyebrow": "03 / أول مواجهة مع الواقع",
+      "title": "العربي مش صف حروف جنب بعض",
+      "paragraphs": [
+        "العربي مش صف حروف منفصلة. شكل الـ glyph بيتغير حسب مكانه واتصاله باللي قبله وبعده. عندك initial وmedial وfinal forms، وligatures، ونقط وmarks؛ وكل واحدة ليها context، وبعضها لازم يظهر في توقيت محدد جوه الدرس.",
+        "هنا بقى التعامل مع النص حرفًا بحرف مش حل جدي. HarfBuzz بقت أول محطة: بتشكّل النص، وتختار الـ glyphs، وتحل الـ clusters والـ ligatures، وتحدد أماكن الـ marks قبل ما نبدأ أي رسم."
+      ],
+      "primaryImage": "أشكال الحروف العربية حسب السياق — منفصل وبداية ووسط ونهاية"
+    },
+    {
+      "id": "original-plan",
+      "eyebrow": "04 / الخطة الأولى",
+      "title": "مسار الإيد مش شكل الحرف",
+      "flow": "Text → Shaping → Glyphs → Educational stroke paths → Mask → TrueType outline",
+      "paragraphs": [
+        "بعد الـ shaping، الخطة كانت واضحة على الورق. بس كان فيه فرق سهل يتفوت: الـ educational stroke path مش هو شكل الحرف النهائي. هو بيشرح حركة الإيد، والبداية، والاتجاه، والترتيب. إنما الـ TrueType outline هو الحبر الحقيقي اللي الطالب لازم يشوفه. والـ mask هو اللي يربط الاتنين، فيكشف الـ outline الأصلي وهو ماشي على المسار المعتمد."
+      ],
+      "primaryImage": "مسار الرسم مقابل شكل الحرف الحقيقي — المسار فوق الـ TrueType outline"
+    },
+    {
+      "id": "breaking",
+      "eyebrow": "05 / لما الخطة بدأت تتكسر",
+      "title": "لما الكلمات الحقيقية بدأت تكسر الخطة",
+      "paragraphs": [
+        "الخطة فضلت صامدة لحد ما دخلنا كلمات حقيقية. الـ glyph المنفرد كان شكله مظبوط، لكن الوصلة بين glyphs كانت بتقفز أول ما نركبهم. والـ cursor ممكن يمشي فوق الـ median path بالملّي، بينما الـ mask ما يكشفش حبر أصلًا.",
+        "النقط، والـ marks، والـ loops، والـ tails، والـ contextual forms زوّدوا الضغط. النقطة محتاجة brush behavior وtiming، والـ mark مش زينة فوق الحرف؛ ده event جوه الـ timeline. ساعتها فهمت إني مش بحل bug بصري واحد، أنا بتعامل مع أكتر من تفسير للحقيقة نفسها."
+      ],
+      "primaryImage": "وصلة مكسورة قبل الإصلاح — قفزة واضحة بين glyphs عربية متصلة"
+    },
+    {
+      "id": "failed-experiments",
+      "eyebrow": "06 / تجارب ما كملتش",
+      "title": "الحلول اللي كانت منطقية وفشلت",
+      "intro": "مع كل تجربة كنت بسأل نفس الأسئلة: المشكلة كانت إيه؟ الفكرة بدت منطقية ليه؟ إيه اللي فشل؟ وإيه اللي اتعلمته؟",
+      "experiments": [
+        {
+          "title": "Whole-word masking",
+          "problem": "كانت الوصلات بتظهر فيها فراغات.",
+          "idea": "فجرّبت أخلي الـ mask للكلمة كلها.",
+          "whyItSeemedReasonable": "وده كان منطقي لأن mask واحدة ممكن تخبّي الفواصل بين الـ glyphs.",
+          "whatFailed": "لكن التغطية ضعفت وظهرت مشاكل في الـ shaping.",
+          "whatWeLearned": "فالدرس كان: نرجع لـ per-glyph rendering ونسيب الـ shaping هو المرجع."
+        },
+        {
+          "title": "Rounded ends",
+          "problem": "أطراف بعض الـ strokes كانت طالعة حادة.",
+          "idea": "فجرّبت أضيف دوائر عند النهايات.",
+          "whyItSeemedReasonable": "وده كان ممكن يخفي فراغات صغيرة.",
+          "whatFailed": "لكن الدوائر كسرت سلوك الفرشاة المربعة وخلّت الوصلات أوضح.",
+          "whatWeLearned": "واتعلمت إن الفرشاة هي اللي تحدد الـ geometry، مش العكس."
+        },
+        {
+          "title": "Cursor as proof",
+          "problem": "حركة الـ cursor والحبر اللي بيظهر ما كانوش دايمًا متفقين.",
+          "idea": "فكان سهل أتعامل مع حركة المؤشر كأنها دليل إن الرسم صحيح.",
+          "whyItSeemedReasonable": "وده كان مغري لأنه بالفعل ماشي على المسار المعتمد.",
+          "whatFailed": "لكن المؤشر ممكن يتحرك والـ mask ما يتقاطعش مع الـ outline.",
+          "whatWeLearned": "واتعلمت إن path progress وreveal state لازم يتراجعوا كل واحد لوحده."
+        },
+        {
+          "title": "SVG per frame",
+          "problem": "الـ frame loop كان شايل شغل زيادة.",
+          "idea": "فجرّبت أعيد بناء الـ SVG في كل frame.",
+          "whyItSeemedReasonable": "وده كان مقبول في الأمثلة الصغيرة.",
+          "whatFailed": "لكن الكلمات الطويلة خلّت الحل يقع تحت ضغط الـ parsing وشغل الـ DOM المتكرر.",
+          "whatWeLearned": "فالصح إننا نجهز الـ geometry الثابتة مرة واحدة ونخلي الـ frame loop خفيف."
+        },
+        {
+          "title": "Browser recording",
+          "problem": "كان لازم أحوّل الـ playback لـ export أقدر أعتمد عليه.",
+          "idea": "فجرّبت أسجّل المتصفح وهو بيشغّل الـ Studio.",
+          "whyItSeemedReasonable": "لأنها كانت باينة أقصر طريق من live demo لفيديو.",
+          "whatFailed": "لكن التوقيت، والـ frames غير الثابتة، ومرحلة WebM والتحويل، وإلغاء العملية ماكانوش deterministic كفاية.",
+          "whatWeLearned": "فالـ export محتاج pipeline مستقل ومتحكَّم فيه."
+        }
+      ],
+      "primaryImage": "تجربة الـ whole-word masking والمشاكل اللي سببتها"
+    },
+    {
+      "id": "turning-point",
+      "eyebrow": "07 / نقطة التحوّل",
+      "titleLines": [
+        "المشكلة ما كانتش في حرف واحد.",
+        "المشكلة إن النظام كان عنده أكتر من نسخة للحقيقة."
+      ],
+      "paragraphs": [
+        "ممكن fixture ينجح، بينما Studio يعرض نتيجة مختلفة. وممكن Evaluation يبيّن path ما يوصلش للـ export. كل patch كان بينقل الـ mismatch من مكان لمكان، فبقى واضح إن الطريق نفسه محتاج يتعاد تعريفه."
+      ],
+      "primaryImage": "تشتّت المعمارية — مسارات الـ fixtures والـ Studio والـ Gallery والـ export ماشية في اتجاهات مختلفة"
+    },
+    {
+      "id": "source-of-truth",
+      "eyebrow": "08 / مصدر حقيقة واحد",
+      "title": "إعادة بناء الطريق حوالين حقيقة واحدة",
+      "flow": "Input → HarfBuzz → Composer & normalization → Stroke registry & timeline → AnimationEngine → Prepared renderer → Studio & exports",
+      "paragraphs": [
+        "بقت HarfBuzz هي المسؤولة عن اختيار الشكل الصحيح. وبقت الـ stroke registry المركزية هي المرجع للحركة المعتمدة. والـ renderer الموحّد يمرّر نفس النتيجة للـ Studio وSVG وCanvas وmedia exports، بدل ما كل جزء يفسرها بطريقته.",
+        "أما Evaluation Editor ففضل منفصل عن المنتج اللي الطالب بيستخدمه. هناك نقدر نفحص الـ paths والـ contextual states، نعدّلها، ونعتمدها قبل ما المنتج النهائي يستخدمها."
+      ],
+      "primaryImage": "المعمارية قبل وبعد — pipeline واحدة مرجعية"
+    },
+    {
+      "id": "performance",
+      "eyebrow": "09 / الأداء جزء من المنتج",
+      "title": "لما الأداء بقى جزء من الدرس",
+      "paragraphs": [
+        "المشكلة ما كانتش في كام frame بطيء وخلاص. الـ frame loop كان بيعمل شغل المفروض يحصل مرة واحدة: يعيد parsing للـ paths، ويحسب الـ bounds والـ tangents، ويبني SVG وDOM بينما الطالب بيحاول يتابع الـ stroke.",
+        "فنقلنا الشغل ده لمرحلة preparation. الكلمة تتحضّر مرة في scene جاهزة، وبعدها الـ playback يغيّر بس الـ active mask والـ cursor."
+      ],
+      "evidence": "في benchmark موثّق لكلمة مستشفى، وقت تكوين الـ completed frame نزل من حوالي 256.53ms لـ 2.22ms. ده دليل من حالة اختبار محددة، مش وعد عام لكل كلمة أو جهاز.",
+      "primaryImage": "benchmark للـ prepared renderer لكلمة مستشفى — الشغل اتنقل خارج الـ frame loop"
+    },
+    {
+      "id": "export",
+      "eyebrow": "10 / تصدير متحكَّم فيه",
+      "title": "الـ export مش زر Download",
+      "paragraphs": [
+        "تسجيل المتصفح كان باين أقصر طريق، لكنه ربط الـ export بتوقيت حي. MediaRecorder معناه نستنى real time، ونتعامل مع frames غير ثابتة، ونمرّ بمرحلة WebM ثم تحويل إضافي، وإلغاء العملية ماكانش بيوقف الشغل بشكل مضمون.",
+        "الـ pipeline النهائي بقى متحكَّم فيه: Canvas يرسم الـ prepared scene، والـ frames تتبعت كـ RGBA مع backpressure لعملية FFmpeg واحدة، والـ final hold يتضاف هناك بدل ما نعيد رسم عشرات الـ frames المتطابقة."
+      ],
+      "primaryImage": "مسار التصدير المتحكَّم فيه — من Canvas إلى RGBA ثم FFmpeg"
+    },
+    {
+      "id": "product",
+      "eyebrow": "11 / المنتج اللي ظهر في الآخر",
+      "title": "المنتج اللي خرج من الرحلة",
+      "paragraphs": [
+        "هنا Abjad بطل يبقى مجموعة renderer demos. Studio بقى مساحة هادية للطالب: ghost outline، وحبر متحرك، وstep & repeat، وtimeline. وكل ده خارج من نفس الـ prepared scene اللي بيغذي الـ export."
+      ],
+      "chips": [
+        "Studio playback",
+        "Step & repeat",
+        "Ghost outline",
+        "SVG / HTML / PNG",
+        "GIF / MP4",
+        "Standalone evaluation editor"
+      ],
+      "primaryImage": "Abjad Studio في صورته النهائية — timeline وghost outline وأزرار التحكم"
+    },
+    {
+      "id": "result",
+      "eyebrow": "12 / النتيجة",
+      "title": "من تجربة لتحريك الحروف لنظام مكتبي حقيقي",
+      "paragraphs": [
+        "Abjad اتحوّل من تجربة لتحريك الحروف لنظام مكتبي له حدود واضحة: Arabic typography، وeducational stroke logic، وanimation runtime، وexport pipeline. كل جزء له شغله، ومصدر حقيقة واحد رابطهم ببعض.",
+        "وده مش معناه إن المراجعة البصرية خلصت. الـ contextual strokes والوصلات والحالات الخاصة لسه محتاجة تتراجع في سياقها الحقيقي. عشان كده Evaluation Editor مش workaround؛ هو جزء أساسي من quality loop."
+      ],
+      "primaryImage": "كلمة عربية مكتملة — حبر نهائي جاهز للتصدير"
+    }
+  ],
+  "gallery": {
+    "eyebrow": "المعرض / لقطات مختارة",
+    "title": "لقطات من الرحلة",
+    "description": "لقطات قليلة بتوضح إزاي الفكرة اتحوّلت لحاجة تقدر تشوفها، تجرّبها، وتصدّرها.",
+    "items": [
+      "تشغيل Studio في صورته النهائية",
+      "وصلة مكسورة قبل الإصلاح",
+      "مسار الرسم مقابل شكل الحرف الحقيقي",
+      "واجهة فحص Abjad Studio",
+      "benchmark للـ prepared renderer",
+      "مسار التصدير عبر FFmpeg"
+    ]
+  },
+  "cta": {
+    "eyebrow": "التالي",
+    "title": "نحل المشكلة اللي بعدها؟",
+    "label": "استكشف مشاريع تانية",
+    "href": "/projects",
+    "downloadLabel": "تحميل Abjad",
+    "downloadHref": "https://drive.google.com/file/d/1AiCE8B8kwt45Ru8jsd9WzCi3xev9Ou4_/view?usp=drive_link"
+  },
+  "editorialGuardrails": [
+    "ما نذكرش أرقام الأداء إلا في سياق الـ benchmark الموثّق.",
+    "ما ندّعيش إن الـ visual fidelity مكتملة في كل contextual form أو join.",
+    "ما نقدّمش skeletonization أو Tegaki كبديل تلقائي لمسارات تعليمية معتمدة.",
+    "ما نضيفش claims أو features أو مسؤوليات مش موثقة في portfolio-documentation.",
+    "أول صورة في كل قسم هي الـ primary visual؛ والصور الإضافية اختيارية فقط لو بتضيف دليل جديد."
+  ]
+}

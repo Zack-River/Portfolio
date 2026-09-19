@@ -77,8 +77,8 @@ export interface Experience {
 
 export interface Testimonial {
   name: string;
-  rating: number;
-  text: string;
+  rating?: number;
+  text?: string;
   image: string;
   link?: string;
   voiceNote?: string;
