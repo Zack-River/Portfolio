@@ -11,6 +11,10 @@ export default defineConfig(({ mode }) => {
         host: '0.0.0.0',
         // Allows reloading on deep routes like /project/:id
         historyApiFallback: true,
+        
+        // ADD THIS: Allows all hosts so you don't have to update 
+        // the URL every time you restart the Cloudflare tunnel
+        allowedHosts: true, 
       },
       plugins: [
         react()

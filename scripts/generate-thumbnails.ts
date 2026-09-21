@@ -4,6 +4,7 @@ import sharp from 'sharp';
 
 // The paths are relative to the public directory
 const coverImages = [
+  "projects/abjad/Cover.webp",
   "projects/beeplayer/Cover.webp",
   "projects/streamflow/Cover.webp",
   "projects/QarbalaCover.webp",

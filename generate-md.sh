@@ -1,5 +1,6 @@
 #!/bin/bash
 images=(
+  "public/projects/abjad/Cover.webp"
   "public/projects/beeplayer/Cover.webp"
   "public/projects/streamflow/Cover.webp"
   "public/projects/QarbalaCover.webp"

@@ -43,8 +43,8 @@ export const PROJECTS: Project[] = [
       "Prepared rendering architecture",
       "SVG, HTML, PNG, GIF & MP4 export",
     ],
-    image: "/projects/abjad/Cover.png",
-    thumbImage: "/projects/abjad/Cover.png",
+    image: "/projects/abjad/Cover.webp",
+    thumbImage: "/projects/thumbnails/abjad-Cover-thumb.webp",
     content: {
       overview:
         "An engineering case study about separating Arabic shaping, educational stroke paths, outline rendering, animation, and deterministic export behind one canonical pipeline.",

@@ -21,7 +21,7 @@
       "Canvas",
       "FFmpeg"
     ],
-    "heroImage": "/projects/abjad/Cover.png",
+    "heroImage": "/projects/abjad/Cover.webp",
     "heroImageAlt": "Abjad project cover",
     "ui": {
       "backToProjects": "Back to Projects",
@@ -227,7 +227,7 @@
     "label": "Explore more projects",
     "href": "/projects",
     "downloadLabel": "Download Abjad",
-    "downloadHref": "https://drive.google.com/file/d/1AiCE8B8kwt45Ru8jsd9WzCi3xev9Ou4_/view?usp=drive_link"
+    "downloadHref": "https://drive.google.com/drive/u/1/folders/19uSCMq-9AQUmCykTe-iL7l__MKl0p66Z"
   },
   "editorialGuardrails": [
     "Only mention performance numbers with the documented benchmark context.",
