@@ -225,9 +225,7 @@
     "eyebrow": "Next",
     "title": "Should we solve the next problem?",
     "label": "Explore more projects",
-    "href": "/projects",
-    "downloadLabel": "Download Abjad",
-    "downloadHref": "https://drive.google.com/drive/u/1/folders/19uSCMq-9AQUmCykTe-iL7l__MKl0p66Z"
+    "href": "/projects"
   },
   "editorialGuardrails": [
     "Only mention performance numbers with the documented benchmark context.",

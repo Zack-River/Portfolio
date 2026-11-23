@@ -225,9 +225,7 @@
     "eyebrow": "التالي",
     "title": "نحل المشكلة اللي بعدها؟",
     "label": "استكشف مشاريع تانية",
-    "href": "/projects",
-    "downloadLabel": "تحميل Abjad",
-    "downloadHref": "https://drive.google.com/drive/u/1/folders/19uSCMq-9AQUmCykTe-iL7l__MKl0p66Z"
+    "href": "/projects"
   },
   "editorialGuardrails": [
     "ما نذكرش أرقام الأداء إلا في سياق الـ benchmark الموثّق.",
